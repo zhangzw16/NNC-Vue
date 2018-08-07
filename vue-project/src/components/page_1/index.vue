@@ -2,7 +2,7 @@
   <el-row id="page_1">
 	  <el-col :span="24">
    	  <el-table
-	      :data="msg"
+	      :data="tableData"
 	      style="width: 100%">
 	      <el-table-column
 	        prop="id"
