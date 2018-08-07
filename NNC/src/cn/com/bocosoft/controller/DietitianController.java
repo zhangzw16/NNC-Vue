@@ -15,6 +15,7 @@ import com.github.pagehelper.PageInfo;
 
 import cn.com.bocosoft.common.BocosoftUitl;
 import cn.com.bocosoft.common.BsetConsts;
+import cn.com.bocosoft.common.JSONResult;
 import cn.com.bocosoft.model.Dietitian;
 import cn.com.bocosoft.service.DietitianService;
 
@@ -23,6 +24,17 @@ import cn.com.bocosoft.service.DietitianService;
 public class DietitianController {
     @Resource
     DietitianService dietitianService;
+    
+    private JSONResult json;
+
+    public JSONResult getJson() {
+        return json;
+    }
+
+    public void setJson(JSONResult json) {
+        this.json = json;
+    }
+    
     /**
      * 营养师管理
      * @param request
@@ -31,6 +43,7 @@ public class DietitianController {
     @RequestMapping(value = "/dietitian_manage", method = RequestMethod.POST)
     public String dietitian_manage(HttpServletRequest request) {
         return "dietitian/dietitianManage";
+//    	return null;
     }
     
     /**
@@ -39,15 +52,18 @@ public class DietitianController {
      * @return
      */
     @RequestMapping(value = "/dietitian_page", method = RequestMethod.POST)
-    public String dietitian_page(HttpServletRequest request) {
+    @ResponseBody
+    public JSONResult dietitian_page(HttpServletRequest request) {
         int currentPage = Integer.parseInt(request.getParameter("page"));
         PageHelper.startPage(currentPage, BsetConsts.PER_PAGE_SIZE);
         List<Dietitian> dietitians = dietitianService.getDietitians();
         PageInfo<Dietitian> pageInfo = new PageInfo<Dietitian>(dietitians);
-        request.setAttribute("max_page",pageInfo.getPages());
-        request.setAttribute("current_page",pageInfo.getPageNum());
-        request.setAttribute("cause",dietitians);
-        return "dietitian/dietitianList";
+//        request.setAttribute("max_page",pageInfo.getPages());
+//        request.setAttribute("current_page",pageInfo.getPageNum());
+//        request.setAttribute("cause",dietitians);
+//        return "dietitian/dietitianList";
+        return json = new JSONResult(pageInfo, "成功", true);
+//        return null;
     }
     
     /**
