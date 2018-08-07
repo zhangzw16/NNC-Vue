@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.bocosoft.dao.WeeklyRecommendMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.bocosoft.model.WeeklyRecommend" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_info_id" property="userInfoId" jdbcType="INTEGER" />
+    <result column="week_count" property="weekCount" jdbcType="INTEGER" />
+    <result column="yyyy" property="yyyy" jdbcType="INTEGER" />
+    <result column="menu" property="menu" jdbcType="VARCHAR" />
+    <result column="sport" property="sport" jdbcType="VARCHAR" />
+    <result column="create_id" property="createId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_id" property="updateId" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_info_id, week_count, yyyy, menu, sport, create_id, create_time, update_id, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from weekly_recommend
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from weekly_recommend
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.com.bocosoft.model.WeeklyRecommend" >
+    insert into weekly_recommend (id, user_info_id, week_count, 
+      yyyy, menu, sport, 
+      create_id, create_time, update_id, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{userInfoId,jdbcType=INTEGER}, #{weekCount,jdbcType=INTEGER}, 
+      #{yyyy,jdbcType=INTEGER}, #{menu,jdbcType=VARCHAR}, #{sport,jdbcType=VARCHAR}, 
+      #{createId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateId,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bocosoft.model.WeeklyRecommend" >
+    insert into weekly_recommend
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userInfoId != null" >
+        user_info_id,
+      </if>
+      <if test="weekCount != null" >
+        week_count,
+      </if>
+      <if test="yyyy != null" >
+        yyyy,
+      </if>
+      <if test="menu != null" >
+        menu,
+      </if>
+      <if test="sport != null" >
+        sport,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateId != null" >
+        update_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userInfoId != null" >
+        #{userInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="weekCount != null" >
+        #{weekCount,jdbcType=INTEGER},
+      </if>
+      <if test="yyyy != null" >
+        #{yyyy,jdbcType=INTEGER},
+      </if>
+      <if test="menu != null" >
+        #{menu,jdbcType=VARCHAR},
+      </if>
+      <if test="sport != null" >
+        #{sport,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.bocosoft.model.WeeklyRecommend" >
+    update weekly_recommend
+    <set >
+      <if test="userInfoId != null" >
+        user_info_id = #{userInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="weekCount != null" >
+        week_count = #{weekCount,jdbcType=INTEGER},
+      </if>
+      <if test="yyyy != null" >
+        yyyy = #{yyyy,jdbcType=INTEGER},
+      </if>
+      <if test="menu != null" >
+        menu = #{menu,jdbcType=VARCHAR},
+      </if>
+      <if test="sport != null" >
+        sport = #{sport,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.bocosoft.model.WeeklyRecommend" >
+    update weekly_recommend
+    set user_info_id = #{userInfoId,jdbcType=INTEGER},
+      week_count = #{weekCount,jdbcType=INTEGER},
+      yyyy = #{yyyy,jdbcType=INTEGER},
+      menu = #{menu,jdbcType=VARCHAR},
+      sport = #{sport,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_id = #{updateId,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="findByUserInfoWeeklyRecommend" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    weekly_recommend AS wr
+    WHERE wr.user_info_id = ${userInfoId}
+    and wr.week_count = ${weekOfYear}
+    and wr.yyyy = ${year}
+  </select>
+  <update id="upDateWeeklyRecommend" parameterType="cn.com.bocosoft.model.WeeklyRecommend" >
+    update weekly_recommend
+    <set >
+      <if test="userInfoId != null" >
+        user_info_id = #{userInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="weekCount != null" >
+        week_count = #{weekCount,jdbcType=INTEGER},
+      </if>
+      <if test="yyyy != null" >
+        yyyy = #{yyyy,jdbcType=INTEGER},
+      </if>
+      <if test="menu != null" >
+        menu = #{menu,jdbcType=VARCHAR},
+      </if>
+      <if test="sport != null" >
+        sport = #{sport,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime == null" >
+        update_time = now(),
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+    <insert id="save_weekly_recommend" parameterType="cn.com.bocosoft.model.WeeklyRecommend" >
+    insert into weekly_recommend
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userInfoId != null" >
+        user_info_id,
+      </if>
+      <if test="weekCount != null" >
+        week_count,
+      </if>
+      <if test="yyyy != null" >
+        yyyy,
+      </if>
+      <if test="menu != null" >
+        menu,
+      </if>
+      <if test="sport != null" >
+        sport,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateId != null" >
+        update_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createTime == null" >
+        create_time,
+      </if>
+      <if test="createId == null" >
+        create_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userInfoId != null" >
+        #{userInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="weekCount != null" >
+        #{weekCount,jdbcType=INTEGER},
+      </if>
+      <if test="yyyy != null" >
+        #{yyyy,jdbcType=INTEGER},
+      </if>
+      <if test="menu != null" >
+        #{menu,jdbcType=VARCHAR},
+      </if>
+      <if test="sport != null" >
+        #{sport,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime == null" >
+         now(),
+      </if>
+      <if test="createId == null" >
+         1,
+      </if>
+    </trim>
+  </insert>
+</mapper>

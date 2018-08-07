@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    
+    <link href="../../css/mui.css" rel="stylesheet"/>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #000000;"></a>
+	    <h1 class="mui-title" id="title">经典案例</h1>
+	</header>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/h.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init({
+			//示例打开百度,进行加载
+            subpages:[{
+                url:"http://m.nijikeji.com/nr.jsp?groupId=2",
+                id:"http://m.nijikeji.com/nr.jsp?groupId=2",
+                styles : {
+		            top : '44px'
+		        }
+            }]
+		});
+		mui.plusReady(function(){
+			Internet_connection();
+			var ws = plus.webview.currentWebview();//加载进外部网页,加载完成关闭等待框
+			ws.show('slide-in-right', 50);
+			plus.nativeUI.closeWaiting();
+		} )	
+    </script>
+</body>
+</html>

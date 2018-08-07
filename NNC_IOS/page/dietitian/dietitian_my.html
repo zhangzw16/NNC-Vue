@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="../../css/mui.css" rel="stylesheet"/>
+</head>
+<style>
+	#img_green{
+  		/*height: 165px;
+		background-repeat: no-repeat;
+		background-image: url(../../image/my_icon/my_banner.png);*/
+		background-image: url(../../image/my_icon/my_banner.png);
+		background-position: 0;
+		background-size: cover;
+		height: 12.66666667rem;
+		background-repeat: no-repeat;
+	}
+</style>
+<body>
+	<div class="mui-content">
+		<div id="img_green"></div>
+		<div style="height:70px;padding:15px;border-bottom:1px solid #999999;background-color: #FFFFFF;"> 
+			<img src="../../image/dietitian/info.png" style="width: 40px;float: left;"/>
+			<div style="float: left; font-size: 20px;margin-left: 10px;margin-top: 10px;">登录账号</div>
+			<div id="phone" style="float: right; font-size: 20px;margin-right: 10px;margin-top: 10px;"></div>
+		</div>
+		<a href="javascript:updatePassword();"> 
+			<div style="height:70px;padding:15px;border-bottom:1px solid #999999;background-color: #FFFFFF;"> 
+				<img src="../../image/dietitian/record.png" style="width: 40px;float: left;"/>
+				<div style="float: left; font-size: 20px;margin-left: 10px;margin-top: 10px;color: #000000;">修改密码</div>
+			</div>
+		</a>
+	    <a href="javascript:logoff();" style="position: absolute; bottom: 0px;width:100%;height: 50px;display: block;"> 
+            <div style="height: 50px;background-color: #FFFFFF;text-align: center;padding-top: 15px;font-size: 20px;color: #000000;">
+            	退出登录
+            </div>
+        </a>
+	</div>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/h.js"></script>
+	<script type="text/javascript" src="../../js/login.js" ></script>
+	<script type="text/javascript" src="../../js/jquery.min.js" ></script>
+    <script type="text/javascript">
+    	mui.init();
+    	mui.plusReady(function(){
+    		getDietitianUserLogin();
+    	});
+    	function getDietitianUserLogin() {
+    		Internet_connection();
+    		var uid = localStorage.getItem("NNC_dietPhaseInfoId");
+    		$.ajax({
+  				type : "POST",
+  				data : {'userInfoId':uid},
+  				url  : URL+'app_rest_ful/get_dietitian_userLogin',
+  				dataType : 'json',
+  				success : function(msg){
+  					$("#phone").html(msg.data.phoneNo);
+  				}
+  			});
+    	}
+		function logoff(){
+			mui.confirm('您确定要退出登录吗？','提示',new Array('取消','确认'),function(e){
+				if(e.index == 1){
+					localStorage.removeItem('NNC_dietPhaseInfoId');
+					localStorage.removeItem('role');
+					localStorage.removeItem('pwflag');
+					localStorage.removeItem('history_flag');
+					localStorage.removeItem('NNC_uid');
+					localStorage.removeItem('NNC_userInfoId');
+					var data_analysis = plus.webview.getWebviewById('data_analysis.html');
+					data_analysis.evalJS("isLogin();location.reload();");
+					var my_record = plus.webview.getWebviewById('my_record.html');
+					my_record.evalJS("isLogin();");
+					var my = plus.webview.getWebviewById('my.html');
+					my.evalJS("isLogin();location.reload();");
+					var index=plus.webview.getLaunchWebview();
+					plus.webview.show(index);
+					index.evalJS("changSub(1);isLogin(); h('#tabBar').find('a').removeClass('mui-active'); h('#home').addClass('mui-active');");
+				}
+			})
+		}
+		function updatePassword(){
+			mui.openWindow({
+				url : '../../page/login/update_pwd.html',
+				id  : 'update_pwd.html'
+			});
+		}
+	</script>
+</body>
+</html>

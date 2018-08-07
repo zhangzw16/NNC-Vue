@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.bocosoft.dao.WeeklyRankMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.bocosoft.model.WeeklyRank" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_info_id" property="userInfoId" jdbcType="INTEGER" />
+    <result column="rank_flag" property="rankFlag" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="week_count" property="weekCount" jdbcType="INTEGER" />
+    <result column="rank_nub" property="rankNub" jdbcType="INTEGER" />
+    <result column="weight" property="weight" jdbcType="DOUBLE" />
+    <result column="photo_url" property="photoUrl" jdbcType="VARCHAR" />
+    <result column="create_id" property="createId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_id" property="updateId" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_info_id, rank_flag, name, note, week_count, rank_nub, weight, photo_url, create_id, create_time, update_id, 
+    update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from weekly_rank
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from weekly_rank
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.com.bocosoft.model.WeeklyRank" >
+    insert into weekly_rank (id, user_info_id, rank_flag, 
+      name, note, week_count, rank_nub, weight, photo_url,
+      create_id, create_time, update_id, update_time)
+    values (#{id,jdbcType=INTEGER}, #{userInfoId,jdbcType=INTEGER}, #{rankFlag,jdbcType=INTEGER},
+      #{name,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR},  #{weekCount,jdbcType=INTEGER}, #{rankNub,jdbcType=INTEGER}, #{weight,jdbcType=DOUBLE}, 
+      #{photoUrl,jdbcType=VARCHAR}, #{createId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bocosoft.model.WeeklyRank" >
+    insert into weekly_rank
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userInfoId != null" >
+        user_info_id,
+      </if>
+      <if test="rankFlag != null" >
+        rank_flag,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="weekCount != null" >
+        week_count,
+      </if>
+      <if test="rankNub != null">
+        rank_nub,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="photoUrl != null" >
+        photo_url,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateId != null" >
+        update_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createId == null" >
+        create_id,
+      </if>
+      <if test="createTime == null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userInfoId != null" >
+        #{userInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="rankFlag != null" >
+        #{rankFlag,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="weekCount != null" >
+        #{weekCount,jdbcType=INTEGER},
+      </if>
+      <if test="rankNub != null">
+        #{rankNub,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="photoUrl != null" >
+        #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId == null" >
+        1,
+      </if>
+      <if test="createTime == null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.bocosoft.model.WeeklyRank" >
+    update weekly_rank
+    <set >
+      <if test="userInfoId != null" >
+        user_info_id = #{userInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="rankFlag != null" >
+        rank_flag = #{rankFlag,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="weekCount != null" >
+        week_count = #{weekCount,jdbcType=INTEGER},
+      </if>
+      <if test="rankNub != null">
+        rank_nub = #{rankNub,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="photoUrl != null" >
+        photo_url = #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.bocosoft.model.WeeklyRank" >
+    update weekly_rank
+    set user_info_id = #{userInfoId,jdbcType=INTEGER},
+      rank_flag = #{rankFlag,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      week_count = #{weekCount,jdbcType=INTEGER},
+      rank_nub = #{rankNub,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=DOUBLE},
+      photo_url = #{photoUrl,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_id = #{updateId,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="findByWeekFoodRank" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    weekly_rank
+    WHERE weekly_rank.rank_flag = ${rankFlag}
+    and weekly_rank.week_count = ${weekOfYear}
+    ORDER BY weekly_rank.weight DESC
+  </select>
+  <select id="findFirstWeekRankUser" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    weekly_rank
+    WHERE weekly_rank.rank_flag = ${rankFlag}
+    and weekly_rank.week_count = ${weekOfYear}
+    ORDER BY weekly_rank.weight DESC
+    LIMIT 1
+  </select>
+  <select id="findWeekRankByUserInfoId" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    weekly_rank
+    WHERE weekly_rank.user_info_id = ${userInfoId}
+    and weekly_rank.week_count = ${weekOfYear}
+    ORDER BY weekly_rank.weight DESC
+  </select>
+    <update id="updateWeeklyRank" parameterType="cn.com.bocosoft.model.WeeklyRank" >
+    update weekly_rank
+    <set >
+      <if test="userInfoId != null" >
+        user_info_id = #{userInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="rankFlag != null" >
+        rank_flag = #{rankFlag,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="weekCount != null" >
+        week_count = #{weekCount,jdbcType=INTEGER},
+      </if>
+      <if test="rankNub != null">
+        rank_nub = #{rankNub,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="photoUrl != null" >
+        photo_url = #{photoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId == null" >
+        update_id = 1,
+      </if>
+      <if test="updateTime == null" >
+        update_time = now(),
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <delete id="deleteWeekRank" parameterType="java.lang.Integer" >
+    delete from weekly_rank
+    where user_info_id = ${userInfoId}
+    and week_count = ${weekOfYear}
+  </delete>
+</mapper>

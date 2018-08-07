@@ -1,0 +1,52 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/labelauty/jquery-labelauty1.css" />
+	</head>
+	<body style="background-color: #FFFFFF;" id="asd">
+		<div style="text-align: center;">性别</div>
+		<div style="float: left;margin-left: 10%;margin-top: 10px;">
+			<input id="nan" type="radio" name="sex" value="1" data-labelauty="男">
+		</div>
+		<div style="float: right;margin-right: 10%;margin-top: 10px;">
+		    <input id="nv" type="radio" name="sex" value="2" data-labelauty="女">
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/h.js" ></script>
+		<script type="text/javascript" src="../../js/jquery.min.js" ></script>
+		<script type="text/javascript" src="../../js/jquerylabelauty.js" ></script>
+		<script type="text/javascript">
+			$(function(){
+				$(':input').labelauty();
+				var uid = localStorage.getItem("NNC_userInfoId");
+				$.ajax({
+      				type : "POST",
+      				data : {'userInfoId':uid},
+      				url  : URL+'app_rest_ful/select_userInfo',
+      				dataType : 'json',
+      				success : function(msg){
+      					if(msg.success==true){
+      						if(msg.data.sex == 1){
+      							$("#nan").attr("checked","checked");
+      						}else{
+      							$("#nv").attr("checked","checked");
+      						}
+      						
+      					}
+      				}
+      			});
+			});
+			mui.init();
+			function getSex(){
+				var sex = $.trim($("input[name='sex']:checked").val());
+				return sex;
+			}
+		</script>
+	</body>
+
+</html>

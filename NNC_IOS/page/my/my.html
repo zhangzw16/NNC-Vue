@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="../../css/mui.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet" />
+    <script type="text/javascript" src="../../js/rem.js" ></script>
+    <link rel="stylesheet" href="../../css/appCss/my.css" />
+    
+</head>
+
+<header class="mui-bar mui-bar-nav"></header>
+<body style="background: #FFFFFF !important;">
+	<div class="mui-content" style="background: #FFFFFF !important;">
+		<div id="mb" class="my-banner"></div>
+		<div class="my-head-img">
+			<div class="userMsg">
+				<div class="user-img">
+					<p id="head_img" class="user-img-main"></p>
+				</div>
+				<p id="nickname" class="user-name"></p>
+			</div>
+			
+		</div>
+	    <ul class="my-div-info">
+	    	<li id="my_info" class="my-div-info-banner my_info">
+	    		个人信息
+	    	</li>
+	    	<li id="history" class="my-div-info-banner history">
+	    		历史数据
+	    	</li>
+	    	<li id="upPwd" class="my-div-info-banner upPwd">
+	    		修改密码
+	    	</li>
+	    	<li id="about" class="my-div-info-banner about">
+	    		关于
+	    	</li>
+	    	<li id="set" class="my-div-info-banner set">
+	    		设置
+	    	</li>
+	    	<li id="login" class="my-div-info-banner login">
+	    		请登录
+	    	</li>
+	    </div>
+	</div>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/h.js"></script>
+	<script type="text/javascript" src="../../js/login.js" ></script>
+	<script type="text/javascript" src="../../js/jquery.js" ></script>
+    <script type="text/javascript">
+    	mui.init();
+		mui.plusReady(function(){
+			Internet_connection();
+			isLogin();
+			h('#upPwd').tap(function(){
+				mui.openWindow({
+					url : '../../page/login/update_pwd.html',
+					id  : 'update_pwd.html'
+				});
+			});
+			h('#my_info').tap(function(){
+				mui.openWindow({
+					url : 'personal_data.html',
+					id  : 'personal_data.html'
+				});
+			});
+			h('#about').tap(function(){
+				mui.openWindow({
+					url : '../../page/about/about.html',
+					id  : 'about.html'
+				});
+			});
+			h('#history').tap(function(){
+				mui.openWindow({
+					url : 'my_history.html',
+					id  : 'my_history.html'
+				});
+			});
+			h('#set').tap(function(){
+				mui.openWindow({
+					url : '../../page/my/my_set.html',
+					id  : 'S.html'
+				});
+			});
+			h('#login').tap(function(){
+				toLogin();
+			});
+		});
+		function isLogin(){
+			var uid=localStorage.getItem('NNC_userInfoId');
+			var role = localStorage.getItem('role');
+			if(uid == null){
+				$('#set').hide();
+				$('#history').hide();
+				$('#my_info').hide();
+				$('#upPwd').hide();
+				$('#login').show();
+			}else{
+				if(role !='2'){
+					$.ajax({
+		  				type : "POST",
+		  				data : {'userInfoId':uid},
+		  				url  : URL+'app_rest_ful/find_user_data',
+		  				dataType : 'json',
+		  				success : function(msg){
+		  					if(msg.success==true){
+		  						if(msg.data.filePath!=null){
+		  							$("#head_img").css({
+			  							"background":"url("+msg.data.filePath+") center no-repeat",
+			  							"background-size":"100%"
+			  						});
+		  						}
+		  						$("#nickname").html(msg.data.name);
+		  					}
+		  				}
+		  			});
+		  			$.ajax({
+		  				type : "POST",
+		  				data : {'userInfoId':uid},
+		  				url  : URL+'app_rest_ful/select_userInfo_history',
+		  				dataType : 'json',
+		  				success : function(msg){
+		  					if(msg.success==true){
+		  						$("#history").show();
+		  					}else{
+		  						$("#history").hide();
+		  					}
+		  				}
+		  			});
+		  			$.ajax({
+		  				type : "POST",
+		  				data : {'userInfoId':uid},
+		  				url  : URL+'app_rest_ful/select_userInfo_password_update',
+		  				dataType : 'json',
+		  				success : function(msg){
+		  					if(msg.success==true){
+		  						$("#upPwd").show();
+		  					}else{
+		  						$("#upPwd").hide();
+		  					}
+		  				}
+		  			});
+		  			$('#login').hide();
+					$('#my_info').show();
+					$('#set').show();
+				}
+			}
+		}
+		function toLogin(){
+			var uid = localStorage.getItem('NNC_userInfoId');
+			if(uid == null){
+				mui.openWindow({
+					url : '../../page/login/login.html',
+					id  : 'login.html'
+				});
+			}
+		}
+	</script>
+</body>
+</html>

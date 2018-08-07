@@ -1,0 +1,122 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.css" rel="stylesheet" />
+		<style>
+			.ok-button{margin-top: 30px;}
+			@media only screen and (min-width: 100px) and (max-width: 380px) {
+				.ok-button{margin-top: 10px;}
+			}
+		</style>
+	</head>
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #000000;"></a>
+	    <h1 class="mui-title">完善资料&nbsp;&nbsp;3/3</h1>
+	</header>
+	<body>
+		<div class="mui-content">
+			<div style="margin-top: 50px;height: 300px;background-color: #FFFFFF;">
+				<div style="font-size: 20px;line-height:32px;margin: 10px;">
+					提示:</br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					尼基营养干预减脂减肥过程中，会加快体内脂肪的分解代谢。</br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					1. 有严重心脑血管疾病、肝肾功能不全者不能采用“低血糖负载营养干预法”减重！</br>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					2. 已经使用口服或注射胰岛素等治疗方法的糖尿病患者不能采用“低血糖负载营养干预法”减重！</br>
+				</div>
+			</div>
+			<input type="checkbox" id="agree" value="yes" style="margin:30px;"><label>我已阅读</label>
+			<div class="mui-content-padded ok-button">
+				<button id='prompt' class="mui-btn mui-btn-block mui-btn-primary big-button">提交</button>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/h.js" ></script>
+		<script type="text/javascript" src="../../js/jquery.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function(){
+				Internet_connection();
+				var uid 			= localStorage.getItem("NNC_userInfoId");
+				var phone			= localStorage.getItem("info_phone");
+				var blood_pressure	= localStorage.getItem("info_blood_pressure");
+				var blood_fat		= localStorage.getItem("info_blood_fat");
+				var blood_sugar		= localStorage.getItem("info_blood_sugar");
+				var blood_uric_acid	= localStorage.getItem("info_blood_uric_acid");
+				var fld				= localStorage.getItem("info_fld");
+				var join 			= localStorage.getItem('info_join');
+				var account 		= localStorage.getItem('info_account');
+				var contact 		= localStorage.getItem('info_contact');
+				h('#prompt').tap(function(){
+					if(check()==true){
+						console.log(join);
+						console.log(contact);
+						var datas={
+					        'phone' : phone,
+					        'blood_pressure' : blood_pressure,
+					        'blood_fat' : blood_fat,
+					        'blood_sugar' : blood_sugar,
+					        'blood_uric_acid' : blood_uric_acid,
+					        'fld' : fld,
+					        'buy_flag' : join,
+					        'account' : account,
+					        'userInfoId' : uid,
+					        'contact_way' : contact
+						}
+						$.ajax({
+			  				type : "POST",
+			  				data : datas,
+			  				url  : URL+'app_rest_ful/user_niji_info_save',
+			  				dataType : 'json',
+			  				success : function(msg){
+			  					console.log(JSON.stringify(msg));
+			  					if(msg.success==false){
+			  						mui.alert('未知错误');
+			  					}else{
+			  						localStorage.setItem('NNC_userInfoId', msg.data.id+'');//完善信息成功储存userInfoId
+									localStorage.removeItem("info_phone");
+									localStorage.removeItem("info_blood_pressure");
+									localStorage.removeItem("info_blood_fat");
+									localStorage.removeItem("info_blood_sugar");
+									localStorage.removeItem("info_blood_uric_acid");
+									localStorage.removeItem("info_fld");
+									localStorage.removeItem('info_join');
+									localStorage.removeItem('info_account');
+									localStorage.removeItem('info_contact');
+									var index = plus.webview.getLaunchWebview();
+			  						var my = plus.webview.getWebviewById('my.html');
+			  						var my_record = plus.webview.getWebviewById('my_record.html');
+									var data_analysis = plus.webview.getWebviewById('data_analysis.html');
+									var personal_data = plus.webview.getWebviewById('personal_data.html');
+									var home = plus.webview.getWebviewById('home.html');
+									plus.webview.show(index);
+									index.evalJS("changSub(1);isLogin(); h('#tabBar').find('a').removeClass('mui-active'); h('#home').addClass('mui-active');");
+									my.evalJS("isLogin();");
+									home.evalJS("isLogin()");
+									my_record.evalJS("isLogin();");
+									data_analysis.evalJS("isLogin();");
+									personal_data.evalJS("getData();");
+			  					}
+			  				}
+			  			});
+					}
+				});
+			});
+			function check(){
+				var agree = $("input[type='checkbox']").is(':checked');
+				if(agree!=true){
+					mui.alert('请阅读尼基营养干预减重提示，并勾选至已阅读', '系统提示', function() {
+                        $('#agree').focus();
+                    });
+                    return false;
+				}
+				return true;
+			}
+		</script>
+	</body>
+</html>

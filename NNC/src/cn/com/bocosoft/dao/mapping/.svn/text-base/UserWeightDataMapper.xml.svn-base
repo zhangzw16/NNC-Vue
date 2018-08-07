@@ -1,0 +1,451 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.bocosoft.dao.UserWeightDataMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.bocosoft.model.UserWeightData" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_info_id" property="userInfoId" jdbcType="INTEGER" />
+    <result column="weight" property="weight" jdbcType="DOUBLE" />
+    <result column="delta_weight" property="deltaWeight" jdbcType="DOUBLE" />
+    <result column="up_down" property="upDown" jdbcType="INTEGER" />
+    <result column="diet_days" property="dietDays" jdbcType="INTEGER" />
+    <result column="lost_total_weight" property="lostTotalWeight" jdbcType="DOUBLE" />
+    <result column="date" property="date" jdbcType="DATE" />
+    <result column="yyyy" property="yyyy" jdbcType="INTEGER" />
+    <result column="week_count" property="weekCount" jdbcType="INTEGER" />
+    <result column="week_day" property="weekDay" jdbcType="INTEGER" />
+    <result column="create_id" property="createId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_info_id, weight, delta_weight, up_down, diet_days, lost_total_weight, date, yyyy,
+    week_count, week_day, create_id, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_weight_data
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_weight_data
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.com.bocosoft.model.UserWeightData" >
+    insert into user_weight_data (id, user_info_id, weight, 
+      delta_weight, up_down, diet_days, 
+      lost_total_weight, date, yyyy, week_count, week_day,
+      create_id, create_time)
+    values (#{id,jdbcType=INTEGER}, #{userInfoId,jdbcType=INTEGER}, #{weight,jdbcType=DOUBLE}, 
+      #{deltaWeight,jdbcType=DOUBLE}, #{upDown,jdbcType=INTEGER}, #{dietDays,jdbcType=INTEGER}, 
+      #{lostTotalWeight,jdbcType=DOUBLE}, #{date,jdbcType=DATE}, #{yyyy,jdbcType=INTEGER}, #{weekCount,jdbcType=INTEGER}, 
+      #{weekDay,jdbcType=INTEGER}, #{createId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bocosoft.model.UserWeightData" >
+    insert into user_weight_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userInfoId != null" >
+        user_info_id,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="deltaWeight != null" >
+        delta_weight,
+      </if>
+      <if test="upDown != null" >
+        up_down,
+      </if>
+      <if test="dietDays != null" >
+        diet_days,
+      </if>
+      <if test="lostTotalWeight != null" >
+        lost_total_weight,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="yyyy != null" >
+        yyyy,
+      </if>
+      <if test="weekCount != null" >
+        week_count,
+      </if>
+      <if test="weekDay != null" >
+        week_day,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userInfoId != null" >
+        #{userInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="deltaWeight != null" >
+        #{deltaWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="upDown != null" >
+        #{upDown,jdbcType=INTEGER},
+      </if>
+      <if test="dietDays != null" >
+        #{dietDays,jdbcType=INTEGER},
+      </if>
+      <if test="lostTotalWeight != null" >
+        #{lostTotalWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="yyyy != null" >
+        #{yyyy,jdbcType=INTEGER},
+      </if>
+      <if test="weekCount != null" >
+        #{weekCount,jdbcType=INTEGER},
+      </if>
+      <if test="weekDay != null" >
+        #{weekDay,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.bocosoft.model.UserWeightData" >
+    update user_weight_data
+    <set >
+      <if test="userInfoId != null" >
+        user_info_id = #{userInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="deltaWeight != null" >
+        delta_weight = #{deltaWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="upDown != null" >
+        up_down = #{upDown,jdbcType=INTEGER},
+      </if>
+      <if test="dietDays != null" >
+        diet_days = #{dietDays,jdbcType=INTEGER},
+      </if>
+      <if test="lostTotalWeight != null" >
+        lost_total_weight = #{lostTotalWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=DATE},
+      </if>
+      <if test="yyyy != null" >
+        yyyy = #{yyyy,jdbcType=INTEGER},
+      </if>
+      <if test="weekCount != null" >
+        week_count = #{weekCount,jdbcType=INTEGER},
+      </if>
+      <if test="weekDay != null" >
+        week_day = #{weekDay,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.bocosoft.model.UserWeightData" >
+    update user_weight_data
+    set user_info_id = #{userInfoId,jdbcType=INTEGER},
+      weight = #{weight,jdbcType=DOUBLE},
+      delta_weight = #{deltaWeight,jdbcType=DOUBLE},
+      up_down = #{upDown,jdbcType=INTEGER},
+      diet_days = #{dietDays,jdbcType=INTEGER},
+      lost_total_weight = #{lostTotalWeight,jdbcType=DOUBLE},
+      date = #{date,jdbcType=DATE},
+      yyyy = #{yyyy,jdbcType=INTEGER},
+      week_count = #{weekCount,jdbcType=INTEGER},
+      week_day = #{weekDay,jdbcType=INTEGER},
+      create_id = #{createId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getUserDietDays" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT 
+    user_weight_data.diet_days
+    FROM
+    user_weight_data
+    WHERE user_weight_data.user_info_id = #{userInfoId,jdbcType=INTEGER}
+    ORDER BY user_weight_data.date DESC
+  </select>
+  <select id="getAllDatas" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_weight_data
+    WHERE user_weight_data.user_info_id = #{userInfoId,jdbcType=INTEGER}
+    ORDER BY user_weight_data.date DESC
+  </select>
+  <select id="getLastData" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_weight_data
+    WHERE user_weight_data.user_info_id = ${userInfoId}
+    and user_weight_data.date &lt; '${date}'
+    ORDER BY user_weight_data.date DESC
+    LIMIT 1
+  </select>
+  <select id="getFirstData" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_weight_data
+    WHERE user_weight_data.user_info_id = ${userInfoId}
+    and user_weight_data.date &gt; '${date}'
+    ORDER BY user_weight_data.date ASC
+    LIMIT 1
+  </select>
+  <select id="findUserWeightDatasByDate" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_weight_data
+    WHERE user_weight_data.user_info_id = ${userInfoId}
+    and user_weight_data.date &gt;= '${startDate}'
+    and user_weight_data.date &lt;= '${endDate}'
+    ORDER BY user_weight_data.date ASC
+  </select>
+  <select id="findLastUserWeightDataByDate" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_weight_data AS us
+    WHERE us.user_info_id = ${userInfoId}
+    and us.date &lt;= '${date}'
+    ORDER BY us.date DESC
+    LIMIT 1
+  </select>
+  <select id="findFirstUserWeightDataByDate" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_weight_data AS us
+    WHERE us.user_info_id = ${userInfoId}
+    and us.date &gt;= '${date}'
+    ORDER BY us.date ASC
+    LIMIT 1
+  </select>
+  <select id="findUserWeightDataByDate" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_weight_data
+    WHERE user_weight_data.user_info_id = ${userInfoId}
+    and user_weight_data.date = '${date}'
+    ORDER BY user_weight_data.date ASC
+  </select>
+    <update id="updateUserWeightData" parameterType="cn.com.bocosoft.model.UserWeightData" >
+    update user_weight_data
+    <set >
+      <if test="userInfoId != null" >
+        user_info_id = #{userInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="deltaWeight != null" >
+        delta_weight = #{deltaWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="upDown != null" >
+        up_down = #{upDown,jdbcType=INTEGER},
+      </if>
+      <if test="dietDays != null" >
+        diet_days = #{dietDays,jdbcType=INTEGER},
+      </if>
+      <if test="lostTotalWeight != null" >
+        lost_total_weight = #{lostTotalWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=DATE},
+      </if>
+      <if test="yyyy != null" >
+        yyyy = #{yyyy,jdbcType=INTEGER},
+      </if>
+      <if test="weekCount != null" >
+        week_count = #{weekCount,jdbcType=INTEGER},
+      </if>
+      <if test="weekDay != null" >
+        week_day = #{weekDay,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId == null" >
+        create_id = #{id,jdbcType=INTEGER},
+      </if>
+      <if test="createTime == null" >
+        create_time = now(),
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="findUserWeightDataByWeekCount" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_weight_data
+    WHERE user_weight_data.user_info_id = ${userInfoId}
+    and user_weight_data.week_count = ${weekOfYear}
+    and user_weight_data.yyyy = ${year}
+    ORDER BY user_weight_data.date ASC
+  </select>
+  <select id="findLastUserWeightDataByWeekCount" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_weight_data
+    WHERE user_weight_data.user_info_id = ${userInfoId}
+    and user_weight_data.week_count = ${weekOfYear}
+    and user_weight_data.yyyy = ${year}
+    ORDER BY user_weight_data.date DESC
+    LIMIT 1
+  </select>
+  <insert id="saveUserWeightData" parameterType="cn.com.bocosoft.model.UserWeightData" >
+    insert into user_weight_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userInfoId != null" >
+        user_info_id,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="deltaWeight != null" >
+        delta_weight,
+      </if>
+      <if test="upDown != null" >
+        up_down,
+      </if>
+      <if test="dietDays != null" >
+        diet_days,
+      </if>
+      <if test="lostTotalWeight != null" >
+        lost_total_weight,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="yyyy != null" >
+        yyyy,
+      </if>
+      <if test="weekCount != null" >
+        week_count,
+      </if>
+      <if test="weekDay != null" >
+        week_day,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createId == null" >
+        create_id,
+      </if>
+      <if test="createTime == null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userInfoId != null" >
+        #{userInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="deltaWeight != null" >
+        #{deltaWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="upDown != null" >
+        #{upDown,jdbcType=INTEGER},
+      </if>
+      <if test="dietDays != null" >
+        #{dietDays,jdbcType=INTEGER},
+      </if>
+      <if test="lostTotalWeight != null" >
+        #{lostTotalWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="yyyy != null" >
+        #{yyyy,jdbcType=INTEGER},
+      </if>
+      <if test="weekCount != null" >
+        #{weekCount,jdbcType=INTEGER},
+      </if>
+      <if test="weekDay != null" >
+        #{weekDay,jdbcType=INTEGER},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId == null" >
+        1,
+      </if>
+      <if test="createTime == null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <select id="findUserWeightDataListByDate" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_weight_data
+    WHERE user_weight_data.date = '${date}'
+  </select>
+  <select id="findByUserLastWeightData" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_weight_data
+    WHERE user_weight_data.user_info_id = ${userInfoId}
+    ORDER BY user_weight_data.date DESC
+    LIMIT 1
+  </select>
+  <select id="findUserWeightDatasByUserInfoId" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_weight_data
+    WHERE user_weight_data.user_info_id = ${userInfoId}
+    ORDER BY user_weight_data.date ASC
+  </select>
+</mapper>

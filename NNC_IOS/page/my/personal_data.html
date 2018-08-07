@@ -1,0 +1,1053 @@
+<!doctype html>
+<html>   
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/layer.css" />    
+	</head>
+	<style type="text/css">
+		.left{ 
+			float: left;
+			margin-left: 20px; 
+			height: 40px;
+			padding: 10px; 
+			color:#222222; 
+		}
+		.left_no{
+			float: left;
+			margin-left: 20px;
+			height: 40px;
+			padding: 10px; 
+			color:#999999;
+		}
+		.right{
+			color: #999999;
+			float: right;
+			margin-right: 20px;
+			height: 40px;
+			padding: 10px;
+		}
+		.join_in{
+			position: relative;
+			background: url(../../image/my_icon/jianzhongjihua_base.png) center no-repeat;
+			height: 50px;
+			width: 100%;
+			font-size: 20px;
+			text-align: center;
+			margin-top: 10px;
+			padding-top: 15px;
+			color: #FFF;
+			background-size: cover;
+			background-position: 0 0;
+		}
+		.join_in-logo {
+			position: relative;
+			left: 75%;
+			top: -2.5rem;
+			width: 2.76rem;
+			height: 3.35rem;
+			background: url(../../image/my_icon/jianzhongjihua_go.png) center no-repeat;
+			background-size: 95%;
+		}
+		iframe{
+			width: 100%;  
+			height: 100%;
+			border: none;
+			overflow: hidden;
+			padding: 0;
+			margin: 0;
+		}
+	</style>
+	<header class = "mui-bar mui-bar-nav">
+	    <a  class = "mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#000"></a>
+	    <h1 class = "mui-title">个人信息</h1>
+	</header>
+	<body>
+		<div class="mui-content">
+			<div style="height: 160px;background-color: #FFF;padding-top: 42px;padding-left: 25px;" onclick="upLoadHeadPhoto()">
+				<div id="user_head_img" style="width: 76px;height: 76px;border-radius: 50%;background: url(../../image/hend_img.png) center no-repeat;background-size:100%;"></div>
+			</div>
+			<div id="modal1" style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;margin-top: 10px;">
+				<div style="float: left;margin-left: 20px;height: 40px;padding: 10px;color: #222222;">
+					昵称
+				</div>
+				<div id="nickname_info" class="right">
+				</div>
+			</div>
+			<div id="modal3" style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;">
+				<div class="left">出生日期</div>
+				<div id="birthday_info" class="right"></div>
+			</div>
+			<div id="modal4" style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;">
+				<div class="left">
+					性别
+				</div>
+				<div id="sex_info" class="right"></div>
+			</div>
+			<div id="modal5" style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;">
+				<div class="left">
+					身高
+				</div>
+				<div id="height_info" class="right"></div>
+			</div>
+			<div id="modal6" style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;">
+				<div class="left">
+					体重
+				</div>
+				<div id="weight_info" class="right"></div>
+			</div>
+			<div id="modal2" style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;">
+				<div class="left">
+					手机号
+				</div>
+				<div id="phone_info" class="right"></div>
+			</div>
+			<div class="join_in" id="have_join">
+				我要参与尼基计划
+				<div class="join_in-logo">
+				</div>
+			</div>
+			<div class="join_in" id="no_join">
+				您已参与尼基减脂计划
+			</div>
+			<div id="modal7" style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;margin-top: 2px;">
+				<div class="left">
+					血压
+				</div>
+				<div id="bloodPressure_info" class="right"></div>
+			</div>
+			<div id="modal8" style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;">
+				<div class="left">
+					血脂
+				</div>
+				<div id="bloodFat_info" class="right"></div>
+			</div>
+			<div id="modal9" style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;">
+				<div class="left">
+					血糖
+				</div>
+				<div id="bloodSugar_info" class="right"></div>
+			</div>
+			<div id="modal10" style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;">
+				<div class="left">
+					尿酸
+				</div>
+				<div id="bloodUricAcid_info" class="right"></div>
+			</div>
+			<div id="modal11" style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;">
+				<div class="left">
+					脂肪肝
+				</div>
+				<div id="fld_info" class="right"></div>
+			</div>
+			<div id="modal12" style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;margin-top: 10px;">
+				<div class="left">
+					微信联系方式
+				</div>
+				<div id="contact_wx_info" class="right"></div>
+			</div>
+			<div id="modal13" style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;margin-top: 10px;">
+				<div class="left">
+					QQ联系方式
+				</div>
+				<div id="contact_qq_info" class="right"></div>
+			</div>
+			<div id="join">
+				<div style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;margin-top: 10px;">
+					<div class="left_no">
+						营养师
+					</div>
+					<div id="dietitianName_info" class="right"></div>
+				</div>
+				<div style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;">
+					<div class="left_no">
+						开始减重日期
+					</div>
+					<div id="startDate_info" class="right"></div>
+				</div>
+				<div style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;">
+					<div class="left_no">
+						结束减重日期
+					</div>
+					<div id="endDate_info" class="right"></div>
+				</div>
+			</div>
+			<div style="height: 50px;"></div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.min.js" ></script>
+		<script type="text/javascript" src="../../js/layer.js" ></script> 
+		<script type="text/javascript" src="../../js/jquerylabelauty.js"></script>
+		<script type="text/javascript" src="../../js/h.js" ></script>
+		<script type="text/javascript" src="../../js/global.js"></script>
+		<script type="text/javascript" src="../../js/photo.js"></script>
+		<script type="text/javascript">
+			var weightFlag;
+			var uid;
+			var phoneNumber;
+			var mask=mui.createMask();//遮罩层
+			mui.init();
+			mui.plusReady(function(){
+				Internet_connection();
+				window.addEventListener('refresh', function(e){//执行刷新
+				    location.reload(); 
+				});
+				uid = localStorage.getItem('NNC_userInfoId');
+				getData();
+				h('#modal1').tap(function () {
+					var name = h('#nickname_info').html();
+					var html = "<div style='text-align: center;'> 昵称";
+					html+="<input id='nickname' type='text' value='"+name+"' style='background-color: #E0E0E0;border: 0px ;margin-top: 20px;height:50px;'></input></div>";
+					layerOpen({
+						"title":"&nbsp;&nbsp",
+						"content":html,
+						"btn":["取消","保存"],
+						"style":{
+						"title":"height:5px;background-color: #57C0FF;padding: 10px;border-radius: 8px 8px 0px 0px;",
+						"content":"font-size: 18px;padding: 16px;",
+						"btn":"border-radius: 0px 0px 8px 8px;"
+						},
+						"event":[null,function () {
+							var et=$.trim(h('#nickname').val());
+							if (et=='') {
+								mui.toast("请输入内容");
+							}else{
+								et = filter(et);
+								
+				      			$.ajax({
+				      				type : "POST",
+				      				data : {'userInfoName': et,'userInfoId':uid},
+				      				url  : URL+'app_rest_ful/edit_user_info_name',
+				      				dataType : 'json',
+				      				beforeSend: function() {
+								        plus.nativeUI.showWaiting('');
+								        mask.show();//显示遮罩层
+								    },
+								    complete: function() {
+								        plus.nativeUI.closeWaiting();
+								        mask.close();//关闭遮罩层
+								    },
+				      				success : function(msg){
+				      					if(msg.success==true){
+				      						mui.toast('提交成功');
+				      						h('#nickname_info').html(msg.data.name);
+				      						var my = plus.webview.getWebviewById('my.html');
+											my.evalJS("isLogin();location.reload();");
+				      					}
+				      				}
+				      			});
+							}
+						}]
+					});
+				});
+				h('#modal2').tap(function () {
+					$.ajax({
+		  				type : "POST",
+		  				data : {'userInfoId':uid},
+		  				url  : URL+'app_rest_ful/select_userInfo',
+		  				dataType : 'json',
+		  				beforeSend: function() {
+					        plus.nativeUI.showWaiting('');
+					        mask.show();//显示遮罩层
+						},
+						complete: function() {
+					        plus.nativeUI.closeWaiting();
+					        mask.close();//关闭遮罩层
+						},
+		  				success : function(msg){
+		  					if(msg.data.loginFlag!='1'){//第三方登录
+	      						if(msg.data.userLoginInfoId != null){//是否绑定过手机号
+	      							$.ajax({
+					      				type : "POST",
+					      				data : {'userLoginId': msg.data.userLoginInfoId},
+					      				url  : URL+'app_rest_ful/select_userLogin',
+					      				dataType : 'json',
+					      				beforeSend: function() {
+									        plus.nativeUI.showWaiting('');
+									        mask.show();//显示遮罩层
+										},
+										complete: function() {
+									        plus.nativeUI.closeWaiting();
+									        mask.close();//关闭遮罩层
+										},
+					      				success : function(msg){
+					      					phoneNumber = msg.data.loginId
+					      					if(msg.data.loginFlag == '1'){//已绑定手机号
+					      						var actionbuttons = [{title : "解除绑定"}];
+												var actionstyle   = {cancel : "取消", buttons : actionbuttons};
+												plus.nativeUI.actionSheet(actionstyle, function(e){//调用解除绑定
+													if(e.index){unbundling(e.index);}//调用退出方法
+												});
+					      					}else{
+					      						var actionbuttons = [{title : "绑定手机号"}];
+												var actionstyle   = {cancel : "取消", buttons : actionbuttons};
+												plus.nativeUI.actionSheet(actionstyle, function(e){//绑定手机号
+													if(e.index){binding(e.index);}//调用退出方法
+												});
+					      					}
+					      				}
+					      			});
+	      						}else{
+	      							var actionbuttons = [{title : "绑定手机号"}];
+									var actionstyle   = {cancel : "取消", buttons : actionbuttons};
+									plus.nativeUI.actionSheet(actionstyle, function(e){//调用绑定手机号方法
+										if(e.index){binding(e.index);}//调用退出方法
+									});
+	      						}
+	      					}else{//手机号登录
+	      						$.ajax({
+				      				type : "POST",
+				      				data : {'userLoginId': msg.data.userLoginInfoId},
+				      				url  : URL+'app_rest_ful/select_userLogin',
+				      				dataType : 'json',
+				      				beforeSend: function() {
+									        plus.nativeUI.showWaiting('');
+									        mask.show();//显示遮罩层
+										},
+										complete: function() {
+									        plus.nativeUI.closeWaiting();
+									        mask.close();//关闭遮罩层
+										},
+				      				success : function(msg){
+				      					if(loginFlag == '1'){//已绑定手机号
+				      						var actionbuttons = [{title : "解除绑定"}];
+											var actionstyle   = {cancel : "取消", buttons : actionbuttons};
+											plus.nativeUI.actionSheet(actionstyle, function(e){//调用解除绑定方法
+												if(e.index){unbundling(e.index);}//调用退出方法
+											});
+				      					}else{
+				      						var actionbuttons = [{title : "绑定手机号"}];
+											var actionstyle   = {cancel : "取消", buttons : actionbuttons};
+											plus.nativeUI.actionSheet(actionstyle, function(e){//调用绑定手机号方法
+												if(e.index){binding(e.index);}//调用退出方法
+											});
+				      					}
+				      				}
+				      			});
+	      					}
+		  				}
+		  			});
+				});
+				h('#modal3').tap(function () {
+					var html = "<div style='text-align: center;'> 出生日期";
+					html+="<input id='userInfoBirthday' type='date' style='background-color: #E0E0E0;border: 0px ;margin-top: 10px;height:50px;'></input></div>";
+					layerOpen({
+						"title":"&nbsp;&nbsp",
+						"content":html,
+						"btn":["取消","保存"],
+						"style":{
+						"title":"height:5px;background-color: #57C0FF;padding: 10px;border-radius: 8px 8px 0px 0px;text-again:",
+						"content":"margin-left: 5%;font-size: 18px;padding: 16px;",
+						"btn":"border-radius: 0px 0px 8px 8px;"
+						},
+						"event":[null,function () {
+							var et=$('#userInfoBirthday').val();
+							if (et=='') {
+								mui.toast("请输入内容");
+							}else{
+								$.ajax({
+				      				type : "POST",
+				      				data : {'userInfoBirthday': et,'userInfoId':uid},
+				      				url  : URL+'app_rest_ful/edit_user_info_birthday',
+				      				dataType : 'json',
+				      				beforeSend: function() {
+							        	plus.nativeUI.showWaiting('');
+								        mask.show();//显示遮罩层
+								    },
+								    complete: function() {
+								        plus.nativeUI.closeWaiting();
+								        mask.close();//关闭遮罩层
+								    },
+				      				success : function(msg){
+				      					if(msg.success==true){
+				      						mui.toast('提交成功');
+				      						h('#birthday_info').html(et);
+				      					}
+				      				}
+				      			});
+							}
+						}]
+					});
+				});
+				h('#modal4').tap(function () {
+					var html="<iframe name='myInfo_sex' src='../../page/my/myInfo_sex.html' style='width:230px;height:80px;border: 0px;'></iframe>";
+					layerOpen({
+						"title":"&nbsp&nbsp",
+						"content":html,
+						"btn":["取消","保存"],
+						"style":{
+						"title":"height:5px;background-color: #57C0FF;padding: 10px;border-radius: 8px 8px 0px 0px;text-again:",
+						"content":"margin-left: 5%;font-size: 18px;padding: 16px;",
+						"btn":"border-radius: 0px 0px 8px 8px;"
+						},
+						"event":[null,function () {
+							var et = myInfo_sex.window.getSex();
+							if (et=='') {
+								mui.toast("请选择内容");
+							}else{
+								$.ajax({
+				      				type : "POST",
+				      				data : {'userInfoSex': et,'userInfoId':uid},
+				      				url  : URL+'app_rest_ful/edit_user_info_sex',
+				      				dataType : 'json',
+				      				beforeSend: function() {
+							        	plus.nativeUI.showWaiting('');
+								        mask.show();//显示遮罩层
+								    },
+								    complete: function() {
+								        plus.nativeUI.closeWaiting();
+								        mask.close();//关闭遮罩层
+								    },
+				      				success : function(msg){
+				      					if(msg.success==true){
+				      						mui.toast('提交成功');
+				      						if(et=='1'){
+				      							h('#sex_info').html('男');
+				      						}else{
+				      							h('#sex_info').html('女');
+				      						}
+				      						
+				      					}
+				      				}
+				      			});
+							}
+						}]
+					});
+				});
+				h('#modal5').tap(function () {
+					weightFlag = 3;
+					var html="<iframe name='myInfo_height' src='myInfo_height.html'></iframe>"; 
+					layerOpen({
+						"title":"&nbsp;&nbsp",
+						"content":html,
+						"btn":["取消","确定"],
+						"style":{ 
+						"title":"height:5px;background-color: #57C0FF;padding: 10px;border-radius: 8px 8px 0px 0px;text-again:",
+						"content":"width:100%;height: 16.26666667rem;overflow:hidden;",
+						"btn":"border-radius: 0px 0px 8px 8px;"
+						},
+						"event":[null,function () {
+							var height = myInfo_height.window.getweigrh();  
+							var uid = localStorage.getItem('NNC_userInfoId');
+							$.ajax({
+				  				type : "POST",
+				  				data : {'userInfoId':uid,'userInfoHeight':height},
+				  				url  : URL+'app_rest_ful/edit_user_info_height',
+				  				dataType : 'json',
+				  				beforeSend: function() {
+							        plus.nativeUI.showWaiting('');
+							        mask.show();//显示遮罩层
+								},
+								complete: function() {
+							        plus.nativeUI.closeWaiting();
+							        mask.close();//关闭遮罩层
+								},
+				  				success : function(msg){
+				  					mui.toast('提交成功');
+				  					h('#height_info').html(msg.data.height+"cm");
+				  				} ,
+				  				error : function(msg){
+				  					mui.toast('失败了');
+				  				}
+				  			});	
+						}]
+					});
+				});
+				h('#modal6').tap(function () {
+					weightFlag = 2;
+					var html="<iframe name='myInfo_weight' src='myInfo_weight.html'></iframe>";
+					layerOpen({
+						"title":"&nbsp;&nbsp",
+						"content":html,
+						"btn":["取消","确定"],
+						"style":{ 
+						"title":"height:5px;background-color: #57C0FF;padding: 10px;border-radius: 8px 8px 0px 0px;text-again:",
+						"content":"width:100%;height: 16.26666667rem;overflow:hidden;",
+						"btn":"border-radius: 0px 0px 8px 8px;"
+						},
+						"event":[null,function () {
+							var uid = localStorage.getItem('NNC_userInfoId');
+							var weight = myInfo_weight.window.getweigrh();
+							$.ajax({
+				  				type : "POST",
+				  				data : {'userInfoId':uid,'userInfoHeight':weight},
+				  				url  : URL+'app_rest_ful/edit_user_info_weight',
+				  				dataType : 'json',
+				  				beforeSend: function() {
+							        plus.nativeUI.showWaiting('');
+							        mask.show();//显示遮罩层
+								},
+								complete: function() {
+							        plus.nativeUI.closeWaiting();
+							        mask.close();//关闭遮罩层
+								},
+				  				success : function(msg){
+				  					mui.toast('提交成功');
+				  					h('#weight_info').html(msg.data.weight+"kg");
+				  				} 
+				  			});		
+						}]
+					});
+				});
+				h('#modal7').tap(function () {
+					var html="<iframe name='myInfo_bp' src='../../page/my/myInfo_bp.html' style='width:230px;height:80px;border: 0px;'></iframe>";
+					layerOpen({
+						"title":"&nbsp&nbsp",
+						"content":html,
+						"btn":["取消","保存"],
+						"className": 'popuo-login',
+						"style":{
+						"title":"height:5px;background-color: #57C0FF;padding: 10px;border-radius: 8px 8px 0px 0px;text-again:",
+						"content":"margin-left: 5%;font-size: 18px;padding: 16px;",
+						"btn":"border-radius: 0px 0px 8px 8px;"
+						},
+						"event":[null,function () {
+							var et = myInfo_bp.window.getBp();
+							if (et == '') {
+								mui.toast("请选择内容");
+							}else{
+								$.ajax({
+				      				type : "POST",
+				      				data : {'userInfoBloodPressure': et,'userInfoId':uid},
+				      				url  : URL+'app_rest_ful/edit_user_info_blood_pressure',
+				      				dataType : 'json',
+					  				beforeSend: function() {
+								        plus.nativeUI.showWaiting('');
+								        mask.show();//显示遮罩层
+									},
+									complete: function() {
+								        plus.nativeUI.closeWaiting();
+								        mask.close();//关闭遮罩层
+									},
+				      				success : function(msg){
+				      					if(msg.success==true){
+				      						mui.toast('提交成功');
+				      						if(et == '1'){
+				      							h('#bloodPressure_info').html('偏低');
+				      						}else if(et == '2'){
+				      							h('#bloodPressure_info').html('正常');
+				      						}else{
+				      							h('#bloodPressure_info').html('偏高');
+				      						}
+				      					}
+				      				}
+				      			});
+							}
+						}]
+					});
+				});
+				h('#modal8').tap(function () {
+					var html="<iframe name='myInfo_bf' src='../../page/my/myInfo_bf.html' style='width:230px;height:80px;border: 0px;'></iframe>";
+					layerOpen({
+						"title":"&nbsp&nbsp",
+						"content":html,
+						"btn":["取消","保存"],
+						"className": 'popuo-login',
+						"style":{
+						"title":"height:5px;background-color: #57C0FF;padding: 10px;border-radius: 8px 8px 0px 0px;text-again:",
+						"content":"margin-left: 5%;font-size: 18px;padding: 16px;",
+						"btn":"border-radius: 0px 0px 8px 8px;"
+						},
+						"event":[null,function () {
+							var et=myInfo_bf.window.getBf();
+							if (et=='') {
+								mui.toast("请输入内容");
+							}else{
+								$.ajax({
+				      				type : "POST",
+				      				data : {'userInfoBloodFat': et,'userInfoId':uid},
+				      				url  : URL+'app_rest_ful/edit_user_info_blood_fat',
+				      				dataType : 'json',
+					  				beforeSend: function() {
+								        plus.nativeUI.showWaiting('');
+								        mask.show();//显示遮罩层
+									},
+									complete: function() {
+								        plus.nativeUI.closeWaiting();
+								        mask.close();//关闭遮罩层
+									},
+				      				success : function(msg){
+				      					if(msg.success==true){
+				      						mui.toast('提交成功');
+				      						if(et == '1'){
+				      							h('#bloodFat_info').html('偏低');
+				      						}else if(et == '2'){
+				      							h('#bloodFat_info').html('正常');
+				      						}else{
+				      							h('#bloodFat_info').html('偏高');
+				      						}
+				      					}
+				      				}
+				      			});
+							}
+						}]
+					});
+				});
+				h('#modal9').tap(function () {
+					var html="<iframe name='myInfo_bs' src='../../page/my/myInfo_bs.html' style='width:230px;height:80px;border: 0px;'></iframe>";
+					layerOpen({
+						"title":"&nbsp&nbsp",
+						"content":html,
+						"btn":["取消","保存"],
+						"className": 'popuo-login',
+						"style":{
+						"title":"height:5px;background-color: #57C0FF;padding: 10px;border-radius: 8px 8px 0px 0px;text-again:",
+						"content":"margin-left: 5%;font-size: 18px;padding: 16px;",
+						"btn":"border-radius: 0px 0px 8px 8px;"
+						},
+						"event":[null,function () {
+							var et=myInfo_bs.window.getBs();
+							if (et=='') {
+								mui.toast("请输入内容");
+							}else{
+								$.更换({
+				      				type : "POST",
+				      				data : {'userInfoBloodSugar': et,'userInfoId':uid},
+				      				url  : URL+'app_rest_ful/edit_user_info_blood_sugar',
+				      				dataType : 'json',
+				      				success : function(msg){
+				      					if(msg.success==true){
+				      						mui.toast('提交成功');
+				      						if(et == '1'){
+				      							h('#bloodSugar_info').html('偏低');
+				      						}else if(et == '2'){
+				      							h('#bloodSugar_info').html('正常');
+				      						}else{
+				      							h('#bloodSugar_info').html('偏高');
+				      						}
+				      					}
+				      				}
+				      			});
+							}
+						}]
+					});
+				});
+				h('#modal10').tap(function () {
+					var html="<iframe name='myInfo_bua' src='../../page/my/myInfo_bua.html' style='width:230px;height:80px;border: 0px;'></iframe>";
+					layerOpen({
+						"title":"&nbsp&nbsp",
+						"content":html,
+						"btn":["取消","保存"],
+						"className": 'popuo-login',
+						"style":{
+						"title":"height:5px;background-color: #57C0FF;padding: 10px;border-radius: 8px 8px 0px 0px;text-again:",
+						"content":"margin-left: 5%;font-size: 18px;padding: 16px;",
+						"btn":"border-radius: 0px 0px 8px 8px;"
+						},
+						"event":[null,function () {
+							var et=myInfo_bua.window.getBua();
+							if (et=='') {
+								mui.toast("请输入内容");
+							}else{
+								$.ajax({
+				      				type : "POST",
+				      				data : {'userInfoBloodUricAcid': et,'userInfoId':uid},
+				      				url  : URL+'app_rest_ful/edit_user_info_blood_uric_acid',
+				      				dataType : 'json',
+					  				beforeSend: function() {
+								        plus.nativeUI.showWaiting('');
+								        mask.show();//显示遮罩层
+									},
+									complete: function() {
+								        plus.nativeUI.closeWaiting();
+								        mask.close();//关闭遮罩层
+									},
+				      				success : function(msg){
+				      					if(msg.success==true){
+				      						mui.toast('提交成功');
+				      						if(et == '1'){
+				      							h('#bloodUricAcid_info').html('偏低');
+				      						}else if(et == '2'){
+				      							h('#bloodUricAcid_info').html('正常');
+				      						}else{
+				      							h('#bloodUricAcid_info').html('偏高');
+				      						}
+				      					}  
+				      				}
+				      			});
+							}
+						}]
+					}); 
+				}); 
+				h('#modal11').tap(function () {
+					var html="<iframe name='myInfo_fld' src='../../page/my/myInfo_fld.html' style='width:230px;height:140px;border: 0px;'></iframe>";
+					layerOpen({
+						"title":"&nbsp&nbsp",
+						"content":html,
+						"btn":["取消","保存"],
+						"className": 'popuo-login',
+						"style":{
+						"title":"height:5px;background-color: #57C0FF;padding: 10px;border-radius: 8px 8px 0px 0px;text-again:",
+						"content":"margin-left: 5%;font-size: 18px;padding: 16px;",
+						"btn":"border-radius: 0px 0px 8px 8px;"
+						},
+						"event":[null,function () {
+							var et=myInfo_fld.window.getFld();
+							if (et=='') {
+								mui.toast("请输入内容");
+							}else{
+								var mask=mui.createMask();//遮罩层
+								$.ajax({
+				      				type : "POST",
+				      				data : {'userInfoHepaticAdiposeInfiltration': et,'userInfoId':uid},
+				      				url  : URL+'app_rest_ful/edit_user_info_hepatic_adipose_infiltration',
+				      				dataType : 'json',
+									beforeSend: function() {	
+								        plus.nativeUI.showWaiting('');
+								        mask.show();//显示遮罩层
+									},
+									complete: function() {
+								        plus.nativeUI.closeWaiting();
+								        mask.close();//关闭遮罩层
+									},
+				      				success : function(msg){
+				      					if(msg.success==true){
+				      						mui.toast('提交成功');
+				      						if(et == '1'){
+				      							h('#fld_info').html('正常');
+				      						}else if(et == '2'){
+				      							h('#fld_info').html('轻度');
+				      						}else if(et == '3'){
+				      							h('#fld_info').html('中度');
+				      						}else{
+				      							h('#fld_info').html('重度');
+				      						}
+				      					}
+				      				}
+				      			});
+							}
+						}]
+					});
+				});
+				h('#modal12').tap(function () {
+					var wx = h('#contact_wx_info').html();
+					var html = "<div style='text-align: center;'> 微信联系方式";
+					html+="<input id='wx_contact' type='text' value='"+wx+"' style='background-color: #E0E0E0;border: 0px ;margin-top: 20px;height:50px;'></input></div>";
+					layerOpen({
+						"title":"&nbsp;&nbsp",
+						"content":html,
+						"btn":["取消","保存"],
+						"style":{
+						"title":"height:5px;background-color: #57C0FF;padding: 10px;border-radius: 8px 8px 0px 0px;",
+						"content":"font-size: 18px;padding: 16px;",
+						"btn":"border-radius: 0px 0px 8px 8px;"
+						},
+						"event":[null,function () {
+							var et=$.trim(h('#wx_contact').val());
+							if (et=='') {
+								mui.toast("请输入内容");
+							}else{
+								et = filter(et);
+								//var mask=mui.createMask();//遮罩层
+				      			$.ajax({
+				      				type : "POST",
+				      				data : {'account': et,'userInfoId':uid},
+				      				url  : URL+'app_rest_ful/edit_user_info_account',
+				      				dataType : 'json',
+					  				beforeSend: function() {
+								        plus.nativeUI.showWaiting('');
+								        mask.show();//显示遮罩层
+									},
+									complete: function() {
+								        plus.nativeUI.closeWaiting();
+								        mask.close();//关闭遮罩层
+									},
+				      				success : function(msg){
+				      					if(msg.success==true){
+				      						mui.toast('修改成功');
+				      						h('#contact_wx_info').html(et);
+				      					}
+				      				}
+				      			});
+							}
+						}]
+					});
+				});
+				h('#modal13').tap(function () {
+					var qq = h('#contact_qq_info').html();
+					var html = "<div style='text-align: center;'> QQ联系方式";
+					html+="<input id='qq_contact' type='text' value='"+qq+"' style='background-color: #E0E0E0;border: 0px ;margin-top: 20px;height:50px;'></input></div>";
+					layerOpen({
+						"title":"&nbsp;&nbsp",
+						"content":html,
+						"btn":["取消","保存"],
+						"style":{
+						"title":"height:5px;background-color: #57C0FF;padding: 10px;border-radius: 8px 8px 0px 0px;",
+						"content":"font-size: 18px;padding: 16px;",
+						"btn":"border-radius: 0px 0px 8px 8px;"
+						},
+						"event":[null,function () {
+							var et=$.trim(h('#qq_contact').val());
+							if (et=='') {
+								mui.toast("请输入内容");
+							}else{
+								et = filter(et);
+				      			$.ajax({
+				      				type : "POST",
+				      				data : {'account': et,'userInfoId':uid},
+				      				url  : URL+'app_rest_ful/edit_user_info_account',
+				      				dataType : 'json',
+					  				beforeSend: function() {
+								        plus.nativeUI.showWaiting('');
+								        mask.show();//显示遮罩层
+									},
+									complete: function() {
+								        plus.nativeUI.closeWaiting();
+								        mask.close();//关闭遮罩层
+									},
+				      				success : function(msg){
+				      					if(msg.success==true){
+				      						mui.toast('修改成功');
+				      						h('#contact_qq_info').html(et);
+				      					}
+				      				}
+				      			});
+							}
+						}]
+					});
+				});
+				h("#have_join").tap(function(){
+					mui.openWindow({
+						url : '../../page/join/join_nnc.html',
+						id  : 'join_nnc.html'
+					});
+				});
+			});
+			var open = {
+				'user_head_img' : {//头像裁剪
+					'url' : 'user_head_upload.html',
+					'type' : 'openWindow',
+					'data' : {}
+				}
+			};
+			//上传头像
+			function upLoadHeadPhoto(){
+				Photo = new Plugin.Photo({
+					callback : openAvatarPape,
+					options : {},
+					title : "修改用户头像",
+					compress : true,
+					compressCfg : {
+						width : '100%'
+					}
+				});
+				Photo.showSheet();
+			}
+		  
+			//打开上传头像页面方法
+			function openAvatarPape(file,path,options){
+				open['user_head_img']['data']['imgFile'] = file;//dst
+				open['user_head_img']['data']['imgPath'] = path;
+				openView('user_head_img',open);
+			}
+			
+			function getUserHeadPhoto() {
+				var uid = localStorage.getItem('NNC_userInfoId');
+				$.ajax({
+	  				type : "POST",
+	  				data : {'userInfoId':uid},
+	  				url  : URL+'app_rest_ful/find_user_info_head_photo_by_userInfoId',
+	  				dataType : 'json',
+	  				beforeSend: function() {
+				        plus.nativeUI.showWaiting('');
+				        mask.show();//显示遮罩层
+					},
+					complete: function() {
+				        plus.nativeUI.closeWaiting();
+				        mask.close();//关闭遮罩层
+					},
+	  				success : function(msg){
+	  					if (msg.data.filePath != null) {
+							$("#user_head_img").css({
+	  							"background":"url("+msg.data.filePath+") center no-repeat",
+	  							"background-size":"100%"
+	  						});
+	  						var my = plus.webview.getWebviewById('my.html');
+							my.evalJS("isLogin();location.reload();");
+	  					}
+	  				} 
+	  			});
+			}
+			
+			function setMyWeight(){
+				var weight = $('#weight_info').text();
+				weight = weight.substring(0,weight.indexOf("kg"));
+//				var weight = 66;
+				return weight;
+			}
+			function setMyHeight(){ 
+				var height = $('#height_info').text();
+				height = height.substring(0,height.indexOf("cm"));
+				//var height  = 87  ;
+				return height;
+			}
+			function getData(){
+				$('#have_join').hide();
+				$('#no_join').hide();
+				$('#join').hide();
+				$('#modal7').hide();
+				$('#modal8').hide();
+				$('#modal9').hide();
+				$('#modal10').hide();
+				$('#modal11').hide();
+				$('#modal12').hide();
+				$('#modal13').hide();
+				uid = localStorage.getItem('NNC_userInfoId');
+				$.ajax({
+      				type : "POST",
+      				data : {'userInfoId':uid},
+      				url  : URL+'app_rest_ful/select_user_info',
+      				dataType : 'json',
+	  				beforeSend: function() {
+				        plus.nativeUI.showWaiting('');
+				        mask.show();//显示遮罩层
+					},
+					complete: function() {
+				        plus.nativeUI.closeWaiting();
+				        mask.close();//关闭遮罩层
+					},
+      				success : function(msg){
+      					h('#nickname_info').html(msg.data.userInfo.name);
+      					if (msg.data.uli.id!= null) {
+      						if(msg.data.uli.loginFlag == '1'){
+      							h('#phone_info').html(msg.data.uli.loginId+"（已绑定）");
+      						}else{
+      							h('#phone_info').html(msg.data.uli.loginId+"（未绑定）");
+      						}
+      					}else {
+      						h('#phone_info').html('（未绑定）');
+      					}
+      					if(msg.data.userInfo.filePath != null){
+      						$("#user_head_img").css({
+	  							"background":"url("+msg.data.userInfo.filePath+") center no-repeat",
+	  							"background-size":"100%"
+	  						});
+      					}
+      					h('#birthday_info').html(msg.data.birthday);
+      					if(msg.data.userInfo.sex==1){
+      						h('#sex_info').html('男');
+      					}else{
+      						h('#sex_info').html('女');
+      					}
+      					h('#height_info').html(msg.data.userInfo.height+'cm');
+      					h('#weight_info').html(msg.data.userInfo.weight+'kg');
+						if (msg.data.userInfo.addFlag == 0) {
+							$('#have_join').show();
+							$('#no_join').hide();
+							$('#join').hide();
+							$('#modal7').hide();
+							$('#modal8').hide();
+							$('#modal9').hide();
+							$('#modal10').hide();
+							$('#modal11').hide();
+							$('#modal12').hide();
+							$('#modal13').hide();
+						} else {
+							$('#have_join').hide();
+							$('#no_join').show();
+							$('#join').show();
+							$('#modal7').show();
+							$('#modal8').show();
+							$('#modal9').show();
+							$('#modal10').show();
+							$('#modal11').show();
+							if(msg.data.userInfo.contactWay==0){//电话
+								$('#modal12').hide();
+								$('#modal13').hide();
+							}else if(msg.data.userInfo.contactWay==1){//微信
+								h('#contact_wx_info').html(msg.data.userInfo.account);
+								$('#modal12').show();
+								$('#modal13').hide();
+							}else{//QQ
+								h('#contact_qq_info').html(msg.data.userInfo.account);
+								$('#modal12').hide();
+								$('#modal13').show();
+							}
+						}
+      					if(msg.data.userInfo.bloodPressure==1){
+      						h('#bloodPressure_info').html('偏低');
+      					}else if(msg.data.userInfo.bloodPressure==3){
+      						h('#bloodPressure_info').html('偏高');
+      					}else{
+      						h('#bloodPressure_info').html('正常');
+      					}
+      					if(msg.data.userInfo.bloodFat==1){
+      						h('#bloodFat_info').html('偏低');
+      					}else if(msg.data.userInfo.bloodFat==3){
+      						h('#bloodFat_info').html('偏高');
+      					}else{
+      						h('#bloodFat_info').html('正常');
+      					}
+      					if(msg.data.userInfo.bloodSugar==1){
+      						h('#bloodSugar_info').html('偏低');
+      					}else if(msg.data.userInfo.bloodSugar==3){
+      						h('#bloodSugar_info').html('偏高');
+      					}else{
+      						h('#bloodSugar_info').html('正常');
+      					}
+      					if(msg.data.userInfo.bloodUricAcid==1){
+      						h('#bloodUricAcid_info').html('偏低');
+      					}else if(msg.data.userInfo.bloodUricAcid==3){
+      						h('#bloodUricAcid_info').html('偏高');
+      					}else{
+      						h('#bloodUricAcid_info').html('正常');
+      					}
+      					if(msg.data.userInfo.hepaticAdiposeInfiltration==2){
+      						h('#fld_info').html('轻度');
+      					}else if(msg.data.userInfo.hepaticAdiposeInfiltration==3){
+      						h('#fld_info').html('中度');
+      					}else if(msg.data.userInfo.hepaticAdiposeInfiltration==4){
+      						h('#fld_info').html('重度');
+      					}else{
+      						h('#fld_info').html('正常');
+      					}
+      					h('#dietitianName_info').html(msg.data.dietitianName);
+      					h('#startDate_info').html(msg.data.startDate);
+      					h('#endDate_info').html(msg.data.endDate);
+      				}
+      			});
+			}
+			function unbundling(type){
+				if(type == 1){
+					mui.confirm('是否解除绑定账号？','提示',new Array('取消','确定解除'),function(e){
+					if(e.index == 1){
+						//解除绑定方法
+						var uid=localStorage.getItem('NNC_userInfoId');
+						$.ajax({
+			  				type : "POST",
+			  				data : {'userInfoId':uid},
+			  				url  : URL+'app_rest_ful/remove_binding_phone',
+			  				dataType : 'json',
+			  				beforeSend: function() {
+						        plus.nativeUI.showWaiting('');
+						        mask.show();//显示遮罩层
+							},
+							complete: function() {
+						        plus.nativeUI.closeWaiting();
+						        mask.close();//关闭遮罩层
+							},
+			  				success : function(msg){
+			  					if(msg.success==true){
+			  						mui.toast('解除绑定成功');
+			  						location.reload();
+			  					}
+			  				}
+			  			});
+					}
+				});  
+				}
+			}
+			function binding(type){
+				if(type == 1){
+					localStorage.setItem("phone_number",phoneNumber+'');
+					mui.openWindow({
+						url : '../../page/login/binding.html',
+						id  : 'binding.html'
+					});
+				}
+			}
+		</script>
+	</body>
+</html>

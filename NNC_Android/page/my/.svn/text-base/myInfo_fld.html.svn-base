@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/labelauty/jquery-labelauty1.css" />
+	</head>
+	<body style="background-color: #FFFFFF;">
+		<div style="text-align: center;">脂肪肝</div>
+		<div>
+			<div style="float: left;margin-left: 25px;margin-top: 10px;">
+				<input id="1" type="radio" name="fld" value="1" data-labelauty="正常">
+			</div>
+			<div style="float: right;margin-right: 25px;margin-top: 10px;">
+			    <input id="2" type="radio" name="fld" value="2" data-labelauty="轻度">
+			</div>
+			</br>
+			</br>
+			<div style="float: left;margin-left: -68px;margin-top: 20px;">
+				<input id="3" type="radio" name="fld" value="3" data-labelauty="中度">
+			</div>
+			<div style="float: right;margin-right: -68px;margin-top: 20px;">
+			    <input id="4" type="radio" name="fld" value="4" data-labelauty="重度">
+			</div>
+		</div>
+		
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.min.js" ></script>
+		<script type="text/javascript" src="../../js/jquerylabelauty.js" ></script>
+		<script type="text/javascript">
+			$(function(){
+				$(':input').labelauty();
+				var uid = localStorage.getItem("NNC_userInfoId");
+				$.ajax({
+      				type : "POST",
+      				data : {'userInfoId':uid},
+      				url  : URL+'app_rest_ful/select_userInfo',
+      				dataType : 'json',
+      				success : function(msg){
+      					if(msg.success==true){
+      						if(msg.data.hepaticAdiposeInfiltration == 1){
+      							$("#1").attr("checked","checked");
+      						}else if(msg.data.hepaticAdiposeInfiltration == 2){
+      							$("#2").attr("checked","checked");
+      						}else if(msg.data.hepaticAdiposeInfiltration == 3){
+      							$("#3").attr("checked","checked");
+      						}else{
+      							$("#4").attr("checked","checked");
+      						}
+      						
+      					}
+      				}
+      			});
+			});
+			mui.init();
+			function getFld(){
+				var fld = $.trim($("input[name='fld']:checked").val());
+				return fld;
+			}
+		</script>
+	</body>
+
+</html>

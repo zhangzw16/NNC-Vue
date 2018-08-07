@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/nncTest/!svn/ver/1/NNC/WebRoot/view/systemUser
+END
+editUserPasswd.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/nncTest/!svn/ver/1/NNC/WebRoot/view/systemUser/editUserPasswd.jsp
+END
+editSystemUser.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/nncTest/!svn/ver/1/NNC/WebRoot/view/systemUser/editSystemUser.jsp
+END
+addSystemUser.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/nncTest/!svn/ver/1/NNC/WebRoot/view/systemUser/addSystemUser.jsp
+END
+systemUserManage.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/nncTest/!svn/ver/1/NNC/WebRoot/view/systemUser/systemUserManage.jsp
+END
+systemUserList.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/nncTest/!svn/ver/1/NNC/WebRoot/view/systemUser/systemUserList.jsp
+END

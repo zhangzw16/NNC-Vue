@@ -1,0 +1,44 @@
+.ui-page-login,
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0px;
+	padding: 0px;
+}
+
+.mui-content {
+	height: 100%;
+}
+
+.table_border tbody tr td {
+	border-collapse: collapse;
+	border-bottom: 1px solid #D1D1D1;
+	padding: 10px 10px 5px 9px;
+	text-align: center;
+	height: 30px;
+	font-size: 16px;
+}
+
+.td_up {
+	background-image: url(../image/up_red.png);
+	background-repeat: no-repeat;
+	padding: 5px 15px 10px 8px;
+	height: 30px;
+	color: red;
+}
+
+.td_down {
+	background-image: url(../image/down_green.png);
+	background-repeat: no-repeat;
+	padding: 10px 10px 5px 9px;
+	height: 30px;
+	color: green;
+}
+
+.icon_add {
+	background-image: url(../image/icon_add.png);
+	background-repeat: no-repeat;
+	height: 33px;
+}
+
+

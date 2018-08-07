@@ -1,0 +1,321 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/layer.css" />
+	</head>
+	<style type="text/css">
+		.left{
+			float: left;
+			margin-left: 20px;
+			height: 40px;
+			padding: 10px;
+			color:#999999;
+		}
+		.left_yes{
+			float: left;
+			margin-left: 20px;
+			height: 40px;
+			padding: 10px;
+			color:#222222;
+		}
+		.right{
+			color: #999999;
+			float: right;
+			margin-right:10px;
+			height: 40px;
+			padding: 10px 5px;
+		}
+	</style>
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color:#000"></a>
+	    <h1 class="mui-title">个人信息</h1>
+	</header>
+	<body>
+		<div class="mui-content">
+			<div style="height: 160px;background: linear-gradient(to bottom right, #8db9f6 , #a5efff);padding-top: 42px;padding-left: 25px;">
+				<img id="head_img" src="../../image/hend_img.png" style="width: 76px;border-radius: 100px;"/>
+			</div>
+			<div style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;margin-top: 10px;">
+				<div style="float: left;margin-left: 20px;height: 40px;padding: 10px;color: #999999;">
+					昵称
+				</div>
+				<div id="nickname_info" class="right">
+				</div>
+			</div>
+			<div style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;">
+				<div class="left">
+					手机号
+				</div>
+				<div id="phone_info" class="right"></div>
+			</div>
+			<div style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;">
+				<div class="left">出生日期</div>
+				<div id="birthday_info" class="right"></div>
+			</div>
+			<div style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;">
+				<div class="left">
+					性别
+				</div>
+				<div id="sex_info" class="right"></div>
+			</div>
+			<div style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;">
+				<div class="left">
+					身高
+				</div>
+				<div id="height_info" class="right"></div>
+			</div>
+			<div style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;">
+				<div class="left">
+					体重
+				</div>
+				<div id="weight_info" class="right"></div>
+			</div>
+			<div style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;margin-top: 10px;">
+				<div class="left">
+					血压
+				</div>
+				<div id="bloodPressure_info" class="right"></div>
+			</div>
+			<div style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;">
+				<div class="left">
+					血脂
+				</div>
+				<div id="bloodFat_info" class="right"></div>
+			</div>
+			<div style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;">
+				<div class="left">
+					血糖
+				</div>
+				<div id="bloodSugar_info" class="right"></div>
+			</div>
+			<div style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;">
+				<div class="left">
+					尿酸
+				</div>
+				<div id="bloodUricAcid_info" class="right"></div>
+			</div>
+			<div style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;">
+				<div class="left">
+					脂肪肝
+				</div>
+				<div id="fld_info" class="right"></div>
+			</div>
+			<div style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;margin-top: 10px;">
+				<div class="left">
+					营养师
+				</div>
+				<div id="dietitianName_info" class="right"></div>
+			</div>
+			<div style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;">
+				<div class="left_yes">
+					开始减重日期
+				</div>
+				<img src="../../image/icon/calendar_blue.png" style="height: 30px;float: right;margin-right: 20px;margin-top: 5px;" id="time1"/>
+				<div id="startDate_info" class="right"></div>
+			</div>
+			<div style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;">
+				<div class="left_yes">
+					结束减重日期
+				</div>
+				<img src="../../image/icon/calendar_blue.png" style="height: 30px;float: right;margin-right: 20px;margin-top: 5px;" id="time2"/>
+				<div id="endDate_info" class="right"></div>
+			</div>
+			<div style="background-color: #FFFFFF;height: 40px;border-bottom:1px solid #D1D1D1;margin-top: 10px;">
+				<div class="left_yes">
+					备注
+				</div>
+				<img src="../../image/dietitian/record.png" style="height: 30px;float: right;margin-right: 20px;margin-top: 5px;" id="note"/>
+			</div>
+			<div id="note_info" style="min-height: 100px;background-color: #FFFFFF;">
+				
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.min.js" ></script>
+		<script type="text/javascript" src="../../js/layer.js" ></script>
+		<script type="text/javascript" src="../../js/jquerylabelauty.js"></script>
+		<script type="text/javascript" src="../../js/h.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function(){
+				Internet_connection();
+				var self = plus.webview.currentWebview();
+				var uid  = self.customerId;
+				var head_img = self.head_img;
+				if(head_img != null && head_img != "null"){
+					h('#head_img').attr('src',head_img)
+				}
+				var dietitianId = localStorage.getItem("NNC_dietPhaseInfoId");
+				var mask=mui.createMask();//遮罩层
+				$.ajax({
+      				type : "POST",
+      				data : {'userInfoId':uid},
+      				url  : URL+'app_rest_ful/select_user_info',
+      				dataType : 'json',
+      				beforeSend: function() {
+				        plus.nativeUI.showWaiting('');
+				        mask.show();//显示遮罩层
+				    },
+				    complete: function() {
+				        plus.nativeUI.closeWaiting();
+				        mask.close();//关闭遮罩层
+				    },
+      				success : function(msg){
+      					h('#nickname_info').html(msg.data.userInfo.name);
+      					if (msg.data.uli != null) {
+      						h('#phone_info').html(msg.data.uli.loginId);
+      					} else {
+      						h('#phone_info').html('未绑定手机号');
+      					}
+      					h('#birthday_info').html(msg.data.birthday);
+      					if(msg.data.userInfo.sex==1){
+      						h('#sex_info').html('男');
+      					}else{
+      						h('#sex_info').html('女');
+      					}
+      					h('#height_info').html(msg.data.userInfo.height+'cm');
+      					h('#weight_info').html(msg.data.userInfo.weight+'kg');
+      					if(msg.data.userInfo.bloodPressure==1){
+      						h('#bloodPressure_info').html('偏低');
+      					}else if(msg.data.userInfo.bloodPressure==3){
+      						h('#bloodPressure_info').html('偏高');
+      					}else{
+      						h('#bloodPressure_info').html('正常');
+      					}
+      					if(msg.data.userInfo.bloodFat==1){
+      						h('#bloodFat_info').html('偏低');
+      					}else if(msg.data.userInfo.bloodFat==3){
+      						h('#bloodFat_info').html('偏高');
+      					}else{
+      						h('#bloodFat_info').html('正常');
+      					}
+      					if(msg.data.userInfo.bloodSugar==1){
+      						h('#bloodSugar_info').html('偏低');
+      					}else if(msg.data.userInfo.bloodSugar==3){
+      						h('#bloodSugar_info').html('偏高');
+      					}else{
+      						h('#bloodSugar_info').html('正常');
+      					}
+      					if(msg.data.userInfo.bloodUricAcid==1){
+      						h('#bloodUricAcid_info').html('偏低');
+      					}else if(msg.data.userInfo.bloodUricAcid==3){
+      						h('#bloodUricAcid_info').html('偏高');
+      					}else{
+      						h('#bloodUricAcid_info').html('正常');
+      					}
+      					if(msg.data.userInfo.hepaticAdiposeInfiltration==2){
+      						h('#fld_info').html('轻度');
+      					}else if(msg.data.userInfo.hepaticAdiposeInfiltration==3){
+      						h('#fld_info').html('中度');
+      					}else if(msg.data.userInfo.hepaticAdiposeInfiltration==4){
+      						h('#fld_info').html('重度');
+      					}else{
+      						h('#fld_info').html('正常');
+      					}
+      					h('#dietitianName_info').html(msg.data.DietitianName);
+      					h('#startDate_info').html(msg.data.startDate);
+      					h('#endDate_info').html(msg.data.endDate);
+      					h('#note_info').html(msg.data.userInfo.note);
+      				}
+      			});
+				document.getElementById("time1").addEventListener('tap', function(){
+					var dDate = new Date();
+					var minDate = new Date();
+					minDate.setFullYear(1999, 0, 1);
+					var maxDate = new Date();
+					maxDate.setFullYear(2030, 11, 31);
+					plus.nativeUI.pickDate(function(e) {
+						var d = e.date;
+						var startDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+						//选择日期后查询该日期数据展示
+						$.ajax({
+		      				type : "POST",
+		      				data : {'startDate': startDate,'userInfoId':uid,'dietitianId':dietitianId},
+		      				url  : URL+'app_rest_ful/set_user_start_date',
+		      				dataType : 'json',
+		      				success : function(msg){
+		      					if(msg.success==true){
+		      						mui.toast('提交成功');
+		      						h('#startDate_info').html(startDate);
+		      					}
+		      				}
+		      			});
+					}, {
+						title: "请选择日期",
+						date: dDate,
+						minDate: minDate,
+						maxDate: maxDate
+					});
+				});
+				document.getElementById("time2").addEventListener('tap', function(){
+					var dDate = new Date();
+					var minDate = new Date();
+					minDate.setFullYear(1999, 0, 1);
+					var maxDate = new Date();
+					maxDate.setFullYear(2030, 11, 31);
+					plus.nativeUI.pickDate(function(e) {
+						var d = e.date;
+						var endDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+						//选择日期后查询该日期数据展示
+						$.ajax({
+		      				type : "POST",
+		      				data : {'endDate': endDate,'userInfoId':uid,'dietitianId':dietitianId},
+		      				url  : URL+'app_rest_ful/set_user_end_date',
+		      				dataType : 'json',
+		      				success : function(msg){
+		      					if(msg.success==true){
+		      						mui.toast('提交成功');
+		      						h('#endDate_info').html(endDate);
+		      					}
+		      				}
+		      			});
+					}, {
+						title: "请选择日期",
+						date: dDate,
+						minDate: minDate,
+						maxDate: maxDate
+					});
+				});
+				h('#note').tap(function () {
+					var html = "<div style='text-align: center;'> 编辑备注";
+					html+="<input id='note_val' type='text' style='background-color: #E0E0E0;border: 0px ;margin-top: 20px;height:50px;'></input></div>";
+					layerOpen({
+						"title":"&nbsp&nbsp",
+						"content":html,
+						"btn":["取消","确定"],
+						"className": 'popuo-login',
+						"style":{
+						"title":"height:5px;background-color: #57C0FF;padding: 10px;border-radius: 8px 8px 0px 0px;text-again:",
+						"content":"margin-left: 5%;font-size: 18px;padding: 16px;",
+						"btn":"border-radius: 0px 0px 8px 8px;"
+						},
+						"event":[null,function () {
+							var et=$.trim(h('#note_val').val());
+							if (et=='') {
+								mui.toast("请输入内容");
+							}else{
+								$.ajax({
+				      				type : "POST",
+				      				data : {'note': et,'userInfoId':uid,'dietitianId':dietitianId},
+				      				url  : URL+'app_rest_ful/set_user_note',
+				      				dataType : 'json',
+				      				success : function(msg){
+				      					if(msg.success==true){
+				      						mui.toast('提交成功');
+				      						h('#note_info').html(et);
+				      					}
+				      				}
+				      			});
+							}
+						}]
+					});
+				});
+			});
+		</script>
+	</body>
+
+</html>

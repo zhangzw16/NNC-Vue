@@ -1,0 +1,319 @@
+<!doctype html>
+<html >
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/labelauty/jquery-labelauty.css"  media="screen and (min-width: 330px) and (max-width: 400px)">
+		<link rel="stylesheet" type="text/css" href="../../css/labelauty/jquery-labelauty1.css" media="screen and (min-width: 0px) and (max-width: 329px)">
+		<link rel="stylesheet" type="text/css" href="../../css/labelauty/jquery-labelauty2.css" media="screen and (min-width: 401px) and (max-width: 1000px)">
+	</head>
+	<style type="text/css">
+		@media screen and (min-width: 400px) { /*响应式布局 宽度大于600*/
+		  	#p_left{
+				margin-left: 85px;
+			}
+		}
+		@media screen and  (min-width: 330px) and (max-width: 400px) { /*响应式布局 宽度大于600*/
+		  	#p_left{
+				margin-left: 83px;
+			}
+		}
+		@media screen and  (min-width: 0px) and (max-width: 329px) { /*响应式布局 宽度大于600*/
+		  	#p_left{
+				margin-left: 80px;
+			}
+		}
+		ul{list-style-type: none;}
+		li{display: inline-block;}
+		li{margin: 10px 0;}
+		input.labelauty + label{font:12px "Microsoft Yahei";}
+		</style>		
+	<style>
+		.div-bottom-line{
+			margin-left: 10px;
+			margin-right:10px;
+			border-bottom:1px solid #D1D1D1;
+			height: 50px;
+		}
+		.div-bottom-line2{
+			margin-left: 10px;
+			margin-right:10px;
+			border-bottom:1px solid #D1D1D1;
+			height: 90px;
+		}
+		.div-font{
+			float: left;
+			font-size: 15px;
+			margin-top: 15px;
+			width: 60px;
+		}
+		.div-botton2{
+			float: left;
+			margin-top:5px;
+			margin-left: 6.5%;
+		}
+	</style>
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #000;"></a>
+	    <h1 class="mui-title">完善资料&nbsp;&nbsp;1/3</h1>
+	</header>
+	<body>
+		<div class="mui-content">
+			<div class="mui-input-group" style="margin-top: 10px;" id="binding">
+                <div class="mui-input-row">
+                    <label>手机号</label>
+                    <input id='phone' type="number"  placeholder="+86">
+                </div>
+                <div class="mui-input-row" style="position:relative;margin-top: 5px;">
+                    <label>验证码</label>
+                    <input id='phoneCode' type="text" class="mui-input" placeholder="请输入验证码">
+                    <button class="code_btn_get" id="sendPhoneCode"  onclick="send_phone_code();">获取验证码</button>
+                </div>
+            </div>
+			
+			<div style="margin-top: 10px;width: 100%;height: 350px;background-color: #FFFFFF;">
+				<div style="margin-left: 10px;margin-right:10px;border-bottom:1px solid #D1D1D1;height: 20px;"></div>
+				<div style="width: 100%;height: 50px;">
+					<div class="div-bottom-line">
+						<div class="div-font" id="bp">血压</div>
+						<div  class="div-botton2"><input type="radio" name="blood_pressure" value="2" checked="checked" data-labelauty="正常"></div>
+						<div  class="div-botton2"><input type="radio" name="blood_pressure" value="1" data-labelauty="偏低"></div>
+						<div  class="div-botton2"><input type="radio" name="blood_pressure" value="3" data-labelauty="偏高"></div>
+					</div>
+				</div> 
+				<div style="width: 100%;height: 50px;">
+					<div class="div-bottom-line" id="bf">
+						<div class="div-font">血脂</div>
+						<div  class="div-botton2"><input type="radio" name="blood_fat" value="2" checked="checked" data-labelauty="正常"></div>
+						<div  class="div-botton2"><input type="radio" name="blood_fat" value="1" data-labelauty="偏低"></div>
+						<div  class="div-botton2"><input type="radio" name="blood_fat" value="3" data-labelauty="偏高"></div>
+					</div>
+				</div>
+				<div style="width: 100%;height: 50px;">
+					<div class="div-bottom-line" id="bs">
+						<div class="div-font">血糖</div>
+						<div  class="div-botton2"><input type="radio" name="blood_sugar" value="2" checked="checked" data-labelauty="正常"></div>
+						<div  class="div-botton2"><input type="radio" name="blood_sugar" value="1" data-labelauty="偏低"></div>
+						<div  class="div-botton2"><input type="radio" name="blood_sugar" value="3" data-labelauty="偏高"></div>
+					</div>
+				</div>
+				<div style="width: 100%;height: 50px;">
+					<div class="div-bottom-line" id="bua">
+						<div class="div-font">尿酸</div>
+						<div  class="div-botton2"><input type="radio" name="blood_uric_acid" checked="checked" value="2" data-labelauty="正常"></div>
+						<div  class="div-botton2"><input type="radio" name="blood_uric_acid" value="1" data-labelauty="偏低"></div>
+						<div  class="div-botton2"><input type="radio" name="blood_uric_acid" value="3" data-labelauty="偏高"></div>
+					</div>
+				</div>
+				<div style="width: 100%;height: 90px;">
+					<div class="div-bottom-line2" id="fld">
+						<div class="div-font">脂肪肝</div>
+						<div  class="div-botton2"><input type="radio" name="fld" value="1" checked="checked" data-labelauty="正常"></div>
+						<div  class="div-botton2"><input type="radio" name="fld" value="2" data-labelauty="轻度"></div>
+						<div  class="div-botton2"><input type="radio" name="fld" value="3" data-labelauty="中度"></div>
+						<div  class="div-botton2" id="p_left"><input type="radio" name="fld" value="4" data-labelauty="重度"></div>
+					</div>
+				</div>
+			</div>
+			<div class="mui-content-padded" >
+				<button id='optional' class="mui-btn mui-btn-block mui-btn-primary big-button">下一步</button>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.min.js" ></script>
+		<script type="text/javascript" src="../../js/jquerylabelauty.js"></script>
+		<script type="text/javascript" src="../../js/h.js" ></script>
+		<script type="text/javascript">
+			$(function(){
+				$(':input').labelauty();
+			});
+			var code;var mobilePhone;var codeTime;var bestPhone;var submitType;
+			mui.init();
+			mui.plusReady(function(){
+				Internet_connection();
+				var uid = localStorage.getItem("NNC_userInfoId");
+				$.ajax({
+      				type : "POST",
+      				data : {'userInfoId': uid},
+      				url  : URL+'app_rest_ful/select_userInfo',
+      				dataType : 'json',
+      				success : function(msg){
+      					if(msg.data.loginFlag!='1'){//第三方登录
+      						if(msg.data.userLoginInfoId!=null){//是否绑定过手机号
+      							$.ajax({
+				      				type : "POST",
+				      				data : {'userLoginId': msg.data.userLoginInfoId},
+				      				url  : URL+'app_rest_ful/select_userLogin',
+				      				dataType : 'json',
+				      				success : function(msg){
+				      					//有手机账号，不用获取
+			      						$("#binding").hide();
+			      						bestPhone = msg.data.loginId;
+			      						submitType = 'yes';
+				      				}
+				      			});
+      						}else{
+      							$("#binding").show();
+      							submitType = 'no';
+      						}
+      					}else{//手机号登录，无需绑定
+      						$("#binding").hide();
+      						$.ajax({
+			      				type : "POST",
+			      				data : {'userLoginId': msg.data.userLoginInfoId},
+			      				url  : URL+'app_rest_ful/select_userLogin',
+			      				dataType : 'json',
+			      				success : function(msg){
+			      					bestPhone = msg.data.loginId;
+			      					submitType = 'yes';
+			      				}
+			      			});
+      					}
+      				}
+      			});
+				h('#optional').tap(function(){
+					var phone = $.trim($("#phone").val());
+					if(submitType == 'yes'){
+						submit(bestPhone);
+					}else{
+						if (check() == true){
+						//创建userLogin
+						saveNewUserLogin(phone);
+						}
+					}
+				});
+			});
+			function check(){
+				var phone = $.trim($("#phone").val());
+            	var phone_code = $.trim($("#phoneCode").val());
+            	var phone_pattern = /^1[3|4|5|7|8][0-9]{9}$/;
+            	if (phone == '') {
+                    mui.alert('请输入手机号', '系统提示', function() {
+                        $('#phone').focus();
+                    });
+                    return false;
+                }
+                if (!phone_pattern.test(phone)) {
+                    mui.alert('请输入正确的手机号', '系统提示', function() {
+                        $('#phone').focus();
+                    });
+                    return false;
+                }
+                if (phone_code == '') {
+                    mui.alert('请输入短信验证码', '系统提示', function() {
+                        $('#phone_code').focus();
+                    });
+                    return false;
+                }
+                if (phone_code!=code){
+                	mui.alert('短信验证码填写错误', '系统提示', function() {
+                        $('#phone_code').focus();
+                    });
+                    return false;
+                }
+                if (phone!=mobilePhone&&phone!=''){
+                	mui.alert('此手机号不是获取验证码的手机号', '系统提示', function() {
+                        $('#phone').focus();
+                    });
+                    return false;
+                }
+                return true;
+			}
+			
+			var wait = 60;//倒计时60秒
+            var intervalId;//定时
+            var i = wait;//倒计时递减 1
+            function exit() {
+                $("#sendPhoneCode").html(i + "秒后重新发送").addClass("disabled");
+                i = i - 1;
+                if (i <= -1) {
+                    clearInterval(intervalId);
+                    $("#sendPhoneCode").removeAttr("disabled");
+                    $("#sendPhoneCode").html("发送验证码").removeClass("disabled");
+                }
+            };
+            function send_phone_code() {
+                var phone = $.trim($("#phone").val());
+                if (phone == '') {
+                    mui.alert('请输入手机号', '系统提示', function() {
+                        $('#phone').focus();
+                    });
+                    return false;
+                }
+                if (!phone.match(/^1[3|4|5|7|8][0-9]{9}$/)) {
+                    mui.alert('请输入正确的手机号', '系统提示', function() {
+                        $('#phone').focus();
+                    });
+                    return false;
+                }
+                i = wait;
+                $.ajax({
+      				type : "POST",
+      				data : {'phoneNo': phone},
+      				url  : URL+'app_rest_ful/get_phone_validation_code',
+      				dataType : 'json',
+      				success : function(msg){
+      					if(msg.success==false){
+      						mui.alert(msg.data.statusMsg);
+      					}else{
+      						success();
+      						code=msg.message;
+      						console.log(code);
+      						mobilePhone=phone;
+      						codeTime=msg.data.data.templateSMS.dateCreated;
+      					}
+      				}
+      			});
+            }
+            function success(){
+            	$("#sendPhoneCode").attr("disabled", "disabled");
+                $("#sendPhoneCode").html("发送成功");
+                intervalId = setInterval("exit()", 1000);
+            }
+            
+            function submit(phone){
+            	var blood_pressure = $("input[name='blood_pressure']:checked").val();
+				var blood_fat = $("input[name='blood_fat']:checked").val();
+				var blood_sugar = $("input[name='blood_sugar']:checked").val();
+				var blood_uric_acid = $("input[name='blood_uric_acid']:checked").val();
+				var fld = $("input[name='fld']:checked").val();
+				localStorage.setItem("info_blood_pressure",blood_pressure+'');
+				localStorage.setItem("info_blood_fat",blood_fat+'');
+				localStorage.setItem("info_blood_sugar",blood_sugar+'');
+				localStorage.setItem("info_blood_uric_acid",blood_uric_acid+'');
+				localStorage.setItem("info_fld",fld+'');
+				localStorage.setItem("info_phone",phone+'');
+				mui.openWindow({
+					url : 'third_party.html',
+					id  : 'third_party.html'
+				});
+            }
+            function saveNewUserLogin(phone){
+            	var uid = localStorage.getItem("NNC_userInfoId");
+            	$.ajax({
+      				type : "POST",
+      				data : {'phoneNo': phone,'userInfoId' :uid},
+      				url  : URL+'app_rest_ful/mobile_registration_secret',
+      				dataType : 'json',
+      				success : function(msg){
+      					console.log(JSON.stringify(msg));
+      					if(msg.message == 'haveReg'||msg.message == 'dietitianHaveReg'){
+      						mui.toast('此手机号已有人填写，无法再次填写');
+      						return false;
+      					}
+      					if(msg.success == false){
+      						mui.toast('此手机号已有人填写，无法再次填写');
+      						return false;
+      					}else{
+      						submit(phone);
+      						return true;
+      					}
+      				}
+      			});
+            }
+		</script>
+	</body>
+</html>

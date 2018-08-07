@@ -1,0 +1,781 @@
+{
+	"index.html": {
+		"resources": [
+			"home.html",
+			"image/logo.png",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.css",
+			"js/h.js",
+			"image/qq.png",
+			"page/home/home.html",
+			"js/jquery.js",
+			"css/iconfont.css",
+			"fonts/iconfont.ttf",
+			"image/tab_bar_icon/home.png",
+			"js/login.js",
+			"image/tab_bar_icon/data_analysis_gray.png",
+			"image/tab_bar_icon/my_gray.png",
+			"image/tab_bar_icon/my_record_gray.png",
+			"image/tab_bar_icon/home_gray.png",
+			"image/tab_bar_icon/my.png",
+			"image/tab_bar_icon/my_record.png",
+			"image/tab_bar_icon/data_analysis.png"
+		],
+		"refer": [
+			"my_record.html",
+			"home.html",
+			"my.html",
+			"data_analysis.html",
+			"login.html",
+			"page/home/home.html",
+			"page/my/my.html",
+			"page/my_record/my_record.html",
+			"page/data_analysis/data_analysis.html",
+			"page/dietitian/dietitian_main.html",
+			"page/login/login.html"
+		]
+	},
+	"my_record.html": {
+		"resources": [
+			"js/h.js",
+			"js/mui.min.js",
+			"css/mui.css",
+			"image/jia.png",
+			"fonts/mui.ttf",
+			"js/in01.js",
+			"js/jquery.min.js",
+			"image/ruler_weight.png",
+			"css/scale.css",
+			"js/feedback.js",
+			"css/feedback.css",
+			"js/mui.picker.min.js",
+			"css/app.css",
+			"css/mui.picker.min.css",
+			"js/star-rating.js",
+			"css/star-rating.css",
+			"js/water.js",
+			"js/swiper.min.js"
+		],
+		"refer": []
+	},
+	"home.html": {
+		"resources": [
+			"js/h.js",
+			"js/mui.min.js",
+			"css/mui.css",
+			"image/yinshidapei.png"
+		],
+		"refer": [
+			"info.html",
+			"page/ranking/ranking.html",
+			"page/ranking/talent_show.html"
+		]
+	},
+	"my.html": {
+		"resources": [
+			"js/h.js",
+			"js/mui.min.js",
+			"css/mui.css",
+			"fonts/mui.ttf",
+			"image/qq.png",
+			"js/login.js",
+			"js/jquery.js"
+		],
+		"refer": [
+			"login.html"
+		]
+	},
+	"data_analysis.html": {
+		"resources": [
+			"js/h.js",
+			"js/mui.min.js",
+			"css/mui.css",
+			"js/echarts-all.js"
+		],
+		"refer": [
+			"page/ranking/ranking.html"
+		]
+	},
+	"info.html": {
+		"resources": [
+			"js/h.js",
+			"js/mui.min.js",
+			"css/mui.css",
+			"image/logo.png",
+			"fonts/mui.ttf",
+			"image/share.png"
+		],
+		"refer": []
+	},
+	"page/ranking/info.html": {
+		"resources": [
+			"image/share.png",
+			"fonts/mui.ttf"
+		],
+		"refer": []
+	},
+	"page/ranking/ranking.html": {
+		"refer": [
+			"page/ranking/info.html"
+		],
+		"resources": [
+			"js/h.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.css",
+			"css/appCss/talent.css"
+		]
+	},
+	"rule.html": {
+		"resources": [
+			"js/jquery-1.11.1.min.js",
+			"js/ruler.js",
+			"css/ruler.css"
+		],
+		"refer": []
+	},
+	"login.html": {
+		"resources": [
+			"js/mui.min.js",
+			"js/app/app.js",
+			"css/style.css",
+			"css/mui.css",
+			"js/mui.enterfocus.js",
+			"fonts/mui.ttf",
+			"js/h.js",
+			"css/login.css"
+		],
+		"refer": [
+			"page/login/reg.html"
+		]
+	},
+	"page/ranking/talent_show.html": {
+		"resources": [
+			"image/weixin.png",
+			"js/h.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.css",
+			"image/qq.png",
+			"image/yinshidapei.png",
+			"image/rank/rank1.png",
+			"image/rank/rank3.png",
+			"image/rank/rank2.png",
+			"image/rank/my_banner.png",
+			"css/appCss/talent.css",
+			"image/typical_case.png",
+			"js/jquery.min.js"
+		],
+		"refer": [
+			"page/ranking/ranking.html",
+			"page/ranking/case.html"
+		]
+	},
+	"page/ranking/case.html": {
+		"refer": [
+			"page/ranking/info.html"
+		],
+		"resources": [
+			"js/h.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.css"
+		]
+	},
+	"page/login/reg.html": {
+		"resources": [
+			"js/mui.picker.js",
+			"css/common.css",
+			"js/mui.poppicker.js",
+			"css/styles.css",
+			"css/mui.poppicker.css",
+			"css/mui.picker.css",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.css",
+			"js/jquery.js",
+			"css/login.css",
+			"js/h.js"
+		],
+		"refer": [
+			"page/perfect_information/welcome.html"
+		]
+	},
+	"page/perfect_information/welcome.html": {
+		"resources": [
+			"image/yinshidapei.png",
+			"js/h.js",
+			"js/mui.min.js",
+			"css/mui.css",
+			"image/logo.png"
+		],
+		"refer": [
+			"page/perfect_information/information.html"
+		]
+	},
+	"page/perfect_information/information.html": {
+		"resources": [
+			"image/logo.png",
+			"fonts/mui.ttf",
+			"js/mui.min.js",
+			"css/mui.css",
+			"js/h.js",
+			"js/jquery.js",
+			"js/jquerylabelauty.js",
+			"image/icon/calendar_blue.png",
+			"js/global.js",
+			"js/photo.js",
+			"css/labelauty/jquery-labelauty.css"
+		],
+		"refer": [
+			"page/perfect_information/scale.html"
+		]
+	},
+	"page/perfect_information/scale.html": {
+		"resources": [
+			"image/ruler_height.png",
+			"js/h.js",
+			"js/in01.js",
+			"js/jquery.min.js",
+			"js/mui.min.js",
+			"css/scale.css",
+			"css/mui.css",
+			"image/ruler_weight.png",
+			"css/ion.rangeSlider.css",
+			"js/ion.rangeSlider.js",
+			"js/weight/in01.js",
+			"css/weight/style.css",
+			"js/ion.rangeSlider.min.js",
+			"css/ion.rangeSlider.skinHTML5.css"
+		],
+		"refer": [
+			"page/perfect_information/optional.html",
+			"page/perfect_information/joinNiji.html"
+		]
+	},
+	"page/perfect_information/optional.html": {
+		"refer": [
+			"page/perfect_information/prompt.html"
+		],
+		"resources": [
+			"js/h.js",
+			"js/mui.min.js",
+			"css/mui.css",
+			"js/jquery.js"
+		]
+	},
+	"page/perfect_information/prompt.html": {
+		"resources": [
+			"image/yinshidapei.png",
+			"js/h.js",
+			"js/mui.min.js",
+			"css/mui.css",
+			"js/jquery.js"
+		],
+		"refer": [
+			"my.html",
+			"index.html"
+		]
+	},
+	"page/home/home.html": {
+		"resources": [
+			"image/yinshidapei.png",
+			"js/h.js",
+			"js/mui.min.js",
+			"css/mui.css",
+			"fonts/mui.ttf",
+			"image/product/2.jpg",
+			"image/product/1.jpg",
+			"image/product/3.jpg",
+			"image/product/4.jpg",
+			"image/home/diet_and_health.png",
+			"js/jquery.min.js",
+			"image/home/home_top.png",
+			"image/home/ranking_box.png",
+			"image/home/ranking_join.png",
+			"css/style.css",
+			"js/rem.js",
+			"image/home/sport_common_sense.png",
+			"image/home/weight_loss_plan.png",
+			"css/appCss/home.css",
+			"image/home/experts_question_and_answer.png",
+			"image/home/taobao.png",
+			"image/home/nijiyingyang.png",
+			"image/home/weight_loss_food.png"
+		],
+		"refer": [
+			"page/ranking/talent_show.html",
+			"page/about/about.html",
+			"page/join/welcome.html",
+			"page/my/personal_data.html",
+			"page/home/weight_loss_plan.html",
+			"page/home/weight_loss_food.html",
+			"page/home/nijiyingyang.html",
+			"page/home/niji_monopoly.html",
+			"page/home/experts_question_and_answer.html",
+			"page/home/sport_common_sense.html",
+			"page/home/diet_and_health.html",
+			"page/join/join_nnc.html"
+		]
+	},
+	"page/my/my.html": {
+		"resources": [
+			"js/login.js",
+			"image/qq.png",
+			"js/h.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.css",
+			"js/jquery.js",
+			"image/weixin.png",
+			"image/dietitian/record.png",
+			"image/hend_img.png",
+			"image/dietitian/history.png",
+			"css/appCss/my.css",
+			"image/dietitian/about.png",
+			"image/my_icon/my_banner.png",
+			"image/dietitian/set.png",
+			"image/my_icon/my_head_img1.png",
+			"image/dietitian/info.png",
+			"js/rem.js",
+			"css/style.css"
+		],
+		"refer": [
+			"page/login/login.html",
+			"page/login/update_pwd.html",
+			"page/my/personal_data.html",
+			"page/my/my_history.html",
+			"page/my/my_set.html",
+			"page/about/about.html"
+		]
+	},
+	"page/my_record/my_record.html": {
+		"resources": [
+			"js/in01.js",
+			"js/jquery.min.js",
+			"js/water.js",
+			"image/ruler_weight.png",
+			"js/star-rating.js",
+			"image/jia.png",
+			"css/scale.css",
+			"css/star-rating.css",
+			"js/h.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.css",
+			"js/login.js",
+			"image/icon/diet_guide.png",
+			"image/icon/sport_coaching.png",
+			"image/icon/add.png",
+			"image/icon/calendar_colour.png",
+			"image/icon/calendar.png",
+			"css/layer.css",
+			"image/record/dinner.png",
+			"image/close.png",
+			"image/record/drink.png",
+			"page/my_record/breakfast_info_submit.html",
+			"js/mui.zoom.js",
+			"image/record/comfort.png",
+			"image/record/lunch.png",
+			"image/record/test_paper.png",
+			"js/mui.previewimage.js",
+			"page/my_record/lunch_info_submit.html",
+			"page/my_record/dinner_info_submit.html",
+			"image/record/sport.png",
+			"image/record/breakfast.png",
+			"css/appCss/iframe.css",
+			"image/iconfont-tianjia.png",
+			"image/record/teach_sport.png",
+			"js/app/iframeCom.js",
+			"image/share.png",
+			"js/html2canvas.js",
+			"image/record/teach_food.png",
+			"js/myRecLayer.js",
+			"css/appCss/record.css",
+			"image/record/weight.png",
+			"js/app/my_record.js",
+			"image/icon/calendar_white.png",
+			"css/feedback-page.css",
+			"css/style.css",
+			"js/rem.js",
+			"image/left.png",
+			"image/right.png",
+			"js/weight/myin01.js",
+			"css/weight/style.css",
+			"page/my_record/weight_new.html",
+			"css/ion.rangeSlider.css",
+			"js/ion.rangeSlider.js",
+			"page/my_record/water.html",
+			"css/ion.rangeSlider.skinHTML5.css",
+			"image/test_paper/tong_8.0.png",
+			"image/test_paper/tong_0.5.png",
+			"image/test_paper/tong_1.5.png",
+			"image/test_paper/tong_16.0.png",
+			"image/test_paper/tong_4.0.png",
+			"image/test_paper/tong-yin.png",
+			"page/my_record/testPage.html",
+			"image/record/star-ok.png",
+			"image/record/star-no.png",
+			"page/my_record/star.html",
+			"image/close2.png",
+			"page/my_record/ruler.js",
+			"js/weight/ruler.js"
+		],
+		"refer": [
+			"page/login/login.html",
+			"page/my_record/breakfast_info_submit.html",
+			"page/my_record/lunch_info_submit.html",
+			"page/my_record/dinner_info_submit.html"
+		]
+	},
+	"page/data_analysis/data_analysis.html": {
+		"resources": [
+			"js/echarts-all.js",
+			"js/h.js",
+			"js/mui.min.js",
+			"css/mui.css",
+			"js/jquery.js",
+			"js/login.js",
+			"image/green.png",
+			"js/echarts-all.min.js",
+			"image/share.png",
+			"js/html2canvas.js",
+			"css/style.css",
+			"image/icon/calendar.png",
+			"image/up_red.png",
+			"image/down_green.png"
+		],
+		"refer": []
+	},
+	"page/login/login.html": {
+		"resources": [
+			"css/login.css",
+			"css/style.css",
+			"js/app/app.js",
+			"js/h.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.css",
+			"js/jquery.js",
+			"image/weixin.png",
+			"image/sinaweibo.png",
+			"image/login_logo.png",
+			"image/qq.png"
+		],
+		"refer": [
+			"page/login/reg.html",
+			"page/login/forget_pwd.html",
+			"page/perfect_information/information.html"
+		]
+	},
+	"page/login/update_pwd.html": {
+		"resources": [
+			"css/login.css",
+			"js/h.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.css",
+			"js/jquery.js"
+		],
+		"refer": []
+	},
+	"page/my/personal_data.html": {
+		"resources": [
+			"image/logo.png",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"image/jia.png",
+			"css/mui.css",
+			"css/layer.css",
+			"js/jquerylabelauty.js",
+			"js/layer.js",
+			"image/my_icon/jianzhongjihua_base.png",
+			"js/global.js",
+			"js/photo.js",
+			"image/my_icon/jianzhongjihua_go.png",
+			"page/my/myInfo_weight.html",
+			"page/my/myInfo_height.html",
+			"page/my_record/ruler.js"
+		],
+		"refer": [
+			"page/join/welcome.html",
+			"page/join/join_nnc.html"
+		]
+	},
+	"page/about/about.html": {
+		"resources": [
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.css",
+			"image/qc_card/nnc_public.png",
+			"image/logo1.png",
+			"css/appCss/about.css",
+			"image/qc_card/nnc_upload.png",
+			"image/weChatF.png"
+		],
+		"refer": [
+			"page/about/qr_card.html"
+		]
+	},
+	"page/about/qr_card.html": {
+		"resources": [
+			"image/qrcode.png",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.css"
+		],
+		"refer": []
+	},
+	"page/dietitian/dietitian_main.html": {
+		"resources": [
+			"page/dietitian/dietitian_customer.html",
+			"js/h.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.css",
+			"js/jquery.js",
+			"image/tab_bar_icon/home_gray.png",
+			"js/jquery.min.js",
+			"image/tab_bar_icon/my.png",
+			"image/tab_bar_icon/customer_gray.png",
+			"page/dietitian/dietitian_home.html",
+			"image/tab_bar_icon/customer.png"
+		],
+		"refer": [
+			"page/dietitian/dietitian_customer.html",
+			"page/dietitian/dietitian_my.html",
+			"page/dietitian/dietitian_home.html"
+		]
+	},
+	"page/dietitian/dietitian_customer.html": {
+		"resources": [
+			"js/h.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.css",
+			"image/star.png"
+		],
+		"refer": [
+			"page/dietitian/customer_info.html"
+		]
+	},
+	"page/dietitian/dietitian_my.html": {
+		"resources": [
+			"js/h.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"js/login.js",
+			"css/mui.css",
+			"js/jquery.js",
+			"image/qq.png",
+			"image/logo.png"
+		],
+		"refer": [
+			"page/login/update_pwd.html"
+		]
+	},
+	"page/join/welcome.html": {
+		"resources": [
+			"image/login_logo.png",
+			"css/mui.css"
+		],
+		"refer": [
+			"page/join/optional.html"
+		]
+	},
+	"page/join/optional.html": {
+		"resources": [
+			"css/labelauty/jquery-labelauty1.css",
+			"js/jquerylabelauty.js",
+			"css/labelauty/jquery-labelauty2.css",
+			"css/mui.css",
+			"css/labelauty/jquery-labelauty.css"
+		],
+		"refer": [
+			"page/join/third_party.html"
+		]
+	},
+	"page/join/third_party.html": {
+		"resources": [
+			"css/layer.css",
+			"css/mui.css",
+			"css/labelauty/jquery-labelauty.css",
+			"js/layer.js"
+		],
+		"refer": [
+			"page/join/prompt.html"
+		]
+	},
+	"page/my/my_history.html": {
+		"resources": [
+			"css/mui.css"
+		],
+		"refer": [
+			"page/my/my_history_info.html"
+		]
+	},
+	"page/my/my_history_info.html": {
+		"resources": [
+			"css/mui.css"
+		],
+		"refer": []
+	},
+	"page/my/my_set.html": {
+		"resources": [
+			"css/appCss/my.css",
+			"css/mui.css",
+			"fonts/mui.ttf"
+		],
+		"refer": []
+	},
+	"page/home/weight_loss_plan.html": {
+		"resources": [
+			"css/mui.css"
+		],
+		"refer": []
+	},
+	"page/home/weight_loss_food.html": {
+		"resources": [
+			"css/mui.css",
+			"js/h.js",
+			"js/mui.min.js"
+		],
+		"refer": []
+	},
+	"page/home/sport_common_sense.html": {
+		"resources": [
+			"css/mui.css"
+		],
+		"refer": []
+	},
+	"page/home/niji_monopoly.html": {
+		"resources": [
+			"css/mui.css",
+			"js/h.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf"
+		],
+		"refer": []
+	},
+	"page/home/diet_and_health.html": {
+		"resources": [
+			"css/mui.css",
+			"js/h.js",
+			"js/mui.min.js"
+		],
+		"refer": []
+	},
+	"page/dietitian/dietitian_home.html": {
+		"refer": [
+			"page/home/weight_loss_plan.html",
+			"page/home/weight_loss_food.html",
+			"page/home/nijiyingyang.html",
+			"page/ranking/talent_show.html",
+			"page/home/niji_monopoly.html",
+			"page/home/experts_question_and_answer.html",
+			"page/home/sport_common_sense.html",
+			"page/home/diet_and_health.html"
+		],
+		"resources": [
+			"css/mui.css",
+			"css/appCss/home.css"
+		]
+	},
+	"page/home/nijiyingyang.html": {
+		"resources": [
+			"css/mui.css",
+			"js/h.js",
+			"js/mui.min.js"
+		],
+		"refer": []
+	},
+	"page/perfect_information/joinNiji.html": {
+		"resources": [
+			"css/ion.rangeSlider.css",
+			"css/weight/style.css",
+			"css/ion.rangeSlider.skinHTML5.css",
+			"css/mui.css"
+		],
+		"refer": [
+			"page/join/optional.html",
+			"page/join/join_nnc.html"
+		]
+	},
+	"page/join/prompt.html": {
+		"resources": [
+			"css/mui.css"
+		]
+	},
+	"page/join/join_nnc.html": {
+		"refer": [
+			"page/join/optional.html"
+		],
+		"resources": [
+			"css/mui.css"
+		]
+	},
+	"page/my_record/breakfast_info_submit.html": {
+		"resources": [
+			"js/app/iframeCom.js",
+			"js/h.js",
+			"js/mui.zoom.js",
+			"js/jquery.min.js",
+			"js/mui.min.js",
+			"js/mui.previewimage.js",
+			"css/mui.css"
+		]
+	},
+	"page/dietitian/customer_info.html": {
+		"resources": [
+			"js/h.js",
+			"js/jquery.min.js",
+			"js/mui.min.js",
+			"image/dietitian/weight.png",
+			"fonts/mui.ttf",
+			"css/appCss/customer.css",
+			"css/mui.css",
+			"js/rem.js"
+		],
+		"refer": [
+			"page/dietitian/customer_weight.html",
+			"page/dietitian/customer_record.html"
+		]
+	},
+	"page/dietitian/customer_weight.html": {
+		"resources": [
+			"js/h.js",
+			"js/mui.min.js",
+			"image/down_green.png",
+			"js/login.js",
+			"js/echarts-all.min.js",
+			"css/mui.css",
+			"js/jquery.js"
+		]
+	},
+	"page/dietitian/customer_record.html": {
+		"resources": [
+			"js/h.js",
+			"css/layer.css",
+			"js/mui.zoom.js",
+			"js/jquery.min.js",
+			"js/mui.min.js",
+			"js/login.js",
+			"js/layer.js",
+			"js/mui.previewimage.js",
+			"image/record/updatePwd.png",
+			"css/scale.css",
+			"css/mui.css",
+			"image/close2.png",
+			"image/icon/calendar_white.png"
+		]
+	},
+	"page/home/experts_question_and_answer.html": {
+		"resources": [
+			"js/h.js",
+			"js/mui.min.js",
+			"fonts/mui.ttf",
+			"css/mui.css"
+		]
+	}
+}

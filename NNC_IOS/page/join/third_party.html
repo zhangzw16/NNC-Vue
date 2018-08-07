@@ -1,0 +1,210 @@
+<!doctype html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/labelauty/jquery-labelauty.css" />
+		<link rel="stylesheet" href="../../css/layer.css" />
+	</head>
+	<style>
+		.div-bottom-line{
+			margin-left: 10px;
+			margin-right:10px;
+			border-bottom:1px solid #D1D1D1;
+			height: 50px;
+		}
+		.div-font-niji{
+			margin-left: 10px;
+			float: left;
+			font-size: .8rem;
+			margin-top: 15px;
+		}
+		.div-font{
+			margin-left: 10px;
+			float: left;
+			font-size: 20px;
+			margin-top: 15px;
+		}
+		.div-font3{
+			margin-left: 10px;
+			float: left;
+			font-size: 15px;
+			margin-top: 15px;
+			width: 4rem;
+		}
+		.div-botton2{
+			float: right;
+			margin-top:-8px;
+			margin-right: 30px;
+		}
+		.div-botton3{
+			float: right;
+			margin-top:5px;
+			margin-right: 5px; 
+		}
+		.font-text{
+			float: left;
+			padding-top: 15px;
+			font-size: 20px;
+			margin-left: 15px;
+			color: #999999;
+			overflow:hidden;
+			text-overflow:ellipsis;
+			width: 45%;
+		}
+		@media only screen and (min-width: 100px) and (max-width: 380px) {
+			.font-text{width: 42% !important;}
+		}
+		</style>
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #000;"></a>
+	    <h1 class="mui-title">完善资料&nbsp;&nbsp;2/3</h1>
+	</header>
+	<body>
+		<div class="mui-content" >
+			<div style="margin-top: 30px;width: 100%;height: 50px;background-color: #FFFFFF;">
+				<div style="width: 100%;height: 50px;">
+						<div class="div-font-niji">是否已购买尼基营养缓释多糖</div>
+						<div  class="div-botton3"><input type="radio" name="buy" value="1" checked="checked" data-labelauty="是"></div>
+						<div  class="div-botton3"><input type="radio" name="buy" value="0" data-labelauty="否"></div>
+				</div>
+			</div>
+			<div style="font-size: 15px;padding: 20px;">
+				参加尼基营养减脂计划，需要营养师为您提供专业的营养干预指导服务。
+			</div>
+			<div style="width: 100%;height: 200px;background-color: #FFFFFF;">
+				<div style="font-size: 15px;text-align: center;padding-top: 5px;padding-bottom:5px;border-bottom:1px solid #D1D1D1;">
+					选择联系方式
+				</div>
+				<div style="width: 100%;height: 50px;">
+					<div class="div-bottom-line">
+						<div class="div-font3">手机号</div>
+						<div  class="div-botton3"><input type="radio" name="contact" value="0" checked="checked" data-labelauty="选择" id="contact1"></div>
+						<div id="phone" class="font-text"></div>
+					</div>
+				</div>
+				<div style="width: 100%;height: 50px;">
+					<div class="div-bottom-line">
+						<div class="div-font3">微信</div>
+						<div id="contact2" class="div-botton3"><input type="radio" name="contact" value="1" data-labelauty="选择" ></div>
+						<div id="wx" class="font-text"></div>
+					</div>
+				</div>
+				<div style="width: 100%;height: 50px;">
+					<div class="div-bottom-line">
+						<div class="div-font3">QQ</div>
+						<div id="contact3" class="div-botton3"><input type="radio" name="contact" value="2" data-labelauty="选择" ></div>
+						<div id="qq" class="font-text"></div>
+					</div>
+				</div>
+			</div>
+			<div class="mui-content-padded"  style="margin-top: 10%;">
+				<button id='third_party' class="mui-btn mui-btn-block mui-btn-primary big-button">下一步</button>
+			</div>
+		</div>
+		<script type="text/javascript" src="../../js/jquery.min.js" ></script>
+		<script type="text/javascript" src="../../js/jquerylabelauty.js"></script>
+		<script type="text/javascript" src="../../js/h.js" ></script>
+		<script type="text/javascript" src="../../js/mui.min.js" ></script>
+		<script type="text/javascript" src="../../js/layer.js" ></script> 
+		<script type="text/javascript">
+			var account;
+			$(function(){
+				$(':input').labelauty();
+			});
+			mui.init();
+			mui.plusReady(function(){
+				Internet_connection();
+				var info_phone = localStorage.getItem('info_phone');
+				if($('#contact1').is(':checked')) {
+					h('#phone').html(info_phone);
+				}
+				h('#contact2').tap(function () {
+					var wx_val = h('#wx').html();
+					var html = "<div style='text-align: center;'> 微信号";
+					html+="<input id='wx_value' type='text' value='"+wx_val+"' style='background-color: #E0E0E0;border: 0px ;margin-top: 20px;height:50px;'></input></div>";
+					layerOpen({
+						"title":"&nbsp;&nbsp",
+						"content":html,
+						"btn":["取消","保存"],
+						"style":{
+						"title":"height:5px;background-color: #57C0FF;padding: 10px;border-radius: 8px 8px 0px 0px;",
+						"content":"font-size: 18px;padding: 16px;",
+						"btn":"border-radius: 0px 0px 8px 8px;"
+						},
+						"event":[null,function () {
+							var et=$.trim(h('#wx_value').val());
+							et = filter(et);
+				      		h('#wx').html(et);
+				      		account = et;
+						}]
+					});
+				});
+				h('#contact3').tap(function () {
+					var qq_val = h('#qq').html();
+					var html = "<div style='text-align: center;'> QQ号";
+					html+="<input id='qq_value' type='text' value='"+qq_val+"' style='background-color: #E0E0E0;border: 0px ;margin-top: 20px;height:50px;'></input></div>";
+					layerOpen({
+						"title":"&nbsp;&nbsp",
+						"content":html,
+						"btn":["取消","保存"],
+						"style":{
+						"title":"height:5px;background-color: #57C0FF;padding: 10px;border-radius: 8px 8px 0px 0px;",
+						"content":"font-size: 18px;padding: 16px;",
+						"btn":"border-radius: 0px 0px 8px 8px;"
+						},
+						"event":[null,function () {
+							var et=$.trim(h('#qq_value').val());
+							et = filter(et);
+				      		h('#qq').html(et);
+				      		account = et;
+						}]
+					});
+				});
+				h('#third_party').tap(function () {
+					var join = $("input[name='buy']:checked").val();
+					var contact = $("input[name='contact']:checked").val();
+					if(check() == true){
+						localStorage.setItem('info_join',join+'');
+						localStorage.setItem('info_account',account+'');
+						localStorage.setItem('info_contact',contact+'');
+						mui.openWindow({
+							url : 'prompt.html',
+							id  : 'prompt.html'
+						});
+					}
+				});	
+			});
+			function check(){
+				var qq_val    = $.trim(h('#qq').html());
+				var wx_val    = $.trim(h('#wx').html());
+				var contact = $("input[name='contact']:checked").val();
+				if(contact == 2){
+					if(qq_val == ''){
+						mui.alert('请输入QQ号', '系统提示', function() {
+	                    });
+	                    return false;
+					}else{
+						return true;
+					}
+					
+				}else if(contact == 1){
+					if(wx_val == ''){
+						mui.alert('请输入微信号', '系统提示', function() {
+	                    });
+	                    return false;
+					}else{
+						return true;
+					}
+				}else{//手机方式，
+					return true;
+				}
+			}
+		</script>
+	</body>
+
+</html>

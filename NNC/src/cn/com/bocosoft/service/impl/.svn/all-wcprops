@@ -1,0 +1,29 @@
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/service/impl
+END
+DietitianServiceImp.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/service/impl/DietitianServiceImp.java
+END
+UserInfoServiceImp.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/service/impl/UserInfoServiceImp.java
+END
+SystemUserServiceImp.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/service/impl/SystemUserServiceImp.java
+END
+AppRestfulServiceImp.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/service/impl/AppRestfulServiceImp.java
+END

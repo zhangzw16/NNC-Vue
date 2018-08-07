@@ -1,0 +1,1066 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.bocosoft.dao.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.bocosoft.model.UserInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="third_party_login_id" property="thirdPartyLoginId" jdbcType="INTEGER" />
+    <result column="dietitian_id" property="dietitianId" jdbcType="INTEGER" />
+    <result column="user_login_info_id" property="userLoginInfoId" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="DATE" />
+    <result column="sex" property="sex" jdbcType="INTEGER" />
+    <result column="age" property="age" jdbcType="INTEGER" />
+    <result column="height" property="height" jdbcType="DOUBLE" />
+    <result column="weight" property="weight" jdbcType="DOUBLE" />
+    <result column="ideal_body_weight" property="idealBodyWeight" jdbcType="DOUBLE" />
+    <result column="blood_pressure" property="bloodPressure" jdbcType="INTEGER" />
+    <result column="blood_fat" property="bloodFat" jdbcType="INTEGER" />
+    <result column="blood_sugar" property="bloodSugar" jdbcType="INTEGER" />
+    <result column="blood_uric_acid" property="bloodUricAcid" jdbcType="INTEGER" />
+    <result column="hepatic_adipose_infiltration" property="hepaticAdiposeInfiltration" jdbcType="INTEGER" />
+    <result column="data_start_date" property="dataStartDate" jdbcType="DATE" />
+    <result column="add_flag" property="addFlag" jdbcType="INTEGER" />
+    <result column="start_date" property="startDate" jdbcType="DATE" />
+    <result column="end_date" property="endDate" jdbcType="DATE" />
+    <result column="user_status" property="userStatus" jdbcType="INTEGER" />
+    <result column="look_flag" property="lookFlag" jdbcType="INTEGER" />
+    <result column="top_flag" property="topFlag" jdbcType="INTEGER" />
+    <result column="login_flag" property="loginFlag" jdbcType="INTEGER" />
+    <result column="phase" property="phase" jdbcType="INTEGER" />
+    <result column="vitality" property="vitality" jdbcType="INTEGER" />
+    <result column="login_count" property="loginCount" jdbcType="INTEGER" />
+    <result column="day_count" property="dayCount" jdbcType="INTEGER" />
+    <result column="file_name" property="fileName" jdbcType="VARCHAR" />
+    <result column="file_path" property="filePath" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="buy_flag" property="buyFlag" jdbcType="INTEGER" />
+    <result column="contact_way" property="contactWay" jdbcType="INTEGER" />
+    <result column="agree_flag" property="agreeFlag" jdbcType="INTEGER" />
+    <result column="update_flag" property="updateFlag" jdbcType="INTEGER" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="create_id" property="createId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_id" property="updateId" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, third_party_login_id, dietitian_id, user_login_info_id, name, birthday, sex, 
+    age, height, weight, ideal_body_weight, blood_pressure, blood_fat, blood_sugar, blood_uric_acid, 
+    hepatic_adipose_infiltration, data_start_date, add_flag, start_date, end_date, user_status, 
+    look_flag, top_flag, login_flag, phase, vitality, login_count, day_count, file_name, file_path, 
+    email, account, buy_flag, contact_way, agree_flag, update_flag, note, create_id, create_time, update_id, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.com.bocosoft.model.UserInfo" >
+    insert into user_info (id, third_party_login_id, dietitian_id, 
+      user_login_info_id, name, birthday, 
+      sex, age, height, weight, 
+      ideal_body_weight, blood_pressure, blood_fat, 
+      blood_sugar, blood_uric_acid, hepatic_adipose_infiltration, 
+      data_start_date, add_flag, start_date, 
+      end_date, user_status, look_flag, login_flag,
+      top_flag, phase, vitality, 
+      login_count, day_count, file_name, 
+      file_path, email, account, buy_flag, contact_way, agree_flag, update_flag, note, 
+      create_id, create_time, update_id, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{thirdPartyLoginId,jdbcType=INTEGER}, #{dietitianId,jdbcType=INTEGER}, 
+      #{userLoginInfoId,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{birthday,jdbcType=DATE}, 
+      #{sex,jdbcType=INTEGER}, #{age,jdbcType=INTEGER}, #{height,jdbcType=DOUBLE}, #{weight,jdbcType=DOUBLE}, 
+      #{idealBodyWeight,jdbcType=DOUBLE}, #{bloodPressure,jdbcType=INTEGER}, #{bloodFat,jdbcType=INTEGER}, 
+      #{bloodSugar,jdbcType=INTEGER}, #{bloodUricAcid,jdbcType=INTEGER}, #{hepaticAdiposeInfiltration,jdbcType=INTEGER}, 
+      #{dataStartDate,jdbcType=DATE}, #{addFlag,jdbcType=INTEGER}, #{startDate,jdbcType=DATE}, 
+      #{endDate,jdbcType=DATE}, #{userStatus,jdbcType=INTEGER}, #{lookFlag,jdbcType=INTEGER}, 
+      #{topFlag,jdbcType=INTEGER}, #{loginFlag,jdbcType=INTEGER}, #{phase,jdbcType=INTEGER}, #{vitality,jdbcType=INTEGER}, 
+      #{loginCount,jdbcType=INTEGER}, #{dayCount,jdbcType=INTEGER}, #{fileName,jdbcType=VARCHAR}, 
+      #{filePath,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR},#{account,jdbcType=VARCHAR}, #{buyFlag,jdbcType=INTEGER}, #{contactWay,jdbcType=INTEGER}, 
+      #{agreeFlag,jdbcType=INTEGER},#{updateFlag,jdbcType=INTEGER},#{note,jdbcType=VARCHAR}, 
+      #{createId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateId,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bocosoft.model.UserInfo" >
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="thirdPartyLoginId != null" >
+        third_party_login_id,
+      </if>
+      <if test="dietitianId != null" >
+        dietitian_id,
+      </if>
+      <if test="userLoginInfoId != null" >
+        user_login_info_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="idealBodyWeight != null" >
+        ideal_body_weight,
+      </if>
+      <if test="bloodPressure != null" >
+        blood_pressure,
+      </if>
+      <if test="bloodFat != null" >
+        blood_fat,
+      </if>
+      <if test="bloodSugar != null" >
+        blood_sugar,
+      </if>
+      <if test="bloodUricAcid != null" >
+        blood_uric_acid,
+      </if>
+      <if test="hepaticAdiposeInfiltration != null" >
+        hepatic_adipose_infiltration,
+      </if>
+      <if test="dataStartDate != null" >
+        data_start_date,
+      </if>
+      <if test="addFlag != null" >
+        add_flag,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="userStatus != null" >
+        user_status,
+      </if>
+      <if test="lookFlag != null" >
+        look_flag,
+      </if>
+      <if test="topFlag != null" >
+        top_flag,
+      </if>
+      <if test="loginFlag != null" >
+        login_flag,
+      </if>
+      <if test="phase != null" >
+        phase,
+      </if>
+      <if test="vitality != null" >
+        vitality,
+      </if>
+      <if test="loginCount != null" >
+        login_count,
+      </if>
+      <if test="dayCount != null" >
+        day_count,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="filePath != null" >
+        file_path,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="buyFlag != null" >
+        buy_flag,
+      </if>
+      <if test="contactWay != null" >
+        contact_way,
+      </if>
+      <if test="agreeFlag != null" >
+        agree_flag,
+      </if>
+      <if test="updateFlag != null" >
+        update_flag,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateId != null" >
+        update_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="thirdPartyLoginId != null" >
+        #{thirdPartyLoginId,jdbcType=INTEGER},
+      </if>
+      <if test="dietitianId != null" >
+        #{dietitianId,jdbcType=INTEGER},
+      </if>
+      <if test="userLoginInfoId != null" >
+        #{userLoginInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="idealBodyWeight != null" >
+        #{idealBodyWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="bloodPressure != null" >
+        #{bloodPressure,jdbcType=INTEGER},
+      </if>
+      <if test="bloodFat != null" >
+        #{bloodFat,jdbcType=INTEGER},
+      </if>
+      <if test="bloodSugar != null" >
+        #{bloodSugar,jdbcType=INTEGER},
+      </if>
+      <if test="bloodUricAcid != null" >
+        #{bloodUricAcid,jdbcType=INTEGER},
+      </if>
+      <if test="hepaticAdiposeInfiltration != null" >
+        #{hepaticAdiposeInfiltration,jdbcType=INTEGER},
+      </if>
+      <if test="dataStartDate != null" >
+        #{dataStartDate,jdbcType=DATE},
+      </if>
+      <if test="addFlag != null" >
+        #{addFlag,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=DATE},
+      </if>
+      <if test="userStatus != null" >
+        #{userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lookFlag != null" >
+        #{lookFlag,jdbcType=INTEGER},
+      </if>
+      <if test="topFlag != null" >
+        #{topFlag,jdbcType=INTEGER},
+      </if>
+      <if test="loginFlag != null" >
+        #{loginFlag,jdbcType=INTEGER},
+      </if>
+      <if test="phase != null" >
+        #{phase,jdbcType=INTEGER},
+      </if>
+      <if test="vitality != null" >
+        #{vitality,jdbcType=INTEGER},
+      </if>
+      <if test="loginCount != null" >
+        #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="dayCount != null" >
+        #{dayCount,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="buyFlag != null" >
+        #{buyFlag,jdbcType=INTEGER},
+      </if>
+      <if test="contactWay != null" >
+        #{contactWay,jdbcType=INTEGER},
+      </if>
+      <if test="agreeFlag != null" >
+        #{agreeFlag,jdbcType=INTEGER},
+      </if>
+      <if test="updateFlag != null" >
+        #{updateFlag,jdbcType=INTEGER},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.bocosoft.model.UserInfo" >
+    update user_info
+    <set >
+      <if test="thirdPartyLoginId != null" >
+        third_party_login_id = #{thirdPartyLoginId,jdbcType=INTEGER},
+      </if>
+      <if test="dietitianId != null" >
+        dietitian_id = #{dietitianId,jdbcType=INTEGER},
+      </if>
+      <if test="userLoginInfoId != null" >
+        user_login_info_id = #{userLoginInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="idealBodyWeight != null" >
+        ideal_body_weight = #{idealBodyWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="bloodPressure != null" >
+        blood_pressure = #{bloodPressure,jdbcType=INTEGER},
+      </if>
+      <if test="bloodFat != null" >
+        blood_fat = #{bloodFat,jdbcType=INTEGER},
+      </if>
+      <if test="bloodSugar != null" >
+        blood_sugar = #{bloodSugar,jdbcType=INTEGER},
+      </if>
+      <if test="bloodUricAcid != null" >
+        blood_uric_acid = #{bloodUricAcid,jdbcType=INTEGER},
+      </if>
+      <if test="hepaticAdiposeInfiltration != null" >
+        hepatic_adipose_infiltration = #{hepaticAdiposeInfiltration,jdbcType=INTEGER},
+      </if>
+      <if test="dataStartDate != null" >
+        data_start_date = #{dataStartDate,jdbcType=DATE},
+      </if>
+      <if test="addFlag != null" >
+        add_flag = #{addFlag,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=DATE},
+      </if>
+      <if test="userStatus != null" >
+        user_status = #{userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lookFlag != null" >
+        look_flag = #{lookFlag,jdbcType=INTEGER},
+      </if>
+      <if test="topFlag != null" >
+        top_flag = #{topFlag,jdbcType=INTEGER},
+      </if>
+      <if test="loginFlag != null" >
+        login_flag = #{loginFlag,jdbcType=INTEGER},
+      </if>
+      <if test="phase != null" >
+        phase = #{phase,jdbcType=INTEGER},
+      </if>
+      <if test="vitality != null" >
+        vitality = #{vitality,jdbcType=INTEGER},
+      </if>
+      <if test="loginCount != null" >
+        login_count = #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="dayCount != null" >
+        day_count = #{dayCount,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        file_path = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="buyFlag != null" >
+        buy_flag = #{buyFlag,jdbcType=INTEGER},
+      </if>
+      <if test="contactWay != null" >
+        contact_way = #{contactWay,jdbcType=INTEGER},
+      </if>
+      <if test="agreeFlag != null" >
+        agree_flag = #{agreeFlag,jdbcType=INTEGER},
+      </if>
+      <if test="updateFlag != null" >
+        update_flag = #{updateFlag,jdbcType=INTEGER},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.bocosoft.model.UserInfo" >
+    update user_info
+    set third_party_login_id = #{thirdPartyLoginId,jdbcType=INTEGER},
+      dietitian_id = #{dietitianId,jdbcType=INTEGER},
+      user_login_info_id = #{userLoginInfoId,jdbcType=INTEGER},
+      name = #{name,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=DATE},
+      sex = #{sex,jdbcType=INTEGER},
+      age = #{age,jdbcType=INTEGER},
+      height = #{height,jdbcType=DOUBLE},
+      weight = #{weight,jdbcType=DOUBLE},
+      ideal_body_weight = #{idealBodyWeight,jdbcType=DOUBLE},
+      blood_pressure = #{bloodPressure,jdbcType=INTEGER},
+      blood_fat = #{bloodFat,jdbcType=INTEGER},
+      blood_sugar = #{bloodSugar,jdbcType=INTEGER},
+      blood_uric_acid = #{bloodUricAcid,jdbcType=INTEGER},
+      hepatic_adipose_infiltration = #{hepaticAdiposeInfiltration,jdbcType=INTEGER},
+      data_start_date = #{dataStartDate,jdbcType=DATE},
+      add_flag = #{addFlag,jdbcType=INTEGER},
+      start_date = #{startDate,jdbcType=DATE},
+      end_date = #{endDate,jdbcType=DATE},
+      user_status = #{userStatus,jdbcType=INTEGER},
+      look_flag = #{lookFlag,jdbcType=INTEGER},
+      top_flag = #{topFlag,jdbcType=INTEGER},
+      login_flag = #{loginFlag,jdbcType=INTEGER},
+      phase = #{phase,jdbcType=INTEGER},
+      vitality = #{vitality,jdbcType=INTEGER},
+      login_count = #{loginCount,jdbcType=INTEGER},
+      day_count = #{dayCount,jdbcType=INTEGER},
+      file_name = #{fileName,jdbcType=VARCHAR},
+      file_path = #{filePath,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      account = #{account,jdbcType=VARCHAR},
+      buy_flag = #{buyFlag,jdbcType=INTEGER},
+      contact_way = #{contactWay,jdbcType=INTEGER},
+      agree_flag = #{agreeFlag,jdbcType=INTEGER},
+      update_flag = #{updateFlag,jdbcType=INTEGER},
+      note = #{note,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_id = #{updateId,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="get_users" resultType="java.lang.Integer">
+    SELECT 
+    COUNT(*)
+    FROM
+    user_info AS us
+    WHERE us.dietitian_id = #{dietitianId,jdbcType=INTEGER}
+  </select>
+  <select id="getUserInfosByUserStatus" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_info AS us
+    WHERE us.user_status = #{userStatus,jdbcType=INTEGER}
+    AND us.start_date &gt; 0
+    ORDER BY us.start_date ASC
+  </select>
+  <select id="getUserInfoListByUserStatus" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_info AS us
+    WHERE us.user_status = #{userStatus,jdbcType=INTEGER}
+    ORDER BY us.create_time DESC
+  </select>
+  <select id="getUserInfoByUserLoginId" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_info AS us
+    WHERE us.user_login_info_id = #{userLoginId,jdbcType=INTEGER}
+  </select>
+    <select id="getUserInfoBythirdPartyLoginId" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_info AS us
+    WHERE us.third_party_login_id = #{thirdPartyLoginId,jdbcType=INTEGER}
+  </select>
+  <select id="getUserInfosByUserDietitianId" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_info AS us
+    WHERE us.dietitian_id = #{dietitianId,jdbcType=INTEGER}
+    ORDER BY us.create_time DESC
+  </select>
+  <select id="get_all_users" resultType="java.lang.Integer">
+    SELECT 
+    COUNT(*)
+    FROM
+    user_info AS us
+    WHERE us.id = #{dietitianId,jdbcType=INTEGER}
+  </select>
+  <select id="get_users_by_dietitianId" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_info AS us
+    WHERE us.dietitian_id = ${dietitianId}
+    and us.user_status = ${userStatus}
+    ORDER BY us.top_flag DESC, us.create_time DESC
+  </select>
+  <select id="get_users_by_dietitianId_and_message" resultMap="BaseResultMap">
+    SELECT 
+        us.*
+        FROM
+        user_info AS us
+        WHERE us.dietitian_id = ${dietitianId}
+        and us.user_status = ${userStatus} 
+        and (us.name like '%${message}%' or us.account like '%${message}%')
+        union
+     SELECT 
+        us.*
+        FROM
+        user_info AS us, user_login_info AS uli
+        where uli.login_id like '%${message}%'
+        and us.user_status = ${userStatus}
+        and us.dietitian_id = ${dietitianId}
+        and us.user_login_info_id = uli.id
+  </select>
+  <select id="getUserInfoListByUserStatusAndMessage" resultMap="BaseResultMap">
+    SELECT 
+        us.*
+        FROM
+        user_info AS us
+        WHERE us.user_status = ${userStatus}
+        and (us.name like '%${message}%' or us.account like '%${message}%')
+      union
+    SELECT 
+        us.*
+        FROM
+        user_info AS us, user_login_info AS uli
+        where uli.login_id like '%${message}%'
+        and us.user_status = ${userStatus}
+        and us.user_login_info_id = uli.id
+  </select>
+  <select id="getUserInfosByUserDietitianIdAndMessage" resultMap="BaseResultMap">
+    SELECT 
+        us.*
+        FROM
+        user_info AS us
+        WHERE us.dietitian_id = ${dietitianId}
+        and (us.name like '%${message}%' or us.account like '%${message}%')
+      union
+    SELECT 
+        us.*
+        FROM
+        user_info AS us, user_login_info AS uli
+        where uli.login_id like '%${message}%'
+        and us.dietitian_id = ${dietitianId}
+        and us.user_login_info_id = uli.id
+  </select>
+  <select id="getAllUserByMessage" resultMap="BaseResultMap">
+    SELECT 
+        us.*
+        FROM
+        user_info AS us
+        where (us.name like '%${message}%' or us.account like '%${message}%')
+      union
+    SELECT 
+        us.*
+        FROM
+        user_info AS us, user_login_info AS uli
+        where uli.login_id like '%${message}%'
+        and us.user_login_info_id = uli.id
+  </select>
+  <select id="getAllUser" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_info
+    ORDER BY user_info.start_date ASC
+  </select>
+  <select id="getAllUserList" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_info
+    ORDER BY user_info.create_time DESC
+  </select>
+  <insert id="saveUserInfo" parameterType="cn.com.bocosoft.model.UserInfo" >
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="thirdPartyLoginId != null" >
+        third_party_login_id,
+      </if>
+      <if test="dietitianId != null" >
+        dietitian_id,
+      </if>
+      <if test="userLoginInfoId != null" >
+        user_login_info_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="age != null" >
+        age,
+      </if>
+      <if test="height != null" >
+        height,
+      </if>
+      <if test="weight != null" >
+        weight,
+      </if>
+      <if test="idealBodyWeight != null" >
+        ideal_body_weight,
+      </if>
+      <if test="bloodPressure != null" >
+        blood_pressure,
+      </if>
+      <if test="bloodFat != null" >
+        blood_fat,
+      </if>
+      <if test="bloodSugar != null" >
+        blood_sugar,
+      </if>
+      <if test="bloodUricAcid != null" >
+        blood_uric_acid,
+      </if>
+      <if test="hepaticAdiposeInfiltration != null" >
+        hepatic_adipose_infiltration,
+      </if>
+      <if test="dataStartDate != null" >
+        data_start_date,
+      </if>
+      <if test="addFlag != null" >
+        add_flag,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="userStatus != null" >
+        user_status,
+      </if>
+      <if test="lookFlag != null" >
+        look_flag,
+      </if>
+      <if test="topFlag != null" >
+        top_flag,
+      </if>
+      <if test="loginFlag != null" >
+        login_flag,
+      </if>
+      <if test="phase != null" >
+        phase,
+      </if>
+      <if test="vitality != null" >
+        vitality,
+      </if>
+      <if test="loginCount != null" >
+        login_count,
+      </if>
+      <if test="dayCount != null" >
+        day_count,
+      </if>
+      <if test="fileName != null" >
+        file_name,
+      </if>
+      <if test="filePath != null" >
+        file_path,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="buyFlag != null" >
+        buy_flag,
+      </if>
+      <if test="contactWay != null" >
+        contact_way,
+      </if>
+      <if test="agreeFlag != null" >
+        agree_flag,
+      </if>
+      <if test="updateFlag != null" >
+        update_flag,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateId != null" >
+        update_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+      <if test="createId == null" >
+        create_id,
+      </if>
+      <if test="createTime == null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="thirdPartyLoginId != null" >
+        #{thirdPartyLoginId,jdbcType=INTEGER},
+      </if>
+      <if test="dietitianId != null" >
+        #{dietitianId,jdbcType=INTEGER},
+      </if>
+      <if test="userLoginInfoId != null" >
+        #{userLoginInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=DATE},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null" >
+        #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="idealBodyWeight != null" >
+        #{idealBodyWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="bloodPressure != null" >
+        #{bloodPressure,jdbcType=INTEGER},
+      </if>
+      <if test="bloodFat != null" >
+        #{bloodFat,jdbcType=INTEGER},
+      </if>
+      <if test="bloodSugar != null" >
+        #{bloodSugar,jdbcType=INTEGER},
+      </if>
+      <if test="bloodUricAcid != null" >
+        #{bloodUricAcid,jdbcType=INTEGER},
+      </if>
+      <if test="hepaticAdiposeInfiltration != null" >
+        #{hepaticAdiposeInfiltration,jdbcType=INTEGER},
+      </if>
+      <if test="dataStartDate != null" >
+        #{dataStartDate,jdbcType=DATE},
+      </if>
+      <if test="addFlag != null" >
+        #{addFlag,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=DATE},
+      </if>
+      <if test="userStatus != null" >
+        #{userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lookFlag != null" >
+        #{lookFlag,jdbcType=INTEGER},
+      </if>
+      <if test="topFlag != null" >
+        #{topFlag,jdbcType=INTEGER},
+      </if>
+      <if test="loginFlag != null" >
+        #{loginFlag,jdbcType=INTEGER},
+      </if>
+      <if test="phase != null" >
+        #{phase,jdbcType=INTEGER},
+      </if>
+      <if test="vitality != null" >
+        #{vitality,jdbcType=INTEGER},
+      </if>
+      <if test="loginCount != null" >
+        #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="dayCount != null" >
+        #{dayCount,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null" >
+        #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="buyFlag != null" >
+        #{buyFlag,jdbcType=INTEGER},
+      </if>
+      <if test="contactWay != null" >
+        #{contactWay,jdbcType=INTEGER},
+      </if>
+      <if test="agreeFlag != null" >
+        #{agreeFlag,jdbcType=INTEGER},
+      </if>
+      <if test="updateFlag != null" >
+        #{updateFlag,jdbcType=INTEGER},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId == null" >
+        1,
+      </if>
+      <if test="createTime == null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="update_user_info" parameterType="cn.com.bocosoft.model.UserInfo" >
+    update user_info
+    <set >
+      <if test="thirdPartyLoginId != null" >
+        third_party_login_id = #{thirdPartyLoginId,jdbcType=INTEGER},
+      </if>
+      <if test="thirdPartyLoginId == null" >
+        third_party_login_id = null,
+      </if>
+      <if test="dietitianId != null" >
+        dietitian_id = #{dietitianId,jdbcType=INTEGER},
+      </if>
+      <if test="dietitianId == null" >
+        dietitian_id = null,
+      </if>
+      <if test="userLoginInfoId != null" >
+        user_login_info_id = #{userLoginInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="userLoginInfoId == null" >
+        user_login_info_id = null,
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=DATE},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=INTEGER},
+      </if>
+      <if test="age != null" >
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="height != null" >
+        height = #{height,jdbcType=DOUBLE},
+      </if>
+      <if test="weight != null" >
+        weight = #{weight,jdbcType=DOUBLE},
+      </if>
+      <if test="idealBodyWeight != null" >
+        ideal_body_weight = #{idealBodyWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="bloodPressure != null" >
+        blood_pressure = #{bloodPressure,jdbcType=INTEGER},
+      </if>
+      <if test="bloodFat != null" >
+        blood_fat = #{bloodFat,jdbcType=INTEGER},
+      </if>
+      <if test="bloodSugar != null" >
+        blood_sugar = #{bloodSugar,jdbcType=INTEGER},
+      </if>
+      <if test="bloodUricAcid != null" >
+        blood_uric_acid = #{bloodUricAcid,jdbcType=INTEGER},
+      </if>
+      <if test="hepaticAdiposeInfiltration != null" >
+        hepatic_adipose_infiltration = #{hepaticAdiposeInfiltration,jdbcType=INTEGER},
+      </if>
+      <if test="dataStartDate != null" >
+        data_start_date = #{dataStartDate,jdbcType=DATE},
+      </if>
+      <if test="addFlag != null" >
+        add_flag = #{addFlag,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=DATE},
+      </if>
+      <if test="startDate == null" >
+        start_date = null,
+      </if>
+      <if test="endDate == null" >
+        end_date = null,
+      </if>
+      <if test="userStatus != null" >
+        user_status = #{userStatus,jdbcType=INTEGER},
+      </if>
+      <if test="lookFlag != null" >
+        look_flag = #{lookFlag,jdbcType=INTEGER},
+      </if>
+      <if test="topFlag != null" >
+        top_flag = #{topFlag,jdbcType=INTEGER},
+      </if>
+      <if test="phase != null" >
+        phase = #{phase,jdbcType=INTEGER},
+      </if>
+      <if test="loginFlag != null" >
+        login_flag = #{loginFlag,jdbcType=INTEGER},
+      </if>
+      <if test="vitality != null" >
+        vitality = #{vitality,jdbcType=INTEGER},
+      </if>
+      <if test="loginCount != null" >
+        login_count = #{loginCount,jdbcType=INTEGER},
+      </if>
+      <if test="dayCount != null" >
+        day_count = #{dayCount,jdbcType=INTEGER},
+      </if>
+      <if test="fileName != null" >
+        file_name = #{fileName,jdbcType=VARCHAR},
+      </if>
+      <if test="filePath != null" >
+        file_path = #{filePath,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="buyFlag != null" >
+        buy_flag = #{buyFlag,jdbcType=INTEGER},
+      </if>
+      <if test="contactWay != null" >
+        contact_way = #{contactWay,jdbcType=INTEGER},
+      </if>
+      <if test="agreeFlag != null" >
+        agree_flag = #{agreeFlag,jdbcType=INTEGER},
+      </if>
+      <if test="updateFlag != null" >
+        update_flag = #{updateFlag,jdbcType=INTEGER},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = now(),
+      </if>
+      <if test="updateId == null" >
+        update_id = 1,
+      </if>
+      <if test="updateTime == null" >
+        update_time = now(),
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

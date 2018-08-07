@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.bocosoft.dao.DietPhaseInfoMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.bocosoft.model.DietPhaseInfo" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_info_id" property="userInfoId" jdbcType="INTEGER" />
+    <result column="phase_count" property="phaseCount" jdbcType="INTEGER" />
+    <result column="start_weight" property="startWeight" jdbcType="DOUBLE" />
+    <result column="end_weight" property="endWeight" jdbcType="DOUBLE" />
+    <result column="dietitian_name" property="dietitianName" jdbcType="VARCHAR" />
+    <result column="alarm_flag" property="alarmFlag" jdbcType="INTEGER" />
+    <result column="start_date" property="startDate" jdbcType="DATE" />
+    <result column="end_date" property="endDate" jdbcType="DATE" />
+    <result column="transition_start_date" property="transitionStartDate" jdbcType="DATE" />
+    <result column="transition_end_date" property="transitionEndDate" jdbcType="DATE" />
+    <result column="create_id" property="createId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, user_info_id, phase_count, start_weight, end_weight, dietitian_name, alarm_flag, start_date, 
+    end_date, transition_start_date, transition_end_date, create_id, create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from diet_phase_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from diet_phase_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.com.bocosoft.model.DietPhaseInfo" >
+    insert into diet_phase_info (id, user_info_id, phase_count, 
+      start_weight, end_weight, dietitian_name, alarm_flag,
+      start_date, end_date, transition_start_date, 
+      transition_end_date, create_id, create_time
+      )
+    values (#{id,jdbcType=INTEGER}, #{userInfoId,jdbcType=INTEGER}, #{phaseCount,jdbcType=INTEGER}, 
+      #{startWeight,jdbcType=DOUBLE}, #{endWeight,jdbcType=DOUBLE}, #{dietitianName,jdbcType=VARCHAR}, #{alarmFlag,jdbcType=INTEGER},
+      #{startDate,jdbcType=DATE}, #{endDate,jdbcType=DATE}, #{transitionStartDate,jdbcType=DATE}, 
+      #{transitionEndDate,jdbcType=DATE}, #{createId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bocosoft.model.DietPhaseInfo" >
+    insert into diet_phase_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="userInfoId != null" >
+        user_info_id,
+      </if>
+      <if test="phaseCount != null" >
+        phase_count,
+      </if>
+      <if test="startWeight != null" >
+        start_weight,
+      </if>
+      <if test="endWeight != null" >
+        end_weight,
+      </if>
+      <if test="dietitianName != null" >
+        dietitian_name,
+      </if>
+      <if test="alarmFlag != null" >
+        alarm_flag,
+      </if>
+      <if test="startDate != null" >
+        start_date,
+      </if>
+      <if test="endDate != null" >
+        end_date,
+      </if>
+      <if test="transitionStartDate != null" >
+        transition_start_date,
+      </if>
+      <if test="transitionEndDate != null" >
+        transition_end_date,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createId == null" >
+        create_id,
+      </if>
+      <if test="createTime == null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="userInfoId != null" >
+        #{userInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="phaseCount != null" >
+        #{phaseCount,jdbcType=INTEGER},
+      </if>
+      <if test="startWeight != null" >
+        #{startWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="endWeight != null" >
+        #{endWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="dietitianName != null" >
+        #{dietitianName,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmFlag != null" >
+        #{alarmFlag,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        #{endDate,jdbcType=DATE},
+      </if>
+      <if test="transitionStartDate != null" >
+        #{transitionStartDate,jdbcType=DATE},
+      </if>
+      <if test="transitionEndDate != null" >
+        #{transitionEndDate,jdbcType=DATE},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createId == null" >
+        1,
+      </if>
+      <if test="createTime == null" >
+        now(),
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.bocosoft.model.DietPhaseInfo" >
+    update diet_phase_info
+    <set >
+      <if test="userInfoId != null" >
+        user_info_id = #{userInfoId,jdbcType=INTEGER},
+      </if>
+      <if test="phaseCount != null" >
+        phase_count = #{phaseCount,jdbcType=INTEGER},
+      </if>
+      <if test="startWeight != null" >
+        start_weight = #{startWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="endWeight != null" >
+        end_weight = #{endWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="dietitianName != null" >
+        dietitian_name = #{dietitianName,jdbcType=VARCHAR},
+      </if>
+      <if test="alarmFlag != null" >
+        alarm_flag = #{alarmFlag,jdbcType=INTEGER},
+      </if>
+      <if test="startDate != null" >
+        start_date = #{startDate,jdbcType=DATE},
+      </if>
+      <if test="endDate != null" >
+        end_date = #{endDate,jdbcType=DATE},
+      </if>
+      <if test="transitionStartDate != null" >
+        transition_start_date = #{transitionStartDate,jdbcType=DATE},
+      </if>
+      <if test="transitionEndDate != null" >
+        transition_end_date = #{transitionEndDate,jdbcType=DATE},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.bocosoft.model.DietPhaseInfo" >
+    update diet_phase_info
+    set user_info_id = #{userInfoId,jdbcType=INTEGER},
+      phase_count = #{phaseCount,jdbcType=INTEGER},
+      start_weight = #{startWeight,jdbcType=DOUBLE},
+      end_weight = #{endWeight,jdbcType=DOUBLE},
+      dietitian_name = #{dietitianName,jdbcType=VARCHAR},
+      alarm_flag = #{alarmFlag,jdbcType=INTEGER},
+      start_date = #{startDate,jdbcType=DATE},
+      end_date = #{endDate,jdbcType=DATE},
+      transition_start_date = #{transitionStartDate,jdbcType=DATE},
+      transition_end_date = #{transitionEndDate,jdbcType=DATE},
+      create_id = #{createId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="findDietPhaseInfo" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from diet_phase_info
+    where diet_phase_info.user_info_id = ${userInfoId}
+    and diet_phase_info.phase_count = ${phase}
+  </select>
+  <select id="findDietPhaseInfoList" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from diet_phase_info
+    where diet_phase_info.user_info_id = ${userInfoId}
+  </select>
+  <select id="findAlldietPhaseInfo" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from diet_phase_info
+    where diet_phase_info.user_info_id = ${userInfoId}
+    and diet_phase_info.phase_count &lt; ${phase}
+  </select>
+</mapper>

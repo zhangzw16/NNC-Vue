@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="css/mui.css" rel="stylesheet"/>
+</head>
+<body>
+	<nav class="mui-bar mui-bar-tab" id="tabBar" >
+		<a class="mui-tab-item mui-active" id="home"> 
+			<div class="mui-icon" style="">
+				<img id="home_img" src="image/tab_bar_icon/home.png" style="width: 20px;" />
+			</div>
+			<span class="mui-tab-label">尼基营养</span>
+		</a>
+		<a class="mui-tab-item" id="my_record">
+			<div class="mui-icon">
+				<img id="my_record_img" src="image/tab_bar_icon/my_record_gray.png" style="width: 20px;margin-top: 2.4px;" />
+				<span class="mui-badge" id="showMessage">&nbsp;</span>
+			</div>
+			<span class="mui-tab-label">我的记录</span>
+		</a>
+		<a class="mui-tab-item" id="data_analysis">
+			<div class="mui-icon">
+				<img id="data_analysis_img" src="image/tab_bar_icon/data_analysis_gray.png" style="width: 20px;margin-top: 2.4px;" />
+			</div>
+			<span class="mui-tab-label" >数据分析</span>
+		</a>
+		<a class="mui-tab-item" id="my">
+			<div class="mui-icon">
+				<img id="my_img" src="image/tab_bar_icon/my_gray.png" style="width: 20px;" />
+			</div>
+			<span class="mui-tab-label">我的信息</span>
+		</a>
+	</nav>
+	<script src="js/mui.min.js"></script>
+	<script src="js/h.js"></script>
+	<script type="text/javascript" src="js/login.js" ></script>
+	<script type="text/javascript" src="js/jquery.js" ></script>
+    <script type="text/javascript" charset="utf-8">
+		mui.init({
+			subpages : [
+			    {
+			        url : 'page/home/home.html',
+			        id  : 'home.html',
+			        styles : {
+			            bottom : '51px',
+			            width  : "100%"
+			        }
+			    },
+			    {
+			        url : 'page/my_record/my_record.html',
+			        id  : 'my_record.html',
+			        styles : {
+			            left   : '100%',
+			            bottom : '51px',
+			            width  : "100%"
+			        }
+			    },
+			    {
+			        url : 'page/data_analysis/data_analysis.html',
+			        id  : 'data_analysis.html',
+			        styles : {
+			            left   : '200%',
+			            bottom : '51px',
+			            width  : "100%"
+			        }
+			    },
+			    {
+			        url : 'page/my/my.html',
+			        id  : 'my.html',
+			        styles : {
+			            left   : '300%',
+			            bottom : '51px',
+			            width  : "100%"
+			        }
+			    }
+			]
+		});
+		mui.plusReady(function(){
+			//网络连接验证
+			Internet_connection();
+			isLogin();
+			h('#showMessage').hide();
+			h('#home').tap(function(){
+	  			changSub(1);
+			});
+			h('#my_record').tap(function(){
+				showMessageHide();
+				changSub(2);
+			});
+			h('#data_analysis').tap(function(){
+				changSub(3);
+			});
+			h('#my').tap(function(){
+				var sub4 = plus.webview.getWebviewById('my.html');
+				sub4.evalJS('toLogin();');
+				changSub(4);
+			});
+		});
+		function changSub(index){
+			var sub1 = plus.webview.getWebviewById('home.html');
+			var sub2 = plus.webview.getWebviewById('my_record.html');
+			var sub3 = plus.webview.getWebviewById('data_analysis.html');
+			var sub4 = plus.webview.getWebviewById('my.html');
+			if(index==1){
+				$('#home_img').attr('src','image/tab_bar_icon/home.png');
+				$('#my_record_img').attr('src','image/tab_bar_icon/my_record_gray.png');
+				$('#data_analysis_img').attr('src','image/tab_bar_icon/data_analysis_gray.png');
+				$('#my_img').attr('src','image/tab_bar_icon/my_gray.png');
+				sub1.evalJS("getNum();");
+				lookMassgaeIsHave();
+			}else if(index==2){
+				$('#home_img').attr('src','image/tab_bar_icon/home_gray.png');
+				$('#my_record_img').attr('src','image/tab_bar_icon/my_record.png');
+				$('#data_analysis_img').attr('src','image/tab_bar_icon/data_analysis_gray.png');
+				$('#my_img').attr('src','image/tab_bar_icon/my_gray.png');
+			}else if(index==3){
+				$('#home_img').attr('src','image/tab_bar_icon/home_gray.png');
+				$('#my_record_img').attr('src','image/tab_bar_icon/my_record_gray.png');
+				$('#data_analysis_img').attr('src','image/tab_bar_icon/data_analysis.png');
+				$('#my_img').attr('src','image/tab_bar_icon/my_gray.png');
+				lookMassgaeIsHave();
+			}else{
+				$('#home_img').attr('src','image/tab_bar_icon/home_gray.png');
+				$('#my_record_img').attr('src','image/tab_bar_icon/my_record_gray.png');
+				$('#data_analysis_img').attr('src','image/tab_bar_icon/data_analysis_gray.png');
+				$('#my_img').attr('src','image/tab_bar_icon/my.png');
+				lookMassgaeIsHave();
+			}
+			sub1.setStyle({left: (index - 1) * 100 + "%"});
+			sub2.setStyle({left: (2 - index) * 100 + "%"});
+			sub3.setStyle({left: (3 - index) * 100 + "%"});
+			sub4.setStyle({left: (4 - index) * 100 + "%"});
+		}
+		//修改小红点状态
+		function showMessageHide(){
+			var uid = localStorage.getItem('NNC_userInfoId');
+			var role = localStorage.getItem('role');
+			if(uid != null){
+				if(role != '2'){
+					$.ajax({
+						type : "POST",
+						data : {'userInfoId':uid},
+						url  : URL+'app_rest_ful/update_user_data_comments_read',
+						dataType : 'json',
+						success : function(msg){
+							if(msg.success == true){
+								$("#showMessage").hide();
+							}
+						}
+					});
+				}
+			}
+		}
+		//判断登录状态和登录身份
+		function isLogin(){
+			var uid = localStorage.getItem('NNC_userInfoId');
+			var duid = localStorage.getItem('NNC_dietPhaseInfoId');
+			if(uid == null){//判断为空，未登录
+				if(duid == null || duid == '' ){
+					mui.openWindow({
+						url : 'page/login/login.html',//营养师界面
+						id  : 'login.html'
+					});
+				}else{
+					mui.openWindow({
+						url : 'page/dietitian/dietitian_main.html',//营养师界面
+						id  : 'dietitian_main.html'
+					});
+				}
+			}else{
+				$.ajax({
+	  				type : "POST",
+	  				data : {'userInfoId':uid},
+	  				url  : URL+'app_rest_ful/select_login_type',
+	  				dataType : 'json',
+	  				success : function(msg){
+	  					if(msg.success!=true){//需重新登录，清除缓存
+	  						localStorage.removeItem('NNC_userInfoId');
+							localStorage.removeItem('NNC_uid');
+							localStorage.removeItem('history_flag');
+							localStorage.removeItem('pwflag');
+							localStorage.removeItem('role');
+							var data_analysis = plus.webview.getWebviewById('data_analysis.html');
+							data_analysis.evalJS("isLogin();location.reload();");
+							var my = plus.webview.getWebviewById('my.html');
+							my.evalJS("isLogin();location.reload();");
+							var my_record = plus.webview.getWebviewById('my_record.html');
+							my_record.evalJS("isLogin();");
+							var index=plus.webview.getLaunchWebview();
+							plus.webview.show(index);
+							index.evalJS("changSub(1);isLogin(); h('#tabBar').find('a').removeClass('mui-active'); h('#home').addClass('mui-active');");
+	  						if(msg.message == '102'){
+  								mui.alert('您的手机账号无法登录,详情请在关于模块拨打电话咨询客服', '系统提示', function() {
+									return false;
+							    });
+	  						}
+	  					}else{
+	  						lookMassgaeIsHave();
+	  					}
+	  				}
+	  			});
+			}
+		}
+		
+		function lookMassgaeIsHave(){
+			var uid = localStorage.getItem('NNC_userInfoId');
+			//检查营养师是否填写饮食指导
+			var role = localStorage.getItem('role');
+			if(role != '2'){
+				$.ajax({
+	  				type : "POST",
+	  				data : {'userInfoId':uid},
+	  				url  : URL+'app_rest_ful/find_user_data_comments_read',
+	  				dataType : 'json',
+	  				success : function(msg){
+	  					if(msg.success == true){
+	  						$("#showMessage").show();
+	  					}else{
+	  						$("#showMessage").hide();
+	  					}
+	  					
+	  				}
+	  			});
+			}
+		}
+    </script>
+</body>
+</html>

@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="../../css/mui.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/appCss/my.css" />
+</head>
+
+<body>
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color : #000;"></a>
+	    <h1 class="mui-title">设置</h1>
+	</header>
+	<div class="mui-content" >
+		<ul class="my-set-list">
+			<li>
+				<span>不允许其他人看我的饮食记录</span>
+				<div class="set-switch">
+					<div id="Gallery_Toggle" class="mui-switch mui-switch-green ">
+						<div class="mui-switch-handle"></div>
+					</div>
+				</div>
+				
+			</li>
+			<li id="select_version"><span><span class="mui-badge" style="background-color: red;" id="showVersion">&nbsp;</span>检查新版本</span></li>
+		</ul>
+		<div id="logoff" class="logoff"><span>退出登录</span></div>
+	</div>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/h.js"></script>
+	<script type="text/javascript" src="../../js/login.js" ></script>
+	<script type="text/javascript" src="../../js/jquery.js" ></script>
+    <script type="text/javascript">
+    	var phoneNumber;
+    	mui.init();
+		mui.plusReady(function(){
+			Internet_connection();
+			window.addEventListener('refresh', function(e){//执行刷新
+			    location.reload(); 
+			});
+			var uid=localStorage.getItem('NNC_userInfoId');
+			$.ajax({
+  				type : "POST",
+  				data : {'userInfoId':uid},
+  				url  : URL+'app_rest_ful/find_userinfo_lookFlag',
+  				dataType : 'json',
+  				success : function(msg){
+  					if(msg.data.lookFlag==0){
+  						$(".set-switch .mui-switch-green").addClass("mui-active");
+  					}else{
+  						$(".set-switch .mui-switch-green").removeClass("mui-active");
+  					}
+  				}
+  			});
+			$("#showVersion").hide();
+			//检查版本
+			var verson = '1.0';//每次打新App包都需要更新此页面的版本号
+			$.ajax({
+				type : "POST",
+				url  : URL+'app_rest_ful/select_version',
+				dataType : 'json',
+				success : function(msg){
+					if(msg.data == verson){
+						console.log("当前是最新版本");
+					}else{
+						$("#showVersion").show();
+					}
+				}
+			});
+			h('#select_version').tap(function(){
+				$.ajax({
+	  				type : "POST",
+	  				url  : URL+'app_rest_ful/select_version',
+	  				dataType : 'json',
+	  				success : function(msg){
+	  					if(msg.data == verson){
+	  						mui.toast("当前是最新版本");
+	  					}else{
+	  						mui.confirm('是否安装新版本','提示',new Array('取消','确定'),function(e){
+								if(e.index == 1){
+									$.ajax({
+						  				type : "POST",
+						  				url  : URL+'app_rest_ful/get_new_version_apk',
+						  				dataType : 'json',
+						  				success : function(msg){
+						  					var version_src = msg.data;
+						  					console.log(version_src);
+						  					var dtask = plus.downloader.createDownload(
+												version_src,
+												{method:"GET"},
+												function(d, status){
+													if(status == 200){
+														mui.toast('新版本下载成功，开始安装');
+														plus.runtime.install(d.filename);
+													}
+												}
+											);
+											dtask.start();
+						  				}
+						  			});
+						  		}
+					  		});
+	  					}
+	  				}
+	  			});
+			});
+			h('#logoff').tap(function(){
+				uid = localStorage.getItem('NNC_userInfoId');
+				$.ajax({
+	  				type : "POST",
+	  				data : {'userInfoId':uid},
+	  				url  : URL+'app_rest_ful/select_userInfo',
+	  				dataType : 'json',
+	  				success : function(msg){
+	  					if(msg.data.loginFlag !='1'){//第三方登录
+      						if(msg.data.userLoginInfoId != null){//是否绑定过手机号
+      							$.ajax({
+				      				type : "POST",
+				      				data : {'userLoginId': msg.data.userLoginInfoId},
+				      				url  : URL+'app_rest_ful/select_userLogin',
+				      				dataType : 'json',
+				      				success : function(msg){
+				      					if(msg.data.loginFlag == '1'){//已绑定手机号
+				      						var actionbuttons = [{title : "确认退出"}, {title : "解除绑定"}];
+											var actionstyle   = {cancel : "取消", buttons : actionbuttons};
+											plus.nativeUI.actionSheet(actionstyle, function(e){//调用分享弹框方法
+												if(e.index){unbundling(e.index);}//调用退出方法
+											});
+				      					}else{
+				      						phoneNumber = msg.data.loginId
+				      						var actionbuttons = [{title : "确认退出"}, {title : "绑定手机号"}];
+											var actionstyle   = {cancel : "取消", buttons : actionbuttons};
+											plus.nativeUI.actionSheet(actionstyle, function(e){//调用分享弹框方法
+												if(e.index){binding(e.index);}//调用退出方法
+											});
+				      					}
+				      				}
+				      			});
+      						}else{
+      							var actionbuttons = [{title : "确认退出"}, {title : "绑定手机号"}];
+								var actionstyle   = {cancel : "取消", buttons : actionbuttons};
+								plus.nativeUI.actionSheet(actionstyle, function(e){//调用分享弹框方法
+									if(e.index){binding(e.index);}//调用退出方法
+								});
+      						}
+      					}else{//手机号登录，直接退出
+      						logOff();
+      					}
+	  				},
+	  				error : function(e){
+	  					logOff();
+	  				}
+	  			});
+			});
+			document.getElementById('Gallery_Toggle').addEventListener('toggle', function(e) {
+				var loop = e.detail.isActive;
+				if (loop) {
+					console.log('ok');
+					$.ajax({
+		  				type : "POST",
+		  				data : {'userInfoId':uid,'lookFlag':0},
+		  				url  : URL+'app_rest_ful/set_user_look_flag',
+		  				dataType : 'json',
+		  				success : function(msg){
+		  					if(msg.success==true){
+		  						mui.toast('修改成功');
+		  					}
+		  				}
+		  			});
+				}else{
+					$.ajax({
+		  				type : "POST",
+		  				data : {'userInfoId':uid,'lookFlag':1},
+		  				url  : URL+'app_rest_ful/set_user_look_flag',
+		  				dataType : 'json',
+		  				success : function(msg){
+		  					if(msg.success==true){
+		  						mui.toast('修改成功');
+		  					}
+		  				}
+		  			});
+				}
+			});
+		});
+		function unbundling(type){
+			if(type == 1){
+				logOff();
+			}
+			if(type == 2){
+				mui.confirm('是否解除绑定账号？','提示',new Array('取消','确定退出'),function(e){
+				if(e.index == 1){
+					//解除绑定方法
+					var uid=localStorage.getItem('NNC_userInfoId');
+					$.ajax({
+		  				type : "POST",
+		  				data : {'userInfoId':uid},
+		  				url  : URL+'app_rest_ful/remove_binding_phone',
+		  				dataType : 'json',
+		  				success : function(msg){
+		  					if(msg.success==true){
+		  						mui.toast('解除绑定成功');
+		  					}
+		  				}
+		  			});
+				}
+			});
+			}
+		}
+		function binding(type){
+			if(type == 1){
+				logOff();
+			}
+			if(type == 2){
+				localStorage.setItem("phone_number",phoneNumber+'');
+				mui.openWindow({
+					url : '../../page/login/binding.html',
+					id  : 'binding.html'
+				});
+			}
+		}
+		function logOff(){
+			mui.confirm('是否退出当前账号？','提示',new Array('取消','确定退出'),function(e){
+				if(e.index == 1){
+					localStorage.removeItem('NNC_userInfoId');
+					localStorage.removeItem('NNC_uid');
+					localStorage.removeItem('history_flag');
+					localStorage.removeItem('pwflag');
+					localStorage.removeItem('role');
+					var data_analysis = plus.webview.getWebviewById('data_analysis.html');
+					data_analysis.evalJS("isLogin();location.reload();");
+					var my = plus.webview.getWebviewById('my.html');
+					my.evalJS("isLogin();location.reload();");
+					var my_record = plus.webview.getWebviewById('my_record.html');
+					my_record.evalJS("isLogin();location.reload();");
+					var index=plus.webview.getLaunchWebview();
+					var home = plus.webview.getWebviewById('home.html');
+					home.evalJS("isLogin();location.reload();");
+					plus.webview.show(index);
+					index.evalJS("isLogin();changSub(1); h('#tabBar').find('a').removeClass('mui-active'); h('#home').addClass('mui-active');");
+				}
+			});
+		}
+	</script>
+</body>
+</html>
+

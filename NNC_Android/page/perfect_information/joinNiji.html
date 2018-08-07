@@ -1,0 +1,104 @@
+<!doctype html>
+<html >
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/ion.rangeSlider.css"/>
+		<link rel="stylesheet" href="../../css/ion.rangeSlider.skinHTML5.css"/>
+		<link rel="stylesheet" href="../../css/weight/style.css"/>
+	</head>
+	<style>
+		.center {  
+			display: -webkit-flex;  
+			-webkit-justify-content: center;  
+			-webkit-align-items: center;  
+		} 
+		.centerBox{
+			width: 100%;
+			height: 12.8rem;
+			background: #fff;
+			padding-top: 2.4rem;
+			margin-top: 2.26rem;
+		}
+		.centerTitle{
+			width: 100%;
+			text-align: center;
+			font-size: 1.28rem;
+			color: #1d98f5;
+			
+		}
+		.centerTxt{
+			width: 100%;
+			text-align: left;
+			font-size: .9rem;
+			color: #222;
+			text-indent: 1.4rem;
+			padding: 0rem 1.3rem;
+			line-height: 1.6rem;
+			margin: 0;
+		}
+		.boradio25{
+			border-radius: 25px;
+		}
+		.a6a2a2{
+			background: #a6a2a2;
+			border:none;
+			border-radius: 25px;
+		}
+
+	</style>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <h1  style="float:left;font-size: 20px;margin-top: 12px;margin-left: 10px;">参加减脂计划</h1>
+		</header>
+		<div class="mui-content" >
+			
+			<div class="centerBox">
+				<p class="centerTitle">参加尼基减脂计划</p>
+				<p class="centerTxt">参加减脂计划，需要有专业营养师的帮助和指导，把您每天的减重美食和体重等数据，告诉给营养师就行了。</p>
+			</div>
+			            
+			<div class="mui-content-padded">
+				<button id='yesJoin' style="margin-top: 30px;" class="mui-btn mui-btn-block mui-btn-primary big-button boradio25">马上参加</button>
+			</div>
+			<div class="mui-content-padded">
+				<button id='noJoin' style="margin-top: 30px;" class="mui-btn mui-btn-block mui-btn-primary big-button a6a2a2">下次再说</button>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/h.js" ></script>
+		<script type="text/javascript" src="../../js/ion.rangeSlider.min.js" ></script>
+		<script type="text/javascript" src="../../js/ion.rangeSlider.js" ></script>
+		<script src="../../js/weight/in01.js"></script>
+		<script type="text/javascript">
+			document.oncontextmenu=new Function("event.returnValue=false");  
+			document.onselectstart=new Function("event.returnValue=false");  
+			mui.init();
+			mui.plusReady(function(){
+				Internet_connection();
+				h('#yesJoin').tap(function(){
+					mui.openWindow({
+						url : '../../page/join/join_nnc.html',
+						id  : 'join_nnc.html'
+					});
+				});
+				h('#noJoin').tap(function(){
+					var index = plus.webview.getLaunchWebview();
+					var my = plus.webview.getWebviewById('my.html');
+					var my_record = plus.webview.getWebviewById('my_record.html');
+					var data_analysis = plus.webview.getWebviewById('data_analysis.html');
+					plus.webview.show(index);
+					index.evalJS("changSub(1);isLogin(); h('#tabBar').find('a').removeClass('mui-active'); h('#home').addClass('mui-active');");
+					my.evalJS("isLogin();");
+					my_record.evalJS("isLogin();");
+					data_analysis.evalJS("isLogin();");
+				});
+			});
+			
+		</script>
+	</body>
+
+</html>

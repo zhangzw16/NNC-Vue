@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <script src="../../js/weight/ruler.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            position: relative;
+
+
+        }
+
+        .box:before {
+            position: absolute;
+            z-index: 1;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+            content: '';
+            width: 3px;
+            height: 35px;
+            background-color: #00b0ab;
+        }
+
+        .canvas {
+            display: block;
+            margin: 0 auto;
+            transition-duration: 300ms;
+        }
+    </style>
+</head>
+
+<body>
+	<div style="margin: 10px;">	您的体重是：<span id="values"></span>kg</div>
+    
+    <div style="margin-top: 4rem;padding-bottom: 100%;" id="app"></div>
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+    <script>
+    	var yxq = parent.setWeight();
+    	if(!yxq){
+    		yxq = 60;
+    	}
+    	new sliderRuler(
+            {
+                el: document.querySelector('#app'),
+                maxValue: 200,
+                minValue: 20,
+                currentValue: yxq,
+                handleValue: handleValue,
+                getweigrh:handleValue,
+                precision: 0.1
+            }
+      );
+        function handleValue(value) {
+            document.querySelector('#values').innerHTML = value;
+        }
+        function getweigrh (){
+        	 var weight = $('#values').text();
+            return weight;
+        }
+
+       
+    </script>
+
+</body>
+
+</html>

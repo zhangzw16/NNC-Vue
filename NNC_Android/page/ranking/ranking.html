@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="../../css/mui.css" rel="stylesheet"/>
+	<link href="../../css/style.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../../css/appCss/talent.css" />
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #000;"></a>
+	    <h1 class="mui-title" id="title">减重达人排行榜</h1>
+	</header>
+	<div class="mui-content mui-scroll-wrapper"  id="refreshContainer">
+	    <div class="mui-scroll newsList">
+	        <ul id="newsListUl"></ul>
+	    </div>
+	</div>
+	<script src="../../js/mui.min.js"></script>
+	<script type="text/javascript" src="../../js/jquery.min.js" ></script>
+	<script src="../../js/h.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init({
+			pullRefresh : {
+				container:"#refreshContainer",//下拉刷新容器标识，querySelector能定位的css选择器均可，比如：id、.class等
+				up : {
+		            height:50,
+		            auto:true,
+		            contentrefresh : "正在加载...",
+		            contentnomore:'本页最多显示200人',
+		            callback : getListByPage
+		        }
+			}
+		});
+		var page = 1;
+		var num  = 1;
+		function getListByPage(){
+			var d = new Date();
+			var subDate=d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+			var _self = this;
+			$.ajax({
+  				type : "POST",
+  				data : {'page': page,'date':subDate,'rankFlag':1},
+  				url  : URL+'app_rest_ful/week_weight_rank',
+  				dataType : 'json',
+  				success : function(msg){
+  					if(msg.success==true){
+  						var msgData = msg.data.weeklyRanks;
+  						var dietDayList = msg.data.dietDayList;
+  						for(var i in msgData) {
+							var li = document.createElement('li');
+							var html = '<div class="rank_ground_floor" onclick="openInfo('+msgData[i].userInfoId+',\''+msgData[i].name+'\')">';
+								if(num>3){
+									html += '<div class="rank_ordinal_number">'+msgData[i].rankNub+'</div>';	
+								}else{
+									html +=	'<div class="rank_ordinal_number_img"></div>';
+								}
+								var photo ;
+								if(msgData[i].photoUrl==null){
+									photo = '../../image/hend_img.png';
+								}else{
+									photo = msgData[i].photoUrl;
+								}
+								html += '<div class="rank_head_img" style="background : url('+photo+') center no-repeat;background-size: cover;"></div>'+
+										'<div class="rank_nick_name">'+msgData[i].name+'</div>'+
+										'<div class="rank_weight"><p class="rank_weight_total">本周减重 <span class="fontmax">'+msgData[i].weight+'</span> kg</p><p class="rank_weight_day">减重第 <span class="fontmax">'+dietDayList[i]+'</span> 天</p></div>'+
+										'</div>';
+							li.innerHTML = html;
+							h(li).appendTo('#newsListUl');
+							num++;
+						}
+  						
+  						if (msg.data.pageSetting[0] == msg.data.pageSetting[1]) {
+							_self.endPullupToRefresh(true);
+  						} else {
+  							page++;
+							_self.endPullupToRefresh(false);
+  						}
+  					}else{
+  						_self.endPullupToRefresh(true);
+						return false;
+  					}
+  				}
+  			});
+  		}
+		function openInfo(id , name){
+			mui.openWindow({
+				url : 'info.html',
+				id  : 'info.html',
+				extras : {
+					customerId : id,
+					nickname : name
+				}
+			});
+		}
+		
+		
+    </script>
+</body>
+</html>

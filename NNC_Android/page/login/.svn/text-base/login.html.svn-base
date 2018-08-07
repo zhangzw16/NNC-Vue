@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link href="../../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/login.css" />
+		<link href="../../css/style.css" rel="stylesheet" />
+	</head>
+	<body>
+		<header class="mui-bar mui-bar-nav" >
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #000;"></a>
+			<h1 class="mui-title">登录</h1>
+		</header>
+		<div class="mui-content" style="background-color: #FFFFFF;">
+			<div style="height:150px;">
+				<img src="../../image/login_logo.png" style="width: 110px;margin-left: 7.6rem;margin-top: 20px;"/>
+			</div>
+			<form id='login-form' class="mui-input-group" style="margin-left: 10px;margin-right: 10px;">
+				<div class="mui-input-row">
+					<label style="color: #666;">手机号</label>
+					<input id='phone' type="tel" class="mui-input-clear mui-input" placeholder="请输入手机号" checked="">
+				</div>
+				<div class="mui-input-row">
+					<label style="color: #666;">密码</label>
+					<input id='pwd' type="password" class="mui-input-clear mui-input" placeholder="请输入密码">
+				</div>
+			</form>
+			<div class="mui-content-padded" >
+				<button id='login' class="mui-btn mui-btn-block mui-btn-primary big-button" >登录</button>
+				<div class="link-area" ><a id='reg'>注册账号</a> <span class="spliter">|</span> <a id='forgetPassword'>忘记密码</a>
+				</div>
+			</div>
+			<div style="margin: 30px;display:flex; justify-content:center;align-items:center; ">
+				<div style=" width:20%; height:0px; border:#D8D8D8 1px solid; float:left;"></div>
+				<div style=" float:left; height:5px; line-height:5px; margin:0px 10px;color: #D8D8D8;">第三方账户登录</div>
+				<div style="width:20%; height:0px; border:#D8D8D8 1px solid; float:right;"></div>
+			</div>
+			<div style="display:flex; justify-content:center;align-items:center;"> <!--class="mui-content-padded oauth-area" -->
+				<div id="wx" style="float: left;margin-right: 15%;height: 70px;width: 50px;text-align: center;">
+					<img src="../../image/weixin.png" style="width: 50px;"/>
+					<div style="font-size: 14px;color: #999999;">微信</div>
+				</div>
+				<div id="qq" style="float: left;height: 70px;width: 50px;text-align: center;">
+					<img src="../../image/qq.png" style="width: 50px;"/>
+					<div style="font-size: 14px;color: #999999;">QQ</div>
+				</div>
+				<div id="wb" style="float: right;margin-left: 15%;height: 70px;width: 50px;text-align: center;">
+					<img src="../../image/sinaweibo.png" style="width: 50px;"/>
+					<div style="font-size: 14px;color: #999999;">微博</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<!--<script src="../../js/mui.enterfocus.js"></script>-->
+		<script src="../../js/app/app.js"></script>
+		<script type="text/javascript" src="../../js/jquery.js" ></script>
+		<script type="text/javascript" src="../../js/h.js" ></script>
+		<script>
+			mui.init();
+			mui.plusReady(function(){
+				Internet_connection();
+				//手机号登录
+				h('#login').tap(function(){
+					var phone = $.trim($("#phone").val());
+        			var pwd = $.trim($("#pwd").val());
+        			mui(this).button('loading');
+                	var thisObj=this;
+                	console.log(URL)
+            		if(check()==true){
+            			$.ajax({
+			  				type : "POST",
+			  				data : {'phoneNo': phone,'pwd': pwd},
+			  				url  : URL+'app_rest_ful/phone_login',
+			  				dataType : 'json',
+			  				success : function(msg){
+			  					if(msg.success==false){
+			  						mui(thisObj).button('reset');
+			  						mui.alert('用户名或密码不正确！');
+			  					}else{
+			  						/*localStorage.setItem('pwflag','1');//短信登录*/
+			  						mui(thisObj).button('reset');
+			      					//plus.storage.setItem方法只可存储字符串
+			      					//plus.storage.setItem('NNC_uid', msg.data.id+'');//后面的+''是为了保证存为的是字符串（）
+			  						if (msg.message == "1") {//客户登录成功为并且完善资料
+			  							mui.toast('登录成功');
+			  							localStorage.setItem('NNC_userInfoId',msg.data.id+'');
+			  							localStorage.setItem('role','1');//角色是客户
+				  						var index = plus.webview.getLaunchWebview();
+				  						var my = plus.webview.getWebviewById('my.html');
+				  						var my_record = plus.webview.getWebviewById('my_record.html');
+										var data_analysis = plus.webview.getWebviewById('data_analysis.html');
+										plus.webview.show(index);
+										var home = plus.webview.getWebviewById('home.html');
+										home.evalJS("isLogin();location.reload();");
+										index.evalJS("changSub(1);isLogin(); h('#tabBar').find('a').removeClass('mui-active'); h('#home').addClass('mui-active');");
+										my.evalJS("isLogin();location.reload();");
+										my_record.evalJS("isLogin();location.reload();");
+										data_analysis.evalJS("isLogin();location.reload();");
+			  						}else if(msg.message == "2"){//客户手机注册登录成功为未完善资料
+			  							mui.toast('登录成功');
+			  							localStorage.setItem('NNC_login_type', '1');
+			  							console.log(localStorage.getItem("NNC_login_type"));
+			  							localStorage.setItem('NNC_uid',msg.data.id+'');
+			  							mui.openWindow({
+											url : '../perfect_information/information.html',
+											id  : 'information.html'
+										});
+			  						} else if(msg.message == "3"){//营养师登录
+			  							mui.toast('登录成功');
+			  							localStorage.setItem('NNC_dietPhaseInfoId',msg.data.id+'');
+			  							localStorage.setItem('role','2');//角色是营养师
+				  						var index = plus.webview.getLaunchWebview();
+				  						var my = plus.webview.getWebviewById('my.html');
+				  						var my_record = plus.webview.getWebviewById('my_record.html');
+										var data_analysis = plus.webview.getWebviewById('data_analysis.html');
+										plus.webview.show(index);
+										var home = plus.webview.getWebviewById('home.html');
+										home.evalJS("isLogin();location.reload();");
+										index.evalJS("changSub(1);isLogin(); h('#tabBar').find('a').removeClass('mui-active'); h('#home').addClass('mui-active');");
+										my.evalJS("isLogin();location.reload();");
+										my_record.evalJS("isLogin();location.reload();");
+										data_analysis.evalJS("isLogin();location.reload();");
+			  						} /*else if(msg.message == "4"){//有历史数据
+			  							mui.toast('登录成功');
+			  							localStorage.setItem('NNC_userInfoId',msg.data.id+'');
+			  							localStorage.setItem('history_flag','1');
+			  							localStorage.setItem('role','1');//角色是客户
+				  						var index = plus.webview.getLaunchWebview();
+				  						var my = plus.webview.getWebviewById('my.html');
+				  						var my_record = plus.webview.getWebviewById('my_record.html');
+										var data_analysis = plus.webview.getWebviewById('data_analysis.html');
+										plus.webview.show(index);
+										index.evalJS("changSub(1);isLogin(); h('#tabBar').find('a').removeClass('mui-active'); h('#home').addClass('mui-active');");
+										my.evalJS("isLogin();location.reload();");
+										my_record.evalJS("isLogin();location.reload();");
+										data_analysis.evalJS("isLogin();location.reload();");
+			  						} */
+			  						else if(msg.message == "5"){ //客户第三方登录成功为未完善资料,
+			  							mui.toast('登录成功');
+			  							localStorage.setItem('NNC_uid',msg.data.id+'');
+			  							localStorage.setItem('NNC_login_type', '0');
+			  							mui.openWindow({
+											url : '../perfect_information/information.html',
+											id  : 'information.html'
+										});
+			  						} else if (msg.message == "6"){//不可登录
+			  							mui.alert('您的手机账号无法登录,详情请在关于模块拨打电话咨询客服', '系统提示', function() {
+						                    return false;
+						                });
+			  						}else {
+			  							mui.toast('用户名或密码错误!');
+			  						}
+			  						
+			  					}
+			  				}
+			  			});
+            		}else{
+            			mui(this).button('reset');
+            		}
+				});
+				//跳转注册页面
+				h('#reg').tap(function(){
+					mui.openWindow({
+						url : '../../page/login/reg.html',
+						id  : 'reg.html'
+					});
+				});
+				//跳转忘记密码页面
+				h('#forgetPassword').tap(function(){
+					mui.openWindow({
+						url : '../../page/login/forget_pwd.html',
+						id  : 'forget_pwd.html'
+					});
+				});
+				
+				h('#wx').tap(function(){
+					wxlogin();
+				});
+				h('#qq').tap(function(){
+					qqlogin();
+				});
+				h('#wb').tap(function(){
+					wblogin();
+				});
+			});
+			//手机号登录验证方法
+			function check(){
+				var phone = $.trim($("#phone").val());
+        		var pwd = $.trim($("#pwd").val());
+	        	var phone_pattern = /^1[3|4|5|7|8][0-9]{9}$/;
+	        	if (phone == '') {
+	                mui.alert('请输入手机号', '系统提示', function() {
+	                    $('#phone').focus();
+	                });
+	                return false;
+	            }
+	            if (!phone_pattern.test(phone)) {
+	                mui.alert('请输入正确的手机号', '系统提示', function() {
+	                    $('#phone').focus();
+	                });
+	                return false;
+	            }
+	            if (pwd == '') {
+	                mui.alert('请输入密码', '系统提示', function() {
+	                    $('#pwd').focus();
+	                });
+	                return false;
+	            }
+	            if (pwd.length < 6 || pwd.length > 16) {
+	                mui.alert('密码长度应在6-16个字符范围内', '系统提示', function() {
+	                    $('#pwd').focus();
+	                });
+	                return false;
+	            }
+	            return true;
+			}
+			var wxLoginObj;
+			var qqLoginObj;
+			var wbLoginObj;
+			function wxlogin(){
+				plus.oauth.getServices(function(services) {
+					for(var k in services) {
+						if(services[k].id == 'weixin') {
+							wxLoginObj = services[k];
+						}
+					}
+					if(wxLoginObj == null) {
+						mui.toast('获取微信登录服务失败');
+						return;
+					}
+					console.log(JSON.stringify(wxLoginObj));
+					wxLoginObj.login(function(res) {
+						wxLoginObj.getUserInfo(function() {
+							var openId = wxLoginObj.userInfo.unionid;
+							var nickName = wxLoginObj.userInfo.nickname;
+							var headUrl = wxLoginObj.userInfo.headimgurl;
+							//后台交互
+							$.ajax({
+				  				type : "POST",
+				  				data : {'openId':openId, 'headUrl':headUrl,'loginFlag':2},
+				  				url  : URL+'app_rest_ful/third_party_login',
+				  				dataType : 'json',
+				  				success : function(msg){
+				  					localStorage.setItem('pwflag','2');
+									if (msg.message == "1") {//客户登录成功为并且完善资料
+			  							mui.toast('登录成功');
+			  							localStorage.setItem('NNC_userInfoId',msg.data.id+'');
+			  							localStorage.setItem('role','1');//角色是客户
+				  						var index = plus.webview.getLaunchWebview();
+				  						var my = plus.webview.getWebviewById('my.html');
+				  						var my_record = plus.webview.getWebviewById('my_record.html');
+										var data_analysis = plus.webview.getWebviewById('data_analysis.html');
+										plus.webview.show(index);
+										var home = plus.webview.getWebviewById('home.html');
+										home.evalJS("isLogin();location.reload();");
+										index.evalJS("changSub(1);isLogin(); h('#tabBar').find('a').removeClass('mui-active'); h('#home').addClass('mui-active');");
+										my.evalJS("isLogin();location.reload();");
+										my_record.evalJS("isLogin();location.reload();");
+										data_analysis.evalJS("isLogin();location.reload();");
+			  						}else if(msg.message == "2"){//客户手机注册登录成功为未完善资料
+			  							mui.toast('登录成功');
+			  							localStorage.setItem('NNC_uid',msg.data.id+'');
+			  							localStorage.setItem('NNC_login_type', '1');
+			  							mui.openWindow({
+											url : '../perfect_information/information.html',
+											id  : 'information.html'
+										});
+			  						}/* else if(msg.message == "4"){//有历史数据
+			  							mui.toast('登录成功');
+			  							localStorage.setItem('NNC_userInfoId',msg.data.id+'');
+			  							localStorage.setItem('role','1');//角色是客户
+				  						var index = plus.webview.getLaunchWebview();
+				  						var my = plus.webview.getWebviewById('my.html');
+				  						var my_record = plus.webview.getWebviewById('my_record.html');
+										var data_analysis = plus.webview.getWebviewById('data_analysis.html');
+										plus.webview.show(index);
+										index.evalJS("changSub(1);isLogin(); h('#tabBar').find('a').removeClass('mui-active'); h('#home').addClass('mui-active');");
+										my.evalJS("isLogin();location.reload();");
+										my_record.evalJS("isLogin();location.reload();");
+										data_analysis.evalJS("isLogin();location.reload();");
+			  						}*/ 
+			  						else if(msg.message == "5"){//客户第三方登录成功为未完善资料,
+			  							mui.toast('登录成功');
+			  							localStorage.setItem('NNC_uid',msg.data.id+'');
+			  							localStorage.setItem('NNC_login_type', '0');
+			  							localStorage.setItem('nickName',nickName);
+			  							mui.openWindow({
+											url : '../perfect_information/information.html',
+											id  : 'information.html'
+										});
+			  						} 
+				  				} 
+				  			});
+				  			wxLoginObj.logout(function(e) {
+		                        console.log("注销登录认证成功！");
+		                    }, function(e) {
+		                        console.log("注销登录认证失败！");
+		                    });
+						}, function() {
+							mui.toast('获取用户信息失败');
+						});
+					}, function() {
+						mui.toast('微信登录失败');
+						return;
+					});
+				}, function() {
+					mui.toast('获取微信登录服务失败');
+				});
+			}
+			function qqlogin(){
+				plus.oauth.getServices(function(services) {
+					for(var k in services) {
+						if(services[k].id == 'qq') {
+							qqLoginObj = services[k];
+						}
+					}
+					if(qqLoginObj == null) {
+						mui.toast('获取QQ登录服务失败');
+						return;
+					}
+					qqLoginObj.login(function(res) {
+						console.log(JSON.stringify(res));
+						qqLoginObj.getUserInfo(function() {
+							var openId = qqLoginObj.authResult.openid;
+							var nickname = qqLoginObj.userInfo.nickname;
+							var headUrl = qqLoginObj.userInfo.figureurl_qq_1;
+							//后台交互
+							$.ajax({
+				  				type : "POST",
+				  				data : {'openId':openId, 'headUrl':headUrl,'loginFlag':3},
+				  				url  : URL+'app_rest_ful/third_party_login',
+				  				dataType : 'json',
+				  				success : function(msg){
+				  					localStorage.setItem('pwflag','2');
+									if (msg.message == "1") {//客户登录成功并且完善资料
+			  							mui.toast('登录成功');
+			  							localStorage.setItem('NNC_userInfoId',msg.data.id+'');
+			  							localStorage.setItem('role','1');//角色是客户
+				  						var index = plus.webview.getLaunchWebview();
+				  						var my = plus.webview.getWebviewById('my.html');
+				  						var my_record = plus.webview.getWebviewById('my_record.html');
+										var data_analysis = plus.webview.getWebviewById('data_analysis.html');
+										plus.webview.show(index);
+										var home = plus.webview.getWebviewById('home.html');
+										home.evalJS("isLogin();location.reload();");
+										index.evalJS("changSub(1);isLogin(); h('#tabBar').find('a').removeClass('mui-active'); h('#home').addClass('mui-active');");
+										my.evalJS("isLogin();location.reload();");
+										my_record.evalJS("isLogin();location.reload();");
+										data_analysis.evalJS("isLogin();location.reload();");
+			  						}else if(msg.message == "2"){//客户手机注册登录成功为未完善资料
+			  							localStorage.setItem('NNC_uid',msg.data.id+'');
+			  							localStorage.setItem('NNC_login_type', '1');
+			  							mui.toast('登录成功');
+			  							mui.openWindow({
+											url : '../perfect_information/information.html',
+											id  : 'information.html'
+										});
+			  						} /*else if(msg.message == "4"){//有历史数据
+			  							mui.toast('登录成功');
+			  							localStorage.setItem('NNC_userInfoId',msg.data.id+'');
+			  							localStorage.setItem('history_flag','1');
+			  							localStorage.setItem('role','1');//角色是客户
+				  						var index = plus.webview.getLaunchWebview();
+				  						var my = plus.webview.getWebviewById('my.html');
+				  						var my_record = plus.webview.getWebviewById('my_record.html');
+										var data_analysis = plus.webview.getWebviewById('data_analysis.html');
+										plus.webview.show(index);
+										index.evalJS("changSub(1);isLogin(); h('#tabBar').find('a').removeClass('mui-active'); h('#home').addClass('mui-active');");
+										my.evalJS("isLogin();location.reload();");
+										my_record.evalJS("isLogin();location.reload();");
+										data_analysis.evalJS("isLogin();location.reload();");
+			  						}*/ 
+			  						else if(msg.message == "5"){//客户第三方登录成功为未完善资料,
+			  							mui.toast('登录成功');
+			  							localStorage.setItem('NNC_uid',msg.data.id+'');
+			  							localStorage.setItem('NNC_login_type', '0');
+			  							localStorage.setItem('nickName',nickname);
+			  							mui.openWindow({
+											url : '../perfect_information/information.html',
+											id  : 'information.html'
+										});
+			  						}
+				  				} 
+				  			});
+							qqLoginObj.logout(function(e) {
+		                        console.log("注销登录认证成功！");
+		                    }, function(e) {
+		                        console.log("注销登录认证失败！");
+		                    });				  			
+						}, function() {
+							mui.toast('获取用户信息失败');
+						});
+					}, function() {
+						mui.toast('QQ登录失败');
+						return;
+					});
+				}, function() {
+					mui.toast('获取QQ登录服务失败');
+				});
+			}
+			function wblogin(){
+				plus.oauth.getServices(function(services) {
+					for(var k in services) {
+						if(services[k].id == 'sinaweibo') {
+							wbLoginObj = services[k];
+						}
+					}
+					if(wbLoginObj == null) {
+						mui.toast('获取微博登录服务失败');
+						return;
+					}
+					wbLoginObj.login(function(res) {
+						console.log(JSON.stringify(res));
+						wbLoginObj.getUserInfo(function() {
+							var openId = wbLoginObj.authResult.uid;
+							var nickname = wbLoginObj.userInfo.nickname;
+							var headUrl = wbLoginObj.userInfo.headimgurl;
+							//后台交互
+							$.ajax({
+				  				type : "POST",
+				  				data : {'openId':openId, 'headUrl':headUrl,'loginFlag':4},
+				  				url  : URL+'app_rest_ful/third_party_login',
+				  				dataType : 'json',
+				  				success : function(msg){
+				  					localStorage.setItem('pwflag','2');
+									if (msg.message == "1") {//客户登录成功为并且完善资料
+			  							mui.toast('登录成功');
+			  							localStorage.setItem('NNC_userInfoId',msg.data.id+'');
+			  							localStorage.setItem('role','1');//角色是客户
+				  						var index = plus.webview.getLaunchWebview();
+				  						var my = plus.webview.getWebviewById('my.html');
+				  						var my_record = plus.webview.getWebviewById('my_record.html');
+										var data_analysis = plus.webview.getWebviewById('data_analysis.html');
+										plus.webview.show(index);
+										var home = plus.webview.getWebviewById('home.html');
+										home.evalJS("isLogin();location.reload();");
+										index.evalJS("changSub(1);isLogin(); h('#tabBar').find('a').removeClass('mui-active'); h('#home').addClass('mui-active');");
+										my.evalJS("isLogin();location.reload();");
+										my_record.evalJS("isLogin();location.reload();");
+										data_analysis.evalJS("isLogin();location.reload();");
+			  						}else if(msg.message == "2"){//客户手机注册登录成功为未完善资料
+			  							localStorage.setItem('NNC_uid',msg.data.id+'');
+			  							localStorage.setItem('NNC_login_type', '1');
+			  							mui.toast('登录成功');
+			  							mui.openWindow({
+											url : '../perfect_information/information.html',
+											id  : 'information.html'
+										});
+			  						} /*else if(msg.message == "4"){//有历史数据
+			  							mui.toast('登录成功');
+			  							localStorage.setItem('NNC_userInfoId',msg.data.id+'');
+			  							localStorage.setItem('history_flag','1');
+			  							localStorage.setItem('role','1');//角色是客户
+				  						var index = plus.webview.getLaunchWebview();
+				  						var my = plus.webview.getWebviewById('my.html');
+				  						var my_record = plus.webview.getWebviewById('my_record.html');
+										var data_analysis = plus.webview.getWebviewById('data_analysis.html');
+										plus.webview.show(index);
+										index.evalJS("changSub(1);isLogin(); h('#tabBar').find('a').removeClass('mui-active'); h('#home').addClass('mui-active');");
+										my.evalJS("isLogin();location.reload();");
+										my_record.evalJS("isLogin();location.reload();");
+										data_analysis.evalJS("isLogin();location.reload();");
+			  						}*/
+			  						else if(msg.message == "5"){//客户第三方登录成功为未完善资料,
+			  							mui.toast('登录成功');
+			  							localStorage.setItem('NNC_uid',msg.data.id+'');
+			  							localStorage.setItem('NNC_login_type', '0');
+			  							localStorage.setItem('nickName',nickname);
+			  							mui.openWindow({
+											url : '../perfect_information/information.html',
+											id  : 'information.html'
+										});
+			  						}
+				  				} 
+				  			});
+				  			wbLoginObj.logout(function(e) {
+		                        console.log("注销登录认证成功！");
+		                    }, function(e) {
+		                        console.log("注销登录认证失败！");
+		                    });	
+						}, function() {
+							mui.toast('获取用户信息失败');
+						});
+					}, function() {
+						mui.toast('微博登录失败');
+						return;
+					});
+				}, function() {
+					mui.toast('获取微博登录服务失败');
+				});
+			}
+		</script>
+	</body>
+</html>

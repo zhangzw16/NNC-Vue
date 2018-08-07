@@ -1,0 +1,23 @@
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/nncTest/!svn/ver/10/vue-project/config
+END
+dev.env.js
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/nncTest/!svn/ver/8/vue-project/config/dev.env.js
+END
+index.js
+K 25
+svn:wc:ra_dav:version-url
+V 52
+/svn/nncTest/!svn/ver/10/vue-project/config/index.js
+END
+prod.env.js
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/nncTest/!svn/ver/8/vue-project/config/prod.env.js
+END

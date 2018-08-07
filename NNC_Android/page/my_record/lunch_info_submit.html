@@ -1,0 +1,214 @@
+<!doctype html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<meta name="misapplication-tap-highlight" content="no" />
+		<meta name="HandheldFriendly" content="true" />
+		<meta name="MobileOptimized" content="320" />
+		<!--<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">-->
+		<link href="../../css/star-rating.css" media="all" rel="stylesheet" type="text/css" />
+		<link href="../../css/mui.css" rel="stylesheet" />
+		<link href="../../css/feedback-page.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/appCss/iframe.css"/>
+	</head>
+
+	<body style="margin:0;padding-top:30px;overflow:hidden" scroll="no"> 
+		<div class="breakfast-box ">
+			<div class="msgbox-header">
+				<div class="close_button" style="float: left;">
+					<img src="../../image/close.png" style="width: 0.8rem;margin-left: 15px;"/>
+				</div>
+				<div style="float: left;margin-left: 6.6rem;">午餐 </div>
+				<div onclick="breakfastSubmit();" style="float: right;margin-right: 10px;color: #23abf7;">保存 </div>
+			</div>
+			<div class="msgbox-main">
+				<textarea id="lunch_val" rows="5" placeholder="例如：清蒸鱼300g，青菜150g"></textarea>
+				<div id='F_CKJLBS' class="row image-list">
+					<div class="image-item image-item-base" style="margin-bottom: 5px;" id="F_CKJLB" onclick="showActionSheet(this);"></div>
+				</div>
+			</div>
+			<!--<div class="msgbox-bottom">
+				<button class="close_button">取消</button>
+				<button class="submit_button" onclick="breakfastSubmit()">保存</button>
+			</div>-->
+		</div>
+
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/mui.previewimage.js"></script>
+		<script src="../../js/jquery.min.js"></script>
+		<script src="../../js/mui.zoom.js"></script>
+		<script src="../../js/h.js"></script>
+		<script type="text/javascript" src="../../js/app/iframeCom.js" ></script>
+		<script type="text/javascript">
+			mui.init()
+			var size = "3";
+			var files = [];
+			var index = 1;
+			var photoSzie = 0;
+			var mask=mui.createMask();//遮罩层 
+			function appendFile(p) {
+				files.push({
+					path: p,
+					name: "uploadkey_" + index
+				});
+				index++;
+			}
+			function breakfastSubmit() {
+				mask.show();
+				var input = document.getElementById("lunch_val");
+				input.blur();
+				var uid = localStorage.getItem('NNC_userInfoId');
+				var subDate = localStorage.getItem('Submit_date');
+				var task = plus.uploader.createUpload(
+					URL+'app_rest_ful/user_info_data_lunch_save', {
+						method : "POST",
+						async  : false
+					},
+					function(t, status) { //上传完成  
+						if(status == 200) {
+							var prev = plus.webview.getWebviewById('my_record.html');
+			  				prev.evalJS("getRecord('"+subDate+"',"+uid+")");
+			  				mui.back();
+			  				mask.close();
+						} else {
+							console.log("上传失败：" + status);
+						}
+					});
+				for(var i = 0; i < files.length; i++) {
+					var f = files[i];
+					task.addFile(f.path, {
+						key: f.name
+					});
+				}
+				files=[];
+				photoSzie = 0;
+				var lunch = h("#lunch_val").val();
+				lunch = filter(lunch);
+				task.addData('lunch', lunch);
+				task.addData('userInfoId', uid);
+				task.addData('date', subDate);
+				task.start();
+			}
+
+			//加载页面初始化需要加载的图片信息  
+			//或者相册IMG_20160704_112620.jpg  
+			//imgId:图片名称：1467602809090或者IMG_20160704_112620  
+			//imgkey:字段例如：F_ZDDZZ  
+			//ID：站点编号ID,例如429  
+			//src：src="file:///storage/emulated/0/Android/data/io.dcloud.HBuilder/.HBuilder/apps/HBuilder/doc/upload/F_ZDDZZ-1467602809090.jpg"  
+			function showImgDetail(src) {
+				var html = '';
+				html += '<div class="image-item image-item-add">';
+				html += '    <img id="" src="' + src + '" data-preview-src="" data-preview-group="1" />';
+				html += '</div>';
+				$("#F_CKJLBS>.image-item-base").before(html);
+				photoSzie++;
+				if(photoSzie > 2 && $("#F_CKJLBS>.image-item-add").length>2) {
+					$("#F_CKJLB").hide();
+				}
+			}
+
+			//选取图片的来源，拍照和相册  
+			function showActionSheet() {
+				var actionbuttons = [{
+					title: "拍照"
+				}, {
+					title: "相册选取"
+				}];
+				var actionstyle = {
+					title: "选择照片",
+					cancel: "取消",
+					buttons: actionbuttons
+				};
+				plus.nativeUI.actionSheet(actionstyle, function(e) {
+					if(e.index == 1) {
+						getImage();
+					} else if(e.index == 2) {
+						galleryImg();
+					}
+				});
+			}
+
+			function galleryImg() {
+				plus.gallery.pick(function(e) {
+					for(var i in e.files) {
+						plus.io.resolveLocalFileSystemURL(e.files[i], function(entry) {
+							compressImage(entry.toLocalURL(), entry.name);
+						}, function(e) {
+							plus.nativeUI.toast("读取拍照文件错误：" + e.message);
+						});
+					}
+				}, function(e) {
+					console.log("取消选择图片");
+				}, {
+					filter: "image",
+					multiple: true,
+					maximum: 3 - photoSzie,
+					system: false,
+					onmaxed: function() {
+						plus.nativeUI.alert('最多只能选择3张图片');
+					}
+				});
+
+			}
+			// 拍照  
+			function getImage() {
+				var cmr = plus.camera.getCamera();
+				cmr.captureImage(function(p) {
+					plus.io.resolveLocalFileSystemURL(p, function(entry) {
+						compressImage(entry.toLocalURL(), entry.name);
+					}, function(e) {
+						plus.nativeUI.toast("读取拍照文件错误：" + e.message);
+					});
+				}, function(e) {}, {
+					filename: "_doc/camera/",
+					index: 1
+				});
+			}
+			//压缩图片  
+			function compressImage(url, filename) {
+				var path = "_doc/upload/" + filename; //_doc/upload/F_ZDDZZ-1467602809090.jpg
+				appendFile(path);
+				plus.zip.compressImage({
+						src: url, //src: (String 类型 )压缩转换原始图片的路径  
+						dst: path, //压缩转换目标图片的路径  
+						quality: 20, //quality: (Number 类型 )压缩图片的质量.取值范围为1-100  
+						overwrite: true //overwrite: (Boolean 类型 )覆盖生成新文件  
+					},
+					function(event) {
+						saveimage(event.target);
+					},
+					function(error) {
+						plus.nativeUI.toast("压缩图片失败，请稍候再试");
+					});
+			}
+
+			//保存信息到本地  
+			/**   
+			 *   
+			 * @param {Object} url  图片的地址  
+			 * @param {Object} divid  字段的名称  
+			 * @param {Object} name   图片的名称  
+			 */
+			function saveimage(url) {
+				var wt = plus.nativeUI.showWaiting();
+				var src = 'src="' + url + '"';
+				showImgDetail(url);
+				wt.close();
+			}
+			mui.previewImage();
+			$('.close_button').click(function(){
+				files = [];
+				photoSzie = 0;
+				mui.back();
+			})
+		</script>
+	</body>
+
+</html>

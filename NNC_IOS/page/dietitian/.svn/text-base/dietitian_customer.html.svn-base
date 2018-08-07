@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+		<!--标准mui.css-->
+		<link rel="stylesheet" href="../../css/mui.css">
+		<!--App自定义的css-->
+		<!--<link rel="stylesheet" type="text/css" href="../css/app.css" />-->
+	</head>
+	<style>
+		.rank_ground_floor{
+			height: 80px;
+			background-color: #FFFFFF;
+			border-bottom:1px solid #D1D1D1;
+		}
+		.rank_ordinal_number_img{
+			float:left; 
+			width: 40px;
+			height:80px;
+			padding-left: 3px;
+		}
+		.rank_ordinal_number{
+			float:left;
+			width: 40px;
+			height: 80px;
+			font-size:20px;
+			padding-top: 18px;
+			text-align: center;
+			margin-top: 10px;
+		}
+		.rank_head_img{
+			float:left; 
+			width: 50px;
+			height: 80px;
+			margin-left: 1%;
+			margin-top: 10px;
+		}
+		.rank_nick_name{
+			float:left; 
+			width: 28%;
+			height: 20px;
+			text-align: center;
+			margin-top: 25px;
+			margin-left: 2%;
+			white-space: nowrap;
+			overflow: hidden ;
+		}
+		.rank_weight{
+			float:right; 
+			width: 38%;
+			height: 60px;
+			text-align: right;
+			padding-top: 5px;
+			font-size: 15px;
+			color : #999999;
+			margin-top: 10px;
+		}
+	</style>
+	<body>
+		<div class="mui-content" id="refreshContainer" style="background-color: #FFFFFF;border-top:1px solid #DDDDDD;">
+			<div id="slider" class="mui-slider">
+				<div id="sliderSegmentedControl" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted" style="color: #999999;">
+					<a class="mui-control-item mui-active" href="#item1mobile">
+						正在期
+					</a>
+					<a class="mui-control-item" href="#item2mobile">
+						过渡期
+					</a>
+					<a class="mui-control-item" href="#item3mobile">
+						完成期
+					</a>
+				</div>
+				<div  class="mui-slider-progress-bar mui-col-xs-4"></div>
+				<div class="mui-slider-group">
+					<div id="item1mobile" class="mui-slider-item mui-control-content mui-active">
+					</div>
+					<div id="item2mobile" class="mui-slider-item mui-control-content">
+					</div>
+					<div id="item3mobile" class="mui-slider-item mui-control-content">
+					</div>
+				</div>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/h.js" ></script>
+		<script type="text/javascript" src="../../js/jquery.min.js" ></script>
+		<script>
+			mui.init({
+				swipeBack: false,
+				pullRefresh : {
+					container : "#refreshContainer",
+					down: {
+						height:50, 
+			            auto: false,
+			            contentdown : "下拉可以刷新",
+			            contentover : "释放立即刷新",
+			            contentrefresh : "正在刷新...",
+			            callback : refreshCustomerList
+					}
+				}
+			});
+			mui.plusReady(function(){
+				getCustomerList();
+			});
+			function refreshCustomerList(){
+				getCustomerList();
+				mui('#refreshContainer').pullRefresh().endPulldownToRefresh();
+	  			//重置上拉
+              	mui('#refreshContainer').pullRefresh().refresh(true);
+			}
+			function getCustomerList(){
+				Internet_connection();
+				var select_dietitianId = localStorage.getItem('NNC_dietPhaseInfoId');
+				var data1 = {
+      				'dietitian_id' : select_dietitianId,
+      				'userStatus' : '1'
+      			};
+      			var mask=mui.createMask();//遮罩层
+				$.ajax({
+	  				type : "POST",
+	  				data : data1,
+	  				url  : URL+'app_rest_ful/dietitian_select_user_info',
+	  				dataType : 'json',
+	  				beforeSend: function() {
+				        plus.nativeUI.showWaiting('');
+				        mask.show();//显示遮罩层
+				    },
+				    complete: function() {
+				        plus.nativeUI.closeWaiting();
+				        mask.close();//关闭遮罩层
+				    },
+	  				success : function(msg){
+	  					var msgData = msg.data;
+	  					if(msg.success == true){
+	  						var html  = '<ul class="mui-table-view">';
+	  						for(var i in msgData) {
+	  							var id = msgData[i].userInfoId;
+	  							var userStatus = msgData[i].userStatus;
+	  							var name = msgData[i].name;
+	  							var flag = msgData[i].topFlag;
+	  							var weight = msgData[i].lostTotalWeight;
+	  							var day = msgData[i].dietDay;
+	  							var headImg = '../../image/hend_img.png';
+	  							if (msgData[i].headPhotoUrl != null) {
+	  								headImg = msgData[i].headPhotoUrl;
+	  							}
+	  							var dataFlag = msgData[i].dataFlag;
+	  							var comfortLevel = msgData[i].comfortLevel;
+	  							if(dataFlag == true){
+	  								html += '<li class="mui-table-view-cell yxqtest" style="background-color: #fce7e6;" data-id="'+id+'" data-userStatus="'+userStatus+'" data-name ="'+name+'" data-flag ="'+flag+'" data-weight ="'+weight+'" data-day ="'+day+'" data-url="'+msgData[i].headPhotoUrl+'"><div>';
+	  							}else{
+	  								if( flag == true){
+		  								html += '<li class="mui-table-view-cell yxqtest" style="background-color: #f6f3f3;" data-id="'+id+'" data-userStatus="'+userStatus+'" data-name ="'+name+'" data-flag ="'+flag+'" data-weight ="'+weight+'" data-day ="'+day+'" data-url="'+msgData[i].headPhotoUrl+'"><div>';
+		  							}else{
+		  								html += '<li class="mui-table-view-cell yxqtest" style="background-color: #FFFFFF;" data-id="'+id+'" data-userStatus="'+userStatus+'" data-name ="'+name+'" data-flag ="'+flag+'" data-weight ="'+weight+'" data-day ="'+day+'" data-url="'+msgData[i].headPhotoUrl+'"><div>';
+		  							}
+	  							}
+	  							html += '<img class="mui-media-object mui-pull-left" style="border-radius: 100px;" src="'+headImg+'">';
+	  							html += '<div style="float: left;font-size: 18px;">'+name+'<p>'; 
+	  							if(comfortLevel!=0||comfortLevel!=null){
+	  								for(var a=0;a<comfortLevel;a++){
+	  									html += '<img src="../../image/star.png" style="width: 15px;" />';
+	  								}
+	  							}
+	  							html += '</p></div><div style="float: right;color: #999999;">减重第&nbsp;<span>'+day+'</span>&nbsp;天';
+	  							html += '<p>已减重&nbsp;<span >'+weight+'</span>&nbsp;kg</p>';
+	  							html += '</div></div></li>';
+	  						}
+	  						html += '</ul>';
+							h('#item1mobile').html(html);
+							$('body').on('tap', '.yxqtest', function(e) {
+								var id= this.getAttribute("data-id");
+								var userStatus = this.getAttribute("data-userStatus");
+								var name = this.getAttribute("data-name");
+								var flag = this.getAttribute("data-flag");
+								var weight = this.getAttribute("data-weight");
+								var day = this.getAttribute("data-day");
+								var headPhotoUrl = this.getAttribute("data-url");
+								mui.openWindow({
+									url : 'customer_info.html',
+									id  : 'customer_info.html',
+									extras : {
+										customerId   : id,
+										userStatus   : userStatus,
+										topFlag 	 : flag,
+										weight  	 : weight,
+										day     	 : day,
+										name		 : name,
+										headPhotoUrl : headPhotoUrl
+									}
+								});
+							});
+	  					}
+	  				}
+	  			});
+	  			var data2 = {
+      				'dietitian_id' : select_dietitianId,
+      				'userStatus' : '2'
+      			};
+	  			$.ajax({
+	  				type : "POST",
+	  				data : data2,
+	  				url  : URL+'app_rest_ful/dietitian_select_user_info',
+	  				dataType : 'json',
+	  				beforeSend: function() {
+				        plus.nativeUI.showWaiting('');
+				        mask.show();//显示遮罩层
+				    },
+				    complete: function() {
+				        plus.nativeUI.closeWaiting();
+				        mask.close();//关闭遮罩层
+				    },
+	  				success : function(msg){
+	  					var msgData = msg.data;
+	  					if(msg.success == true){
+	  						var html2  = '<ul class="mui-table-view">';
+	  						for(var i in msgData) {
+	  							var id = msgData[i].userInfoId;
+	  							var userStatus = msgData[i].userStatus;
+	  							var name = msgData[i].name;
+	  							var flag = msgData[i].topFlag;
+	  							var weight = msgData[i].lostTotalWeight;
+	  							var day = msgData[i].dietDay;
+	  							var headImg = '../../image/hend_img.png';
+	  							if (msgData[i].headPhotoUrl != null) {
+	  								headImg = msgData[i].headPhotoUrl;
+	  							}
+	  							var dataFlag = msgData[i].dataFlag;
+	  							var comfortLevel = msgData[i].comfortLevel;//onclick="openInfo('+id+',\''+userStatus+'\',\''+name+'\',\''+flag+'\',\''+weight+'\',\''+day+'\',\''+msgData[i].headPhotoUrl+'\');"
+	  							html2 += '<li class="mui-table-view-cell yxqtest2" style="width:100%;background-color: #FFFFFF;" data-id="'+id+'" data-userStatus="'+userStatus+'" data-name ="'+name+'" data-flag ="'+flag+'" data-weight ="'+weight+'" data-day ="'+day+'" data-url="'+msgData[i].headPhotoUrl+'"><div >';
+	  							html2 += '<img class="mui-media-object mui-pull-left" style="border-radius: 100px;" src="'+headImg+'" >';
+	  							html2 += '<div style="float: left;font-size: 18px;">'+name+'<p>'; 
+	  							if(comfortLevel!=0||comfortLevel!=null){
+	  								for(var a=0;a<comfortLevel;a++){
+	  									html2 += '<img src="../../image/star.png" style="width: 15px;" />';
+	  								}
+	  							}
+	  							html2 += '</p></div><div style="float: right;color: #999999;"><p>过渡期第&nbsp;<span >'+day+'</span>&nbsp;天</p>';
+	  							html2 += '<p>已减重&nbsp;<span >'+weight+'</span>&nbsp;kg</p>';
+	  							html2 += '</div></div></li>';
+	  						}
+	  						html2 += '</ul>';
+							h('#item2mobile').html(html2);
+							$('body').on('tap', '.yxqtest2', function(e) {
+								var id= this.getAttribute("data-id");
+								var userStatus = this.getAttribute("data-userStatus");
+								var name = this.getAttribute("data-name");
+								var flag = this.getAttribute("data-flag");
+								var weight = this.getAttribute("data-weight");
+								var day = this.getAttribute("data-day");
+								var headPhotoUrl = this.getAttribute("data-url");
+								mui.openWindow({
+									url : 'customer_info.html',
+									id  : 'customer_info.html',
+									extras : {
+										customerId   : id,
+										userStatus   : userStatus,
+										topFlag 	 : flag,
+										weight  	 : weight,
+										day     	 : day,
+										name		 : name,
+										headPhotoUrl : headPhotoUrl
+									}
+								});
+							}); 
+	  					}
+	  				}
+	  			});
+	  			var data3 = {
+      				'dietitian_id' : select_dietitianId,
+      				'userStatus' : '3'
+      			};
+	  			$.ajax({
+	  				type : "POST",
+	  				data : data3,
+	  				url  : URL+'app_rest_ful/dietitian_select_user_info',
+	  				dataType : 'json',
+	  				beforeSend: function() {
+				        plus.nativeUI.showWaiting('');
+				        mask.show();//显示遮罩层
+				    },
+				    complete: function() {
+				        plus.nativeUI.closeWaiting();
+				        mask.close();//关闭遮罩层
+				    },
+	  				success : function(msg){
+	  					var msgData = msg.data;
+	  					if(msg.success == true){
+	  						var html3  = '<ul class="mui-table-view">';
+	  						for(var i in msgData) {
+	  							var id = msgData[i].userInfoId;
+	  							var userStatus = msgData[i].userStatus;
+	  							var name = msgData[i].name;
+	  							var flag = msgData[i].topFlag;
+	  							var weight = msgData[i].lostTotalWeight;
+	  							var weekly =  msgData[i].weekly;
+	  							var day = msgData[i].dietDay;
+	  							var headImg = '../../image/hend_img.png';
+	  							if (msgData[i].headPhotoUrl != null) {
+	  								headImg = msgData[i].headPhotoUrl;
+	  							}
+	  							var dataFlag = msgData[i].dataFlag;
+	  							var comfortLevel = msgData[i].comfortLevel;
+	  							var alarmFlag = msgData[i].alarmFlag
+	  							if (alarmFlag == 1) {
+	  								html3 += '<li class="mui-table-view-cell yxqtest3" style="background-color: #f6f0fd;" data-id="'+id+'" data-userStatus="'+userStatus+'" data-name ="'+name+'" data-flag ="'+flag+'" data-weight ="'+weight+'" data-day ="'+day+'" data-url="'+msgData[i].headPhotoUrl+'"><div>';
+	  							} else if (alarmFlag == 2) {
+	  								html3 += '<li class="mui-table-view-cell yxqtest3" style="background-color: #e8f5fe;" data-id="'+id+'" data-userStatus="'+userStatus+'" data-name ="'+name+'" data-flag ="'+flag+'" data-weight ="'+weight+'" data-day ="'+day+'" data-url="'+msgData[i].headPhotoUrl+'"><div>';
+	  							} else if (alarmFlag == 3) {
+	  								html3 += '<li class="mui-table-view-cell yxqtest3" style="background-color: #fef5f1;" data-id="'+id+'" data-userStatus="'+userStatus+'" data-name ="'+name+'" data-flag ="'+flag+'" data-weight ="'+weight+'" data-day ="'+day+'" data-url="'+msgData[i].headPhotoUrl+'"><div>';
+	  							} else {
+	  								html3 += '<li class="mui-table-view-cell yxqtest3" style="background-color: #FFFFFF;" data-id="'+id+'" data-userStatus="'+userStatus+'" data-name ="'+name+'" data-flag ="'+flag+'" data-weight ="'+weight+'" data-day ="'+day+'" data-url="'+msgData[i].headPhotoUrl+'"><div>';
+	  							}
+	  							html3 += '<img class="mui-media-object mui-pull-left" style="border-radius: 100px;" src="'+headImg+'">';
+	  							html3 += '<div style="float: left;font-size: 18px;">'+name+'<p>'; 
+	  							if(comfortLevel!=0||comfortLevel!=null){
+	  								for(var a=0;a<comfortLevel;a++){
+	  									html3 += '<img src="../../image/star.png" style="width: 15px;" />';
+	  								}
+	  							}
+	  							html3 += '</p></div><div style="float: right;color: #999999;">完成期第&nbsp;<span>'+day+'</span>&nbsp;天';
+	  							html3 += '<p>第&nbsp;<span >'+weekly+'</span>&nbsp;周</p>';
+	  							html3 += '</div></div></li>';
+	  						}
+	  						html3 += '</ul>';
+							h('#item3mobile').html(html3);
+							$('body').on('tap', '.yxqtest3', function(e) {
+								var id= this.getAttribute("data-id");
+								var userStatus = this.getAttribute("data-userStatus");
+								var name = this.getAttribute("data-name");
+								var flag = this.getAttribute("data-flag");
+								var weight = this.getAttribute("data-weight");
+								var day = this.getAttribute("data-day");
+								var headPhotoUrl = this.getAttribute("data-url");
+								mui.openWindow({
+									url : 'customer_info.html',
+									id  : 'customer_info.html',
+									extras : {
+										customerId   : id,
+										userStatus   : userStatus,
+										topFlag 	 : flag,
+										weight  	 : weight,
+										day     	 : day,
+										name		 : name,
+										headPhotoUrl : headPhotoUrl
+									}
+								});
+							});
+	  					}
+	  				}
+	  			});
+			}
+			function openInfo(id,userStatus,name,flag,weight,day,headPhotoUrl){
+				mui.openWindow({
+					url : 'customer_info.html',
+					id  : 'customer_info.html',
+					extras : {
+						customerId   : id,
+						userStatus   : userStatus,
+						topFlag 	 : flag,
+						weight  	 : weight,
+						day     	 : day,
+						name		 : name,
+						headPhotoUrl : headPhotoUrl
+					}
+				}); 
+			}
+		</script>
+	</body>
+</html>

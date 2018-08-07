@@ -1,0 +1,101 @@
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/model
+END
+EndUserData.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/model/EndUserData.java
+END
+EndUserWeightData.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/model/EndUserWeightData.java
+END
+UserData.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/model/UserData.java
+END
+Dietitian.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/model/Dietitian.java
+END
+UserInfoHistroy.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/model/UserInfoHistroy.java
+END
+WeeklyRank.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/model/WeeklyRank.java
+END
+UserWeightData.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/model/UserWeightData.java
+END
+DietPhaseInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/model/DietPhaseInfo.java
+END
+SystemUser.java
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/model/SystemUser.java
+END
+ThirdPartyLogin.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/model/ThirdPartyLogin.java
+END
+UserLoginInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/model/UserLoginInfo.java
+END
+DietitianUserInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/model/DietitianUserInfo.java
+END
+UserData2.java
+K 25
+svn:wc:ra_dav:version-url
+V 68
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/model/UserData2.java
+END
+UserInfo.java
+K 25
+svn:wc:ra_dav:version-url
+V 67
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/model/UserInfo.java
+END
+WeeklyRecommend.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/model/WeeklyRecommend.java
+END
+DietitianUserInfoKey.java
+K 25
+svn:wc:ra_dav:version-url
+V 79
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/model/DietitianUserInfoKey.java
+END

@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd">
+
+   <!-- <bean id="schedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean"/>
+     使用MethodInvokingJobDetailFactoryBean，任务类可以不实现Job接口，通过targetMethod指定调用方法-->
+    <!-- 每天对排行榜进行更新 -->
+    <bean id="weeklyRankJob" class="cn.com.bocosoft.background.WeeklyRankUpdate" />
+    <bean id="weeklyRankJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+      <property name="group" value="work_default"/>
+      <property name="name" value="work_default_name"/>
+      <property name="concurrent" value="true"/>
+      <property name="targetObject">
+        <ref bean="weeklyRankJob"/>
+      </property>
+      <property name="targetMethod">
+        <value>run</value>
+      </property>
+    </bean>
+    
+    <bean id="weeklyRankTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+      <property name="name" value="work_default_name"/>
+      <property name="group" value="work_default"/>
+      <property name="jobDetail">
+        <ref bean="weeklyRankJobDetail" />
+      </property>
+      <property name="cronExpression">
+        <value>0/20 * * * * ?</value>
+      </property>
+    </bean>
+    
+    <!-- 用户状态的修改 -->
+    <bean id="userStatusJob" class="cn.com.bocosoft.background.UserInfoStatusUpdate" />
+    <bean id="userStatusJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+      <property name="group" value="user_status"/>
+      <property name="name" value="user_status_name"/>
+      <property name="concurrent" value="true"/>
+      <property name="targetObject">
+        <ref bean="userStatusJob"/>
+      </property>
+      <property name="targetMethod">
+        <value>run</value>
+      </property>
+    </bean>
+    
+    <bean id="userStatusTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+      <property name="name" value="user_status_name"/>
+      <property name="group" value="user_status"/>
+      <property name="jobDetail">
+        <ref bean="userStatusJobDetail" />
+      </property>
+      <property name="cronExpression">
+        <value>0 5 1 * * ?</value>
+      </property>
+    </bean>
+    
+    <!-- 总体累计体重每天的更新 -->
+    <bean id="cumulativeWeightLossJob" class="cn.com.bocosoft.background.CumulativeWeightLoss" />
+    <bean id="cumulativeWeightLossJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+      <property name="group" value="cumulative_weight_loss"/>
+      <property name="name" value="cumulative_weight_loss_name"/>
+      <property name="concurrent" value="true"/>
+      <property name="targetObject">
+        <ref bean="cumulativeWeightLossJob"/>
+      </property>
+      <property name="targetMethod">
+        <value>run</value>
+      </property>
+    </bean>
+    
+    <bean id="cumulativeWeightLossTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+      <property name="name" value="cumulative_weight_loss_name"/>
+      <property name="group" value="cumulative_weight_loss"/>
+      <property name="jobDetail">
+        <ref bean="cumulativeWeightLossJobDetail" />
+      </property>
+      <property name="cronExpression">
+        <value>0 0/2 * * * ?</value>
+      </property>
+    </bean>
+    
+    <!-- 线程系统时间的更新 -->
+    <bean id="setTimeJob" class="cn.com.bocosoft.background.SetSystemTime" />
+    <bean id="setTimeJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+      <property name="group" value="set_time"/>
+      <property name="name" value="set_time_name"/>
+      <property name="concurrent" value="true"/>
+      <property name="targetObject">
+        <ref bean="setTimeJob"/>
+      </property>
+      <property name="targetMethod">
+        <value>run</value>
+      </property>
+    </bean>
+    
+    <bean id="setTimeTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+      <property name="name" value="set_time_name"/>
+      <property name="group" value="set_time"/>
+      <property name="jobDetail">
+        <ref bean="setTimeJobDetail" />
+      </property>
+      <property name="cronExpression">
+        <value>0 0 1 * * ?</value>
+      </property>
+    </bean>
+    
+    <!-- 线程活跃度 -->
+    <bean id="userVitalityUpdateJob" class="cn.com.bocosoft.background.UserVitalityUpdate" />
+    <bean id="userVitalityUpdateJobDetail" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+      <property name="group" value="set_vitality"/>
+      <property name="name" value="set_vitality_name"/>
+      <property name="concurrent" value="true"/>
+      <property name="targetObject">
+        <ref bean="userVitalityUpdateJob"/>
+      </property>
+      <property name="targetMethod">
+        <value>run</value>
+      </property>
+    </bean>
+    
+    <bean id="userVitalityUpdateTrigger" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">
+      <property name="name" value="set_vitality_name"/>
+      <property name="group" value="set_vitality"/>
+      <property name="jobDetail">
+        <ref bean="userVitalityUpdateJobDetail" />
+      </property>
+      <property name="cronExpression">
+        <value>0 0 0 1/3 * ? </value>
+      </property>
+    </bean>
+    
+    <bean id="scheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">
+      <property name="triggers">
+        <list>
+          <ref bean="weeklyRankTrigger"/>
+          <ref bean="userStatusTrigger"/>
+          <ref bean="cumulativeWeightLossTrigger"/>
+          <ref bean="setTimeTrigger"/>
+          <ref bean="userVitalityUpdateTrigger"/>
+        </list>
+      </property>
+    </bean>
+</beans>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="../../css/mui.css" rel="stylesheet"/>
+    <link href="../../css/style.css" rel="stylesheet"/>
+    <style>
+		.chart {
+			height: 200px;
+			margin: 0px;
+			padding: 0px;
+		}
+		.h5-week {
+			position: relative;
+			background: url(../../image/green.png) center no-repeat;
+			height: 2.5rem;
+			width: 100%;
+			padding-top: 7px;
+			background-size: cover;
+			background-position: 0 0;
+		}
+		.h5-all {
+			position: relative;
+			background: url(../../image/green.png) center no-repeat;
+			height: 2.5rem;
+			width: 100%;
+			font-size: 16px;
+			color : #FFFFFF;
+			padding-left: 15px;
+			padding-top: 12px;
+			background-size: cover;
+			background-position: 0 0;
+		}
+	</style>
+</head>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #000000;"></a>
+    <h1 class="mui-title">体重变化</h1>
+</header>
+<body>
+	<div class="mui-content" style="background-color: #FFFFFF;">
+		<div class="h5-week">
+			<div style="float: left;color : #FFFFFF;font-size: 16px;padding-top: 3px;padding-left: 15px;">
+				本周体重变化
+			</div>
+			<div style="margin-right: 10px;float: right;">
+				<img src="../../image/icon/calendar.png" style="width: 30px;padding-right: 5px;margin-right: 5px;" id="time" />
+			</div>
+		</div>
+		<div class="mui-content-padded" style="margin-left: 20px; margin-right: 0px;">
+			<div id="data_table"></div>
+		</div>
+		<div class="mui-content-padded" style="margin: 0px;">
+			<div id="data_week"  style="height:250px;width:95%;" ></div> 
+		</div>
+		<div class="mui-content-padded" style="margin: 0px;">
+			<h5 class="h5-all">尼基营养干预体重变化</h5>
+			<div id="data_all"  style="height:250px;width:95%;" ></div>
+		</div>
+	</div>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/h.js"></script>
+	<script type="text/javascript" src="../../js/echarts-all.min.js" ></script>
+	<script type="text/javascript" src="../../js/login.js" ></script>
+	<script src="../../js/echarts-all.js"></script>
+	<script type="text/javascript" src="../../js/jquery.js" ></script>
+    <script type="text/javascript">
+    	var subDate;
+    	mui.init();
+		mui.plusReady(function(){
+			var d = new Date();
+			subDate=d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+			h('#time').html(d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate());
+			data_analysis();
+			document.getElementById("time").addEventListener('tap', function(){
+				var dDate = new Date();
+				var minDate = new Date();
+				minDate.setFullYear(1999, 0, 1);
+				var maxDate = new Date();
+				maxDate.setFullYear(2100, 11, 31);
+				plus.nativeUI.pickDate(function(e) {
+					var d = e.date;
+					subDate=d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+					h('#time').html(d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate());
+					data_analysis();
+				}, {
+					title: "请选择日期",
+					date: dDate,
+					minDate: minDate,
+					maxDate: maxDate
+				});
+			});
+		});
+		function data_analysis(){
+			var self = plus.webview.currentWebview();
+			var uid = self.customerId;
+			//biaoge
+			var mask=mui.createMask();//遮罩层
+			$.ajax({
+  				type : "POST",
+  				data : {'date':subDate,'userInfoId':uid},
+  				url  : URL+'app_rest_ful/select_user_weight_data_table',
+  				dataType : 'json',
+  				beforeSend: function() {
+			        plus.nativeUI.showWaiting('');
+			        mask.show();//显示遮罩层
+			    },
+			    complete: function() {
+			        plus.nativeUI.closeWaiting();
+			        mask.close();//关闭遮罩层
+			    },
+  				success : function(listMsg){
+  					h('#data_table').html('');
+  					var html = '<table class="table_border">';
+  					html += '<tbody><tr style="color:#000000"><td>星期</td><td>日期</td><td>体重(kg)</td><td>变化(kg)</td></tr>';
+					var first = listMsg.data[0];
+					for (var key in first) {
+						var tabDataBean = first[key]
+						html += '<tr style="color:#999999">'
+			            html += '<td>' + key + '</td>'; 
+			            html += '<td style="font-size :15px">' + tabDataBean.date + '</td>';
+						if(tabDataBean.flag == '1'){
+							html += '<td style="color: red;">' + tabDataBean.weight + '</td>';
+							html += '<td><div class="td_up">' + tabDataBean.dietWeight + '</div></td>';
+						}else if(tabDataBean.flag == '2'){
+							html += '<td style="color: green;">' + tabDataBean.weight + '</td>';
+							html += '<td><div class="td_down">' + tabDataBean.dietWeight + '</div></td>';
+						}else if (tabDataBean.flag == '0') {
+							html += '<td>' + tabDataBean.weight + '</td>';
+							html += '<td class="t">' + tabDataBean.dietWeight + '</td>';
+						} else {
+							html += '<td></td>';
+							html += '<td></td>';
+						}
+			            html += '</tr>'
+			        }
+					var msg = listMsg.data[1];
+					for (var key in msg) {
+						var tabDataBean = msg[key];
+						if (listMsg.message == key) {
+							html += '<tr style="background-color:#F2FBFD">'
+						} else {
+							html += '<tr>';
+						}
+			            html += '<td>' + key + '</td>'; 
+			            html += '<td style="font-size :15px">' + tabDataBean.date + '</td>'; 
+						if(tabDataBean.flag == '1'){
+							html += '<td style="color: red;">' + tabDataBean.weight + '</td>';
+							html += '<td><div class="td_up">' + tabDataBean.dietWeight + '</div></td>';
+						}else if(tabDataBean.flag == '2'){
+							html += '<td style="color: green;">' + tabDataBean.weight + '</td>';
+							html += '<td><div class="td_down">' + tabDataBean.dietWeight + '</div></td>';
+						}else if (tabDataBean.flag == '0') {
+							html += '<td>' + tabDataBean.weight + '</td>';
+							html += '<td class="t">' + tabDataBean.dietWeight + '</td>';
+						} else {
+							html += '<td></td>';
+							html += '<td></td>';
+						}
+			            html += '</tr>'
+			        }
+			        html += '</tbody></table>';
+					$('#data_table').append(html);
+  				}
+  			});
+  			//显示页面数据(周曲线)
+  			$.ajax({
+  				type : "POST",
+  				data : {'date':subDate,'userInfoId':uid},
+  				url  : URL+'app_rest_ful/select_user_weight_data_week',
+  				dataType : 'json',
+  				beforeSend: function() {
+			        plus.nativeUI.showWaiting('');
+			        mask.show();//显示遮罩层
+			    },
+			    complete: function() {
+			        plus.nativeUI.closeWaiting();
+			        mask.close();//关闭遮罩层
+			    },
+  				success : function(msg){
+  					//将数组格式的String转变成数组
+  					var valueData = msg.data.maxAndMin;
+  					var showLastData = msg.data.showLastData;
+  					data_week(msg.data.sevenData, msg.data.idealBodyWeightSevenData, valueData[1], valueData[0], showLastData[0], showLastData[1]);
+  				}
+  			});
+  			//显示页面数据(总曲线) 
+  			$.ajax({
+  				type : "POST",
+  				data : {'date':subDate,'userInfoId':uid},
+  				url  : URL+'app_rest_ful/select_user_weight_data_all',
+  				dataType : 'json',
+  				beforeSend: function() {
+			        plus.nativeUI.showWaiting('');
+			        mask.show();//显示遮罩层
+			    },
+			    complete: function() {
+			        plus.nativeUI.closeWaiting();
+			        mask.close();//关闭遮罩层
+			    },
+  				success : function(msg){
+  					if(msg.success==true){
+  						var allValueData = msg.data.allMaxAndMin;
+  						var allshowLastData = msg.data.allshowLastData;
+  						data_all(msg.data.xAxisData,msg.data.yAxisData,msg.data.idealBodyWeightAllData, 
+  							allValueData[1], allValueData[0],allshowLastData[0], allshowLastData[1]);
+  					}else{
+  						var idealBodyWeightAllData = [0];
+						var yAxisData = [0];
+						var xAxisData = [0];
+  						data_all(xAxisData, xAxisData, xAxisData, 0, 100) 
+  					}
+  				}
+  			});
+		}
+		function data_week(week_data,ideal_body_weight_seven,min,max,dayOfWeek,yValue){
+			var myChart = echarts.init(document.getElementById('data_week'));
+	        //var dataArr = week_data;
+	        var weightDataArr = ideal_body_weight_seven;
+	        var min = min;
+	        var max = max;
+	        var dayOfWeek = dayOfWeek;
+	        var yValue = yValue;
+	        var option = { 
+	            tooltip : {
+	                trigger: 'axis',
+	                axisPointer:{
+	                    type: 'line'
+	                },
+	                padding: 10,
+	                textStyle: {
+	                	fontSize:12
+	                }
+	            },
+	            grid:{
+	                x:40,
+	                y:45,
+	                x2:20, 
+	                y2:45 
+	            },
+	            legend: {
+	                data:['实际体重']
+	            },
+	            xAxis : [
+	                {
+	                    type : 'category',
+	                    boundaryGap : false,
+	                    data : ['周六 ','周日','周一','周二','周三','周四','周五','周六']
+	                }
+	            ],
+	            yAxis : [
+	                {
+	                	axisTick:{
+					        show:true,
+					        interval:0  
+					    },
+	                    type : 'value',
+	                    name : '单位 : kg',
+	                    min: min,
+	                    max: max, 
+	                    //splitNumber:'5', 
+	                    axisLabel : {
+	                        formatter: '{value}',
+	                        interval:0 
+	                    }
+	                }
+	            ],
+	            series : [ 
+	                {
+	                    name:'实际体重', 
+	                    type:'line',
+	                    symbol : 'emptyCircle',
+	                    data: week_data, 
+	                    itemStyle: {
+	                        emphasis : {
+	                            label : {
+	                                show: true,
+	                                position:'bottom',
+		                                textStyle :{
+		                                	fontSize : 14,
+		                                    fontStyle :'oblique',
+		                                    fontWeight :'bold'
+		                                }
+	                             }
+	                        }
+	                    },
+	                    markPoint : {
+	                    	symbolSize :15,
+	                        data : [
+	                            {name:dayOfWeek, value:yValue, xAxis : dayOfWeek, yAxis:yValue} 
+	                        ],
+	                        itemStyle: { 
+								normal: {
+									label: {
+										formatter: '{c}'
+									}
+								}
+							}
+	                    }
+	                    
+	                }
+	            ]
+	        };
+	        myChart.setOption(option);
+		}
+		function data_all(x,y,ideal_body_weight_all, allMin, allMax,allday,allyValue){
+			var allData = echarts.init(document.getElementById('data_all'));
+	        var allDataArrX = x;
+	        var allDataArrY = y;
+	        var allWeightDataArr = ideal_body_weight_all;
+	        var allMax = allMax;
+	        var allMin = allMin;
+	        var allday = allday;
+	        var allyValue =allyValue;
+	        var option2 = {
+	        	title : {
+	                text: '减重天数(序号)',
+	                textStyle:{//标题内容的样式
+	                    color:'#222222',
+	                    fontStyle:'normal',//主标题文字字体风格，默认normal，有italic(斜体),oblique(斜体)
+	                    fontWeight:"normal",//可选normal(正常)，bold(加粗)，bolder(加粗)，lighter(变细)，100|200|300|400|500...
+	                    fontFamily:"san-serif",//主题文字字体，默认微软雅黑
+	                    fontSize:14//主题文字字体大小，默认为18px
+	                },
+	                y: 'bottom', 
+	                x: 'right',
+	                padding : '0'
+	            },
+	        	grid:{
+	                x:40,
+	                y:45,
+	                x2:18,
+	                y2:40
+	            },
+	            tooltip : {
+	                trigger: 'axis',
+	                padding: 10,
+	                formatter:"减重第{b}天  <br/>实际体重：{c0}<br/>理想体重：{c1}",
+	                textStyle: { 
+	                	fontSize:12
+	                }
+	            },
+	            legend: {
+	                data:['理想体重','实际体重']
+	            },
+	            toolbox: {
+	                show : true,
+	                feature : {
+	                    //dataView : {show: true, readOnly: false}
+	                }
+	            },
+	            xAxis : [
+	                {
+	                    type : 'category',
+	                    boundaryGap : false,
+	                    data : allDataArrX
+	                }
+	            ],
+	            yAxis : [
+	                {
+	                	axisTick:{
+					        show:true,
+					        interval:0
+					    },
+	                    type : 'value',
+	                    name : '单位 : kg',
+	                    min : allMin,
+	                    max : allMax,
+	                    axisLabel : {
+	                        formatter: '{value}',
+	                        interval:'10'
+	                    }
+	                }
+	            ],
+	            series : [
+	                {
+	                    name:'实际体重',
+	                    type:'line',
+	                    symbol : 'emptyCircle',
+	                    data: allDataArrY,
+	                    itemStyle: {
+	                        emphasis : {
+	                            label : {
+	                                show: true,
+	                                position:'bottom',
+	                                textStyle :{
+	                                	fontSize : 14,
+	                                    fontStyle :'oblique',
+	                                    fontWeight :'bold'
+	                                }
+	                             }
+	                        }
+	                    },
+	                    markPoint : {
+	                    	symbolSize :15,
+	                        data : [ 
+	                            {name:'减重第'+allday+'天  体重', value:allyValue, xAxis : allday, yAxis:allyValue}
+	                        ]
+	                    }
+	                },
+	                {
+	                    name:'理想体重', 
+	                    type:'line',
+	                    symbol : 'none',
+	                    data: allWeightDataArr
+	                }
+	            ]
+	        };
+	        allData.setOption(option2);
+		}
+	</script>
+</body>
+</html>

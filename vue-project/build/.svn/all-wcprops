@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/nncTest/!svn/ver/10/vue-project/build
+END
+vue-loader.conf.js
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/nncTest/!svn/ver/8/vue-project/build/vue-loader.conf.js
+END
+logo.png
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/nncTest/!svn/ver/8/vue-project/build/logo.png
+END
+webpack.base.conf.js
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/nncTest/!svn/ver/10/vue-project/build/webpack.base.conf.js
+END
+webpack.dev.conf.js
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svn/nncTest/!svn/ver/8/vue-project/build/webpack.dev.conf.js
+END
+build.js
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/nncTest/!svn/ver/8/vue-project/build/build.js
+END
+utils.js
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/nncTest/!svn/ver/8/vue-project/build/utils.js
+END
+check-versions.js
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/nncTest/!svn/ver/8/vue-project/build/check-versions.js
+END
+webpack.prod.conf.js
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svn/nncTest/!svn/ver/8/vue-project/build/webpack.prod.conf.js
+END

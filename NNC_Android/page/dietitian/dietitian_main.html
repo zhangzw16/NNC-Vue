@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    
+    <link href="../../css/mui.css" rel="stylesheet"/>
+</head>
+<header class="mui-bar mui-bar-nav">
+    <h1 class="mui-title">尼基营养</h1>
+</header>
+<body>
+	<nav class="mui-bar mui-bar-tab" id="tabBar">
+		<a class="mui-tab-item mui-active" id="home"> 
+			<div class="mui-icon" style="">
+				<img id="home_img" src="../../image/tab_bar_icon/home.png" style="width: 20px;" />
+			</div>
+			<span class="mui-tab-label">尼基营养</span>
+		</a>
+		<a class="mui-tab-item " id="dietitian_customer">
+			<div class="mui-icon">
+				<img id="customer_img" src="../../image/tab_bar_icon/customer_gray.png" style="width: 20px;margin-top: 2.4px;" />
+			</div>
+			<span class="mui-tab-label">客户信息</span>
+		</a>
+		<a class="mui-tab-item" id="dietitian_my">
+			<div class="mui-icon">
+				<img id="my_img" src="../../image/tab_bar_icon/my_gray.png" style="width: 20px;" />
+			</div>
+			<span class="mui-tab-label">我的信息</span>
+		</a>
+	</nav>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/h.js"></script>
+	<script type="text/javascript" src="../../js/jquery.min.js" ></script>
+    <script type="text/javascript" charset="utf-8">
+		mui.init({
+			keyEventBind: {
+	            backbutton: true  //打开back按键监听
+	        },
+			subpages : [
+				{
+			        url : 'dietitian_home.html',
+			        id  : 'dietitian_home.html',
+			        styles : {
+			        	top    : '44px',
+			           	bottom : '52px',
+			            width  : "100%"
+			        }
+			    },
+			    {
+			        url : 'dietitian_customer.html',
+			        id  : 'dietitian_customer.html',
+			        styles : {
+			            top    : '44px',
+			            bottom : '52px',
+			            left   : '100%',
+			            width  : "100%"
+			            
+			        }
+			    },
+			    {
+			        url : 'dietitian_my.html',
+			        id  : 'dietitian_my.html',
+			        styles : {
+			            left   : '200%',
+			            bottom : '52px',
+			           	top:'44px',
+			           	width  : "100%"
+			           
+			        }
+			    }
+			]
+		});
+		mui.plusReady(function(){
+			Internet_connection();
+			h('#home').tap(function(){
+				changSub(1);
+			});
+			h('#dietitian_customer').tap(function(){
+				changSub(2);
+			});
+			h('#dietitian_my').tap(function(){
+				changSub(3);
+			});
+		});
+		function changSub(index){
+			if(index == 1){
+				$('#customer_img').attr('src','../../image/tab_bar_icon/customer_gray.png');
+				$('#my_img').attr('src','../../image/tab_bar_icon/my_gray.png'); 
+				$('#home_img').attr('src','../../image/tab_bar_icon/home.png');
+			}else if(index == 2){
+				$('#customer_img').attr('src','../../image/tab_bar_icon/customer.png');
+				$('#my_img').attr('src','../../image/tab_bar_icon/my_gray.png');
+				$('#home_img').attr('src','../../image/tab_bar_icon/home_gray.png');
+			}else if(index == 3){
+				$('#customer_img').attr('src','../../image/tab_bar_icon/customer_gray.png');
+				$('#my_img').attr('src','../../image/tab_bar_icon/my.png');
+				$('#home_img').attr('src','../../image/tab_bar_icon/home_gray.png');
+			}
+			var sub1 = plus.webview.getWebviewById('dietitian_home.html');
+		    var sub2 = plus.webview.getWebviewById('dietitian_customer.html');
+			var sub3 = plus.webview.getWebviewById('dietitian_my.html');
+			sub1.evalJS("getNum();");
+			sub2.evalJS("getCustomerList();");
+			sub3.evalJS("getDietitianUserLogin();");
+		    sub1.setStyle({left: (index - 1) * 100 + "%"});
+			sub2.setStyle({left: (2 - index) * 100 + "%"});
+			sub3.setStyle({left: (3 - index) * 100 + "%"});
+		}
+	    mui.back = function () {
+	        var btn = ["确定", "取消"];
+	        mui.confirm('确定退出尼基营养吗？', '提示', btn, function (e) {
+	            if (e.index == 0) {
+	                plus.runtime.quit();//退出APP
+	            }
+	        });
+	    }
+    </script>
+</body>
+</html>

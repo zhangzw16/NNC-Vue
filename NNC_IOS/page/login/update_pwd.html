@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+    <head>
+        <meta charset="utf-8">
+        <title>绑定手机号</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+        <meta name="apple-mobile-web-app-capable" content="yes">
+        <meta name="apple-mobile-web-app-status-bar-style" content="black">
+        <link rel="stylesheet" href="../../css/mui.css">
+        <link rel="stylesheet" href="../../css/login.css" />
+    	<link rel="stylesheet" href="../../css/style.css" />
+    </head>
+    <header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #000;"></a>
+	    <h1 class="mui-title">修改密码</h1>
+	</header>
+    <body>
+        <div class="mui-content" style="background-color: #FFFFFF;">
+            <div class="mui-input-group">
+                <div class="mui-input-row">
+                    <label>手机号</label>
+                    <input id='phone' type="text" class="mui-input" placeholder="+86">
+                </div>
+            	<div class="mui-input-row" style="position:relative;margin-top: 5px;">
+                    <label>验证码</label>
+                    <input id='phoneCode' type="text" class="mui-input" placeholder="请输入验证码">
+                    <input class="code_btn_get" id="sendPhoneCode" value="获取验证码" onclick="send_phone_code();"/>
+                </div>
+            	<div class="mui-input-row" style="margin-top: 5px;">
+                    <label>密码</label>
+                    <input id='pwd' type="password" class="mui-input" placeholder="请输入密码">
+                </div>
+            	<div class="mui-input-row" style="margin-top: 5px;">
+                    <label>确认密码</label>
+                    <input id='pwd2' type="password" class="mui-input" placeholder="请再次输入密码">
+                </div>
+            </div>
+			<div class="mui-content-padded">
+				<button id='btn_submit' class="mui-btn mui-btn-block mui-btn-primary big-button">提交</button>
+			</div>
+        </div>
+        <script type="text/javascript" src="../../js/jquery.js"></script>
+        <script src="../../js/mui.min.js"></script>
+        <script type="text/javascript" src="../../js/h.js" ></script>
+        <script type="text/javascript">
+            mui.init();
+            var code;var mobilePhone;var codeTime;
+            mui.plusReady(function(){
+            	Internet_connection();
+            });
+            h("#btn_submit").tap(function() {
+            	var pwd = $.trim($("#pwd").val());
+            	var phone = $.trim($("#phone").val());
+                mui(this).button('loading');
+                var thisObj=this;
+                if (check()==true){
+                	//提交修改密码信息
+	                $.ajax({
+	      				type : "POST",
+	      		 		data : {'phoneNo': phone,'passwd':pwd,'codeTime':codeTime},
+	      				url  : URL+'app_rest_ful/edit_phone_passwd',
+	      				dataType : 'json',
+	      				success : function(msg){
+	      					if(msg.message=='timeOut'){
+	      						mui(thisObj).button('reset');
+	      						mui.alert('验证码已超时，请重新获取验证码', '系统提示', function() {
+			                        $('#phone_code').focus();
+			                    });
+	      					}else{
+	      						if(msg.success==true){
+		      						mui(thisObj).button('reset');
+		      						mui.toast('修改成功');
+				                    mui.back();
+		      					}else{
+		      						mui(thisObj).button('reset');
+		      						mui.alert('修改失败', '系统提示');
+		      					}
+	      					}
+	      				}
+	      			});
+                }else{
+                	mui(this).button('reset');
+                }
+            });
+            var wait = 60;//倒计时60秒
+            var intervalId;//定时
+            var i = wait;//倒计时递减 1
+            function exit() {
+                $("#sendPhoneCode").val(i + "秒后重新发送").addClass("disabled");
+                i = i - 1;
+                if (i <= -1) {
+                    clearInterval(intervalId);
+                    $("#sendPhoneCode").removeAttr("disabled");
+                    $("#sendPhoneCode").val("发送验证码").removeClass("disabled");
+                }
+            };
+            function send_phone_code() {
+                var phone = $("#phone").val();
+                if (phone == '') {
+                    mui.alert('请输入手机号', '系统提示', function() {
+                        $('#phone').focus();
+                    });
+                    return false;
+                }
+                if (!phone.match(/^1[3|4|5|7|8][0-9]{9}$/)) {
+                    mui.alert('请输入正确的手机号', '系统提示', function() {
+                        $('#phone').focus();
+                    });
+                    return false;
+                }
+                i = wait;
+                $.ajax({
+      				type : "POST",
+      				data : {'phoneNo': phone},
+      				url  : URL+'app_rest_ful/get_phone_validation_code',
+      				dataType : 'json',
+      				success : function(msg){
+      					if(msg.success==false){
+      						mui.alert(msg.data.statusMsg);
+      					}else{
+      						success();
+      						code=msg.message;
+      						mobilePhone=phone;
+      						codeTime=msg.data.data.templateSMS.dateCreated;
+      					}
+      				}
+      			});
+            }
+            function success(){
+            	$("#sendPhoneCode").attr("disabled", "disabled");
+                $("#sendPhoneCode").val("发送成功");
+                intervalId = setInterval("exit()", 1000);
+            }
+            function check(){
+            	var pwd = $.trim($("#pwd").val());
+            	var pwd2 = $.trim($("#pwd2").val());
+            	var phone = $.trim($("#phone").val());
+            	var phone_code = $.trim($("#phoneCode").val());
+            	var phone_pattern = /^1[3|4|5|7|8][0-9]{9}$/;
+            	if (phone == '') {
+                    mui.alert('请输入手机号', '系统提示', function() {
+                        $('#phone').focus();
+                    });
+                    return false;
+                }
+                if (!phone_pattern.test(phone)) {
+                    mui.alert('请输入正确的手机号', '系统提示', function() {
+                        $('#phone').focus();
+                    });
+                    return false;
+                }
+                if (phone_code == '') {
+                    mui.alert('请输入短信验证码', '系统提示', function() {
+                        $('#phone_code').focus();
+                    });
+                    return false;
+                }
+                if (pwd == '') {
+                    mui.alert('请输入密码', '系统提示', function() {
+                        $('#pwd').focus();
+                    });
+                    return false;
+                }
+                if (pwd.length < 6 || pwd.length > 16) {
+                    mui.alert('密码长度应在6-16个字符范围内', '系统提示', function() {
+                        $('#pwd').focus();
+                    });
+                    return false;
+                }
+                if (pwd != pwd2) {
+                    mui.alert('两次输入的密码不一致', '系统提示', function() {
+                        $('#pwd2').focus();
+                    });
+                    return false;
+                }
+                if (phone_code!=code){
+                	console.log(code);
+                	mui.alert('短信验证码填写错误', '系统提示', function() {
+                        $('#phone_code').focus();
+                    });
+                    return false;
+                }
+                if (phone!=mobilePhone&&phone!=''){
+                	mui.alert('此手机号不是获取验证码的手机号', '系统提示', function() {
+                        $('#phone').focus();
+                    });
+                    return false;
+                }
+                return true;
+            }
+        </script>
+    </body>
+</html>
+
+
+
+
+
+

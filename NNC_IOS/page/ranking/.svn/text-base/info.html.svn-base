@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/mui.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../css/feedback-page.css"/>
+	<link rel="stylesheet" href="../../css/style.css" />
+	<style>
+		.h5-week {
+			position: relative;
+			background: url(../../image/green.png) center no-repeat;
+			height: 4rem;
+			width: 100%;
+			padding-top: 7px;
+			background-size: cover;
+			background-position: 0 0;
+		}
+		.mui-btn {
+			font-size: 16px;
+			padding: 8px;
+			margin: 5px;
+		} 
+		table {
+	  		width: 100%;
+	  		height: 40px;
+	  		table-layout: fixed;
+	    }		
+	    td {
+		 text-align: center;
+		} 
+		.submit_button{
+			float: left;
+			height: 40px;
+			width: 60px;
+			color:#FFFFFF;
+			border-radius: 3px;
+			background: linear-gradient(to bottom right, #007AFF , #57C0FF);
+			text-align: center;
+			margin: 4px;
+			padding: 5px;
+			font-size: 20px;
+		}
+		.close_button{
+			float: right;
+			height: 40px;
+			width: 40px;
+			border-radius: 3px;
+			margin: 4px;
+			padding: 5px;
+		}
+		.head_color{ 
+			height: 50px;
+			background: linear-gradient(to bottom right, #17A984 , #27BE9F);
+		}
+	</style>
+	<style type="text/css">  
+            .mui-preview-image.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+				background-color: #000;
+			}
+			.mui-preview-header,
+			.mui-preview-footer {
+				position: absolute;
+				width: 100%;
+				left: 0;
+				z-index: 10;
+			}
+			.mui-preview-header {
+				height: 44px;
+				top: 0;
+			}
+			.mui-preview-footer {
+				height: 50px;
+				bottom: 0px;
+			}
+			.mui-preview-header .mui-preview-indicator {
+				display: block;
+				line-height: 25px;
+				color: #fff;
+				text-align: center;
+				margin: 15px auto 4;
+				width: 70px;
+				background-color: rgba(0, 0, 0, 0.4);
+				border-radius: 12px;
+				font-size: 16px;
+			}
+			.mui-preview-image {
+				display: none;
+				-webkit-animation-duration: 0.5s;
+				animation-duration: 0.5s;
+				-webkit-animation-fill-mode: both;
+				animation-fill-mode: both;
+			}
+			.mui-preview-image.mui-preview-in {
+				-webkit-animation-name: fadeIn;
+				animation-name: fadeIn;
+			}
+			.mui-preview-image.mui-preview-out {
+				background: none;
+				-webkit-animation-name: fadeOut;
+				animation-name: fadeOut;
+			}
+			.mui-preview-image.mui-preview-out .mui-preview-header,
+			.mui-preview-image.mui-preview-out .mui-preview-footer {
+				display: none;
+			}
+			.mui-zoom-scroller {
+				position: absolute;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+				-webkit-box-pack: center;
+				-webkit-justify-content: center;
+				justify-content: center;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				-webkit-backface-visibility: hidden;
+			}
+			.mui-zoom {
+				-webkit-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+			}
+			.mui-slider .mui-slider-group .mui-slider-item img {
+				width: auto;
+				height: auto;
+				max-width: 100%;
+				max-height: 100%;
+			}
+			.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+				width: 100%;
+			}
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+				display: inline-table;
+			}
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+				display: table-cell;
+				vertical-align: middle;
+			}
+			.mui-preview-loading {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				display: none;
+			}
+			.mui-preview-loading.mui-active {
+				display: block;
+			}
+			.mui-preview-loading .mui-spinner-white {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -25px;
+				margin-top: -25px;
+				height: 50px;
+				width: 50px;
+			}
+			.mui-preview-image img.mui-transitioning {
+				-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+				transition: transform 0.5s ease, opacity 0.5s ease;
+			}
+			@-webkit-keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@-webkit-keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			@keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+      </style>
+</head>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #000000;"></a>
+    <h1 class="mui-title">尼基营养减重达人</h1>
+</header>
+<body>
+	<div class="mui-content" style="border: none;background-color: #FFFFFF;">
+		<div style="height: 50px;background-color: #FFFFFF;font-size: 16px;color: #999999;padding-left: 20px;padding-top: 17px;">
+			<span id="nickname" style="color: #00C6FF;"></span>
+		</div>
+		<div class="h5-week">
+			<div style="float: left;color : #FFFFFF;font-size: 16px;padding-top: 3px;padding-left: 20px;">
+				本周体重变化
+			</div>
+		</div>
+		<div class="mui-content-padded" style="margin: 0px;">
+			<div id="data_week"  style="height:250px;width:95%;" ></div> 
+		</div>
+		<div style="background-image: url(../../image/icon/calendar_colour.png);height: 130px;padding-top:10px;text-align: center;color: #FFFFFF;">
+			本周饮食记录
+			<div style="padding: 10px;font-size: 18px;color: #FFFFFF;">
+				<table>
+					<tr>
+						<td >日</td>
+						<td >一</td>
+						<td >二</td>
+						<td >三</td>
+						<td >四</td>
+						<td >五</td>
+						<td >六</td>
+					</tr>
+				</table>
+				<table id="monitor">
+			        <tr>
+			            <td id="first"></td>
+						<td ></td>
+						<td ></td>
+						<td ></td>
+						<td ></td>
+						<td ></td>
+						<td id="last"></td>
+			        </tr>
+			    </table>
+			</div>
+		</div>
+    	<div> 
+    		<ul class="mui-table-view" style="margin-top: 0px;">
+				<li id="breakfast_li" class="mui-table-view-cell mui-media" style="height: 80px;">
+					<div class="mui-media-body" style="font-size: 18px;">
+						<img src="../../image/record/breakfast.png" style="width: 25px;" />
+						早餐
+					</div>
+					<p style="padding-top: 10px;" id="breakfast_info"></p>  
+					<div id='breakfast_show_info' class="row image-list">
+		        	</div>
+				</li> 
+				<li id="lunch_li" class="mui-table-view-cell mui-media" style="height: 80px;" >
+					<div class="mui-media-body" style="font-size: 18px;">
+						<img src="../../image/record/lunch.png" style="width: 25px;" />
+						午餐
+					</div>
+					<p style="padding-top: 10px;" id="lunch_info"></p>
+					<div id='lunch_show_info' class="row image-list">
+		        	</div>
+				</li>
+				<li id="dinner_li" class="mui-table-view-cell mui-media" style="height: 80px;" >
+					<div class="mui-media-body" style="font-size: 18px;">
+						<img src="../../image/record/dinner.png" style="width: 25px;" />
+						晚餐
+					</div>
+					<p style="padding-top: 10px;" id="dinner_info"></p>
+					<div id='dinner_show_info' class="row image-list">
+		        	</div>
+				</li>
+			</ul>
+    	</div>
+    	<div style="height: 10px;"></div>
+    	<div style="height: 40px;background-color: #FFFFFF;border-bottom:1px solid #D1D1D1;padding-top: 10px;">
+    		<div style="font-size: 18px;padding-left: 20px;display:inline;" >营养师点评</div>
+    	</div>
+		<div class="mui-card-content" style="background-color: #FFFFFF; min-height: 150px;">
+			<div class="mui-card-content-inner" id="comments" style="color: #17A984;">
+			</div>
+		</div>
+	</div>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/h.js"></script>
+	<script src="../../js/echarts-all.min.js"></script>
+	<script src="../../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../../js/mui.zoom.js" ></script>
+	<script type="text/javascript" src="../../js/mui.previewimage.js" ></script>
+    <script type="text/javascript">
+    	var self;
+		var dietitianId;
+    	var subDate;var subYear;var subMouth; var subDay;
+    	var mask=mui.createMask();//遮罩层
+    	mui.init();
+		//var _self, _next, timer;
+		mui.plusReady(function(){
+			Internet_connection();
+			self = plus.webview.currentWebview();
+			//获取本地数据
+			var uid = self.customerId;
+			var nickname = self.nickname;
+			$("#nickname").html(nickname);
+			//mui日历插件预加载
+			var d = new Date();
+			subDate=d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+			subYear = d.getFullYear();
+			subMouth = d.getMonth() + 1;
+			subDay = d.getDate();
+			isLogin();
+			//周日历插件
+			var color ;
+            var cells = document.getElementById('monitor').getElementsByTagName('td');
+            var clen = cells.length;
+            var currentFirstDate;
+            var year;
+            var mouth;
+            var setDates = function(date){ 
+            	year = date.getFullYear();
+	            mouth = (date.getMonth()+1);
+                var week = date.getDay();
+                date = addDate(date,week*-1);
+                currentFirstDate = new Date(date);
+                for(var i = 0;i<clen;i++){ 
+                	cells[i].innerHTML = formatDate(i==0 ? date : addDate(date,1));
+                	if(color==1){
+                		$('#monitor td').removeAttr("style");
+			    		cells[i].style.backgroundRepeat="no-repeat";
+			    		cells[i].style.backgroundPositionX='48%';
+                		cells[i].style.backgroundImage = 'url(../../image/icon/calendar_white.png)';
+                		cells[i].style.color='#17A984';
+                	}else{
+                		cells[i].style.backgroundColor='';
+                		cells[i].style.color='#FFFFFF';
+                	}
+                }
+            };  
+            var formatDate = function(date){ 
+            	var day2 = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+            	if(subDate==day2){
+	                day = date.getDate();
+	                color=1;
+            	}else{
+	                day = date.getDate();
+	                color=0;
+            	}
+				var week = '('+['日','一','二','三','四','五','六'][date.getDay()]+')';  
+                return day;
+            };
+            $(function(){
+			    $('#monitor td').click(function(){
+		    		$('#monitor td').removeAttr("style");
+			        $(this).attr('style','color:#17A984;background-image:url(../../image/icon/calendar_white.png);background-repeat: no-repeat;background-position-x: 48%;');
+			        var clickDay   = $(this).html();  
+		        	var firstDay=$("#first").html();//一周显示第一个td的值
+		        	var lastDay=$("#last").html();//一周显示最后一个td的值
+		        	var clickYear ;
+		    		var clickMouth ;
+		        	if(Number(clickDay)>Number(subDay)){
+		        		if(Number(clickDay)-Number(subDay)>7){
+		        			if(Number(clickDay)>Number(lastDay)){//为上一个月 else为本月
+			        			if(Number(subMouth)==1){
+			        				clickYear = Number(subYear)-1;
+			        				clickMouth = 12;
+			        				h('#ym').html(clickYear+'年'+clickMouth+'月');
+			        			}else{
+			        				clickYear = Number(subYear);
+			        				clickMouth = Number(subMouth)-1;
+			        				h('#ym').html(clickYear+'年'+clickMouth+'月');
+			        			}
+			        		}else{
+			        			clickYear = Number(subYear);
+		        				clickMouth = Number(subMouth);
+		        				h('#ym').html(clickYear+'年'+clickMouth+'月');
+			        		}
+		        		}else{
+		        			clickYear = Number(subYear);
+	        				clickMouth = Number(subMouth);
+	        				h('#ym').html(clickYear+'年'+clickMouth+'月');
+		        		}
+		        	}else{
+		        		if(Number(subDay)-Number(clickDay)>7){
+		        			if(Number(clickDay)<Number(firstDay)){//为下一个月else为本月
+			        			if(Number(subMouth)==12){
+			        				clickYear = Number(subYear)+1;
+			        				clickMouth = 1;
+			        				h('#ym').html(clickYear+'年'+clickMouth+'月');
+			        			}else{
+			        				clickYear = Number(subYear);
+			        				clickMouth = Number(subMouth)+1;
+			        				h('#ym').html(clickYear+'年'+clickMouth+'月');
+			        			}
+			        		}else{
+			        			clickYear = Number(subYear);
+		        				clickMouth = Number(subMouth);
+		        				h('#ym').html(clickYear+'年'+clickMouth+'月');
+			        		}
+		        		}else{
+		        			clickYear = Number(subYear);
+	        				clickMouth = Number(subMouth);
+	        				h('#ym').html(clickYear+'年'+clickMouth+'月');
+		        		}
+		        	}
+		        	var d = clickYear+'-'+clickMouth+'-'+clickDay;
+		    		subDate = d;
+		    		getRecord(d,uid);
+			    });
+			});
+            var addDate= function(date,n){       
+                date.setDate(date.getDate()+n);
+                return date;
+            };
+            setDates(new Date());
+		});
+		function getRecord(date,uid){
+			plus.nativeUI.showWaiting('');
+			mask.show();//显示遮罩层
+			$.ajax({
+  				type : "POST",
+  				data : {'userInfoId':uid},
+  				url  : URL+'app_rest_ful/select_user_look_flag',
+  				dataType : 'json',
+  				success : function(msg){
+  					if(msg.success==true){
+						$.ajax({
+			  				type : "POST",
+			  				data : {'date':date,'userInfoId':uid},
+			  				url  : URL+'app_rest_ful/find_user_info_data',
+			  				dataType : 'json',
+			  				success : function(msg){
+			  					if(msg.success==true){
+			  						if(msg.data.breakfast!=null){
+			  							h('#breakfast_info').html(msg.data.breakfast);
+			  							h("#breakfast_val").val(msg.data.breakfast);
+			  						}else{
+			  							h('#breakfast_info').html('');
+			  							h("#breakfast_val").val('');
+			  						}
+			  						if(msg.data.lunch!=null){
+			  							h('#lunch_info').html(msg.data.lunch);
+			  							h("#lunch_val").val(msg.data.lunch);
+			  						}else{
+			  							h('#lunch_info').html('');
+			  							h("#lunch_val").val('');
+			  						}
+			  						if(msg.data.dinner!=null){
+			  							h('#dinner_info').html(msg.data.dinner);
+			  							h("#dinner_val").val(msg.data.dinner);
+			  						}else{
+			  							h('#dinner_info').html('');
+			  							h("#dinner_val").val('');
+			  						}
+			  						if(msg.data.exercise!=null){
+			  							h('#sport_today_info').html(msg.data.exercise);
+			  							h("#sport_val").val(msg.data.exercise);
+			  						}else{
+			  							h('#sport_today_info').html('');
+			  							h("#sport_val").val('');
+			  						}
+			  						if(msg.data.drankWater!=null){
+			  							h('#drink_info').html(msg.data.drankWater+'ml');
+			  							h("#r").val(msg.data.drankWater);
+			  						}else{
+			  							h('#drink_info').html('');
+			  							h("#r").val(1500);
+			  						}
+			  						if(msg.data.comfortLevel!=null){
+			  							h('#comfort_info').html(msg.data.comfortLevel+'颗星');
+			  							h("#comfort_val").val(msg.data.comfortLevel);
+			  						}else{
+			  							h('#comfort_info').html('');
+			  						}
+			  						if(msg.data.testPaperValue!=null){
+			  							h('#test_paper_info').html(msg.data.testPaperValue+'+');
+			  							h("#test_paper_val").val(msg.data.testPaperValue);
+			  						}else{
+			  							h('#test_paper_info').html('');
+			  						}
+			  						if(msg.data.weight!=null){
+			  							h('#weight_info').html(msg.data.weight+'Kg');
+			  							h("#asd").val(msg.data.weight);
+			  						}else{
+			  							h('#weight_info').html('');
+			  						}
+			  						h('#comments').html(msg.data.comments);
+			  						h("#weight_day").html(msg.message);
+			  					}else{
+			  						h('#breakfast_info').html('');
+			  						h("#breakfast_val").val(''); 
+			  						h('#lunch_info').html('');
+									h("#lunch_val").val('');
+									h('#dinner_info').html('');
+									h("#dinner_val").val('');
+									h('#sport_today_info').html('');
+									h("#sport_val").val('');
+									h('#drink_info').html('');
+									h("#r").val(1500);
+									h('#comfort_info').html('');
+									h('#test_paper_info').html('');
+									h('#weight_info').html('');
+									h('#comments').html('');
+									h("#weight_day").html('- -');
+			  					}
+			  				}
+			  			});
+			  			getBreakfastPhoto();
+						getLunchPhoto();
+						getDinnerPhoto();
+  					} else {
+  						mui.toast('达人未公开日常信息');
+  						plus.nativeUI.closeWaiting();
+			        	mask.close();//关闭遮罩层
+			        	$(".mui-backdrop").hide();
+  					}
+  				}
+  			});
+			
+		}
+		function isLogin(){
+			//获取本地数据
+			var uid = self.customerId;
+			data_analysis();
+			getRecord(subDate,uid);
+		}
+		function getBreakfastPhoto() {
+			//alert("zao");
+			$(".image-item").remove("#breakfast_show_photo_id");
+			$('#breakfast_li').attr('style', 'height:80px;')
+			var uid=self.customerId;
+			$.ajax({
+  				type : "POST",
+  				data : {'date':subDate,'userInfoId':uid},
+  				url  : URL+'app_rest_ful/find_user_info_breakfast',
+  				dataType : 'json',
+  				success : function(msg){
+  					if(msg.success==true){
+  						if(msg.data[0] != null) {
+  							h('#breakfast_info').html(msg.data[0]);
+  						}
+  						if(msg.data[1] != null) {
+  							$('#breakfast_li').attr('style', 'height:auto;');
+  							var src = msg.data[1];
+  							var html = '';
+					        html +='<div class="image-item"  id="breakfast_show_photo_id">';   
+					        html +='    <img src="'+src+'" data-preview-src="" data-preview-group="1" />';   
+					        html +='</div>';  
+					        $("#breakfast_show_info").append(html);
+  						}
+  						if(msg.data[2] != null) {
+  							var src = msg.data[2]; 
+  							var html = '';
+					        html +='<div class="image-item" id="breakfast_show_photo_id">';   
+					        html +='    <img src="'+src+'" data-preview-src="" data-preview-group="1" />';   
+					        html +='</div>';  
+					        $("#breakfast_show_info").append(html);
+  						}
+  						if(msg.data[3] != null) {
+  							var src = msg.data[3];
+  							var html = '';
+					        html +='<div class="image-item" id="breakfast_show_photo_id">';   
+					        html +='    <img src="'+src+'" data-preview-src="" data-preview-group="1" />';   
+					        html +='</div>';  
+					        $("#breakfast_show_info").append(html);
+  						}
+  					}
+//					plus.nativeUI.closeWaiting();
+//			        mask.close();//关闭遮罩层
+  				}
+  			});
+		}
+		
+		function getLunchPhoto() {
+			//alert("wu");
+			$(".image-item").remove("#lunch_show_photo_id");
+			$('#lunch_li').attr('style', 'height:80px;')
+			var uid=self.customerId;
+			$.ajax({
+  				type : "POST",
+  				data : {'date':subDate,'userInfoId':uid},
+  				url  : URL+'app_rest_ful/find_user_info_lunch',
+  				dataType : 'json',
+  				success : function(msg){
+  					if(msg.success==true){  						
+  						if(msg.data[0] != null) {
+  							h('#lunch_info').html(msg.data[0]);
+  						}
+  						if(msg.data[1] != null) {
+  							$('#lunch_li').attr('style', 'height:auto;');
+  							var src = msg.data[1];
+  							var html = '';
+					        html +='<div class="image-item"  id="lunch_show_photo_id">';   
+					        html +='    <img src="'+src+'" data-preview-src="" data-preview-group="1" />';   
+					        html +='</div>';  
+					        $("#lunch_show_info").append(html);
+  						}
+  						if(msg.data[2] != null) {
+  							var src = msg.data[2]; 
+  							var html = '';
+					        html +='<div class="image-item" id="lunch_show_photo_id">';   
+					        html +='    <img src="'+src+'" data-preview-src="" data-preview-group="1" />';   
+					        html +='</div>';  
+					        $("#lunch_show_info").append(html);
+  						}
+  						if(msg.data[3] != null) {
+  							var src = msg.data[3];
+  							var html = '';
+					        html +='<div class="image-item" id="lunch_show_photo_id">';   
+					        html +='    <img src="'+src+'" data-preview-src="" data-preview-group="1" />';   
+					        html +='</div>';  
+					        $("#lunch_show_info").append(html);
+  						}
+  					} 
+//					plus.nativeUI.closeWaiting();
+//			        mask.close();//关闭遮罩层
+  				}
+  			});
+		}
+		
+		function getDinnerPhoto() {
+			//alert("wan");
+			$(".image-item").remove("#dinner_show_photo_id");
+			$('#dinner_li').attr('style', 'height:80px;')
+			var uid=self.customerId;
+			$.ajax({
+  				type : "POST",
+  				data : {'date':subDate,'userInfoId':uid},
+  				url  : URL+'app_rest_ful/find_user_info_dinner',
+  				dataType : 'json',
+  				success : function(msg){
+  					if(msg.success==true){
+  						if(msg.data[0] != null) {
+  							h('#dinner_info').html(msg.data[0]);
+  						}
+  						if(msg.data[1] != null) {
+  							$('#dinner_li').attr('style', 'height:auto;');
+  							var src = msg.data[1];
+  							var html = '';
+					        html +='<div class="image-item" id="dinner_show_photo_id">';   
+					        html +='    <img src="'+src+'" data-preview-src="" data-preview-group="1" />';   
+					        html +='</div>';  
+					        $("#dinner_show_info").append(html);
+  						}
+  						if(msg.data[2] != null) {
+  							var src = msg.data[2]; 
+  							var html = '';
+					        html +='<div class="image-item" id="dinner_show_photo_id">';   
+					        html +='    <img src="'+src+'" data-preview-src="" data-preview-group="1" />';   
+					        html +='</div>';  
+					        $("#dinner_show_info").append(html);
+  						}
+  						if(msg.data[3] != null) {
+  							var src = msg.data[3];
+  							var html = '';
+					        html +='<div class="image-item" id="dinner_show_photo_id">';   
+					        html +='    <img src="'+src+'" data-preview-src="" data-preview-group="1" />';   
+					        html +='</div>';  
+					        $("#dinner_show_info").append(html);
+  						}
+  					}
+					plus.nativeUI.closeWaiting();
+			        mask.close();//关闭遮罩层
+			        $(".mui-backdrop").hide();
+  				}
+  			});
+		}
+		mui.previewImage();
+		
+		function data_analysis(){
+			var uid=self.customerId;
+			var mask1 = mui.createMask();
+  			//显示页面数据(周曲线)
+  			$.ajax({
+  				type : "POST",
+  				data : {'date':subDate,'userInfoId':uid},
+  				url  : URL+'app_rest_ful/select_user_weight_data_week',
+  				dataType : 'json',
+  				beforeSend: function() {
+			        plus.nativeUI.showWaiting('');
+			        mask1.show();//显示遮罩层
+			    },
+			    complete: function() {
+			        plus.nativeUI.closeWaiting();
+			        mask1.close();//关闭遮罩层
+			        $(".mui-backdrop").hide();
+			    },
+  				success : function(msg){
+  					//将数组格式的String转变成数组
+  					var valueData = msg.data.maxAndMin;
+  					var showLastData = msg.data.showLastData;
+  					data_week(msg.data.sevenData, msg.data.idealBodyWeightSevenData, valueData[1], valueData[0], showLastData[0], showLastData[1]);
+  				}
+  			});
+		}
+		function data_week(week_data,ideal_body_weight_seven,min,max,dayOfWeek,yValue){
+			var myChart = echarts.init(document.getElementById('data_week'));
+	        //var dataArr = week_data;
+	        var weightDataArr = ideal_body_weight_seven;
+	        var min = min;
+	        var max = max;
+	        var dayOfWeek = dayOfWeek;
+	        var yValue = yValue;
+	        var option = { 
+	            tooltip : {
+	                trigger: 'axis',
+	                axisPointer:{
+	                    type: 'line'
+	                },
+	                padding: 10,
+	                textStyle: {
+	                	fontSize:12
+	                }
+	            },
+	            grid:{
+	                x:40,
+	                y:45,
+	                x2:20, 
+	                y2:45 
+	            },
+	            legend: {
+	                data:['实际体重']
+	            },
+	            xAxis : [
+	                {
+	                    type : 'category',
+	                    boundaryGap : false,
+	                    data : ['周六 ','周日','周一','周二','周三','周四','周五','周六']
+	                }
+	            ],
+	            yAxis : [
+	                {
+	                	axisTick:{
+					        show:true,
+					        interval:0  
+					    },
+	                    type : 'value',
+	                    name : '单位 : kg',
+	                    min: min,
+	                    max: max, 
+	                    //splitNumber:'5', 
+	                    axisLabel : {
+	                        formatter: '{value}',
+	                        interval:0 
+	                    }
+	                }
+	            ],
+	            series : [ 
+	                {
+	                    name:'实际体重', 
+	                    type:'line',
+	                    symbol : 'emptyCircle',
+	                    data: week_data, 
+	                    itemStyle: {
+	                        emphasis : {
+	                            label : {
+	                                show: true,
+	                                position:'bottom',
+		                                textStyle :{
+		                                	fontSize : 14,
+		                                    fontStyle :'oblique',
+		                                    fontWeight :'bold'
+		                                }
+	                             }
+	                        }
+	                    },
+	                    markPoint : {
+	                    	symbolSize :15,
+	                        data : [
+	                            {name:dayOfWeek, value:yValue, xAxis : dayOfWeek, yAxis:yValue} 
+	                        ],
+	                        itemStyle: { 
+								normal: {
+									label: {
+										formatter: '{c}'
+									}
+								}
+							}
+	                    }
+	                    
+	                }
+	            ]
+	        };
+	        myChart.setOption(option);
+		}
+	</script>
+</body>
+</html>

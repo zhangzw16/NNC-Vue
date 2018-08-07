@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>体重</title>
+		<link rel="stylesheet" href="../../css/weight/normalize.css" />
+	    <link rel="stylesheet" href="../../css/weight/ion.rangeSlider.css" />
+	    <link rel="stylesheet" href="../../css/weight/ion.rangeSlider.skinFlat.css" />
+	    <style>
+	    	.page-main{
+	    		width: 80%;
+	    		margin: 40px auto 0px;
+	    	}
+	    </style>
+	</head>
+	
+	<body>
+		<div class="page" style="margin-top: 20px;" data-page='profile1'>
+			<div class="page-main">
+				<div style="margin-bottom: 10px;">
+			        <input type="text" id="range" value="" name="range" />
+			    </div>
+			     <div>
+			        <input type="text" id="range1" value="" name="range" />
+			    </div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../../js/weight/jquery-1.12.3.min.js"></script>
+		<script type="text/javascript" src="../../js/app/iframeCom.js"></script>
+		<script type="text/javascript" src="../../js/weight/ion.rangeSlider.js"></script>
+		<script>
+			document.oncontextmenu=new Function("event.returnValue=false");  
+			document.onselectstart=new Function("event.returnValue=false");  
+			 $(function () {
+
+		        $("#range").ionRangeSlider({
+		            min: 40,
+		            max: 180,
+		            step: 1,
+		            grid: true
+		        });
+				$("#range1").ionRangeSlider({
+		            min: 0,
+		            max: 0.9,
+		            step: 0.1,
+		            grid: true,
+		            values: [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7,0.8,0.9]
+		        });
+		    });
+		
+			function getWeight(){
+				var bai = $("#range").val();
+				var dian = $("#range1").val();
+				dian = dian.substring(1);
+//				alert(bai+"~~~"+dian);
+				var weight=bai+dian;
+				return weight;
+			}
+		
+		</script>
+	</body>
+
+</html>

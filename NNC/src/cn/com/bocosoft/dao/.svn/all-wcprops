@@ -1,0 +1,95 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/dao
+END
+UserData2Mapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/dao/UserData2Mapper.java
+END
+UserInfoMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/dao/UserInfoMapper.java
+END
+WeeklyRecommendMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/dao/WeeklyRecommendMapper.java
+END
+EndUserDataMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/dao/EndUserDataMapper.java
+END
+EndUserWeightDataMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/dao/EndUserWeightDataMapper.java
+END
+UserDataMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 71
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/dao/UserDataMapper.java
+END
+DietitianMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/dao/DietitianMapper.java
+END
+UserInfoHistroyMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/dao/UserInfoHistroyMapper.java
+END
+WeeklyRankMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/dao/WeeklyRankMapper.java
+END
+UserWeightDataMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 77
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/dao/UserWeightDataMapper.java
+END
+DietPhaseInfoMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/dao/DietPhaseInfoMapper.java
+END
+SystemUserMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/dao/SystemUserMapper.java
+END
+ThirdPartyLoginMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 78
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/dao/ThirdPartyLoginMapper.java
+END
+UserLoginInfoMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/dao/UserLoginInfoMapper.java
+END
+DietitianUserInfoMapper.java
+K 25
+svn:wc:ra_dav:version-url
+V 80
+/svn/nncTest/!svn/ver/1/NNC/src/cn/com/bocosoft/dao/DietitianUserInfoMapper.java
+END

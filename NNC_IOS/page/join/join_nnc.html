@@ -1,0 +1,52 @@
+<!doctype html>
+<html class="ui-page-login">
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.css" rel="stylesheet" />
+		<link href="../../css/style.css" rel="stylesheet" />
+		<style>
+			.mian{height: 450px;text-align: center;}
+			@media only screen and (min-width: 100px) and (max-width: 380px) {
+				.mian{height: 400px;text-align: center;}
+			}
+		</style>
+	</head>
+	
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #000000;"></a>
+	    <h1 class="mui-title">尼基营养</h1>
+	</header>
+	<body>
+		<div class="mui-content" style="background-color: #ffffff;">
+			<div class="mian">
+				<img src="../../image/login_logo.png" style="width: 130px;margin-top: 60px;"/>
+				<div style="margin-top: 25px;color: #007AFF;font-size: 24px;">欢迎您加入尼基营养</div>
+				<div style="margin-top: 50px;">
+					为了帮您更好的制定减脂方案</br>
+					占用您一分钟时间完善以下基本资料。
+				</div>
+			</div>
+			<div class="mui-content-padded">
+				<button id='welcome' class="mui-btn mui-btn-block mui-btn-primary big-button">下一步</button>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/h.js" ></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function(){
+				Internet_connection();
+				h('#welcome').tap(function(){
+					mui.openWindow({
+						url : 'optional.html',
+						id  : 'optional.html'
+					});
+				});
+			});
+		</script>
+	</body>
+
+</html>

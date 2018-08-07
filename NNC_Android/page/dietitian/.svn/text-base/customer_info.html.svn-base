@@ -1,0 +1,180 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../../css/appCss/customer.css"/>
+	</head>
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #000000;"></a>
+	    <h1 class="mui-title">详细信息</h1>
+	</header>
+	<body>
+		<div class="mui-content" style="background-color: #FFFFFF;">
+		    <div class="head-box">
+				<div class="user-imgbox" id="logo_img" style="background: url(../../image/hend_img.png) center no-repeat;background-size:cover"></div>
+				<div class="user-msgbox">
+					<div id="nickname" class="nickname" ></div>
+					<div id="user_title" class="user-msg">
+					</div>
+				</div>
+			</div>
+			<div style="height: 3px;background-color: #efeff5;"></div>
+			<div id="info" class="list"> 
+				<img src="../../image/dietitian/info.png" />
+				<div class="list-title">基本信息</div>
+			</div>
+			<div id="record" class="list"> 
+				<img src="../../image/dietitian/record.png"/>
+				<div class="list-title">日常记录</div>
+			</div>
+			<div id="weight" class="list"> 
+				<img src="../../image/dietitian/weight.png"/>
+				<div class="list-title">体重变化</div>
+				
+			</div>
+			<div id="history" class="list"> 
+				<img src="../../image/dietitian/history.png" >
+				<div class="list-title">历史数据</div>
+			</div>
+			<div style="height:50px;background-color: #efeff5;"></div>
+			<ul class="mui-table-view set-view">
+				<li class="mui-table-view-cell" style="margin-left: 25px;">
+					置顶排放
+					<div id="Gallery_Toggle" class="mui-switch" style="margin-right: 25px;">
+						<div class="mui-switch-handle" checked='checked'></div>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/jquery.min.js" ></script>
+		<script type="text/javascript" src="../../js/h.js" ></script>
+		<script src="../../js/rem.js"></script>
+		<script type="text/javascript">
+			mui.init();
+			mui.plusReady(function() {
+				var self = plus.webview.currentWebview();
+				var customerId = self.customerId;
+				var day = self.day;
+				var weight = self.weight;
+				var topFlag = self.topFlag;
+				var nickname = self.name;
+				var userStatus = self.userStatus;
+				var headPhotoUrl = self.headPhotoUrl;
+				var htmlTitle = "";
+				if (userStatus == 1) {
+					htmlTitle = '<div class="user-msg-div">减重第&nbsp;<span id="day">'+day+'</span>&nbsp;天</div><div class="user-msg-div">已减重&nbsp;<span id="weight_sum">'+weight+'</span>&nbsp;kg</div>';
+				} else if (userStatus == 2) {
+					htmlTitle = '<div class="user-msg-div">过渡期第&nbsp;<span id="day">'+day+'</span>&nbsp;天</div><div class="user-msg-div">已减重&nbsp;<span id="weight_sum">'+weight+'</span>&nbsp;kg</div>';
+				} else if (userStatus == 3) {//清楚提醒的状态
+					$.ajax({
+		  				type : "POST",
+		  				data : {'userInfoId':customerId},
+		  				url  : URL+'app_rest_ful/clean_user_alarm_flag',
+		  				dataType : 'json',
+		  				success : function(msg){
+
+		  				}
+		  			});
+					htmlTitle = '<div class="user-msg-div">完成期第&nbsp;<span id="day">'+day+'</span>&nbsp;天</div><div class="user-msg-div">已减重&nbsp;<span id="weight_sum">'+weight+'</span>&nbsp;kg</div>';
+				}
+				h('#user_title').html(htmlTitle);
+				$('#nickname').html(nickname);
+				if(headPhotoUrl != 'null' && headPhotoUrl != null){
+					$('#logo_img').attr("style" , "background: url('"+headPhotoUrl+"') center no-repeat;background-size:cover");
+				}
+				if(topFlag == "true"){
+				  $('#Gallery_Toggle').addClass('mui-active');
+				}else{
+				  $('#Gallery_Toggle').removeClass('mui-active');
+				}
+				var uid = localStorage.getItem('NNC_dietPhaseInfoId');
+	  			$.ajax({
+	  				type : "POST",
+	  				data : {'userInfoId':customerId},
+	  				url  : URL+'app_rest_ful/select_userInfo_history',
+	  				dataType : 'json',
+	  				success : function(msg){
+	  					if(msg.success==true){
+	  						$("#history").show();
+	  					}else{
+	  						$("#history").hide();
+	  					}
+	  				}
+	  			});
+				h('#info').tap(function(){
+					mui.openWindow({
+						url : 'customer_information.html',
+						id  : 'customer_information.html',
+						extras : {
+							customerId : customerId,
+							head_img : headPhotoUrl
+						}
+					});
+				});
+				h('#record').tap(function(){
+					mui.openWindow({
+						url : 'customer_record.html',
+						id  : 'customer_record.html',
+						extras : {
+							customerId : customerId
+						}
+					});
+				});
+				h('#weight').tap(function(){
+					mui.openWindow({
+						url : 'customer_weight.html',
+						id  : 'customer_weight.html',
+						extras : {
+							customerId : customerId
+						}
+					});
+				});
+				h('#history').tap(function(){
+					mui.openWindow({
+						url : 'customer_history.html',
+						id  : 'customer_history.html',
+						extras : {
+							customerId : customerId
+						}
+					});
+				});
+				document.getElementById('Gallery_Toggle').addEventListener('toggle', function(e) {
+					var loop = e.detail.isActive;
+					if (loop) {//置顶1
+						$.ajax({
+			  				type : "POST",
+			  				data : {'userInfoId':customerId,'dietitianId':uid,'topFlag':1},
+			  				url  : URL+'app_rest_ful/set_user_top_flag',
+			  				dataType : 'json',
+			  				success : function(msg){
+			  					if(msg.successs==true){
+			  						mui.toast('置顶成功');
+			  					}
+			  				}
+			  			});
+			  			var prev = plus.webview.getWebviewById('dietitian_customer.html');
+			  			prev.evalJS("getCustomerList()");
+					}else{//去除置顶0
+						$.ajax({
+			  				type : "POST",
+			  				data : {'userInfoId':customerId,'dietitianId':uid,'topFlag':0},
+			  				url  : URL+'app_rest_ful/set_user_top_flag',
+			  				dataType : 'json',
+			  				success : function(msg){
+			  					if(msg.successs==true){
+			  						mui.toast('去除置顶');
+			  					}
+			  				}
+			  			});
+			  			var prev = plus.webview.getWebviewById('dietitian_customer.html');
+			  			prev.evalJS("getCustomerList()");
+					}
+				});
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../css/mui.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../css/scale.css"/>
+    <link rel="stylesheet" href="../../css/feedback-page.css"/>
+	<link rel="stylesheet" href="../../css/layer.css" />
+	<style>
+		@media screen and (min-width: 400px) { /*6plus*/
+		  	#teach{
+				height: 30px;
+				margin-left: 60%;
+			}
+		}
+		@media screen and  (min-width: 330px) and (max-width: 400px) { /*6*/
+		  	#teach{
+				height: 30px;
+				margin-left: 55%;
+			}
+		}
+		@media screen and  (min-width: 0px) and (max-width: 329px) { /*5s*/
+		  	#teach{
+				height: 30px;
+				margin-left: 50%;
+			}
+		}
+		.mui-btn {
+			font-size: 16px;
+			padding: 8px;
+			margin: 5px;
+		} 
+		table {
+	  		width: 100%;
+	  		height: 40px;
+	  		table-layout: fixed;
+	    }		
+	    td {
+		 text-align: center;
+		} 
+		.submit_button{
+			float: left;
+			height: 40px;
+			width: 60px;
+			color:#FFFFFF;
+			border-radius: 3px;
+			background: linear-gradient(to bottom right, #007AFF , #57C0FF);
+			text-align: center;
+			margin: 4px;
+			padding: 5px;
+			font-size: 20px;
+		}
+		.close_button{
+			float: right;
+			height: 40px;
+			width: 40px;
+			border-radius: 3px;
+			margin: 4px;
+			padding: 5px;
+		}
+		.head_color{ 
+			height: 50px;
+			background: linear-gradient(to bottom right, #17A984 , #27BE9F);
+		}
+	</style>
+	<style type="text/css">  
+            .mui-preview-image.mui-fullscreen {
+				position: fixed;
+				z-index: 20;
+				background-color: #000;
+			}
+			.mui-preview-header,
+			.mui-preview-footer {
+				position: absolute;
+				width: 100%;
+				left: 0;
+				z-index: 10;
+			}
+			.mui-preview-header {
+				height: 44px;
+				top: 0;
+			}
+			.mui-preview-footer {
+				height: 50px;
+				bottom: 0px;
+			}
+			.mui-preview-header .mui-preview-indicator {
+				display: block;
+				line-height: 25px;
+				color: #fff;
+				text-align: center;
+				margin: 15px auto 4;
+				width: 70px;
+				background-color: rgba(0, 0, 0, 0.4);
+				border-radius: 12px;
+				font-size: 16px;
+			}
+			.mui-preview-image {
+				display: none;
+				-webkit-animation-duration: 0.5s;
+				animation-duration: 0.5s;
+				-webkit-animation-fill-mode: both;
+				animation-fill-mode: both;
+			}
+			.mui-preview-image.mui-preview-in {
+				-webkit-animation-name: fadeIn;
+				animation-name: fadeIn;
+			}
+			.mui-preview-image.mui-preview-out {
+				background: none;
+				-webkit-animation-name: fadeOut;
+				animation-name: fadeOut;
+			}
+			.mui-preview-image.mui-preview-out .mui-preview-header,
+			.mui-preview-image.mui-preview-out .mui-preview-footer {
+				display: none;
+			}
+			.mui-zoom-scroller {
+				position: absolute;
+				display: -webkit-box;
+				display: -webkit-flex;
+				display: flex;
+				-webkit-box-align: center;
+				-webkit-align-items: center;
+				align-items: center;
+				-webkit-box-pack: center;
+				-webkit-justify-content: center;
+				justify-content: center;
+				left: 0;
+				right: 0;
+				bottom: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				margin: 0;
+				-webkit-backface-visibility: hidden;
+			}
+			.mui-zoom {
+				-webkit-transform-style: preserve-3d;
+				transform-style: preserve-3d;
+			}
+			.mui-slider .mui-slider-group .mui-slider-item img {
+				width: auto;
+				height: auto;
+				max-width: 100%;
+				max-height: 100%;
+			}
+			.mui-android-4-1 .mui-slider .mui-slider-group .mui-slider-item img {
+				width: 100%;
+			}
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-slider-group .mui-slider-item {
+				display: inline-table;
+			}
+			.mui-android-4-1 .mui-slider.mui-preview-image .mui-zoom-scroller img {
+				display: table-cell;
+				vertical-align: middle;
+			}
+			.mui-preview-loading {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+				top: 0;
+				left: 0;
+				display: none;
+			}
+			.mui-preview-loading.mui-active {
+				display: block;
+			}
+			.mui-preview-loading .mui-spinner-white {
+				position: absolute;
+				top: 50%;
+				left: 50%;
+				margin-left: -25px;
+				margin-top: -25px;
+				height: 50px;
+				width: 50px;
+			}
+			.mui-preview-image img.mui-transitioning {
+				-webkit-transition: -webkit-transform 0.5s ease, opacity 0.5s ease;
+				transition: transform 0.5s ease, opacity 0.5s ease;
+			}
+			@-webkit-keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@keyframes fadeIn {
+				0% {
+					opacity: 0;
+				}
+				100% {
+					opacity: 1;
+				}
+			}
+			@-webkit-keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			@keyframes fadeOut {
+				0% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+			.yxqImgbox{
+				margin-top:2rem
+			}
+			.yxqClose{
+				width:40px;
+				height:40px;
+				background: url(../../image/close2.png) center no-repeat;
+				background-size:70%;
+				position: fixed;
+				right: 20px;
+				top:80px;
+				border-radius: 50%;
+				text-align: center;
+				font-size: 30px;
+				line-height: 40px;
+				color: #fff;
+				z-index: 999999999999;
+				border: 2px solid #fff;
+				box-shadow: 1px 1px 5px rgba(51,51,51,.6);
+			}
+      </style>
+</head>
+<header class="mui-bar mui-bar-nav">
+    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #000000;"></a>
+    <h1 class="mui-title">日常记录</h1>
+</header>
+<body>
+	<div class="mui-content" style="border: none;">
+		<div style="background-image: url(../../image/icon/calendar_colour.png);background-color: #1ec8c8; height: 220px;padding:0px; margin:0px;">
+			<div style="padding: 10px 10px; ">
+				<img id="teach_food" src="../../image/record/teach_food.png" id="food" style="width: 40px;margin-left: 10px;"/>
+				<img id="teach_sport" src="../../image/record/teach_sport.png" id="sport" style="width: 40px;margin-left: 10px;"/>
+				<div id="jianzhong_id" style="color: #FFFFFF;font-size: 18px;float:right;">
+					减重第&nbsp;&nbsp;<span style="color: #FFFFFF; font-size: 24px;" id="jianzhong_weight_day"></span>&nbsp;&nbsp;天
+				</div>
+				<div id="guodu_id" style="color: #FFFFFF;font-size: 18px;float:right;">
+					过渡期第&nbsp;&nbsp;<span style="color: #FFFFFF; font-size: 24px;" id="guodu_weight_day"></span>&nbsp;&nbsp;天
+				</div>
+				<div id="wancheng_id" style="color: #FFFFFF;font-size: 18px;float:right;">
+					完成期第&nbsp;&nbsp;<span style="color: #FFFFFF; font-size: 24px;" id="wancheng_weight_day"></span>&nbsp;&nbsp;天
+				</div>
+			</div>
+			<div style="height: 5px;"></div>
+			<div style="display: flex;line-height:35px;">
+				<div style="flex: 3;display: flex;line-height:35px;">
+					<div style="flex: 3;text-align: right;vertical-align: middle;" id="left"><img src="../../image/left.png" style="width: 35px;" /></div>
+					<div id="ym" style="line-height:35px;color: #FFFFFF;font-size: 18px;flex:4;text-align: center;"></div>
+					<div style="flex: 2;text-align: left;vertical-align: middle;" id="right"><img src="../../image/right.png" style="width: 35px;" /></div>
+				</div>
+				<div style="flex: .5;text-align:right;">
+					<img src="../../image/icon/calendar.png" style="width: 30px;margin-right: 10px;" id="time" data-options='{"type":"date","beginYear":1999,"endYear":2030}'/>
+				</div>
+			</div>
+			<div style="height: 5px;"></div>
+			<div style="padding: 10px;font-size: 18px;color: #FFFFFF;">
+				<table>
+					<tr>
+						<td >日</td>
+						<td >一</td>
+						<td >二</td>
+						<td >三</td>
+						<td >四</td>
+						<td >五</td>
+						<td >六</td>
+					</tr>
+				</table>
+				<table id="monitor">
+			        <tr>
+			            <td id="first"></td>
+						<td ></td>
+						<td ></td>
+						<td ></td>
+						<td ></td>
+						<td ></td>
+						<td id="last"></td>
+			        </tr>
+			    </table>
+			</div>
+		</div>
+	    <!--<button id='time' data-options='{"type":"date","beginYear":1999,"endYear":2030}' class="btn mui-btn mui-btn-block hBg" style="width: 300px;"></button>-->
+    	<div> 
+    		<ul class="mui-table-view" style="margin-top: 0px;">
+				<li id="breakfast_li" class="mui-table-view-cell mui-media" style="height: 80px;">
+					<div class="mui-media-body" style="font-size: 18px;">
+						<img src="../../image/record/breakfast.png" style="width: 25px;" />
+						早餐
+					</div>
+					<p style="padding-top: 10px;" id="breakfast_info"></p>  
+					<div id='breakfast_show_info' class="row image-list">
+		        	</div>
+				</li> 
+				<li id="lunch_li" class="mui-table-view-cell mui-media" style="height: 80px;" >
+					<div class="mui-media-body" style="font-size: 18px;">
+						<img src="../../image/record/lunch.png" style="width: 25px;" />
+						午餐
+					</div>
+					<p style="padding-top: 10px;" id="lunch_info"></p>
+					<div id='lunch_show_info' class="row image-list">
+		        	</div>
+				</li>
+				<li id="dinner_li" class="mui-table-view-cell mui-media" style="height: 80px;" >
+					<div class="mui-media-body" style="font-size: 18px;">
+						<img src="../../image/record/dinner.png" style="width: 25px;" />
+						晚餐
+					</div>
+					<p style="padding-top: 10px;" id="dinner_info"></p>
+					<div id='dinner_show_info' class="row image-list">
+		        	</div>
+				</li>
+			</ul>
+    	</div>
+    	<div > 
+    		<ul class="mui-table-view">
+    			<li class="mui-table-view-cell mui-media" style="height: 80px;">
+					<a href="#modal8">
+						<div class="mui-media-body" style="font-size: 18px;">
+							<img src="../../image/record/weight.png" style="width: 25px;" />
+							体重
+						</div>
+					<p  id="dinner_info"></p>
+						<p style="padding-top: 10px;" id="weight_info"></p>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media" style="height: 80px;">
+					<a href="#modal4">
+						<div class="mui-media-body" style="font-size: 18px;">
+							<img src="../../image/record/sport.png" style="width: 25px;" />
+							今天的运动
+						</div>
+						<p style="padding-top: 10px;" id="sport_today_info"></p>
+					</a> 
+				</li>
+				<li class="mui-table-view-cell mui-media" style="height: 80px;">
+					<a href="#modal5">
+						<div class="mui-media-body" style="font-size: 18px;">
+							<img src="../../image/record/drink.png" style="width: 25px;" />
+							饮水量
+						</div>
+						<p style="padding-top: 10px;" id="drink_info"></p>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media" style="height: 80px;">
+					<a href="#modal6">
+						<div class="mui-media-body" style="font-size: 18px;">
+							<img src="../../image/record/comfort.png" style="width: 25px;" />
+							舒适度
+						</div>
+						<p style="padding-top: 10px;" id="comfort_info"></p>
+					</a>
+				</li>
+				<li class="mui-table-view-cell mui-media" style="height: 80px;">
+					<a href="#modal7">
+						<div class="mui-media-body" style="font-size: 18px;">
+							<img src="../../image/record/test_paper.png" style="width: 25px;" />
+							试纸
+						</div>
+						<p style="padding-top: 10px;" id="test_paper_info"></p>
+					</a>
+				</li>
+			</ul>
+    	</div>
+    	<div style="height: 10px;"></div>
+    	<div style="height: 40px;background-color: #FFFFFF;border-bottom:1px solid #999999;">
+    		<div style="font-size: 18px;padding-left: 20px;display:inline;" >营养师点评</div>
+			<img src="../../image/record/updatePwd.png" id="teach"/>
+    	</div>
+		
+		<div class="mui-card-content" style="background-color: #FFFFFF; min-height: 150px;">
+			<div class="mui-card-content-inner" id="comments" style="color: #17A984;">
+			</div>
+		</div>
+	</div>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/h.js"></script>
+	<script src="../../js/jquery.min.js"></script>
+    <script src="../../js/in01.js"></script>
+	<script src="../../js/jquery.min.js"></script>
+	<script type="text/javascript" src="../../js/layer.js" ></script>
+	<script type="text/javascript" src="../../js/login.js" ></script>
+	<script type="text/javascript" src="../../js/mui.zoom.js" ></script>
+	<script type="text/javascript" src="../../js/mui.previewimage.js" ></script>
+    <script type="text/javascript">
+    	var self;
+		var dietitianId;
+    	var subDate;var subYear;var subMouth; var subDay;
+    	mui.init();
+    	var mask=mui.createMask();
+		//var _self, _next, timer;
+		mui.plusReady(function(){
+			self = plus.webview.currentWebview();
+			dietitianId = localStorage.getItem('NNC_dietPhaseInfoId');
+			Internet_connection();
+			//获取本地数据
+			var uid = self.customerId;
+			//mui日历插件预加载
+			var d = new Date();
+			subDate=d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+			subYear = d.getFullYear();
+			subMouth = d.getMonth() + 1;
+			subDay = d.getDate();
+			isLogin();
+			//周日历插件
+			var color ;
+            var cells = document.getElementById('monitor').getElementsByTagName('td');
+            var clen = cells.length;
+            var currentFirstDate;
+            var year;
+            var mouth;
+            var setDates = function(date){ 
+            	year = date.getFullYear();
+	            mouth = (date.getMonth()+1);
+                var week = date.getDay();
+                date = addDate(date,week*-1);
+                currentFirstDate = new Date(date);
+                for(var i = 0;i<clen;i++){ 
+                	cells[i].innerHTML = formatDate(i==0 ? date : addDate(date,1));
+                	if(color==1){
+                		$('#monitor td').removeAttr("style");
+			    		cells[i].style.backgroundRepeat="no-repeat";
+			    		cells[i].style.backgroundPositionX='48%';
+                		cells[i].style.backgroundImage = 'url(../../image/icon/calendar_white.png)';
+                		cells[i].style.color='#17A984';
+                	}else{
+                		cells[i].style.backgroundColor='';
+                		cells[i].style.color='#FFFFFF';
+                	}
+                }
+                h('#ym').html(year+'年'+mouth+'月');
+            };  
+            var formatDate = function(date){ 
+            	var day2 = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+            	if(subDate==day2){
+	                day = date.getDate();
+	                color=1;
+            	}else{
+	                day = date.getDate();
+	                color=0;
+            	}
+				var week = '('+['日','一','二','三','四','五','六'][date.getDay()]+')';  
+                return day;
+            };
+            $(function(){
+			    $('#monitor td').click(function(){
+		    		$('#monitor td').removeAttr("style");
+			        $(this).attr('style','color:#17A984;background-image:url(../../image/icon/calendar_white.png);background-repeat: no-repeat;background-position-x: 48%;');
+			        var clickDay   = $(this).html();  
+		        	var firstDay=$("#first").html();//一周显示第一个td的值
+		        	var lastDay=$("#last").html();//一周显示最后一个td的值
+		        	var clickYear ;
+		    		var clickMouth ;
+		        	if(Number(clickDay)>Number(subDay)){
+		        		if(Number(clickDay)-Number(subDay)>7){
+		        			if(Number(clickDay)>Number(lastDay)){//为上一个月 else为本月
+			        			if(Number(subMouth)==1){
+			        				clickYear = Number(subYear)-1;
+			        				clickMouth = 12;
+			        				h('#ym').html(clickYear+'年'+clickMouth+'月');
+			        			}else{
+			        				clickYear = Number(subYear);
+			        				clickMouth = Number(subMouth)-1;
+			        				h('#ym').html(clickYear+'年'+clickMouth+'月');
+			        			}
+			        		}else{
+			        			clickYear = Number(subYear);
+		        				clickMouth = Number(subMouth);
+		        				h('#ym').html(clickYear+'年'+clickMouth+'月');
+			        		}
+		        		}else{
+		        			clickYear = Number(subYear);
+	        				clickMouth = Number(subMouth);
+	        				h('#ym').html(clickYear+'年'+clickMouth+'月');
+		        		}
+		        	}else{
+		        		if(Number(subDay)-Number(clickDay)>7){
+		        			if(Number(clickDay)<Number(firstDay)){//为下一个月else为本月
+			        			if(Number(subMouth)==12){
+			        				clickYear = Number(subYear)+1;
+			        				clickMouth = 1;
+			        				h('#ym').html(clickYear+'年'+clickMouth+'月');
+			        			}else{
+			        				clickYear = Number(subYear);
+			        				clickMouth = Number(subMouth)+1;
+			        				h('#ym').html(clickYear+'年'+clickMouth+'月');
+			        			}
+			        		}else{
+			        			clickYear = Number(subYear);
+		        				clickMouth = Number(subMouth);
+		        				h('#ym').html(clickYear+'年'+clickMouth+'月');
+			        		}
+		        		}else{
+		        			clickYear = Number(subYear);
+	        				clickMouth = Number(subMouth);
+	        				h('#ym').html(clickYear+'年'+clickMouth+'月');
+		        		}
+		        	}
+		        	var d = clickYear+'-'+clickMouth+'-'+clickDay;
+		    		subDate = d;
+		    		getRecord(d,uid);
+			    });
+			});
+            var addDate= function(date,n){       
+                date.setDate(date.getDate()+n);
+                return date;
+            };
+            setDates(new Date());
+			
+			document.getElementById("time").addEventListener('tap', function(){
+				var dDate = new Date();
+				var minDate = new Date();
+				minDate.setFullYear(1999, 0, 1);
+				var maxDate = new Date();
+				maxDate.setFullYear(2030, 11, 31);
+				plus.nativeUI.pickDate(function(e) {
+					var d = e.date;
+					subDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate();
+					subYear = d.getFullYear();
+					subMouth = d.getMonth() + 1;
+					subDay = d.getDate();
+					h('#time').html(subDate);
+					//选择日期后查询该日期数据展示
+					getRecord(subDate,uid);
+					setDates(d);
+				}, {
+					title: "请选择日期",
+					date: dDate,
+					minDate: minDate,
+					maxDate: maxDate
+				});
+			});
+		document.getElementById("left").addEventListener('tap', function() {
+			var d= new Date(Date.parse(subDate.replace(/-/g,  "/")));
+			d.setDate(d.getDate()-7); 
+	        var m=d.getMonth()+1; 
+			subDate=d.getFullYear()+'-'+m+'-'+d.getDate();
+			h('#time').html(subDate);
+			//选择日期后查询该日期数据展示
+			getRecord(subDate, uid);
+			setDates(d);
+			getBreakfastPhoto();
+			getLunchPhoto();
+			getDinnerPhoto();
+		});
+		document.getElementById("right").addEventListener('tap', function() {
+			var d= new Date(Date.parse(subDate.replace(/-/g,  "/")));
+			d.setDate(d.getDate()+7); 
+	        var m=d.getMonth()+1; 
+			subDate=d.getFullYear()+'-'+m+'-'+d.getDate();
+			h('#time').html(subDate);
+			//选择日期后查询该日期数据展示
+			getRecord(subDate, uid);
+			setDates(d);
+			getBreakfastPhoto();
+			getLunchPhoto();
+			getDinnerPhoto();
+		});
+			h('#teach').tap(function () {
+				var txt = h('#comments').html();
+				var html = "<div style='text-align: center;'> 营养师指导";
+				html+="<input id='teach_val' type='text' style='background-color: #E0E0E0;border: 0px ;margin-top: 20px;height:50px;' value='"+txt+"'></div>";
+				layerOpen({
+					"title":"&nbsp&nbsp",
+					"content":html,
+					"btn":["取消","确定"],
+					"style":{
+					"title":"height:5px;background-color: #57C0FF;padding: 10px;border-radius: 8px 8px 0px 0px;text-again:",
+					"content":"margin-left: 5%;font-size: 18px;padding: 16px;",
+					"btn":"border-radius: 0px 0px 8px 8px;"
+					},
+					"event":[null,function () {
+						var et=$.trim(h('#teach_val').val());
+						if (et=='') {
+							mui.toast("请输入内容");
+						}else{
+							var mask1=mui.createMask();//遮罩层
+							$.ajax({
+			      				type : "POST",
+			      				data : {'comments': et,'dietitianId':dietitianId,'userInfoId':uid,'date':subDate},
+			      				url  : URL+'app_rest_ful/set_user_comments',
+			      				dataType : 'json',
+			      				beforeSend: function() {
+							        plus.nativeUI.showWaiting('');
+							        mask1.show();//显示遮罩层
+							    },
+			      				success : function(msg){
+			      					if(msg.success == true){
+			      						mui.toast('提交成功');
+			      						h('#comments').html(et);
+			      						plus.nativeUI.closeWaiting();
+								        mask1.close();//关闭遮罩层
+								        $(".mui-backdrop").hide();
+			      					}
+			      				}
+			      			});
+						}
+					}]
+				});
+			});
+			h('#teach_food').tap(function () {
+				
+				var txt = '';
+				$.ajax({
+      				type : "POST",
+      				data : {'userInfoId':uid,'date':subDate},
+      				url  : URL+'app_rest_ful/select_user_weekly_recommend',
+      				dataType : 'json',
+      				async:false,
+      				success : function(msg){
+      					if(msg.success==true){
+      						if(msg.data.menu != null && msg.data.menu !=''&&msg.data.menu != 'null'){
+      							txt=msg.data.menu;
+      						}else{
+      							txt='';
+      						}
+      					}
+      				}
+      			});
+				var html = "<div style='text-align: center;'> 本周饮食推荐";
+				html+="<input id='teach_food_val' type='text' style='background-color: #E0E0E0;border: 0px ;margin-top: 20px;height:50px;' value='"+txt+"'></input></div>";
+				layerOpen({
+					"title":"&nbsp&nbsp",
+					"content":html,
+					"btn":["取消","确定"],
+					"style":{
+					"title":"height:5px;background-color: #57C0FF;padding: 10px;border-radius: 8px 8px 0px 0px;text-again:",
+					"content":"margin-left: 5%;font-size: 18px;padding: 16px;",
+					"btn":"border-radius: 0px 0px 8px 8px;"
+					},
+					"event":[null,function () {
+						var et=$.trim(h('#teach_food_val').val());
+						if (et=='') {
+							mui.toast("请输入内容");
+						}else{
+							$.ajax({
+			      				type : "POST",
+			      				data : {'weeklyMenu': et,'dietitianId':dietitianId,'userInfoId':uid,'date':subDate},
+			      				url  : URL+'app_rest_ful/set_user_weekly_menu',
+			      				dataType : 'json',
+			      				success : function(msg){
+			      					if(msg.success==true){
+			      						mui.toast('提交成功');
+			      					}
+			      				}
+			      			});
+						}
+					}]
+				});
+			
+				
+			});
+			h('#teach_sport').tap(function () {
+				var txt = '';
+				$.ajax({
+      				type : "POST",
+      				data : {'userInfoId':uid,'date':subDate},
+      				url  : URL+'app_rest_ful/select_user_weekly_recommend',
+      				dataType : 'json',
+      				async:false,
+      				success : function(msg){
+      					if(msg.success==true){
+      						if(msg.data.sport != null && msg.data.sport !=''&&msg.data.sport != 'null'){
+      							txt=msg.data.sport;
+      						}else{
+      							txt='';
+      						}
+      					}
+      				}
+      			});
+				
+				var html = "<div style='text-align: center;'> 本周运动指导";
+				html+="<input id='teach_sport_val' type='text' style='background-color: #E0E0E0;border: 0px ;margin-top: 20px;height:50px;' value='"+txt+"'></input></div>";
+				layerOpen({
+					"title":"&nbsp&nbsp",
+					"content":html,
+					"btn":["取消","确定"],
+					"style":{
+					"title":"height:5px;background-color: #57C0FF;padding: 10px;border-radius: 8px 8px 0px 0px;text-again:",
+					"content":"margin-left: 5%;font-size: 18px;padding: 16px;",
+					"btn":"border-radius: 0px 0px 8px 8px;"
+					},
+					"event":[null,function () {
+						var et=$.trim(h('#teach_sport_val').val());
+						if (et=='') {
+							mui.toast("请输入内容");
+						}else{
+							$.ajax({
+			      				type : "POST",
+			      				data : {'weeklySport': et,'dietitianId':dietitianId,'userInfoId':uid,'date':subDate},
+			      				url  : URL+'app_rest_ful/set_user_weekly_sport',
+			      				dataType : 'json',
+			      				success : function(msg){
+			      					if(msg.success==true){
+			      						mui.toast('提交成功');
+			      					}
+			      				}
+			      			});
+						}
+					}]
+				});
+			
+			});
+		});
+		function getRecord(date,uid){
+			h('#breakfast_info').html('');
+			h("#breakfast_val").val(''); 
+			h('#lunch_info').html('');
+			h("#lunch_val").val('');
+			h('#dinner_info').html('');
+			h("#dinner_val").val('');
+			h('#sport_today_info').html('');
+			h("#sport_val").val('');
+			h('#drink_info').html('');
+			h("#r").val(1500);
+			h('#comfort_info').html('');
+			h('#test_paper_info').html('');
+			h('#weight_info').html('');
+			h('#comments').html('');
+			h("#weight_day").html('- -');
+			
+			plus.nativeUI.showWaiting('');
+			mask.show();//显示遮罩层
+			$.ajax({
+  				type : "POST",
+  				data : {'date':date,'userInfoId':uid},
+  				url  : URL+'app_rest_ful/find_user_info_data',
+  				dataType : 'json',
+  				success : function(msg){
+  					if(msg.success==true){
+  						if(msg.data.breakfast!=null){
+  							h('#breakfast_info').html(msg.data.breakfast);
+  							h("#breakfast_val").val(msg.data.breakfast);
+  						}else{
+  							h('#breakfast_info').html('');
+  							h("#breakfast_val").val('');
+  						}
+  						if(msg.data.lunch!=null){
+  							h('#lunch_info').html(msg.data.lunch);
+  							h("#lunch_val").val(msg.data.lunch);
+  						}else{
+  							h('#lunch_info').html('');
+  							h("#lunch_val").val('');
+  						}
+  						if(msg.data.dinner!=null){
+  							h('#dinner_info').html(msg.data.dinner);
+  							h("#dinner_val").val(msg.data.dinner);
+  						}else{
+  							h('#dinner_info').html('');
+  							h("#dinner_val").val('');
+  						}
+  						if(msg.data.exercise!=null){
+  							h('#sport_today_info').html(msg.data.exercise);
+  							h("#sport_val").val(msg.data.exercise);
+  						}else{
+  							h('#sport_today_info').html('');
+  							h("#sport_val").val('');
+  						}
+  						if(msg.data.drankWater!=null){
+  							h('#drink_info').html(msg.data.drankWater+'ml');
+  							h("#r").val(msg.data.drankWater);
+  						}else{
+  							h('#drink_info').html('');
+  							h("#r").val(1500);
+  						}
+  						if(msg.data.comfortLevel!=null){
+  							var html='';
+							for(var a=0;a<msg.data.comfortLevel;a++){
+								html += '<img src="../../image/star.png" style="width: 15px;" />';
+							}
+							h('#comfort_info').html(html);
+  						}else{
+  							h('#comfort_info').html('');
+  						}
+  						if(msg.data.testPaperValue!=null){
+  							var test_paper = msg.data.testPaperValue;
+							if(test_paper == 1) {
+								h('#test_paper_info').html("-/阴性");
+							} else if(test_paper == 2) {
+								h('#test_paper_info').html("±/5");
+							} else if(test_paper == 3) {
+								h('#test_paper_info').html("+/15");
+							} else if(test_paper == 4) {
+								h('#test_paper_info').html("++/40");
+							} else if(test_paper == 5) {
+								h('#test_paper_info').html("+++/80");
+							} else {
+								h('#test_paper_info').html("++++/160");
+							}
+  						}else{
+  							h('#test_paper_info').html('');
+  						}
+  						if(msg.data.weight!=null){
+  							h('#weight_info').html(msg.data.weight+'Kg');
+  							h("#asd").val(msg.data.weight);
+  						}else{
+  							h('#weight_info').html('');
+  						}
+  						h('#comments').html(msg.data.comments);
+  						var userStatus = msg.data.userStatus;
+						if (userStatus == 1) {
+							$("#jianzhong_id").show();
+							$("#guodu_id").hide();
+							$("#wancheng_id").hide();
+							h("#jianzhong_weight_day").html(msg.message);
+						} else if (userStatus == 2) {
+							$("#jianzhong_id").hide();
+							$("#guodu_id").show();
+							$("#wancheng_id").hide();
+							h("#guodu_weight_day").html(msg.message);
+						} else if (userStatus == 3) {
+							$("#jianzhong_id").hide();
+							$("#guodu_id").hide();
+							$("#wancheng_id").show();
+							h("#wancheng_weight_day").html(msg.message);
+						}  	else {
+							$("#jianzhong_id").hide();
+							$("#guodu_id").hide();
+							$("#wancheng_id").hide();
+						}			
+  					}
+  				}
+  			});
+  			getBreakfastPhoto(uid);
+			getLunchPhoto(uid);
+			getDinnerPhoto(uid);
+		}
+		function isLogin(){
+			//判断登录状态
+			var uid = self.customerId;
+			if(uid == null){
+				h("#weight_day").html("--");
+			}else{
+				getRecord(subDate,uid);
+			}
+		}
+		function getBreakfastPhoto(uid) {
+			$(".image-item").remove("#breakfast_show_photo_id");
+			$('#breakfast_li').attr('style', 'height:80px;')
+			$.ajax({
+  				type : "POST",
+  				data : {'date':subDate,'userInfoId':uid},
+  				url  : URL+'app_rest_ful/find_user_info_breakfast',
+  				dataType : 'json',
+  				success : function(msg){
+  					if(msg.success==true){
+  						if(msg.data[0] != null) {
+  							h('#breakfast_info').html(msg.data[0]);
+  						}
+  						if(msg.data[1] != null) {
+  							$('#breakfast_li').attr('style', 'height:auto;');
+  							var src = msg.data[1];
+  							var html = '';
+					        html +='<div class="image-item"  id="breakfast_show_photo_id">';   
+					        html +='    <img src="'+src+'" data-preview-src="" data-preview-group="1" />';   
+					        html +='</div>';  
+					        $("#breakfast_show_info").append(html);
+  						}
+  						if(msg.data[2] != null) {
+  							var src = msg.data[2]; 
+  							var html = '';
+					        html +='<div class="image-item" id="breakfast_show_photo_id">';   
+					        html +='    <img src="'+src+'" data-preview-src="" data-preview-group="1" />';   
+					        html +='</div>';  
+					        $("#breakfast_show_info").append(html);
+  						}
+  						if(msg.data[3] != null) {
+  							var src = msg.data[3]; 
+  							var html = '';
+					        html +='<div class="image-item" id="breakfast_show_photo_id">';   
+					        html +='    <img src="'+src+'" data-preview-src="" data-preview-group="1" />';   
+					        html +='</div>';  
+					        $("#breakfast_show_info").append(html);
+  						}
+  					}
+  				}
+  			});
+		}
+		
+		function getLunchPhoto(uid) {
+			$(".image-item").remove("#lunch_show_photo_id");
+			$('#lunch_li').attr('style', 'height:80px;')
+			$.ajax({
+  				type : "POST",
+  				data : {'date':subDate,'userInfoId':uid},
+  				url  : URL+'app_rest_ful/find_user_info_lunch',
+  				dataType : 'json',
+  				success : function(msg){
+  					if(msg.success==true){  						
+  						if(msg.data[0] != null) {
+  							h('#lunch_info').html(msg.data[0]);
+  						}
+  						if(msg.data[1] != null) {
+  							$('#lunch_li').attr('style', 'height:auto;');
+  							var src = msg.data[1];
+  							var html = '';
+					        html +='<div class="image-item"  id="lunch_show_photo_id">';   
+					        html +='    <img src="'+src+'" data-preview-src="" data-preview-group="1" />';   
+					        html +='</div>';  
+					        $("#lunch_show_info").append(html);
+  						}
+  						if(msg.data[2] != null) {
+  							var src = msg.data[2]; 
+  							var html = '';
+					        html +='<div class="image-item" id="lunch_show_photo_id">';   
+					        html +='    <img src="'+src+'" data-preview-src="" data-preview-group="1" />';   
+					        html +='</div>';  
+					        $("#lunch_show_info").append(html);
+  						}
+  						if(msg.data[3] != null) {
+  							var src = msg.data[3];
+  							var html = '';
+					        html +='<div class="image-item" id="lunch_show_photo_id">';   
+					        html +='    <img src="'+src+'" data-preview-src="" data-preview-group="1" />';   
+					        html +='</div>';  
+					        $("#lunch_show_info").append(html);
+  						}
+  					} 
+  				}
+  			});
+		}
+		
+		function getDinnerPhoto(uid) {
+			$(".image-item").remove("#dinner_show_photo_id");
+			$('#dinner_li').attr('style', 'height:80px;')
+			$.ajax({
+  				type : "POST",
+  				data : {'date':subDate,'userInfoId':uid},
+  				url  : URL+'app_rest_ful/find_user_info_dinner',
+  				dataType : 'json',
+  				success : function(msg){
+  					if(msg.success==true){
+  						if(msg.data[0] != null) {
+  							h('#dinner_info').html(msg.data[0]);
+  						}
+  						if(msg.data[1] != null) {
+  							$('#dinner_li').attr('style', 'height:auto;');
+  							var src = msg.data[1];
+  							var html = '';
+					        html +='<div class="image-item" id="dinner_show_photo_id">';   
+					        html +='    <img src="'+src+'" data-preview-src="" data-preview-group="1" />';   
+					        html +='</div>';  
+					        $("#dinner_show_info").append(html);
+  						}
+  						if(msg.data[2] != null) {
+  							var src = msg.data[2]; 
+  							var html = '';
+					        html +='<div class="image-item" id="dinner_show_photo_id">';   
+					        html +='    <img src="'+src+'" data-preview-src="" data-preview-group="1" />';   
+					        html +='</div>';  
+					        $("#dinner_show_info").append(html);
+  						}
+  						if(msg.data[3] != null) {
+  							var src = msg.data[3];
+  							var html = '';
+					        html +='<div class="image-item" id="dinner_show_photo_id">';   
+					        html +='    <img src="'+src+'" data-preview-src="" data-preview-group="1" />';   
+					        html +='</div>';  
+					        $("#dinner_show_info").append(html);
+  						}
+  					}
+  					plus.nativeUI.closeWaiting();
+					mask.close();//关闭遮罩层
+					$(".mui-backdrop").hide();
+  				}
+  			});
+		}
+		mui.previewImage();
+	</script>
+</body>
+</html>

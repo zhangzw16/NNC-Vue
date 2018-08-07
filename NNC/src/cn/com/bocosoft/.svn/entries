@@ -1,0 +1,52 @@
+10
+
+dir
+11
+https://192.168.0.7/svn/nncTest/NNC/src/cn/com/bocosoft
+https://192.168.0.7/svn/nncTest
+
+
+
+2018-08-07T03:48:41.151500Z
+7
+chenwl
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+c0c31d7d-d2b1-6846-9daa-a52c24066182
+
+background
+dir
+
+helper
+dir
+
+model
+dir
+
+service
+dir
+
+controller
+dir
+
+dao
+dir
+
+common
+dir
+
+tag
+dir
+

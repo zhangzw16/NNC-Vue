@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>体重</title>
+	</head>
+	<link rel="stylesheet" href="../../css/ion.rangeSlider.skinHTML5.css" />
+	<link rel="stylesheet" href="../../css/ion.rangeSlider.css" />
+	<div class="page" style="margin-top: 20px;" data-page='profile1'>
+			<div class="page-main">
+				<div class="row">
+					<label for="" class="label">您的体重 <span class="number width-num" initial-value="8" value="60">40</span><span class="letter">kg</span></label>
+					<div class="ruler ruler-weight">
+						<input type="text" id="example_id" name="example_name" value="" />
+					</div>
+					<div class="ruler ruler-weight">
+						<input type="text" id="example_id2" name="example_name" value="" />
+					</div>
+				</div>
+			</div>
+	</div>	
+	<body>
+	</body>
+	<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/ion.rangeSlider.js"></script>
+		<script>
+			$("#example_id").ionRangeSlider({
+			    grid: true,
+			    min: 40,
+			    max: 180,
+			    from: 40,
+			    step: 1,
+			    prettify_enabled: false
+			});
+			
+			$("#example_id2").ionRangeSlider({
+			    grid: true,
+			    min: 40,
+			    values: [
+			        "0.0", "0.1", "0.2", "0.3",
+			        "0.4", "0.5", "0.6",
+			        "0.7", "0.8", "0.9"
+    			]
+			});
+		</script>
+
+</html>

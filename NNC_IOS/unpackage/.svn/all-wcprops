@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 41
+/svn/nncTest/!svn/ver/2/NNC_IOS/unpackage
+END
+.dependencies
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/nncTest/!svn/ver/2/NNC_IOS/unpackage/.dependencies
+END
+.confirmed_dependencies
+K 25
+svn:wc:ra_dav:version-url
+V 65
+/svn/nncTest/!svn/ver/2/NNC_IOS/unpackage/.confirmed_dependencies
+END

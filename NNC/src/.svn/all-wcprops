@@ -1,0 +1,77 @@
+K 25
+svn:wc:ra_dav:version-url
+V 31
+/svn/nncTest/!svn/ver/7/NNC/src
+END
+ehcache.xml
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/nncTest/!svn/ver/1/NNC/src/ehcache.xml
+END
+cumulativePeopleNum.txt
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/nncTest/!svn/ver/1/NNC/src/cumulativePeopleNum.txt
+END
+ehcache-shiro.xml
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/nncTest/!svn/ver/1/NNC/src/ehcache-shiro.xml
+END
+version.txt
+K 25
+svn:wc:ra_dav:version-url
+V 43
+/svn/nncTest/!svn/ver/1/NNC/src/version.txt
+END
+spring-mvc.xml
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svn/nncTest/!svn/ver/6/NNC/src/spring-mvc.xml
+END
+cumulativeWeightLoss.txt
+K 25
+svn:wc:ra_dav:version-url
+V 56
+/svn/nncTest/!svn/ver/1/NNC/src/cumulativeWeightLoss.txt
+END
+spring-quartz.xml
+K 25
+svn:wc:ra_dav:version-url
+V 49
+/svn/nncTest/!svn/ver/1/NNC/src/spring-quartz.xml
+END
+applicationContext.xml
+K 25
+svn:wc:ra_dav:version-url
+V 54
+/svn/nncTest/!svn/ver/7/NNC/src/applicationContext.xml
+END
+log4j.properties
+K 25
+svn:wc:ra_dav:version-url
+V 48
+/svn/nncTest/!svn/ver/1/NNC/src/log4j.properties
+END
+mybatis-config.xml
+K 25
+svn:wc:ra_dav:version-url
+V 50
+/svn/nncTest/!svn/ver/1/NNC/src/mybatis-config.xml
+END
+time.txt
+K 25
+svn:wc:ra_dav:version-url
+V 40
+/svn/nncTest/!svn/ver/1/NNC/src/time.txt
+END
+version_apk.txt
+K 25
+svn:wc:ra_dav:version-url
+V 47
+/svn/nncTest/!svn/ver/1/NNC/src/version_apk.txt
+END

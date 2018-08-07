@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<METAHTTP-EQUIV="Pragma" CONTENT="no-cache">
+		<METAHTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+		<METAHTTP-EQUIV="Expires" CONTENT="0">
+		<title></title>
+		<!--<link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet">-->
+		<link href="../../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/feedback-page.css" />
+		<link rel="stylesheet" href="../../css/layer.css" />
+		<link rel="stylesheet" href="../../css/appCss/record.css" />
+	</head>
+	<header class="mui-bar mui-bar-nav">
+	</header>
+	<body>
+		<div class="bg-nc " style="width:100%;height:100%;display:none;z-index: 2147483647;background: rgba(0,0,0,.3);position: fixed;top: 0;left: 0;"></div>
+		<div class="mui-content" style="border: none;">
+			<div class="mui-backdrop" style="display: none;z-index: 1000000;">
+				<ul class="msgboxbg ">
+					<li class="msgbox breakfast-box "> 
+						<iframe name="breakfast_info_submit" src="breakfast_info_submit.html"></iframe>
+					</li>
+					<li class="msgbox lunch-box ">
+						<iframe name="lunch_info_submit" src="lunch_info_submit.html"></iframe>
+					</li>
+					<li class="msgbox dinner-box ">
+						<iframe name="dinner_info_submit" src="dinner_info_submit.html"></iframe>
+					</li>
+					<li class="msgbox msgbox-sports ">
+						<div class="msgbox-header">
+							<div id="sport_today_close" style="float: left;">
+								<img src="../../image/close.png" style="width: 0.8rem;margin-left: 15px;"/>
+							</div>
+							<div style="float: left;margin-left: 4.6rem;">今天的运动 </div>
+							<div id="sport_today" style="float: right;margin-right: 10px;color: #23abf7;">保存 </div>
+						</div>
+						<div class="msgbox-main">
+							<textarea id="sport_val" placeholder="例如：慢跑30分钟"></textarea>
+						</div>
+						<!--<div class="msgbox-bottom">
+							<button  class="close_button">取消</button>
+							<button  class="submit_button">保存</button>
+						</div>-->
+					</li>
+				</ul>
+			</div>
+			<div id="share_content">
+				<div class="share-content">
+					<div class="share-content-head">
+						<img src="../../image/record/teach_food.png" id="food" style="width: 1.8rem;height:1.8rem" />
+						<img src="../../image/record/teach_sport.png" id="sport" style="width: 1.8rem;height:1.8rem;margin-left:.4rem;" />
+						<img src="../../image/share.png" id="share" style="width: 1.3rem;height:1.3rem;float: right;" />
+					</div>
+					<div class="share-content-main">
+						<div class="scm-txt">
+							减重第&nbsp;&nbsp;<span style="color: #FFFFFF; font-size: 1.17rem;" id="weight_day">--</span>&nbsp;&nbsp;天
+						</div>
+						<div class="scm-timeicon">
+							<img src="../../image/icon/calendar.png" style="" id="time" data-options='{"type":"date","beginYear":1999,"endYear":2030}' />
+						</div>
+					</div>
+					<div style="display: flex;margin-top: 5px;">
+						<div style="line-height:1.3rem;height:1.3rem;flex: 1;text-align: right;vertical-align: middle;" id="left"><img src="../../image/left.png" style="width: 40%;height: 150%;" /></div>
+						<div id="ym" style="line-height:2rem;height:1.3rem;text-align: center;flex: 2;vertical-align: middle;"></div>
+						<div style="line-height:1.3rem;height:1.3rem;flex: 1;text-align: left;vertical-align: middle;" id="right"><img src="../../image/right.png" style="width: 40%;height: 150%;" /></div>
+					</div>
+					
+					<div class="share-content-bom">
+						<table>
+							<tr>
+								<td>日</td>
+								<td>一</td>
+								<td>二</td>
+								<td>三</td>
+								<td>四</td>
+								<td>五</td>
+								<td>六</td>
+							</tr>
+						</table>
+						<table id="monitor">
+							<tr>
+								<td id="first"></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td></td>
+								<td id="last"></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+				<!--<button id='time' data-options='{"type":"date","beginYear":1999,"endYear":2030}' class="btn mui-btn mui-btn-block hBg" style="width: 300px;"></button>-->
+				<ul class="mui-table-view foodlist">
+					<li id="breakfast_li">
+						<div class="breakfast">早餐 </div>
+						<div id="breakfast_info" class="foodlist-txt"></div>
+						<div id='breakfast_show_info' class="row image-list"></div>
+						<div class="add-button" id="breakfast"></div>
+					</li>  
+ 					<li id="lunch_li">
+						<div class="lunch">午餐</div>     
+						<div id="lunch_info" class="foodlist-txt"></div>
+						<div id='lunch_show_info' class="row image-list"></div>
+						<div class="add-button" id="lunch"></div>
+					</li>
+					<li id="dinner_li">
+						<div class="dinner">晚餐</div>
+						<div id="dinner_info" class="foodlist-txt"></div>
+						<div id='dinner_show_info' class="row image-list"></div>
+						<div class="add-button" id="dinner"></div>       
+					</li>  
+				</ul>
+				<ul class="mui-table-view recordlist">
+					<li id="msgbox-weight"> 
+						<div class="rec-weight">
+							体重
+						</div>
+						<div class="recTxt" id="weight_info"></div>
+					</li>
+					<li id="msgbox-sports">
+						<div class="rec-sports">
+							今天的运动<span id="not_sport" style="position: absolute;right: 3rem;top:0;color: #999999;font-size: 15px;">未参加锻炼</span>
+						</div>
+						<div class="recTxt" id="sport_today_info"></div>
+					</li>
+					<li id="msgbox-water">
+						<div class="rec-water">
+							饮水量
+						</div>
+						<div class="recTxt" id="drink_info"></div>
+					</li>
+					<li id="msgbox-comfort">
+						<div class="rec-comfort">
+							舒适度
+						</div>
+						<div class="recTxt" id="comfort_info"></div>
+					</li>
+					<li id="msgbox-testpage">
+						<div class="rec-testPaper">试纸</div>
+						<div class="recTxt" id="test_paper_info"></div>
+					</li>
+				</ul>
+				<div style="height: 10px;background-color: #efeff4;"></div>
+				<div class="mui-card-header" style="background-color: #FFFFFF;color: #222222;">营养师指导</div>
+				<div class="mui-card-content" style="background-color: #FFFFFF; min-height: 150px;">
+					<div class="mui-card-content-inner" id="comments" style="color: #17A984;">
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/h.js"></script>
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/rem.js"></script>
+		<script type="text/javascript" src="../../js/login.js"></script>
+		<script type="text/javascript" src="../../js/mui.zoom.js"></script>
+		<script type="text/javascript" src="../../js/html2canvas.js" charset="utf-8"></script>
+		<script type="text/javascript" src="../../js/mui.previewimage.js"></script>
+		<script type="text/javascript" src="../../js/myRecLayer.js" ></script>
+		<script type="text/javascript" src="../../js/app/my_record.js"></script>
+		<!--<script>
+			h('#msgbox-weight').tap(function() {
+					weightFlag = 1;
+					var hundred = $('#weight_info').attr("data-hundred");
+					var ten = $('#weight_info').attr("data-ten");
+					var one = $('#weight_info').attr("data-one");
+					var decimal = $('#weight_info').attr("data-decimal");
+					var S_weight = hundred + "" + ten + "" + one + "" + decimal;
+					localStorage.setItem('S_weight', S_weight);
+					var html = "<iframe name='my_record_weight' src='../../page/my_record/weight_new.html'></iframe>";
+					layerOpen({
+						"title": "体重",
+						"content": html,
+						"btn": ["取消", "保存"],
+						"style": {
+							"title": "width: 100%;height: 2.4rem;border-bottom: 1px solid #d1d1d1;line-height: 2.4rem;text-align: center;padding: 0;",
+							"content": "width:100%;height: 16.26666667rem;overflow:hidden;",
+							"btn": "border-radius: 0px 0px 8px 8px;"
+						},
+						"event": [null, function() {}] 
+					});
+
+		});
+			
+			
+		</script>-->
+	</body>
+</html>

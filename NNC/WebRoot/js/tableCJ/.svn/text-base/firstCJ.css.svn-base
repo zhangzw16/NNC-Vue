@@ -1,0 +1,20 @@
+.cjtable{ 
+	
+	table-layout:fixed;
+	border-collapse:collapse;
+	text-align:center;
+	border: solid 1px #cbcbcb;
+	font-size: 18px;
+} 
+.cjtd{
+
+//   word-break:break-all;
+   height:40px;
+   padding-top:0px;
+   padding-bottom:0px;
+   margin:0 0;	
+   vertical-align:center;
+}
+.selectClass{
+   background-color:#d1d1d1;;
+}

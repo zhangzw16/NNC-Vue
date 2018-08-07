@@ -1,0 +1,18 @@
+@charset "utf-8";
+.icon_date {
+  background: url("../images/icon_date.png") no-repeat scroll 0 0 transparent;
+  background-size:100%;
+  cursor: pointer;
+  border-width: 0;
+  margin-left: 5px;
+  vertical-align: middle;
+  width: 30px;
+  height: 30px;
+  display: inline-block;
+}
+.td_up {
+    background-image:url(../images/up_red.png);
+    background-repeat: no-repeat; 
+    color: red;
+    text-align: right;
+}

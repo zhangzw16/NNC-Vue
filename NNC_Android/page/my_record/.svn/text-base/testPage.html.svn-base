@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" href="../../css/appCss/record.css" />
+	</head>
+
+	<body>
+		<div class="testpage-list-box " data-val="1">
+			<div class="testpage-icon">-</div>
+			<div class="fontsize6">(阴性)</div>
+			<div class="testpage-img" data-val="1">
+				<img src="../../image/test_paper/tong-yin.png" />
+			</div>
+			<div class="fontNum"></div>
+		</div>
+		<div class="testpage-list-box " data-val="2">
+			<div class="testpage-icon" style="font-size: .7rem;">±</div>
+			<div class="fontNum">5</div>
+			<div class="testpage-img">
+				<img src="../../image/test_paper/tong_0.5.png" />
+			</div>
+			<div class="fontNum">0.5</div>
+		</div>
+		<div class="testpage-list-box " data-val="3">
+			<div class="testpage-icon">+</div>
+			<div class="fontNum">15</div>
+			<div class="testpage-img">
+				<img src="../../image/test_paper/tong_1.5.png" />
+			</div>
+			<div class="fontNum">1.5</div>
+		</div>
+		<div class="testpage-list-box " data-val="4">
+			<div class="testpage-icon">++</div>
+			<div class="fontNum">40</div>
+			<div class="testpage-img">
+				<img src="../../image/test_paper/tong_4.0.png" />
+			</div>
+			<div class="fontNum">4.0</div>
+		</div>
+		<div class="testpage-list-box " data-val="5">
+			<div class="testpage-icon">+++</div>
+			<div class="fontNum">80</div>
+			<div class="testpage-img">
+				<img src="../../image/test_paper/tong_8.0.png" />
+			</div>
+			<div class="fontNum">8.0</div>
+		</div>
+		<div class="testpage-list-box " data-val="6">
+			<div class="testpage-icon">++++</div>
+			<div class="fontNum">160</div>
+			<div class="testpage-img">
+				<img src="../../image/test_paper/tong_16.0.png" />
+			</div>
+			<div class="fontNum">16.0</div>
+		</div>
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/rem.js" ></script>
+		<script>
+			var _testpage;
+			$('.testpage-img').click(function() {
+				var $obj = $(this);
+				$obj.addClass('active')
+					.parent('.testpage-list-box').siblings()
+					.find('.testpage-img').removeClass('active');
+				_testpage = $obj.parents('.testpage-list-box').attr('data-val');
+				//				alert(_testpage);
+			});
+
+			function getTestPage() {
+				return _testpage;
+			}
+		</script>
+	</body>
+
+</html>

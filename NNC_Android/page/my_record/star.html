@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			.star-rating {
+			    width: 18rem;
+    			margin-left: .9rem;
+			}
+			.star-rating > fieldset {
+			  border: none;
+			  display: inline-block;
+			}
+			.star-rating > fieldset:not(:checked) > input {
+			  position: absolute;
+			  top: -9999px;
+			  clip: rect(0, 0, 0, 0);
+			}
+			.star-rating > fieldset:not(:checked) > label {
+			  float: right;
+			  width:2rem;
+			  height: 2rem;
+			  overflow: hidden;
+			  white-space: nowrap;
+			  cursor: pointer;
+			  font-size: 200%;
+			  color: #16a085;
+			  margin:0rem .6rem;
+			}
+			.star-rating > fieldset:not(:checked) > label:before {
+			  width:2rem;
+			  height: 2rem;
+			  content: "";
+			  background: url(../../image/record/star-no.png) center no-repeat;
+			  background-size:100% ;
+			  display: block;
+			}
+			.star-rating > fieldset:not(:checked) > label:hover,
+			.star-rating > fieldset:not(:checked) > label:hover ~ label {
+			  color: #1abc9c;
+			  text-shadow: 0 0 3px #1abc9c;
+			}
+			.star-rating > fieldset:not(:checked) > label:hover:before,
+			.star-rating > fieldset:not(:checked) > label:hover ~ label:before {
+			  content: "";
+			  background: url(../../image/record/star-ok.png) center no-repeat;
+			  background-size:100% ;
+			  display: block;
+			  width:2rem;
+			  height: 2rem;
+			  
+			}
+			.star-rating > fieldset > input:checked ~ label:before {
+			   content: "";
+			  background: url(../../image/record/star-ok.png) center no-repeat;
+			  background-size:100% ;
+			  display: block;
+			  width:2rem;
+			  height: 2rem;
+			}
+			.star-rating > fieldset > label:active {
+			  position: relative;
+			  top: 2px;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="star-rating">
+			<fieldset>
+				<input type="radio" id="star5" name="rating" value="5" /><label for="star5" title="5" onclick="setStar(this)"></label>
+				<input type="radio" id="star4" name="rating" value="4" /><label for="star4" title="4" onclick="setStar(this)"></label>
+				<input type="radio" id="star3" name="rating" value="3" /><label for="star3" title="3" onclick="setStar(this)"></label>
+				<input type="radio" id="star2" name="rating" value="2" /><label for="star2" title="2" onclick="setStar(this)"></label>
+				<input type="radio" id="star1" name="rating" value="1" /><label for="star1" title="1" onclick="setStar(this)"></label>
+			</fieldset>
+		</div>
+		<script type="text/javascript" src="../../js/jquery.min.js" ></script>
+		<script>
+			var _star;
+			function setStar(obj){
+				_star = $(obj).attr("title");
+			}
+			function getStar(){
+				return _star;
+			}
+		</script>
+	</body>
+</html>

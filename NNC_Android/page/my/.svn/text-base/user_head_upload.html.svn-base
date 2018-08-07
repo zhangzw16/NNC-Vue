@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1,user-scalable=no">
+	<link rel="stylesheet" type="text/css" href="../../css/mui.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/base.css" /> 
+	<link rel="stylesheet" type="text/css" href="../../css/avatar.css" />
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	    <span class="mui-icon mui-icon-arrowleft mui-action-back" style="color: #000000;"></span>
+	    <h1 class="mui-title">设置头像</h1>
+	</header>
+	<div class="mui-content"> 
+		<div class="cropperBox" id="cropperBox">
+		</div>
+	</div>
+<script type="text/javascript" src="../../js/jquery.min.js" ></script>
+<script type="text/javascript" src="../../js/mui.min.js" ></script>
+<script type="text/javascript" src="../../js/global.js"></script>
+<script type="text/javascript" src="../../js/cropper.js"></script>
+<script type="text/javascript">
+	var mainWV,currentWV,Cropper,imgFile,imgPath;
+	mui.init();
+	mui.plusReady(function(){
+		mainWV = plus.webview.getLaunchWebview();
+		currentWV = plus.webview.currentWebview();
+		imgFile = currentWV.imgFile;
+		imgPath = currentWV.imgPath;
+		
+		Cropper = new Plugin.Cropper({ 
+			imgSrc : imgPath, 
+			saveCallBack : saveCallBack,
+			squareLen : 300
+		});
+		
+		//页面初始化方法
+		document.addEventListener('init',function(e){
+			
+		});
+		
+		mui.fire(currentWV,'init');
+	})
+	
+	//下面的方法可以结合uploader完成上传功能
+	function saveCallBack(file,path){
+		var wt = plus.nativeUI.showWaiting();
+		var task = plus.uploader.createUpload(
+			URL+'app_rest_ful/user_info_head_photo_save',{
+				method:"POST"
+			},
+			function(t,status){ //上传完成
+				if(status==200){
+					var ws=plus.webview.currentWebview();
+					plus.webview.close(ws);
+                    var my_record = plus.webview.getWebviewById('personal_data.html');
+                    my_record.evalJS("getUserHeadPhoto()");
+                    wt.close();
+				}else{
+					mui.toast('上传失败');
+					wt.close();
+				}
+			}
+		);
+		var uid = localStorage.getItem('NNC_userInfoId');
+		task.addFile(file,{key:'file'});
+		task.addData('userInfoId',uid);
+		task.start();
+	}
+	
+</script>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html class="ui-page-login">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="../../css/mui.css" rel="stylesheet"/>
+    <link rel="stylesheet" href="../../css/appCss/home.css" />
+    <link rel="stylesheet" href="../../css/style.css" />
+</head>
+<style >
+	.add{
+		padding-left: 1rem;
+	}
+</style>
+
+<body>
+	<div class="mui-content" style="background-color: #FFFFFF;">
+		<div class="home_top">
+			<div class="home-text">累计减重</div>
+			<div class="home-weight">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-size: 32px; color: #7b6d66;" id="allWeightLossNum"></span>&nbsp;&nbsp;&nbsp;kg</div>
+			<div class="home-today-weight">今日 &nbsp;<span id="dayWeightLossNum"></span></div>
+			<div class="home-top-left">
+				<p>累计减重  <span style="font-size: 22px;" id="allPeopleNum"></span> 人</p>
+			</div>
+			<div class="home-top-right">
+				<p>正在减重  <span style="font-size: 22px;" id="nowPeopleNum"></span> 人</p>
+			</div>
+		</div>
+		<div class="home_content">
+			<div class="home_ranking" onclick="jianzhong();" style="margin-left: 80px;">减重达人</div>
+		</div>
+		<div style=" margin:auto; 100%; height:2.9rem;">
+			<div class="home_loss_plan" onclick="jianzhongfangan();">减重方案</div>
+			<div class="home_nijiyingyang" onclick="nijiyingyang();">尼基营养</div>
+			<div class="home_loss_food" onclick="jianzhongmeishi();">减重美食</div>
+		</div>
+		<div style="height:110px;background-color: #FFFFFF;padding:1.45rem 0.53333333rem 0rem;">
+			<div class="niji_div" onclick="nijizhuanmai();">
+				<p class="niji_monopoly"></p>
+				<p class="niji_txt">尼基专卖</p>
+			</div>
+			<div class="niji_div" onclick="zhuanjiawenda();">
+				<p class="experts_question_and_answer"></p>
+				<p class="niji_txt">专家问答</p>
+				
+			</div>
+			<div class="niji_div" onclick="yvndongchangshi();">
+				<p class="sport_common_sense"></p>
+				<p class="niji_txt">运动常识</p>
+			</div>
+			<div class="niji_div" onclick="yingyangjiankang();">
+				<p class="diet_and_health"></p>
+				<p class="niji_txt">营养健康</p>
+			</div>
+		</div>
+	</div>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/h.js"></script>
+	<script type="text/javascript" src="../../js/jquery.min.js" ></script>
+	<script type="text/javascript" src="../../js/rem.js" ></script>
+    <script type="text/javascript">
+    	var taobaoUrl;
+    	mui.init();
+		mui.plusReady(function(){
+			Internet_connection();
+			getTaoBaoUrl();
+			getNum();
+			isLogin();
+		});
+		function jianzhong(){
+			mui.openWindow({
+				url : '../../page/ranking/talent_show.html',
+				id  : 'talent_show.html',
+				extras:{
+			    	name:'dietitian'
+			    }
+			});	
+		};
+		function about(){
+			mui.openWindow({
+				url : '../../page/about/about.html',
+				id  : 'about.html'
+			});
+		};
+		function yinshidapei(){
+			mui.openWindow({
+				url : '../home/nijiyingyang.html',
+				id  : 'nijiyingyang.html'
+			});
+		}
+		function jianzhongfangan(){
+			mui.openWindow({
+				url : '../home/weight_loss_plan.html',
+				id  : 'weight_loss_plan.html'
+			});
+		}
+		function nijiyingyang(){
+			mui.openWindow({
+				url : '../home/nijiyingyang.html',
+				id  : 'nijiyingyang.html'
+			});
+		}
+		function jianzhongmeishi(){
+			mui.openWindow({
+				url : '../home/weight_loss_food.html',
+				id  : 'weight_loss_food.html'
+			});
+		}
+		function nijizhuanmai(){
+			plus.runtime.openURL(taobaoUrl);
+		}
+		function zhuanjiawenda(){
+			mui.openWindow({
+				url : '../home/experts_question_and_answer.html',
+				id  : 'experts_question_and_answer.html'
+			});
+		}
+		function yvndongchangshi(){
+			mui.openWindow({
+				url : '../home/sport_common_sense.html',
+				id  : 'sport_common_sense.html'
+			});
+		}
+		function yingyangjiankang(){
+			mui.openWindow({
+				url : '../home/diet_and_health.html',
+				id  : 'diet_and_health.html'
+			});
+		}
+		function getNum(){
+			//减重人数
+			var mask=mui.createMask();//遮罩层
+      		$.ajax({
+  				type : "POST",
+  				url  : URL+'app_rest_ful/rank_home_people',
+  				dataType : 'json',
+//				beforeSend: function() {
+//			        plus.nativeUI.showWaiting('');
+//			        mask.show();//显示遮罩层
+//			    },
+//			    complete: function() {
+//			        plus.nativeUI.closeWaiting();
+//			        mask.close();//关闭遮罩层
+//			    },
+  				success : function(msg){
+  					if(msg.success==true){
+  						$("#allWeightLossNum").html(msg.data.allWeightLossNum);
+  						$("#dayWeightLossNum").html(msg.data.dayWeightLossNum);
+  						$('#allPeopleNum').html(msg.data.allPeopleNum);
+  						$('#nowPeopleNum').html(msg.data.nowPeopleNum);
+  					}
+  				}
+  			});
+		}
+		function isLogin(){
+			var uid = localStorage.getItem("NNC_userInfoId");
+			var role = localStorage.getItem('role');
+			if(uid != null){
+				if(role !='2'){
+					var mask=mui.createMask();//遮罩层
+					$.ajax({
+		  				type : "POST",
+		  				data : {'userInfoId':uid},
+		  				url  : URL+'app_rest_ful/select_userInfo',
+		  				dataType : 'json',
+//		  				beforeSend: function() {
+//					        plus.nativeUI.showWaiting('');
+//					        mask.show();//显示遮罩层
+//					    },
+//					    complete: function() {
+//					        plus.nativeUI.closeWaiting();
+//					        mask.close();//关闭遮罩层
+//					    },
+		  				success : function(msg){
+		  					if(msg.success==true){
+		  						if(msg.data.addFlag == 0){//未参加计划
+		  							h("#join").html("参加减脂计划");
+		  						}else{
+		  							h("#join").html("已参加计划");
+		  							h("#join").addClass('add');
+		  						}
+		  					}
+		  				}
+		  			});
+				}
+			}
+		}
+		function getTaoBaoUrl(){
+			$.ajax({
+  				type : "POST",
+  				url  : URL+'app_rest_ful/get_taobao_url',
+  				dataType : 'json',
+  				success : function(msg){
+  					if(msg.success==true){
+  						taobaoUrl = msg.data
+  					}else{
+  						taobaoUrl = "https://shop35155519.taobao.com/shop/view_shop.htm?spm=a1z38n.10677092.category.d53.594c1debwgDsPQ&mytmenu=mdianpu&user_number_id=78776523&qq-pf-to=pcqq.c2c";
+  					}
+  				}
+  			});
+		}
+	</script>
+</body>
+</html>

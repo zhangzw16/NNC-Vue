@@ -1,0 +1,200 @@
+<!doctype html>
+<html >
+	<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="../../css/mui.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../../css/ion.rangeSlider.css"/>
+		<link rel="stylesheet" href="../../css/ion.rangeSlider.skinHTML5.css"/>
+		<link rel="stylesheet" href="../../css/weight/style.css"/>
+    <title>Document</title> 	
+    <script src="../../js/weight/ruler.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .box {
+            position: relative;
+
+
+        }
+		.center {  
+					display: -webkit-flex;  
+					-webkit-justify-content: center;  
+					-webkit-align-items: center;  
+				} 
+        .box:before {
+            position: absolute;
+            z-index: 1;
+            left: 50%;
+            top: 0;
+            transform: translateX(-50%);
+            content: '';
+            width: 3px;
+            height: 35px;
+            background-color: #00b0ab;
+        }
+
+        .canvas {
+            display: block;
+            margin: 0 auto;
+            transition-duration: 300ms;
+        }
+    </style>
+</head>
+	<body>
+		<header class="mui-bar mui-bar-nav">
+		    <h1  style="float:left;font-size: 20px;margin: 12px auto;">完善资料&nbsp;&nbsp;2/2</h1>
+		</header>
+		<div class="mui-content" >
+			<div style="height: 200px;margin-top: 30px;background-color: #FFFFFF;">
+				<div class="page center" data-page='profile1' style="padding: 0;">
+				    <div class="page-main">
+				        <input type="hidden" name="first_screen" value="30##150##50">
+				        <div class="row">
+							<div style="margin-left: 10px;">	您的身高是：<span id="values1"></span>cm</div>
+    						<div style="margin-top: 2rem;" id="app1"></div>
+				        </div>
+				    </div>
+				</div>
+			</div>
+			<div style="height: 200px;background-color: #FFFFFF;">
+	            <div class="page center" data-page='profile1' style="padding: 0;">
+				    <div class="page-main">
+				        <input type="hidden" name="first_screen" value="30##150##50">
+				        <div class="row">
+							<div style="margin-left: 10px;">	您的体重是：<span id="values"></span>kg</div>
+    						<div style="margin-top: 2rem;" id="app"></div>
+				        </div>
+				    </div>
+				</div>
+			</div>
+			            
+			<div class="mui-content-padded">
+				<button id='scale' style="margin-top: 30px;" class="mui-btn mui-btn-block mui-btn-primary big-button regbtn">完成</button>
+				<button class="mui-btn mui-btn-block mui-btn-primary big-button regbtnload" style="display: none;"></button>
+			</div>
+		</div>
+		<script src="../../js/mui.min.js"></script>
+		<script src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/h.js" ></script>
+		<script type="text/javascript" src="../../js/ion.rangeSlider.min.js" ></script>
+		<script type="text/javascript" src="../../js/ion.rangeSlider.js" ></script>
+		<script src="../../js/weight/in01.js"></script>
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+    	
+
+       
+		<script type="text/javascript">
+
+    	new sliderRuler(
+            {
+                el: document.querySelector('#app'),
+                maxValue: 200,
+                minValue: 20,
+                currentValue: 40,
+                handleValue: handleValue,
+                getweigrh:handleValue,
+                precision: 0.1
+            
+            }
+      );
+      new sliderRuler(
+            {
+                el: document.querySelector('#app1'),
+                maxValue: 275,
+                minValue: 40,
+                currentValue: 140,
+                handleValue: handleValue1,
+                getweigrh1:handleValue1,
+                precision: 0.1
+            }
+      );
+        function handleValue(value) {
+        	//体重
+            document.querySelector('#values').innerHTML = value;
+        }
+        function handleValue1(value) {
+        	//身高
+            document.querySelector('#values1').innerHTML = value;
+        }
+        function getweigrh (){
+        	 var weight = $('#values').text();
+            return weight;
+        }
+        function getweigrh1 (){
+        	 var height = $('#values1').text();
+            return height;
+        }
+			mui.init();
+			mui.plusReady(function(){
+				Internet_connection();
+				h('#scale').tap(function(){
+					h(".regbtn").hide();
+					h(".regbtnload").show()
+	            	mui(".regbtnload").button('loading');
+	            	
+					var height = h("#values1").html();
+					var weight = h("#values").html();
+					var userLoginId 	= localStorage.getItem("NNC_uid");
+					var nickname   		= localStorage.getItem("info_nickname");
+					var sex 	   		= localStorage.getItem("info_sex");
+					var age 			= localStorage.getItem("info_age");
+					var userLoginType   = localStorage.getItem("NNC_login_type");
+					var datas = {
+						nickname : nickname,
+				        sex : sex,
+				        age : age,
+				        weight : weight,
+				        height : height,
+				        userLoginId : userLoginId,
+				        userLoginType : userLoginType
+					}
+					$.ajax({
+		  				type : "POST",
+		  				data : datas,
+		  				url  : URL+'app_rest_ful/user_info_save',
+		  				dataType : 'json',
+		  				success : function(msg){
+		  					console.log(JSON.stringify(msg));
+		  					if(msg.success==false){
+		  						//mui(thisObj).button('reset');
+		  						mui.alert('未知错误');
+		  						h(".regbtn").show()
+				            	h(".regbtnload").hide();
+		  					}else{
+		  						h(".regbtn").show()
+				            	h(".regbtnload").hide();
+		  						localStorage.setItem('NNC_userInfoId', msg.data.id+'');//完善信息成功储存userInfoId
+								localStorage.removeItem("info_nickname");
+								localStorage.removeItem("info_sex");
+								localStorage.removeItem("info_age");
+			 					localStorage.removeItem("info_weight");
+								localStorage.removeItem("info_height");
+								localStorage.removeItem("NNC_login_type");
+								localStorage.removeItem('nickName');
+//								var index = plus.webview.getLaunchWebview();
+//		  						var my = plus.webview.getWebviewById('my.html');
+//		  						var my_record = plus.webview.getWebviewById('my_record.html');
+//								var data_analysis = plus.webview.getWebviewById('data_analysis.html');
+//								plus.webview.show(index);
+//								index.evalJS("changSub(1);isLogin(); h('#tabBar').find('a').removeClass('mui-active'); h('#home').addClass('mui-active');");
+//								my.evalJS("isLogin();");
+//								my_record.evalJS("isLogin();");
+//								data_analysis.evalJS("isLogin();");
+								mui.openWindow({
+									url : 'joinNiji.html',
+									id  : 'joinNiji.html'
+								});
+
+		  					}
+		  				}
+		  			});
+				});
+			});
+		</script>
+	</body>
+</html>

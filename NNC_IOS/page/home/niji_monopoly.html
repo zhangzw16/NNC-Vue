@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    
+    <link href="../../css/mui.css" rel="stylesheet"/>
+</head>
+<body>
+	<header class="mui-bar mui-bar-nav">
+	    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #000000;"></a>
+	    <h1 class="mui-title" id="title">尼基营养</h1>
+	</header>
+	<script src="../../js/mui.min.js"></script>
+	<script src="../../js/h.js" type="text/javascript" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+      	mui.init({
+            subpages:[{
+                url:"http://market.m.taobao.com/app/dinamic/h5-tb-detail/index.html?id=41144749240&scm=1007.14551.105245.0&pvid=e3fe5f51-d6c1-4abd-9f75-e38bdc5e7005&track_params=%7B%22mtx_ab%22%3A%221%22%2C%22mtx_sab%22%3A%223%22%7D&spm=a215s.7406091.guessitem.guessitem-13&locate=guessitem-item&utparam=%7B%22x_object_type%22%3A%22item%22%2C%22mtx_ab%22%3A1%2C%22mtx_sab%22%3A3%2C%22scm%22%3A%221007.14551.105245.0%22%2C%22x_object_id%22%3A41144749240%7D",
+                id:"http://market.m.taobao.com/app/dinamic/h5-tb-detail/index.html?id=41144749240&scm=1007.14551.105245.0&pvid=e3fe5f51-d6c1-4abd-9f75-e38bdc5e7005&track_params=%7B%22mtx_ab%22%3A%221%22%2C%22mtx_sab%22%3A%223%22%7D&spm=a215s.7406091.guessitem.guessitem-13&locate=guessitem-item&utparam=%7B%22x_object_type%22%3A%22item%22%2C%22mtx_ab%22%3A1%2C%22mtx_sab%22%3A3%2C%22scm%22%3A%221007.14551.105245.0%22%2C%22x_object_id%22%3A41144749240%7D"
+            }]
+		});
+		mui.plusReady(function(){
+			Internet_connection();
+			var ws = plus.webview.currentWebview();//加载进外部网页,加载完成关闭等待框
+			ws.show('slide-in-right', 50);
+			plus.nativeUI.closeWaiting();
+		} )	
+    </script>
+</body>
+</html>

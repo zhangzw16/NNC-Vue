@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<link rel="stylesheet" type="text/css" href="../../css/weight/reset.css" />
+		<link rel="stylesheet" type="text/css" href="../../css/weight/normalize.css" />
+		<style>
+			.picker .picker-panel .picker-choose {
+				position: absolute;
+				width: 100%;
+				height: 40px;
+				line-height: 40px;
+				color: #878787;
+				font-size: 14px;
+				top: 0;
+				z-index: 999;
+				border-bottom: 1px solid #d1d1d1;
+			}
+			.picker .picker-panel .picker-choose .cancel,
+			.picker .picker-panel .picker-choose .confirm {
+				position: absolute;
+				width:40px;
+				height: 40px;
+				background: none;
+				border: none;
+				color: #23abf7;
+				padding: 0 5px;
+				margin: 0 10px;
+				top:0;
+				text-align: right;
+			}
+			.picker .picker-panel .picker-choose .cancel{
+				background: url(../../image/close.png) left no-repeat; 
+				background-size:14px 14px;
+			}
+			.picker .picker-panel .picker-choose .cancel>i{display: none;}
+			.picker-content{
+				margin-top: 70px;
+			}
+			.title_weight{
+				display: block;
+				font-size: 1rem;
+				color: #222;
+			}
+			.picker .picker-panel .picker-choose .confirm {
+				font-size: 1rem;
+			}
+		</style>
+	</head>
+	<body>
+		<script type="text/javascript" src="../../js/mui.min.js"></script>
+		<script type="text/javascript" src="../../js/h.js"></script>
+		<script type="text/javascript" src="../../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../../js/app/iframeCom.js"></script>
+		<script type="text/javascript" src="../../js/weight/picker.min.js"></script>
+		<script type="text/javascript">
+			var data1 = [{
+					text: '0',
+					value: 0
+				}, {
+					text: '1',
+					value: 1
+				},
+				{
+					text: '2',
+					value: 2
+				},
+				{
+					text: '3',
+					value: 3
+				},
+				{
+					text: '4',
+					value: 4
+				},
+				{
+					text: '5',
+					value: 5
+				},
+				{
+					text: '6',
+					value: 6
+				}, {
+					text: '7',
+					value: 7
+				},
+				{
+					text: '8',
+					value: 8
+				},
+				{
+					text: '9',
+					value: 9
+				}
+
+			];
+
+			var data2 = [{
+					text: '0',
+					value: 0
+				}, {
+					text: '1',
+					value: 1
+				},
+				{
+					text: '2',
+					value: 2
+				},
+				{
+					text: '3',
+					value: 3
+				},
+				{
+					text: '4',
+					value: 4
+				},
+				{
+					text: '5',
+					value: 5
+				},
+				{
+					text: '6',
+					value: 6
+				}, {
+					text: '7',
+					value: 7
+				},
+				{
+					text: '8',
+					value: 8
+				},
+				{
+					text: '9',
+					value: 9
+				}
+			];
+
+			var data3 = [{
+					text: '0',
+					value: 0
+				}, {
+					text: '1',
+					value: 1
+				},
+				{
+					text: '2',
+					value: 2
+				},
+				{
+					text: '3',
+					value: 3
+				},
+				{
+					text: '4',
+					value: 4
+				},
+				{
+					text: '5',
+					value: 5
+				},
+				{
+					text: '6',
+					value: 6
+				}, {
+					text: '7',
+					value: 7
+				},
+				{
+					text: '8',
+					value: 8
+				},
+				{
+					text: '9',
+					value: 9
+				}
+			];
+			var data4 = [{
+					text: '.0',
+					value: 0
+				}, {
+					text: '.1',
+					value: 1
+				},
+				{
+					text: '.2',
+					value: 2
+				},
+				{
+					text: '.3',
+					value: 3
+				},
+				{
+					text: '.4',
+					value: 4
+				},
+				{
+					text: '.5',
+					value: 5
+				},
+				{
+					text: '.6',
+					value: 6
+				}, {
+					text: '.7',
+					value: 7
+				},
+				{
+					text: '.8',
+					value: 8
+				},
+				{
+					text: '.9',
+					value: 9
+				}
+			];
+			var picker1 = new Picker({
+				data: [data1, data2, data3, data4]
+			});
+			picker1.show();
+			picker1.on('picker.select', function(selectedVal, selectedIndex) {
+//				alert(selectedVal+"~~~~"+selectedIndex);
+				//确定方法
+				var hundred = data1[selectedIndex[0]].text;    
+                var ten = data2[selectedIndex[1]].text;
+                var one = data3[selectedIndex[2]].text;
+                var decimal = data4[selectedIndex[3]].text;
+				if(parent.weightFlag == 1){
+					parent.setWeightData(hundred,ten,one,decimal);
+				}else if(parent.weightFlag == 2){
+					parent.setWeightData(hundred,ten,one,decimal);
+				}else if(parent.weightFlag == 3){
+					parent.setHeightData(hundred,ten,one,decimal);
+				}
+                if(hundred == "0"){
+                    hundred = '';
+                }
+               	if(hundred == "" && ten == "0"){
+                 	ten ='';
+                }
+               	if(hundred == "" && ten == "" && one == "0"){
+                 	one = '';
+                }
+               	if(hundred == "" && ten == "" && one == "" && decimal ==".0"){
+                 	decimal ='0';
+                }
+                var _weightAll = hundred+""+ten+""+one+""+decimal;
+				if(parent.weightFlag == 1){
+					parent.saveWeight(_weightAll);
+				}else if(parent.weightFlag == 2){
+				 	parent.saveWeight(_weightAll);
+				}else if(parent.weightFlag == 3){
+				 	parent.saveHeight(_weightAll);
+				}
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,347 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="cn.com.bocosoft.dao.DietitianMapper" >
+  <resultMap id="BaseResultMap" type="cn.com.bocosoft.model.Dietitian" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="login_id" property="loginId" jdbcType="VARCHAR" />
+    <result column="passwd" property="passwd" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="phone_no" property="phoneNo" jdbcType="VARCHAR" />
+    <result column="work_start_date" property="workStartDate" jdbcType="DATE" />
+    <result column="work_end_date" property="workEndDate" jdbcType="DATE" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="note" property="note" jdbcType="VARCHAR" />
+    <result column="create_id" property="createId" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="update_id" property="updateId" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, login_id, passwd, name, phone_no, work_start_date, work_end_date, email, note, 
+    create_id, create_time, update_id, update_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from dietitian
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from dietitian
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="cn.com.bocosoft.model.Dietitian" >
+    insert into dietitian (id, login_id, passwd, 
+      name, phone_no, work_start_date, 
+      work_end_date, email, note, 
+      create_id, create_time, update_id, 
+      update_time)
+    values (#{id,jdbcType=INTEGER}, #{loginId,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{phoneNo,jdbcType=VARCHAR}, #{workStartDate,jdbcType=DATE}, 
+      #{workEndDate,jdbcType=DATE}, #{email,jdbcType=VARCHAR}, #{note,jdbcType=VARCHAR}, 
+      #{createId,jdbcType=INTEGER}, #{createTime,jdbcType=TIMESTAMP}, #{updateId,jdbcType=INTEGER}, 
+      #{updateTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="cn.com.bocosoft.model.Dietitian" >
+    insert into dietitian
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="loginId != null" >
+        login_id,
+      </if>
+      <if test="passwd != null" >
+        passwd,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="phoneNo != null" >
+        phone_no,
+      </if>
+      <if test="workStartDate != null" >
+        work_start_date,
+      </if>
+      <if test="workEndDate != null" >
+        work_end_date,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="updateId != null" >
+        update_id,
+      </if>
+      <if test="updateTime != null" >
+        update_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="loginId != null" >
+        #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="passwd != null" >
+        #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNo != null" >
+        #{phoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="workStartDate != null" >
+        #{workStartDate,jdbcType=DATE},
+      </if>
+      <if test="workEndDate != null" >
+        #{workEndDate,jdbcType=DATE},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="cn.com.bocosoft.model.Dietitian" >
+    update dietitian
+    <set >
+      <if test="loginId != null" >
+        login_id = #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="passwd != null" >
+        passwd = #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNo != null" >
+        phone_no = #{phoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="workStartDate != null" >
+        work_start_date = #{workStartDate,jdbcType=DATE},
+      </if>
+      <if test="workEndDate != null" >
+        work_end_date = #{workEndDate,jdbcType=DATE},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="cn.com.bocosoft.model.Dietitian" >
+    update dietitian
+    set login_id = #{loginId,jdbcType=VARCHAR},
+      passwd = #{passwd,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      phone_no = #{phoneNo,jdbcType=VARCHAR},
+      work_start_date = #{workStartDate,jdbcType=DATE},
+      work_end_date = #{workEndDate,jdbcType=DATE},
+      email = #{email,jdbcType=VARCHAR},
+      note = #{note,jdbcType=VARCHAR},
+      create_id = #{createId,jdbcType=INTEGER},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      update_id = #{updateId,jdbcType=INTEGER},
+      update_time = #{updateTime,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="getDietitians" resultMap="BaseResultMap" parameterType="cn.com.bocosoft.model.Dietitian" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    dietitian
+    ORDER BY create_time DESC
+  </select>
+  <insert id="dietitian_save" parameterType="cn.com.bocosoft.model.Dietitian" >
+    insert into dietitian
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="loginId != null" >
+        login_id,
+      </if>
+      <if test="passwd != null" >
+        passwd,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="phoneNo != null" >
+        phone_no,
+      </if>
+      <if test="workStartDate != null" >
+        work_start_date,
+      </if>
+      <if test="workEndDate != null" >
+        work_end_date,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="note != null" >
+        note,
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createTime == null" >
+        create_time,
+      </if>
+      <if test="createId == null" >
+        create_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="loginId != null" >
+        #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="passwd != null" >
+        #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNo != null" >
+        #{phoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="workStartDate != null" >
+        #{workStartDate,jdbcType=DATE},
+      </if>
+      <if test="workEndDate != null" >
+        #{workEndDate,jdbcType=DATE},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        create_id,
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createTime == null" >
+         now(),
+      </if>
+      <if test="createId == null" >
+         1,
+      </if>
+    </trim>
+  </insert>
+  <select id="find_by_dietitians" resultMap="BaseResultMap" parameterType="cn.com.bocosoft.model.Dietitian" >
+    SELECT
+    <include refid="Base_Column_List" />
+    FROM
+    dietitian
+    where 
+    login_Id = #{loginId,jdbcType=VARCHAR}
+    OR name = #{name,jdbcType=VARCHAR}
+  </select>
+    <update id="updateDietitian" parameterType="cn.com.bocosoft.model.Dietitian" >
+    update dietitian
+    <set >
+      <if test="loginId != null" >
+        login_id = #{loginId,jdbcType=VARCHAR},
+      </if>
+      <if test="passwd != null" >
+        passwd = #{passwd,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="phoneNo != null" >
+        phone_no = #{phoneNo,jdbcType=VARCHAR},
+      </if>
+      <if test="workStartDate != null" >
+        work_start_date = #{workStartDate,jdbcType=DATE},
+      </if>
+      <if test="workEndDate != null" >
+        work_end_date = #{workEndDate,jdbcType=DATE},
+      </if>
+      <if test="workStartDate == null" >
+        work_start_date = null,
+      </if>
+      <if test="workEndDate == null" >
+        work_end_date = null,
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="note != null" >
+        note = #{note,jdbcType=VARCHAR},
+      </if>
+      <if test="createId != null" >
+        create_id = #{createId,jdbcType=INTEGER},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateId != null" >
+        update_id = #{updateId,jdbcType=INTEGER},
+      </if>
+      <if test="updateTime != null" >
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime == null" >
+        update_time = now(),
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <select id="findUserLoginInfoByPhone" resultMap="BaseResultMap" parameterType="java.lang.String">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    dietitian
+    WHERE dietitian.login_id = #{phoneNo,jdbcType=VARCHAR}
+  </select>
+</mapper>
