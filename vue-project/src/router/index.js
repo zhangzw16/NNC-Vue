@@ -5,7 +5,6 @@ import page_1 from '@/components/page_1/index.vue'
 import page_2 from '@/components/page_2/index.vue'
 import page_3 from '@/components/page_3/index.vue'
 import page_4 from '@/components/page_4/index.vue'
-import header from '@/components/header/index.vue'
 
 Vue.use(Router)
 

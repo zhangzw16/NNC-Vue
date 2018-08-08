@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -40,6 +41,17 @@ import cn.com.bocosoft.service.UserInfoService;
 public class UserInfoController {
     @Resource
     UserInfoService userInfoService;
+    
+    private JSONResult json;
+
+    public JSONResult getJson() {
+        return json;
+    }
+
+    public void setJson(JSONResult json) {
+        this.json = json;
+    }
+    
     /**
      * 营养师管理下的客户
      * @param request
@@ -59,7 +71,8 @@ public class UserInfoController {
      * @return
      */
     @RequestMapping(value = "/user_info_page_on_dietitian", method = RequestMethod.POST)
-    public String user_inf_page_on_dietitian(HttpServletRequest request) {
+    @ResponseBody
+    public JSONResult user_inf_page_on_dietitian(HttpServletRequest request) {
         int currentPage = Integer.parseInt(request.getParameter("page"));
         int userStatus = Integer.parseInt(request.getParameter("userStatus"));
         int dietitianId = Integer.parseInt(request.getParameter("dietitianId"));
@@ -67,12 +80,13 @@ public class UserInfoController {
         Dietitian dietitian = userInfoService.findByDietitian(dietitianId);
         List<UserInfo> userInfos = userInfoService.getUserInfosById(dietitianId, userStatus);
         PageInfo<UserInfo> pageInfo = new PageInfo<UserInfo>(userInfos);
-        request.setAttribute("max_page",pageInfo.getPages());
-        request.setAttribute("current_page",pageInfo.getPageNum());
-        request.setAttribute("cause",userInfos);
-        request.setAttribute("dietitian", dietitian);
-        request.setAttribute("userStatus", userStatus);
-        return "userInfo/userInfoOnDietitianList";
+//        request.setAttribute("max_page",pageInfo.getPages());
+//        request.setAttribute("current_page",pageInfo.getPageNum());
+//        request.setAttribute("cause",userInfos);
+//        request.setAttribute("dietitian", dietitian);
+//        request.setAttribute("userStatus", userStatus);
+        return json = new JSONResult(pageInfo, "成功", true);
+//        return "userInfo/userInfoOnDietitianList";
     }
     
     /**
