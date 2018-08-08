@@ -6,7 +6,7 @@
 		    style="width: 100%"
 		    :row-class-name="tableRowClassName">
 		    <el-table-column
-		      prop="id"
+		      type="index"
 		      label="序号"
 		      width="80">
 		    </el-table-column>

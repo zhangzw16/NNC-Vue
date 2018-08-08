@@ -15,36 +15,32 @@ export default {
     })
     .then((res) => {
       // console.log(res.data);
-      this.tableData2 = res.data.data.list;
-      console.log(this.tableData2);
+      this.tempData = res.data.data.list;
+      // console.log(this.tempData);
 
-      for (let i = 0; i < this.tableData2.length; i++) {
+      for (let i = 0; i < this.tempData.length; i++) {
         this.axios({
           method: 'post',
           url: '/NNC/rest/user_Info/user_info_page_on_dietitian',
           params: {
             page: '1',
             userStatus: '1',
-            dietitianId: this.tableData2[i].id
+            dietitianId: this.tempData[i].id
           }
         })
         .then((res) => {
-          // console.log(res.data.data.list);
-          this.tableData2[i].beingReduced = res.data.data.list.length;
+          this.$set(this.tempData[i], "beingReduced", res.data.data.list.length)
         })
         .catch(err => {
-          // console.log(err);
+          console.log(err);
         })
       }
-
+      this.tableData2 = this.tempData;
       console.log(this.tableData2);
     })
     .catch(err => {
       // console.log(err);
     })
-
-    
-
   },
   methods: {
     tableRowClassName({row, rowIndex}) {
