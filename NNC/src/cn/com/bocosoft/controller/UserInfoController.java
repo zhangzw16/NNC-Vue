@@ -123,7 +123,8 @@ public class UserInfoController {
      * @return
      */
     @RequestMapping(value = "/user_info_page", method = RequestMethod.POST)
-    public String user_info_page(HttpServletRequest request) {
+    @ResponseBody
+    public JSONResult user_info_page(HttpServletRequest request) {
         int currentPage = Integer.parseInt(request.getParameter("page"));
         String userStatus = request.getParameter("userStatus");
         String dietitianId = request.getParameter("dietitianId");
@@ -140,18 +141,19 @@ public class UserInfoController {
             userInfos = userInfoService.getAllUserInfosById(message);
         }
         PageInfo<UserInfo> pageInfo = new PageInfo<UserInfo>(userInfos);
-        request.setAttribute("max_page",pageInfo.getPages());
-        request.setAttribute("current_page",pageInfo.getPageNum());
-        request.setAttribute("user_status",userStatus);
-        request.setAttribute("dietitian_Id",dietitianId);
-        request.setAttribute("cause",userInfos);
-        request.setAttribute("causeSize",pageInfo.getTotal());
+//        request.setAttribute("max_page",pageInfo.getPages());
+//        request.setAttribute("current_page",pageInfo.getPageNum());
+//        request.setAttribute("user_status",userStatus);
+//        request.setAttribute("dietitian_Id",dietitianId);
+//        request.setAttribute("cause",userInfos);
+//        request.setAttribute("causeSize",pageInfo.getTotal());
         List<Dietitian> dietitians = userInfoService.findByDietitians();
         Dietitian dietitian = new Dietitian();
         dietitian.setName("无");
         dietitians.add(0, dietitian);
         request.setAttribute("dietitian", dietitians);
-        return "userInfo/userInfoListTable";
+//        return "userInfo/userInfoListTable";
+        return json = new JSONResult(pageInfo, "成功", true);
     }
     
     
