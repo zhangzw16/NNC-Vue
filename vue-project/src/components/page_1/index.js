@@ -1,8 +1,14 @@
+import newSystemUserAdd from "../newSystemUserAdd/index.vue"
+
 export default {
   name: 'page_1',
+  components: {
+    newSystemUserAdd,
+  },
+  
   data () {
     return {
-      tableData: null
+      tableData: null,
     }
   },
   created() {
@@ -19,6 +25,13 @@ export default {
     })
     .catch(err => {
       // console.log(err);
-    })
+    });
+  },
+  methods: {
+    AddNewSystemUser(){
+      console.log("hhh");
+      this.newSystemUserAdd_visible = true;
+      console.log(this.newSystemUserAdd_visible)
+    }
   }
 }

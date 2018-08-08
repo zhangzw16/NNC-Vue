@@ -1,8 +1,15 @@
 <template>
   <el-row id="page_1">
 	  <el-col :span="24">
+			<el-row>
+				<el-button type="primary">
+					创建管理员
+				</el-button>
+				<newSystemUserAdd></newSystemUserAdd>
+			</el-row>
    	  <el-table
 	      :data="tableData"
+				border
 	      style="width: 100%">
 	      <el-table-column
 	        prop="id"
@@ -22,7 +29,7 @@
 					prop="passwd"
 					label="初始密码">
 				</el-table-column>
-	    </el-table>	  	
+	    </el-table>
 	  </el-col>
 	</el-row>
 </template>
