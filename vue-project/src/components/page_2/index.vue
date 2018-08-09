@@ -1,6 +1,12 @@
 <template>
-  <el-row id="page_2">
-  	<el-col :span="24">
+  <el-row id="page_2" style="height: 100%">
+  	<el-col >
+			<el-row>
+				<el-button type="primary"
+					@click="addDetitian">
+					创建营养师
+				</el-button>
+			</el-row>
 		  <el-table @row-dblclick="handleRowClick"
 		    :data="tableData2"
 		    style="width: 100%"
@@ -29,6 +35,32 @@
 		      prop="beingReduced"
 		      label="正在减脂人数"
 					width="140">
+		    </el-table-column>
+				<el-table-column
+		      label="重置密码"
+					width="140">
+					<template slot-scope="scope">
+					<el-button
+						round
+						size="mini"
+						type="danger"
+						@click="resetPsd(scope.$index, scope.row)">
+						重置密码
+						</el-button>
+					</template>
+		    </el-table-column>
+				<el-table-column
+		      label="修改"
+					width="140">
+					<template slot-scope="scope">
+					<el-button
+						round
+						size="mini"
+						type="primary"
+						@click="handleEdit(scope.$index, scope.row)">
+						修改
+						</el-button>
+					</template>
 		    </el-table-column>
 		  </el-table>
   	</el-col>

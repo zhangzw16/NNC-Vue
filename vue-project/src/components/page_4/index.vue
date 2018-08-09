@@ -14,7 +14,6 @@
                     @click.native="userFilter(3)">
                     已完成客户
                 </el-button>
-                <newSystemUserAdd></newSystemUserAdd>
             </el-row>
             <el-table 
                 :data="tableData4"

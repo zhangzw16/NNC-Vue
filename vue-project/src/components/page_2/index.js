@@ -51,10 +51,50 @@ export default {
       }
       return '';
     },
+
     handleRowClick(row) {
       let id = row.id;
       this.$router.push( {path: '/page_4', query: { partnum: 4 , dietitianId: id}} );
+    },
+
+    resetPsd(index, row) {
+      let deId = row.id;
+      let name = row.name;
+
+      this.$confirm(`此操作将重置${name}的密码, 是否继续?`, '警告', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'danger'
+      }).then(() => {
+        this.axios({
+          method: 'post',
+          url: '/NNC/rest/dietitian/reset_dietitian_passwd',
+          params: {
+            dietitian_id: deId
+          }
+        }).then((res) => {
+          if(res.data === 1) {
+            console.log(true);
+            this.$message({
+              type: 'success',
+              message: '重置密码成功!'
+            });
+          }
+          else {
+            this.$message({
+              type: 'danger',
+              message: '重置密码失败!'
+            });
+          }
+        }).catch(err => {
+          console.log(err);
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消重置密码'
+        });          
+      });
     }
   }
-
 }
