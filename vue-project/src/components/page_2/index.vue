@@ -3,10 +3,15 @@
   	<el-col >
 			<el-row>
 				<el-button type="primary"
-					@click="addDetitian">
+					@click="addDietitian">
 					创建营养师
 				</el-button>
+				
 			</el-row>
+			<addSystemUserDialog 
+				:dialogFormVisible="addDietitianDialogVisible"
+				v-on:closeDialog="closeAddDietitianDialog">
+			</addSystemUserDialog>
 		  <el-table @row-dblclick="handleRowClick"
 		    :data="tableData2"
 		    style="width: 100%"

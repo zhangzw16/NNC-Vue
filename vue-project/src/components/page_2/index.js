@@ -1,8 +1,14 @@
+import addSystemUserDialog from "../Dialog/newDietitian.vue"
+
 export default {
   name: 'page_2',
+  components: {
+    addSystemUserDialog
+  },
   data () {
     return {
-			tableData2: null      
+      tableData2: null,
+      addDietitianDialogVisible: false
     }
   },
   created() {
@@ -95,6 +101,15 @@ export default {
           message: '已取消重置密码'
         });          
       });
+    },
+
+    addDietitian(){
+      console.log(this.addDietitianDialogVisible)
+      this.addDietitianDialogVisible = true;
+    },
+
+    closeAddDietitianDialog(){
+      this.addDietitianDialogVisible = false;
     }
   }
 }
