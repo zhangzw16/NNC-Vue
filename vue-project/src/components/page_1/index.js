@@ -14,29 +14,39 @@ export default {
     }
   },
   created() {
-    this.axios({
-      method: 'post',
-      url: '/NNC/rest/systemUser/system_user_page',
-      data: {
-       page: '1'
-      }
-    })
-    .then((res) => {
-      this.tableData = res.data.data.list;
-      console.log(this.tableData);
-    })
-    .catch(err => {
-      // console.log(err);
-    });
+    this.refresh();
   },
   methods: {
-    addSystemUser(){
+    addSystemUser() {
       this.dialogVisible = true;
       this.formVis_addUser = true;
     },
-    closeAddSystemUserDialog(){
+
+    closeAddSystemUserDialog() {
       this.dialogVisible = false;
       this.formVis_addUser = false;
+    },
+
+    handleUserEdit(index, row) {
+      console.log(row);
+    },
+
+    refresh() {
+      console.log("refresh");
+      this.axios({
+        method: 'post',
+        url: '/NNC/rest/systemUser/system_user_page',
+        data: {
+         page: '1'
+        }
+      })
+      .then((res) => {
+        this.tableData = res.data.data.list;
+        console.log(this.tableData);
+      })
+      .catch(err => {
+        // console.log(err);
+      });
     }
   }
 }

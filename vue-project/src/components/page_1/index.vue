@@ -1,5 +1,5 @@
 <template>
-  <el-row id="page_1">
+  <el-row id="page_1" style="height: 100%">
 	  <el-col :span="24">
 			<el-row>
 				<el-button type="primary" @click="addSystemUser">
@@ -7,14 +7,14 @@
 				</el-button>
 				<editDialog :dialogVisible="dialogVisible"
 	 				:formVis_addUser="formVis_addUser"
+					v-on:addUserSuccess="refresh"
 					v-on:closeDialog="closeAddSystemUserDialog"></editDialog>
 			</el-row>
    	  <el-table
 	      :data="tableData"
-				border
 	      style="width: 100%">
 	      <el-table-column
-	        prop="id"
+	        type="index"
 	        label="序号"
 	        width="180">
 	      </el-table-column>
@@ -31,6 +31,19 @@
 					prop="passwd"
 					label="初始密码">
 				</el-table-column>
+				<el-table-column
+		      label="修改"
+					width="140">
+					<template slot-scope="scope">
+					<el-button
+						round
+						size="mini"
+						type="primary"
+						@click="handleUserEdit(scope.$index, scope.row)">
+						修改
+						</el-button>
+					</template>
+		    </el-table-column>
 	    </el-table>
 	  </el-col>
 	</el-row>
