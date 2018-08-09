@@ -45,10 +45,21 @@
             </el-form-item>
         </el-form>
 
-        <div slot="footer" class="dialog-footer">
-            <el-button type="primary" @click="handleClose">取消</el-button>
-            <el-button type="primary" @click="handleClose">保存</el-button>
+        <div slot="footer" class="dialog-footer" v-show="formVis_dietitian">
+        <el-button type="primary" @click="handleClose">取消</el-button>
+        <el-button type="primary" @click="handleClose">保存</el-button>
         </div>
+
+        <div slot="footer" class="dialog-footer" v-show="formVis_addUser">
+        <el-button type="primary" @click="handleClose">取消</el-button>
+        <el-button type="primary" @click="handleClose">保存</el-button>
+        </div>
+
+        <div slot="footer" class="dialog-footer" v-show="formVis_editUser">
+        <el-button type="primary" @click="handleClose">取消</el-button>
+        <el-button type="primary" @click="handleClose">保存</el-button>
+        </div>
+
     </el-dialog>
 </template>
 <style src="./index.less" lang="less"></style>
