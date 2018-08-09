@@ -7,8 +7,11 @@
 				</el-button>
 				<editDialog :dialogVisible="dialogVisible"
 	 				:formVis_addUser="formVis_addUser"
+					:formVis_editUser="formVis_editUser"
+					:form3="form3"
 					v-on:addUserSuccess="refresh"
-					v-on:closeDialog="closeAddSystemUserDialog"></editDialog>
+					v-on:closeDialog="closeAddSystemUserDialog">
+					</editDialog>
 			</el-row>
    	  <el-table
 	      :data="tableData"
@@ -39,7 +42,7 @@
 						round
 						size="mini"
 						type="primary"
-						@click="handleUserEdit(scope.$index, scope.row)">
+						@click="editSystemUser(scope.$index, scope.row)">
 						修改
 						</el-button>
 					</template>

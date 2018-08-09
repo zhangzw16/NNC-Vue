@@ -11,6 +11,12 @@ export default {
       tableData: null,
       dialogVisible: false,
       formVis_addUser: false,
+      formVis_editUser: false,
+      form3: {
+        systemUserName: null,
+        systemUserAuthority: null,
+        systemUserRemark: null,
+      },
     }
   },
   created() {
@@ -27,8 +33,13 @@ export default {
       this.formVis_addUser = false;
     },
 
-    handleUserEdit(index, row) {
-      console.log(row);
+    editSystemUser(index, row) {
+      this.form3.systemUserName = row.loginId;
+      this.form3.systemUserAuthority = (row.role===2)? "总监" :
+        (row.role===3)?"文档管理员":"";
+      this.form3.systemUserRemark = row.note;
+      this.dialogVisible = true;
+      this.formVis_editUser = true;
     },
 
     refresh() {

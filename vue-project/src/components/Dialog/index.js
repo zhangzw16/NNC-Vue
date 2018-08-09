@@ -23,6 +23,7 @@ export default {
       };
     },
     props: {
+      form3: this.form3,
       dialogVisible:{
         type: Boolean,
         default: false
@@ -42,6 +43,7 @@ export default {
     },
     methods: {
       handleClose() {
+        console.log(this.form3);
         this.$emit("closeDialog");
       },
 
@@ -78,6 +80,10 @@ export default {
         })
         this.$emit("addUserSuccess")
         this.handleClose();
-      }
+      },
+
+      editUser() {
+
+      },
     }
   }
