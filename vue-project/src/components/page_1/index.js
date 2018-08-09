@@ -9,7 +9,7 @@ export default {
   data () {
     return {
       tableData: null,
-      childDialogVisible: false
+      addSystemUserDialogVisible: false
     }
   },
   created() {
@@ -29,11 +29,11 @@ export default {
     });
   },
   methods: {
-    AddNewSystemUser(){
-      this.childDialogVisible = true;
+    addSystemUser(){
+      this.addSystemUserDialogVisible = true;
     },
-    closeChildDialog(){
-      this.childDialogVisible = false;
+    closeAddSystemUserDialog(){
+      this.addSystemUserDialogVisible = false;
     }
   }
 }
