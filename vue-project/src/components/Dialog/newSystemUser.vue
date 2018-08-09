@@ -1,5 +1,7 @@
 <template>
-    <el-dialog title="用户信息" :visible.sync="dialogFormVisible">
+    <el-dialog title="用户信息" 
+        :visible.sync="dialogFormVisible"
+        :before-close="handleClose">
         <el-form :model="form">
             <el-form-item label="营养师姓名" :label-width="formLabelWidth">
                 <el-input v-model="form.name" auto-complete="off"></el-input>

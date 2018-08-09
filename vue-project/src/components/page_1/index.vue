@@ -5,7 +5,7 @@
 				<el-button type="primary" @click="AddNewSystemUser">
 					创建管理员
 				</el-button>
-				<MessageBox :dialogFormVisible="childDialogVisible" v-on:closeDialog="closeChildDialog"></MessageBox>
+				<Dialog :dialogFormVisible="childDialogVisible" v-on:closeDialog="closeChildDialog"></Dialog>
 			</el-row>
    	  <el-table
 	      :data="tableData"

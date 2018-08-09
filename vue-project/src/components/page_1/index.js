@@ -1,9 +1,9 @@
-import MessageBox from "../MessageBox/newSystemUser.vue"
+import Dialog from "../Dialog/newSystemUser.vue"
 
 export default {
   name: 'page_1',
   components: {
-    MessageBox,
+    Dialog,
   },
   
   data () {
