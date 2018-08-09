@@ -1,6 +1,12 @@
 <template>
-  <el-row id="page_2">
-  	<el-col :span="24">
+  <el-row id="page_2" style="height: 100%">
+  	<el-col >
+			<el-row>
+				<el-button type="primary"
+					@click="addDetitian">
+					创建营养师
+				</el-button>
+			</el-row>
 		  <el-table @row-dblclick="handleRowClick"
 		    :data="tableData2"
 		    style="width: 100%"
