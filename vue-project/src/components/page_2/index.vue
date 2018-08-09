@@ -30,6 +30,32 @@
 		      label="正在减脂人数"
 					width="140">
 		    </el-table-column>
+				<el-table-column
+		      label="重置密码"
+					width="140">
+					<template slot-scope="scope">
+					<el-button
+						round
+						size="mini"
+						type="danger"
+						@click="resetPsd(scope.$index, scope.row)">
+						重置密码
+						</el-button>
+					</template>
+		    </el-table-column>
+				<el-table-column
+		      label="修改"
+					width="140">
+					<template slot-scope="scope">
+					<el-button
+						round
+						size="mini"
+						type="primary"
+						@click="handleEdit(scope.$index, scope.row)">
+						修改
+						</el-button>
+					</template>
+		    </el-table-column>
 		  </el-table>
   	</el-col>
 	</el-row>
