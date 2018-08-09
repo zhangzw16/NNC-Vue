@@ -1,4 +1,4 @@
-import addSystemUserDialog from "../Dialog/newDietitian.vue"
+import addSystemUserDialog from "../Dialog/index.vue"
 
 export default {
   name: 'page_2',
@@ -8,7 +8,8 @@ export default {
   data () {
     return {
       tableData2: null,
-      addDietitianDialogVisible: false
+      addDietitianDialogVisible: false,
+      formVis_dietitian: false,
     }
   },
   created() {
@@ -106,10 +107,12 @@ export default {
     addDietitian(){
       console.log(this.addDietitianDialogVisible)
       this.addDietitianDialogVisible = true;
+      this.formVis_dietitian = true;
     },
 
     closeAddDietitianDialog(){
       this.addDietitianDialogVisible = false;
+      this.formVis_dietitian = false;
     }
   }
 }

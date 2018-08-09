@@ -6,10 +6,10 @@
 					@click="addDietitian">
 					创建营养师
 				</el-button>
-				
 			</el-row>
 			<addSystemUserDialog 
-				:dialogFormVisible="addDietitianDialogVisible"
+				:dialogVisible="addDietitianDialogVisible"
+				:formVis_dietitian="formVis_dietitian"
 				v-on:closeDialog="closeAddDietitianDialog">
 			</addSystemUserDialog>
 		  <el-table @row-dblclick="handleRowClick"
