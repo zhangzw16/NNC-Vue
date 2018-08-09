@@ -25,9 +25,19 @@
 						prop="createTime"
 						label="注册时间">
 					</el-table-column>
-							<el-table-column
-						label="查看">
-					</el-table-column>
+					<el-table-column
+		      			label="详细"
+						width="140">
+						<template slot-scope="scope">
+						<el-button
+							round
+							size="mini"
+							type="primary"
+							@click="detailCheck(scope.$index, scope.row)">
+							查看
+						</el-button>
+						</template>
+		    		</el-table-column>
 				</el-table>
 			</el-col>
 		</el-row>

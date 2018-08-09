@@ -49,6 +49,11 @@ export default {
       .catch(err => {
         // console.log(err);
       });
+    },
+
+    // 查看详情（点击按钮）
+    detailCheck(){
+      console.log("check");
     }
   }
 }
