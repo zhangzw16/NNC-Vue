@@ -21,9 +21,7 @@ export default {
       }
     })
     .then((res) => {
-      // console.log(res.data);
       this.tempData = res.data.data.list;
-      // console.log(this.tempData);
 
       for (let i = 0; i < this.tempData.length; i++) {
         this.axios({
@@ -105,7 +103,6 @@ export default {
     },
 
     addDietitian(){
-      console.log(this.addDietitianDialogVisible)
       this.addDietitianDialogVisible = true;
       this.formVis_dietitian = true;
     },
