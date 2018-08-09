@@ -1,15 +1,16 @@
-import addSystemUserDialog from "../Dialog/newSystemUser.vue"
+import editDialog from "../Dialog/index.vue"
 
 export default {
   name: 'page_1',
   components: {
-    addSystemUserDialog,
+    editDialog,
   },
   
   data () {
     return {
       tableData: null,
-      addSystemUserDialogVisible: false
+      dialogVisible: false,
+      formVis_addUser: false,
     }
   },
   created() {
@@ -30,10 +31,12 @@ export default {
   },
   methods: {
     addSystemUser(){
-      this.addSystemUserDialogVisible = true;
+      this.dialogVisible = true;
+      this.formVis_addUser = true;
     },
     closeAddSystemUserDialog(){
-      this.addSystemUserDialogVisible = false;
+      this.dialogVisible = false;
+      this.formVis_addUser = false;
     }
   }
 }
