@@ -11,8 +11,8 @@
             </el-form-item>
         </el-form>
         <div slot="footer" class="dialog-footer">
-            <el-button @click="closeDialog">取消</el-button>
-            <el-button type="primary" @click="closeDialog">保存</el-button>
+            <el-button type="primary" @click="handleClose">取消</el-button>
+            <el-button type="primary" @click="handleClose">保存</el-button>
         </div>
     </el-dialog>
 </template>
