@@ -16,6 +16,10 @@ export default {
       }
     },
     methods: {
+      closeDialog(){
+        console.log("dia close");
+        this.$emit("closeDialog");
+      },
       handleClose() {
         this.$emit("closeDialog");
       }
