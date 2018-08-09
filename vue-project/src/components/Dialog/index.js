@@ -3,8 +3,9 @@ export default {
     data() {
         return {
           form: {
-            name: '',
-            number: ''
+            systemUserName: '',
+            systemUserAuthority: '',
+            systemUserRemark: ''
           },
           formLabelWidth: '120px'
         };
