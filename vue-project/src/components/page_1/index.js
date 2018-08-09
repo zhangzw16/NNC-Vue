@@ -1,14 +1,15 @@
-import newSystemUserAdd from "../newSystemUserAdd/index.vue"
+import MessageBox from "../MessageBox/newSystemUser.vue"
 
 export default {
   name: 'page_1',
   components: {
-    newSystemUserAdd,
+    MessageBox,
   },
   
   data () {
     return {
       tableData: null,
+      childDialogVisible: false
     }
   },
   created() {
@@ -29,9 +30,10 @@ export default {
   },
   methods: {
     AddNewSystemUser(){
-      console.log("hhh");
-      this.newSystemUserAdd_visible = true;
-      console.log(this.newSystemUserAdd_visible)
+      this.childDialogVisible = true;
+    },
+    closeChildDialog(){
+      this.childDialogVisible = false;
     }
   }
 }

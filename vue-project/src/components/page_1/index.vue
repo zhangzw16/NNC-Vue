@@ -2,10 +2,10 @@
   <el-row id="page_1">
 	  <el-col :span="24">
 			<el-row>
-				<el-button type="primary">
+				<el-button type="primary" @click="AddNewSystemUser">
 					创建管理员
 				</el-button>
-				<newSystemUserAdd></newSystemUserAdd>
+				<MessageBox :dialogFormVisible="childDialogVisible" v-on:closeDialog="closeChildDialog"></MessageBox>
 			</el-row>
    	  <el-table
 	      :data="tableData"
