@@ -10,7 +10,7 @@
 					:formVis_editUser="formVis_editUser"
 					:form3="form3"
 					v-on:addUserSuccess="refresh"
-					v-on:closeDialog="closeAddSystemUserDialog">
+					v-on:closeDialog="closeUserDialog">
 					</editDialog>
 			</el-row>
    	  <el-table

@@ -28,9 +28,10 @@ export default {
       this.formVis_addUser = true;
     },
 
-    closeAddSystemUserDialog() {
+    closeUserDialog() {
       this.dialogVisible = false;
       this.formVis_addUser = false;
+      this.formVis_editUser = false;
     },
 
     editSystemUser(index, row) {
