@@ -1,5 +1,9 @@
 <template>
 	<div id="page_3">
+		<detailDialog
+			:dialogVisible="detailDialogVisible"
+			v-on:closeDialog="closeDetail">
+		</detailDialog>
 		<el-row>
 			<el-col :span="24">
 				<el-table

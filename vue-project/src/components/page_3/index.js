@@ -1,10 +1,15 @@
+import detailDialog from "../detailUserInfo/index.vue"
 export default {
   name: 'page_3',
+  components: {
+    detailDialog
+  },
   data () {
     return {
       tableData3: null,
       pageData3: null,
-      pages: 0
+      pages: 0,
+      detailDialogVisible: false
     }
   },
   created() {
@@ -54,6 +59,12 @@ export default {
     // 查看详情（点击按钮）
     detailCheck(){
       console.log("check");
+      this.detailDialogVisible = true;
+    },
+    // 关闭detail的dialog
+    closeDetail(){
+      console.log("close");
+      this.detailDialogVisible = false;
     }
   }
 }
