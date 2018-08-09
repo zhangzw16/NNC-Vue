@@ -11,10 +11,22 @@ export default {
         };
     },
     props: {
-      dialogFormVisible:{
+      dialogVisible:{
         type: Boolean,
         default: false
-      }
+      },
+      formVis_dietitian:{
+        type: Boolean,
+        default: false
+      },
+      formVis_addUser:{
+        type: Boolean,
+        default: false
+      },
+      formVis_editUser:{
+        type: Boolean,
+        default: false
+      },
     },
     methods: {
       handleClose() {
