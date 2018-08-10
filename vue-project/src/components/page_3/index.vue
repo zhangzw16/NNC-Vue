@@ -2,7 +2,9 @@
 	<div id="page_3">
 		<detailDialog
 			:dialogVisible="detailDialogVisible"
-			v-on:closeDialog="closeDetail">
+			v-on:closeDialog="closeDetail"
+			:personDetail="personDetail"
+			>
 		</detailDialog>
 		<el-row>
 			<el-col :span="24">

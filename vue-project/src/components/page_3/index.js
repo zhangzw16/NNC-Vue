@@ -9,7 +9,9 @@ export default {
       tableData3: null,
       pageData3: null,
       pages: 0,
-      detailDialogVisible: false
+      detailDialogVisible: false,
+
+      personDetail: null
     }
   },
   created() {
@@ -57,8 +59,9 @@ export default {
     },
 
     // 查看详情（点击按钮）
-    detailCheck(){
-      console.log("check");
+    detailCheck(index, row){
+      this.personDetail = row;
+      console.log(this.personDetail);
       this.detailDialogVisible = true;
     },
     // 关闭detail的dialog
