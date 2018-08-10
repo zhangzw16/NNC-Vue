@@ -39,7 +39,12 @@ export default {
     },
     methods: {
       handleClose() {
-        console.log(this.form3);
+        // console.log(this.form3);
+        this.form2 = {
+          systemUserName: null,
+          systemUserAuthority: null,
+          systemUserRemark: null,
+        };
         this.form3 = {
           systemUserName: null,
           systemUserAuthority: null,
