@@ -1,7 +1,12 @@
+import userMainInfo from "../user_main_info/index.vue"
+
 export default {
+    components: {
+        userMainInfo
+    },
     data() {
         return {
-          activeName: 'second'
+          activeName: 'first'
         };
     },
     methods: {
