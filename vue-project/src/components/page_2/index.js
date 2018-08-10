@@ -1,51 +1,24 @@
-import addSystemUserDialog from "../Dialog/index.vue"
-
 export default {
   name: 'page_2',
   components: {
-    addSystemUserDialog
   },
   data () {
     return {
+      form: {
+        dieName: null,
+        number: null,
+        date1: null,
+        date2: null,
+        note: null,
+      },
+      dialogVisible: false,
       tableData2: null,
       addDietitianDialogVisible: false,
       formVis_dietitian: false,
     }
   },
   created() {
-    this.axios({
-      method: 'post',
-      url: '/NNC/rest/dietitian/dietitian_page',
-      data: {
-       page: '1'
-      }
-    })
-    .then((res) => {
-      this.tempData = res.data.data.list;
-
-      for (let i = 0; i < this.tempData.length; i++) {
-        this.axios({
-          method: 'post',
-          url: '/NNC/rest/user_Info/user_info_page_on_dietitian',
-          params: {
-            page: '1',
-            userStatus: '1',
-            dietitianId: this.tempData[i].id
-          }
-        })
-        .then((res) => {
-          this.$set(this.tempData[i], "beingReduced", res.data.data.list.length)
-        })
-        .catch(err => {
-          console.log(err);
-        })
-      }
-      this.tableData2 = this.tempData;
-      console.log(this.tableData2);
-    })
-    .catch(err => {
-      // console.log(err);
-    })
+    this.refresh();
   },
   methods: {
     tableRowClassName({row, rowIndex}) {
@@ -71,29 +44,12 @@ export default {
         cancelButtonText: '取消',
         type: 'danger'
       }).then(() => {
-        this.axios({
-          method: 'post',
-          url: '/NNC/rest/dietitian/reset_dietitian_passwd',
-          params: {
-            dietitian_id: deId
-          }
-        }).then((res) => {
-          if(res.data === 1) {
-            console.log(true);
-            this.$message({
-              type: 'success',
-              message: '重置密码成功!'
-            });
-          }
-          else {
-            this.$message({
-              type: 'danger',
-              message: '重置密码失败!'
-            });
-          }
-        }).catch(err => {
-          console.log(err);
-        })
+        let url = '/NNC/rest/dietitian/reset_dietitian_passwd';
+        let params = {
+          dietitian_id: deId
+        };
+        this.aixosModel(url, params, '重置密码');
+        this.emitRefresh();
       }).catch(() => {
         this.$message({
           type: 'info',
@@ -110,6 +66,74 @@ export default {
     closeAddDietitianDialog(){
       this.addDietitianDialogVisible = false;
       this.formVis_dietitian = false;
-    }
+    },
+
+    refresh() {
+      this.axios({
+        method: 'post',
+        url: '/NNC/rest/dietitian/dietitian_page',
+        data: {
+         page: '1'
+        }
+      })
+      .then((res) => {
+        this.tempData = res.data.data.list;
+  
+        for (let i = 0; i < this.tempData.length; i++) {
+          this.axios({
+            method: 'post',
+            url: '/NNC/rest/user_Info/user_info_page_on_dietitian',
+            params: {
+              page: '1',
+              userStatus: '1',
+              dietitianId: this.tempData[i].id
+            }
+          })
+          .then((res) => {
+            this.$set(this.tempData[i], "beingReduced", res.data.data.list.length)
+          })
+          .catch(err => {
+            console.log(err);
+          })
+        }
+        this.tableData2 = this.tempData;
+        console.log(this.tableData2);
+      })
+      .catch(err => {
+        // console.log(err);
+      })
+    },
+
+    aixosModel(url, params, info) {
+      console.log("axiosModel params",params);
+      this.axios({
+        method: 'post',
+        url: url,
+        params: params
+      })
+      .then((res) => {
+        if(res.data === 1 || res.data === true) {
+          this.$message({
+            type: 'success',
+            message: `${info}成功!`
+          });
+        }
+        else {
+          this.$message({
+            type: 'danger',
+            message: `${info}失败!`
+          });
+        }
+      })
+      .catch(err => {
+        console.log(err);
+      })
+    },
+
+    emitRefresh() {
+      setTimeout(
+        function(){ this.refresh(); }, 
+        1000);
+    },
   }
 }

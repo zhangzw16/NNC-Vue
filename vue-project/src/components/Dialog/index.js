@@ -2,13 +2,13 @@ export default {
     name: "Dialog",
     data() {
       return {
-        form1: {
-          dieName: null,
-          number: null,
-          date1: null,
-          date2: null,
-          note: null,
-        },
+        // form1: {
+        //   dieName: null,
+        //   number: null,
+        //   date1: null,
+        //   date2: null,
+        //   note: null,
+        // },
         form2: {
           systemUserName: null,
           systemUserAuthority: null,
@@ -28,10 +28,6 @@ export default {
         type: Boolean,
         default: false
       },
-      formVis_dietitian:{
-        type: Boolean,
-        default: false
-      },
       formVis_addUser:{
         type: Boolean,
         default: false
@@ -44,6 +40,11 @@ export default {
     methods: {
       handleClose() {
         console.log(this.form3);
+        this.form3 = {
+          systemUserName: null,
+          systemUserAuthority: null,
+          systemUserRemark: null,
+        };
         this.$emit("closeDialog");
       },
 

@@ -3,15 +3,35 @@
   	<el-col >
 			<el-row>
 				<el-button type="primary"
-					@click="addDietitian">
+					@click="dialogVisible = true">
 					创建营养师
 				</el-button>
 			</el-row>
-			<addSystemUserDialog 
-				:dialogVisible="addDietitianDialogVisible"
-				:formVis_dietitian="formVis_dietitian"
-				v-on:closeDialog="closeAddDietitianDialog">
-			</addSystemUserDialog>
+			<el-dialog title="营养师信息"
+				:visible.sync="dialogVisible">
+				<el-form :model="form" label-width="120px">
+					<el-form-item label="营养师姓名" :label-width="formLabelWidth">
+							<el-input v-model="form.dieName" auto-complete="off"></el-input>
+					</el-form-item>
+					<el-form-item label="APP登陆账号" :label-width="formLabelWidth">
+							<el-input v-model="form.number" auto-complete="off" placeholder="手机号码"></el-input>
+					</el-form-item>
+					<el-form-item label="上岗日期" :label-width="formLabelWidth">
+							<el-date-picker type="date" placeholder="上岗日期" v-model="form.date1" style="width: 100%;"></el-date-picker>
+					</el-form-item>
+					<el-form-item label="下岗日期" :label-width="formLabelWidth">
+							<el-date-picker type="date" placeholder="下岗日期" v-model="form.date2" style="width: 100%;"></el-date-picker>
+					</el-form-item>
+					<el-form-item label="备注" :label-width="formLabelWidth">
+							<el-input v-model="form.note" auto-complete="off"></el-input>
+					</el-form-item>
+				</el-form>
+				<div slot="footer" class="dialog-footer">
+					<el-button type="primary" @click="dialogVisible = false">取消</el-button>
+					<el-button type="primary" @click="editUser">保存</el-button>
+				</div>
+			</el-dialog>
+
 		  <el-table @row-dblclick="handleRowClick"
 		    :data="tableData2"
 		    style="width: 100%"
