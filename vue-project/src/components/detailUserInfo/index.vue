@@ -2,9 +2,11 @@
     <el-dialog title="用户信息" 
         :visible.sync="dialogVisible"
         :before-close="handleClose">
-        <el-tabs v-model="activeName" @tab-click="handleClick">
+        <el-tabs 
+            v-model="activeName"
+            @tab-click="handleClick">
             <el-tab-pane label="基本信息" name="first">
-                <userMainInfo></userMainInfo>
+                <userMainInfo :personDetail="personDetail" ref="mainInfo"></userMainInfo>
             </el-tab-pane>
             <el-tab-pane label="日常数据" name="second">日常数据</el-tab-pane>
             <el-tab-pane label="体重走势" name="third">体重走势</el-tab-pane>
