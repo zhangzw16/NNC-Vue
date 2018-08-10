@@ -19,12 +19,11 @@
 	      <el-table-column
 	        type="index"
 	        label="序号"
-	        width="180">
+	        width="80">
 	      </el-table-column>
 	      <el-table-column
-	        prop="role"
-	        label="权限"
-	        width="180">
+	        prop="roleName"
+	        label="权限">
 	      </el-table-column>
 	      <el-table-column
 	        prop="loginId"
@@ -33,6 +32,10 @@
 				<el-table-column
 					prop="passwd"
 					label="初始密码">
+				</el-table-column>
+				<el-table-column
+					prop="note"
+					label="备注">
 				</el-table-column>
 				<el-table-column
 		      label="修改"

@@ -26,7 +26,9 @@ import com.github.pagehelper.PageInfo;
 import cn.com.bocosoft.common.BocosoftUitl;
 import cn.com.bocosoft.common.BsetConsts;
 import cn.com.bocosoft.common.JSONResult;
+import cn.com.bocosoft.common.SpringBeanUtils;
 import cn.com.bocosoft.common.TableDataBean;
+import cn.com.bocosoft.dao.DietitianMapper;
 import cn.com.bocosoft.model.DietPhaseInfo;
 import cn.com.bocosoft.model.Dietitian;
 import cn.com.bocosoft.model.UserData;
@@ -64,6 +66,20 @@ public class UserInfoController {
         return "userInfo/userInfoManage";
     }
     
+    /**
+     * 取得客户的营养师
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/get_user_dietitian", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONResult get_user_dietitian(HttpServletRequest request) {
+        int dietitianId = Integer.parseInt(request.getParameter("dietitianId"));
+        DietitianMapper dietitianMapper = (DietitianMapper) SpringBeanUtils.getBean("dietitianMapper");
+        Dietitian dietitian = dietitianMapper.selectByPrimaryKey(dietitianId);
+        String dietitianName = dietitian.getName();
+        return json = new JSONResult(dietitianName, "成功", true);
+    }
     
     /**
      * 取得营养师管理下的客户列表
@@ -208,7 +224,8 @@ public class UserInfoController {
      * @return
      */
     @RequestMapping(value = "/change_user_info_agree", method = RequestMethod.POST)
-    public String change_user_info_agree(HttpServletRequest request) {
+    @ResponseBody
+    public JSONResult change_user_info_agree(HttpServletRequest request) {
         int userInfoId = Integer.parseInt(request.getParameter("userInfoId"));
         UserInfo userInfo = userInfoService.findByUserInfo(userInfoId);
         if (userInfo.getAgreeFlag() == 1) {
@@ -217,14 +234,15 @@ public class UserInfoController {
             userInfo.setAgreeFlag(1);
         }
         userInfoService.updataUserInfo(userInfo);
-        int currentPage = Integer.parseInt(request.getParameter("currentPage"));
-        PageHelper.startPage(currentPage, BsetConsts.PER_PAGE_SIZE);
-        List<UserInfo> userInfos = userInfoService.getAllUserInfosById();
-        PageInfo<UserInfo> pageInfo = new PageInfo<UserInfo>(userInfos);
-        request.setAttribute("max_page",pageInfo.getPages());
-        request.setAttribute("current_page",pageInfo.getPageNum());
-        request.setAttribute("cause",userInfos);
-        return "userInfo/userInfoListTable";
+//        int currentPage = Integer.parseInt(request.getParameter("currentPage"));
+//        PageHelper.startPage(currentPage, BsetConsts.PER_PAGE_SIZE);
+//        List<UserInfo> userInfos = userInfoService.getAllUserInfosById();
+//        PageInfo<UserInfo> pageInfo = new PageInfo<UserInfo>(userInfos);
+//        request.setAttribute("max_page",pageInfo.getPages());
+//        request.setAttribute("current_page",pageInfo.getPageNum());
+//        request.setAttribute("cause",userInfos);
+//        return "userInfo/userInfoListTable";
+        return json = new JSONResult(1, "成功", true);
     }
     
     
