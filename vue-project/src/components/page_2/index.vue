@@ -3,11 +3,12 @@
   	<el-col >
 			<el-row>
 				<el-button type="primary"
-					@click="dialogVisible = true">
+					@click="dialogShowAdd">
 					创建营养师
 				</el-button>
 			</el-row>
 			<el-dialog title="营养师信息"
+				:before-close="handleClose"
 				:visible.sync="dialogVisible">
 				<el-form :model="form" label-width="120px">
 					<el-form-item label="营养师姓名" :label-width="formLabelWidth">
@@ -27,8 +28,8 @@
 					</el-form-item>
 				</el-form>
 				<div slot="footer" class="dialog-footer">
-					<el-button type="primary" @click="dialogVisible = false">取消</el-button>
-					<el-button type="primary" @click="editUser">保存</el-button>
+					<el-button type="primary" @click="handleClose">取消</el-button>
+					<el-button type="primary" @click="editDietitian">保存</el-button>
 				</div>
 			</el-dialog>
 
@@ -59,11 +60,21 @@
 		    <el-table-column
 		      prop="beingReduced"
 		      label="正在减脂人数"
-					width="140">
+					width="80">
+		    </el-table-column>
+				<el-table-column
+		      prop="workStartDate"
+		      label="上岗时间"
+					width="100">
+				</el-table-column>
+				<el-table-column
+		      prop="workEndDate"
+		      label="下岗时间"
+					width="100">
 		    </el-table-column>
 				<el-table-column
 		      label="重置密码"
-					width="140">
+					width="100">
 					<template slot-scope="scope">
 					<el-button
 						round
@@ -76,7 +87,7 @@
 		    </el-table-column>
 				<el-table-column
 		      label="修改"
-					width="140">
+					width="100">
 					<template slot-scope="scope">
 					<el-button
 						round

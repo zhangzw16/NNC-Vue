@@ -5,6 +5,7 @@ export default {
   data () {
     return {
       form: {
+        id: null,
         dieName: null,
         number: null,
         date1: null,
@@ -13,22 +14,21 @@ export default {
       },
       dialogVisible: false,
       tableData2: null,
-      addDietitianDialogVisible: false,
-      formVis_dietitian: false,
+      isAdd: false,
     }
   },
   created() {
     this.refresh();
   },
   methods: {
-    tableRowClassName({row, rowIndex}) {
-      if (rowIndex === 1) {
-        return 'warning-row';
-      } else if (rowIndex === 3) {
-        return 'success-row';
-      }
-      return '';
-    },
+    // tableRowClassName({row, rowIndex}) {
+    //   if (rowIndex === 1) {
+    //     return 'warning-row';
+    //   } else if (rowIndex === 3) {
+    //     return 'success-row';
+    //   }
+    //   return '';
+    // },
 
     handleRowClick(row) {
       let id = row.id;
@@ -58,14 +58,69 @@ export default {
       });
     },
 
-    addDietitian(){
-      this.addDietitianDialogVisible = true;
-      this.formVis_dietitian = true;
+    editDietitian(){
+      console.log(this.isAdd);
+      let form = this.form;
+      let id = form.id;
+      let url = null;
+      let cId = this.isAdd? 1: 0;
+      if (this.isAdd) {
+        url = '/NNC/rest/dietitian/dietitian_save';
+      }
+      else {
+        url = '/NNC/rest/dietitian/edit_dietitian_info_save'
+      }
+      let date1 = null, date2 = null;
+      console.log(form.date1.getTime());
+      if(form.date1 !== null) {
+        date1 = this.dateToStr(form.date1);
+      }
+      if(form.date2 !== null) {
+        date2 = this.dateToStr(form.date2);
+      }
+      
+      let params = {
+        id: id,
+        createId: cId,
+        name: form.dieName,
+        loginId: form.number,
+        workStartDate: date1,
+        workEndDate: date2,
+        note: form.note,
+      };
+      
+      this.aixosModel(url, params, '创建营养师');
+      this.emitRefresh();
+      this.dialogVisible = false;
+    },
+    
+    handleClose() {
+      this.form = {
+        id: null,
+        dieName: null,
+        number: null,
+        date1: null,
+        date2: null,
+        note: null,
+      };
+      console.log("before close");
+      this.dialogVisible = false;
     },
 
-    closeAddDietitianDialog(){
-      this.addDietitianDialogVisible = false;
-      this.formVis_dietitian = false;
+    dialogShowAdd() {
+      this.isAdd = true;
+      this.dialogVisible = true;
+    },
+
+    handleEdit(index, row) {
+      this.isAdd = false;
+      this.form.id = row.id;
+      this.form.dieName = row.name;
+      this.form.number = row.phoneNo;
+      this.form.date1 = new Date(row.workStartDate);
+      this.form.date2 = row.workEndDate? new Date(row.workEndDate): null;
+      this.form.note = row.note;
+      this.dialogVisible = true;
     },
 
     refresh() {
@@ -80,6 +135,9 @@ export default {
         this.tempData = res.data.data.list;
   
         for (let i = 0; i < this.tempData.length; i++) {
+          // console.log(this.tempData[i].workStartDate);
+          // console.log(new Date(this.tempData[i].workStartDate));
+
           this.axios({
             method: 'post',
             url: '/NNC/rest/user_Info/user_info_page_on_dietitian',
@@ -90,7 +148,10 @@ export default {
             }
           })
           .then((res) => {
-            this.$set(this.tempData[i], "beingReduced", res.data.data.list.length)
+            this.$set(this.tempData[i], "beingReduced", res.data.data.list.length);
+            this.$set(this.tempData[i], "workStartDate", this.dateToStr(new Date(this.tempData[i].workStartDate)));
+            if(this.tempData[i].workEndDate !== null)
+              this.$set(this.tempData[i], "workEndDate", this.dateToStr(new Date(this.tempData[i].workEndDate)));
           })
           .catch(err => {
             console.log(err);
@@ -131,9 +192,39 @@ export default {
     },
 
     emitRefresh() {
+      let self = this;
       setTimeout(
-        function(){ this.refresh(); }, 
+        function(){ self.refresh(); }, 
         1000);
     },
+
+    dateToStr(datetime) { 
+      var year = datetime.getFullYear();
+      var month = datetime.getMonth()+1;//js从0开始取 
+      var date = datetime.getDate(); 
+      var hour = datetime.getHours(); 
+      var minutes = datetime.getMinutes(); 
+      var second = datetime.getSeconds();
+      
+      if(month<10){
+       month = "0" + month;
+      }
+      if(date<10){
+       date = "0" + date;
+      }
+      if(hour <10){
+       hour = "0" + hour;
+      }
+      if(minutes <10){
+       minutes = "0" + minutes;
+      }
+      if(second <10){
+       second = "0" + second ;
+      }
+      
+      var time = year+"-"+month+"-"+date; //2009-06-12 17:18:05
+     // alert(time);
+      return time;
+     }
   }
 }
