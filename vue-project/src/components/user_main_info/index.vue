@@ -33,8 +33,8 @@
                     <el-date-picker style="width: 100%;" v-model="pageInfo.endDate"></el-date-picker>
                 </el-form-item>
                 <el-form-item label="备注">
-                    <el-input type="textarea" :disabled="true"></el-input>
-                    <el-button type="primary" icon="el-icon-edit" >修改</el-button>
+                    <el-input type="textarea" :disabled="true" v-model="pageInfo.note"></el-input>
+                    <el-button type="primary" icon="el-icon-edit" @click="editNote">修改</el-button>
                 </el-form-item>
             </el-form>
         </el-col>

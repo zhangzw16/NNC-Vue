@@ -1,3 +1,5 @@
+import { timingSafeEqual } from "crypto";
+
 export default{
     name: 'user_main_info',
     data () {
@@ -61,6 +63,9 @@ export default{
                 bloodSugar: null,
                 bloodUricAcid: null,
                 hepaticAdiposeInfiltration: null,
+
+                // 备注
+                note: null,
             }
         }
     },
@@ -216,7 +221,34 @@ export default{
                 }
             }
             
+            if(this.personDetail.note !== null)
+            {
+                this.pageInfo.note = this.personDetail.note;
+            }
+            else
+            {
+                this.pageInfo.note = "";
+            }
             console.log(this.pageInfo);
+        },
+        editNote(){
+            let self = this;
+            this.$prompt('备注', '备注', {
+                confirmButtonText: '保存',
+                cancelButtonText: '取消',
+                value: self.pageInfo.note
+            }).then(({ value }) => {
+                
+                this.$message({
+                  type: 'success',
+                  message: "修改成功"
+                });
+            }).catch(() => {
+                this.$message({
+                  type: 'info',
+                  message: '取消输入'
+                });       
+              });
         }
     }
 }
