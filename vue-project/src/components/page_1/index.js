@@ -35,10 +35,17 @@ export default {
     },
 
     editSystemUser(index, row) {
-      this.form3.systemUserName = row.loginId;
+      this.form3.systemUserName = row.loginId; // loginId
       this.form3.systemUserAuthority = (row.role===2)? "总监" :
-        (row.role===3)?"文档管理员":"";
-      this.form3.systemUserRemark = row.note;
+        (row.role===3)?"文档管理员":""; // role
+      this.form3.systemUserRemark = row.note; // note
+
+      this.form3.id = row.id;
+      this.form3.passwd = row.passwd;
+      this.form3.delFlag = row.delFlag;
+      this.form3.createId = row.createId;
+      this.form3.createTime = row.createTime;
+
       this.dialogVisible = true;
       this.formVis_editUser = true;
     },

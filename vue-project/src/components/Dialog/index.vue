@@ -55,7 +55,10 @@
             <el-form-item label="备注">
                 <el-input v-model="form3.systemUserRemark" auto-complete="off"></el-input>
             </el-form-item>
-            <el-button type="primary" @click="handleClose">这是编辑窗口</el-button>
+            <el-form-item>
+                <el-button type="danger" @click="resetUserPasswd">重置密码</el-button>
+                <el-button type="danger" @click="deleteSysUser">删除管理员</el-button>
+            </el-form-item>
         </el-form>
 
         <div slot="footer" class="dialog-footer" v-show="formVis_dietitian">
