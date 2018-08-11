@@ -25,11 +25,29 @@
 						:formatter="formatDate"
 						label="注册时间">
 					</el-table-column>
+					<!-- <el-table-column
+						prop="dietitianName"
+						label="指定营养师">
+					</el-table-column> -->
 					<el-table-column
 						prop="dietitianName"
-						:formatter="formatDietitian"
-						label="指定营养师">
-					</el-table-column>
+		      			label="详细"
+						width="140">
+						<template slot-scope="scope">
+							<el-select v-model="value8"
+								size="mini"
+								filterable
+								@change="change($event, scope.row)"
+								:placeholder="scope.row.dietitianName">
+								<el-option
+								v-for="item in optionsDietitian"
+								:key="item.value"
+								:label="item.label"
+								:value="item.value">
+								</el-option>
+							</el-select>
+						</template>
+		    		</el-table-column>
 					<el-table-column
 						prop="loginFlag"
 						:formatter="formatLoginFlag"

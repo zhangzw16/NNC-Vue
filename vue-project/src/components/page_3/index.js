@@ -13,7 +13,9 @@ export default {
       pages: 0,
       detailDialogVisible: false,
 
-      personDetail: null
+      personDetail: null,
+
+      optionsDietitian: [],
     }
   },
   created() {
@@ -47,11 +49,6 @@ export default {
       let date = new Date(row.createTime);
       date = this.dateToStr(date);
       return date;
-    },
-
-    formatDietitian(row) {
-      // console.log(row.dietitianName);
-      return  row.dietitianName ? row.dietitianName : "无";
     },
 
     formatLoginFlag(row) {
@@ -127,13 +124,55 @@ export default {
       var time = year+"-"+month+"-"+date; //2009-06-12 17:18:05
      // alert(time);
       return time;
-     },
+    },
+
+    handleCommand(row, command) {
+      console.log(row);
+      this.$message('click on item ' + command);
+    },
 
     // 查看详情（点击按钮）
-    detailCheck(index, row){
-      this.personDetail = row;
-      console.log(this.personDetail);
-      this.detailDialogVisible = true;
+    change(event, row){
+      let newDietitianId = event;
+      let userId = row.id;
+
+      this.$confirm(`此操作将更换用户${row.name}的营养师, 是否继续?`, '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        // 发送更换营养师请求
+        
+        this.axios({
+          method: 'post',
+          url: '/NNC/rest/user_Info/change_user_dietitian_save',
+          params: {
+            dietitianId: newDietitianId,
+            userInfoId: userId,
+            currentPage: '',
+          }
+        })
+        .then((res) => {
+
+          this.$message({
+            type: 'success',
+            message: '更换营养师成功!'
+          });
+        })
+        .catch(err => {
+          console.log(err);
+          this.$message({
+            type: 'danger',
+            message: '更换营养师失败!'
+          });
+        })
+        // this.emitRefresh();
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消更换'
+        });          
+      });
     },
 
     // 关闭detail的dialog
@@ -157,6 +196,7 @@ export default {
   
         for (let i = 0; i < this.tableData3.length; i++) {
           if (this.tableData3[i].dietitianId === null) {
+            this.$set(this.tableData3[i], "dietitianName", "无");
             continue
           }
           this.axios({
@@ -177,14 +217,38 @@ export default {
       })
       .catch(err => {
         // console.log(err);
+      });
+
+      this.axios({
+        method: 'post',
+        url: '/NNC/rest/dietitian/dietitian_page',
+        data: {
+         page: '1'
+        }
       })
+      .then((res) => {
+        let dietitianData = res.data.data.list;
+  
+        for (let i = 0; i < dietitianData.length; i++) {
+          let dietitian = {
+            value: dietitianData[i].id,
+            label: dietitianData[i].name,
+          }
+          this.optionsDietitian.push(dietitian);
+        }
+      })
+      .catch(err => {
+        // console.log(err);
+      });
+
+      // console.log(this.optionsDietitian)
     },
 
     emitRefresh() {
       let self = this;
       setTimeout(
         function(){ self.refresh(); }, 
-        100);
+        1000);
     },
   }
 }
