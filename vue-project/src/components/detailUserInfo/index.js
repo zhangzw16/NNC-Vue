@@ -60,13 +60,16 @@ export default {
         },
     },
     methods: {
+        //更新数据
+        dataChanged(){
+            this.$emit("detailDataChanged");       
+        },
         // tab
         handleClick(tab, event) {
             let tab_id = event.target.getAttribute('id');
             switch(tab_id)
             {
                 case "tab-first":
-                    this.$refs.mainInfo.getPageInfo();
                     break;
                 default:
                     break;
@@ -75,6 +78,20 @@ export default {
         // 关闭所有
         handleClose() {
             this.$emit("closeDialog");
+        },
+
+        updateMainInfo(){            
+            this.$refs.mainInfo.getPageInfo();
+        },
+
+        //更新子窗口
+        updateSubframes() {
+            this.activeName = "first";
+            let self = this;
+            setTimeout(
+                function(){
+                    self.updateMainInfo();
+                },0);
         }
     }
   }

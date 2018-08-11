@@ -175,6 +175,13 @@ export default {
       });
     },
 
+    //打开detail的dialog
+    detailCheck(index, row){
+      this.personDetail = row;
+      this.detailDialogVisible = true;
+      this.$refs.detailDialog.updateSubframes();
+    },
+
     // 关闭detail的dialog
     closeDetail(){
       console.log("close");
@@ -190,9 +197,11 @@ export default {
         }
       })
       .then((res) => {
+        console.log("user refresh");
         this.pageData3 = res.data,
         this.tableData3 = res.data.data.list;
         this.pages = res.data.data.pages;
+        console.log(this.tableData3);
   
         for (let i = 0; i < this.tableData3.length; i++) {
           if (this.tableData3[i].dietitianId === null) {

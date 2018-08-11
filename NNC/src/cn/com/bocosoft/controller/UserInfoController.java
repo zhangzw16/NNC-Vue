@@ -522,8 +522,7 @@ public class UserInfoController {
         request.setAttribute("user_info", userInfo);
         return "userInfo/editNote";
     }
-   
-    
+
     /**
       * 对营养师管理下的客户备注保存
       * @param request
@@ -531,12 +530,14 @@ public class UserInfoController {
       * @throws ParseException 
     */
     @RequestMapping(value = "/edit_user_note_save", method = RequestMethod.POST)
-    public String edit_user_note_save(WeeklyRecommend wr, HttpServletRequest request) throws ParseException {
+    @ResponseBody
+    public JSONResult edit_user_note_save(WeeklyRecommend wr, HttpServletRequest request){
         int userInfoId = Integer.parseInt(request.getParameter("userInfoId"));
         String note = request.getParameter("note");
         UserInfo userInfo = userInfoService.updateUserNote(userInfoId, note);
-        request.setAttribute("user_info", userInfo);
-        return "userInfo/userInfo";
+        String result = "change";
+        json = new JSONResult(result, "成功", true);
+        return json;
     }
     
     /**

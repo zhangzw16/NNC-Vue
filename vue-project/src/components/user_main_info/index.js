@@ -238,11 +238,27 @@ export default{
                 cancelButtonText: '取消',
                 value: self.pageInfo.note
             }).then(({ value }) => {
-                
-                this.$message({
-                  type: 'success',
-                  message: "修改成功"
+                self.axios({
+                    method: 'post',
+                    url: '/NNC/rest/user_Info/edit_user_note_save',
+                    data: {
+                        userInfoId : self.personDetail.id,
+                        note : value
+                    }
+                })
+                .then((res) => {
+                    console.log(res);
+                })
+                .catch(err => {
+                    console.log(err);
                 });
+
+                this.$message({
+                    type: 'success',
+                    message: "修改成功"
+                });
+                self.$emit("noteChanged");
+                self.pageInfo.note = value;
             }).catch(() => {
                 this.$message({
                   type: 'info',

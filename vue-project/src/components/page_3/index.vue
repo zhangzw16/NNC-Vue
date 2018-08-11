@@ -3,7 +3,9 @@
 		<detailDialog
 			:dialogVisible="detailDialogVisible"
 			v-on:closeDialog="closeDetail"
+			v-on:detailDataChanged="emitRefresh"
 			:personDetail="personDetail"
+			ref = "detailDialog"
 			>
 		</detailDialog>
 		<el-row>

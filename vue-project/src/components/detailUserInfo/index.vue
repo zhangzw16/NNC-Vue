@@ -6,7 +6,11 @@
             v-model="activeName"
             @tab-click="handleClick">
             <el-tab-pane label="基本信息" name="first">
-                <userMainInfo :personDetail="personDetail" ref="mainInfo"></userMainInfo>
+                <userMainInfo 
+                :personDetail="personDetail" 
+                ref="mainInfo"
+                v-on:noteChanged="dataChanged"
+                ></userMainInfo>
             </el-tab-pane>
             <el-tab-pane label="日常数据" name="second">日常数据</el-tab-pane>
             <el-tab-pane label="体重走势" name="third">体重走势</el-tab-pane>
