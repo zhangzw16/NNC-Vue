@@ -7,12 +7,18 @@
             @tab-click="handleClick">
             <el-tab-pane label="基本信息" name="first">
                 <userMainInfo 
-                :personDetail="personDetail" 
-                ref="mainInfo"
-                v-on:noteChanged="dataChanged"
+                    :personDetail="personDetail" 
+                    ref="mainInfo"
+                    v-on:mainInfoChanged="detailDataChanged"
                 ></userMainInfo>
             </el-tab-pane>
-            <el-tab-pane label="日常数据" name="second">日常数据</el-tab-pane>
+            <el-tab-pane label="日常数据" name="second">
+                <userDataInfo
+                    :personFoodData="personFoodData"
+                    ref="dataInfo"
+                    v-on:noteChanged="dataChanged"
+                ></userDataInfo>
+            </el-tab-pane>
             <el-tab-pane label="体重走势" name="third">体重走势</el-tab-pane>
             <el-tab-pane label="每周食物和运动指导" name="fourth">每周食物和运动指导</el-tab-pane>
             <el-tab-pane label="历史数据" name="fifth">历史数据</el-tab-pane>           
