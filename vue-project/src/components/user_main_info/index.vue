@@ -30,10 +30,10 @@
                     <el-date-picker style="width: 100%;" v-model="pageInfo.startDate" @input="editStartDate"></el-date-picker>
                 </el-form-item>
                 <el-form-item label = "结束减重日期">
-                    <el-date-picker style="width: 100%;" v-model="pageInfo.endDate"></el-date-picker>
+                    <el-date-picker style="width: 100%;" v-model="pageInfo.endDate" @input="editEndDate"></el-date-picker>
                 </el-form-item>
                 <el-form-item label="备注">
-                    <el-input type="textarea" :disabled="true" v-model="pageInfo.note"></el-input>
+                    <el-input type="textarea" :readonly="true" v-model="pageInfo.note"></el-input>
                     <el-button type="primary" icon="el-icon-edit" @click="editNote">修改</el-button>
                 </el-form-item>
             </el-form>

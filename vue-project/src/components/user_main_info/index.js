@@ -295,6 +295,36 @@ export default {
             }
             else{
                 this.$message.error('未分配营养师');
+                this.pageInfo.startDate = "";
+            }
+        },
+        editEndDate(){
+            if(this.personDetail.dietitianId !== null)
+            {
+                let endDate = this.dateToStr(this.pageInfo.endDate);
+                this.axios({
+                    method: 'post',
+                    url: '/NNC/rest/user_Info/edit_end_date',
+                    data: {
+                        userInfoId : this.personDetail.id,
+                        endDate: endDate
+                    }
+                })
+                .then((res) => {
+                    console.log(res);
+                    this.$message({
+                        type: 'success',
+                        message: "修改成功"
+                    });
+                    this.$emit("mainInfoChanged");
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            }
+            else{
+                this.$message.error('未分配营养师');
+                this.pageInfo.endDate = "";
             }
         }
     }
