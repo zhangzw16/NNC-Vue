@@ -11,6 +11,7 @@ export default {
         date1: null,
         date2: null,
         note: null,
+        pageNum: 1,
         pages: 0
       },
       dialogVisible: false,
@@ -42,6 +43,7 @@ export default {
       })
       .then((res) => {
         this.tempData = res.data.data.list;
+        this.pageNum = res.data.data.pageNum;
 
         
         for (let i = 0; i < this.tempData.length; i++) {
@@ -173,12 +175,14 @@ export default {
         method: 'post',
         url: '/NNC/rest/dietitian/dietitian_page',
         data: {
-         page: '1'
+         page: this.pageNum ? this.pageNum : 1
         }
       })
       .then((res) => {
+        console.log(this.pageNum)
         let tempData = res.data.data.list;
         this.pages = res.data.data.pages;
+        this.pageNum = res.data.data.pageNum;
   
         for (let i = 0; i < tempData.length; i++) {
           // console.log(tempData[i].workStartDate);
@@ -188,7 +192,7 @@ export default {
             method: 'post',
             url: '/NNC/rest/user_Info/user_info_page_on_dietitian',
             params: {
-              page: '1',
+              page: this.pageNum,
               userStatus: '1',
               dietitianId: tempData[i].id
             }

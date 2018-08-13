@@ -10,6 +10,7 @@ export default {
     return {
       tableData3: null,
       pages: 0,
+      pageNum: 1,
       userStatus: "",
       dietitianId: null,
       message: null,
@@ -48,6 +49,7 @@ export default {
       })
       .then((res) => {
         this.tableData3 = res.data.data.list;
+        this.pageNum = res.data.data.pageNum;
 
         for (let i = 0; i < this.tableData3.length; i++) {
           if (this.tableData3[i].dietitianId === null) {
@@ -337,13 +339,14 @@ export default {
         method: 'post',
         url: '/NNC/rest/user_Info/user_info_page',
         data: {
-         page: '1'
+         page: this.pageNum ? this.pageNum : 1 
         }
       })
       .then((res) => {
         console.log("user refresh");
         this.tableData3 = res.data.data.list;
         this.pages = res.data.data.pages;
+        this.pageNum = res.data.data.pageNum;
         console.log(this.tableData3);
   
         for (let i = 0; i < this.tableData3.length; i++) {
