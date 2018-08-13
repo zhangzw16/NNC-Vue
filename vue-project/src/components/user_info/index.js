@@ -1,54 +1,15 @@
 import userMainInfo from "../user_main_info/index.vue"
+import userDataInfo from "../user_data_info/index.vue"
 
 export default {
     components: {
-        userMainInfo
+        userMainInfo,
+        userDataInfo
     },
     data () {
         return{
-            personDetail: {
-                account: null,
-                addFlag: null,
-                age: null,
-                agreeFlag: null,
-                birthday: null,
-                bloodFat: null,
-                bloodPressure: null,
-                bloodSugar: null,
-                bloodUricAcid: null,
-                buyFlag: null,
-                contactWay: null,
-                createId: null,
-                createTime: null,
-                dataStartDate: null,
-                dayCount: null,
-                dietitianId: null,
-                email: null,
-                endDate: null,
-                fileName: null,
-                filePath: null,
-                height: null,
-                hepaticAdiposeInfiltration: null,
-                id: null,
-                idealBodyWeight: null,
-                loginCount: null,
-                loginFlag: null,
-                lookFlag: null,
-                name: null,
-                note: null,
-                phase: null,
-                sex: null,
-                startDate: null,
-                thirdPartyLoginId: null,
-                topFlag: null,
-                updateFlag: null,
-                updateId: null,
-                updateTime: null,
-                userLoginInfoId: null,
-                userStatus: null,
-                vitality: null,
-                weight: null
-            },
+            personDetail: {},
+            personFoodData: {},
             activeName: "first",
         }
     },
@@ -61,27 +22,35 @@ export default {
     },
     methods: {
         //更新数据
-        dataChanged(){
+        detailDataChanged(){
             this.$emit("detailDataChanged");       
         },
         // tab
         handleClick(tab, event) {
-            let tab_id = event.target.getAttribute('id');
-            switch(tab_id)
+            // let tab_id = event.target.getAttribute('id');
+            // // console.log(tab, event);
+            let tabName = tab.name;
+            switch(tabName)
             {
-                case "tab-first":
+                case "first":
                     break;
+                case "second":
+                    this.$refs.dataInfo.requestData("date");
                 default:
                     break;
             }
         },
+
         // 关闭所有
         handleClose() {
             this.$emit("closeDialog");
         },
 
-        updateMainInfo(){            
+        updateMainInfo(){
+            this.personFoodData.name = this.personDetail.name;
+            this.personFoodData.id = this.personDetail.id;
             this.$refs.mainInfo.getPageInfo();
+            this.$refs.dataInfo.getPageInfo();
         },
 
         //更新子窗口
