@@ -605,21 +605,27 @@ public class UserInfoController {
     * @return
     */
     @RequestMapping(value = "/select_user_data", method = RequestMethod.POST)
-    public String select_user_data(HttpServletRequest request) {
+    @ResponseBody
+    public JSONResult select_user_data(HttpServletRequest request) {
         int userInfoId = Integer.parseInt(request.getParameter("userInfoId"));
         String date = request.getParameter("date");
         UserData tmpUserData = userInfoService.findUserInfoByDate(userInfoId, date);
         UserInfo userInfo = userInfoService.findByUserInfo(userInfoId);
-        List<UserData2> breakfast = userInfoService.getUserData2(userInfoId, date, 1);
-        List<UserData2> lunch = userInfoService.getUserData2(userInfoId, date, 2);
-        List<UserData2> dinner = userInfoService.getUserData2(userInfoId, date, 3);
-        request.setAttribute("breakfastPhotos", breakfast);
-        request.setAttribute("lunchPhotos", lunch);
-        request.setAttribute("dinnerPhotos", dinner);
-        request.setAttribute("user_info", userInfo);
-        request.setAttribute("user_data", tmpUserData);
-        request.setAttribute("chose_date", date);
-        return "userInfo/userData";
+//        System.out.println(tmpUserData);
+//        System.out.println(userInfo);
+        
+//        List<UserData2> breakfast = userInfoService.getUserData2(userInfoId, date, 1);
+//        List<UserData2> lunch = userInfoService.getUserData2(userInfoId, date, 2);
+//        List<UserData2> dinner = userInfoService.getUserData2(userInfoId, date, 3);
+        
+//        request.setAttribute("breakfastPhotos", breakfast);
+//        request.setAttribute("lunchPhotos", lunch);
+//        request.setAttribute("dinnerPhotos", dinner);
+//        request.setAttribute("user_info", userInfo);
+//        request.setAttribute("user_data", tmpUserData);
+//        request.setAttribute("chose_date", date);
+//        return "userInfo/userData";
+        return json = new JSONResult(tmpUserData);
     }
    
    /**
