@@ -53,6 +53,7 @@
             </el-row>
                 <el-col :span="12">
                     <el-card>
+                        <div id="myChart" style="{width: '300px', height: '300px'}"></div>
                     </el-card>
                 </el-col>
         </el-col>

@@ -13,6 +13,10 @@ import $ from 'jquery'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import Qs from 'qs'
+
+import echarts from 'echarts' //引入echarts
+Vue.prototype.$echarts = echarts //引入组件
+
 Vue.prototype.Qs=Qs
 let axios_instance = axios.create({
   baseURL: process.env.API,
