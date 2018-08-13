@@ -35,7 +35,7 @@ export default {
                 case "first":
                     break;
                 case "second":
-                    this.$refs.dataInfo.requestData("date");
+                    this.$refs.dataInfo.requestData(null);
                 default:
                     break;
             }

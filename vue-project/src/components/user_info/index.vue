@@ -7,15 +7,9 @@
             @tab-click="handleClick">
             <el-tab-pane label="基本信息" name="first">
                 <userMainInfo 
-<<<<<<< HEAD
                     :personDetail="personDetail" 
                     ref="mainInfo"
                     v-on:mainInfoChanged="detailDataChanged"
-=======
-                :personDetail="personDetail" 
-                ref="mainInfo"
-                v-on:mainInfoChanged="dataChanged"
->>>>>>> af9b6f95bf832f844c795edfb703db0de53f8078
                 ></userMainInfo>
             </el-tab-pane>
             <el-tab-pane label="日常数据" name="second">
