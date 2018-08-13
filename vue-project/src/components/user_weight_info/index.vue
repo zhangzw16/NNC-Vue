@@ -22,25 +22,37 @@
                     </el-col>
                 </el-form>
             </el-row>
-            <el-row>
-                <el-table :data="tableData" style="width: 100%">
-                    <el-table-column
-                        type="index"
-                        label="星期">
-                    </el-table-column>
-                    <el-table-column
-                        prop="date"
-                        label="日期">
-                    </el-table-column>
-                    <el-table-column
-                        prop="weight"
-                        label="当日体重">
-                    </el-table-column>
-                    <el-table-column
-                        prop="dietWeight"
-                        label="体重变化">
-                    </el-table-column>
-                </el-table>
+            <br>
+            <el-row :gutter="12">
+                <el-col :span="12">
+                    <el-card>
+                        <div slot="header" class="clearfix">
+                            <span>每周体重变化数据</span>   
+                        </div>
+                        <el-table :data="tableData" style="width: 100%" row-style="height:0">
+                            <el-table-column
+                                prop="day"
+                                label="星期"
+                                width="60">
+                            </el-table-column>
+                            <el-table-column
+                                prop="date"
+                                label="日期"
+                                width="90">
+                            </el-table-column>
+                            <el-table-column
+                                prop="weight"
+                                label="当日体重"
+                                width="80">
+                            </el-table-column>
+                            <el-table-column
+                                prop="dietWeight"
+                                label="体重变化"
+                                width="80">
+                            </el-table-column>
+                        </el-table>
+                    </el-card>
+                </el-col>
             </el-row>
         </el-col>
     </el-row>
