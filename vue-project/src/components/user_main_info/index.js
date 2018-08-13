@@ -1,6 +1,7 @@
 import { timingSafeEqual } from "crypto";
+import { start } from "pretty-error";
 
-export default{
+export default {
     name: 'user_main_info',
     data () {
         return{
@@ -257,7 +258,7 @@ export default{
                     type: 'success',
                     message: "修改成功"
                 });
-                self.$emit("noteChanged");
+                self.$emit("mainInfoChanged");
                 self.pageInfo.note = value;
             }).catch(() => {
                 this.$message({
@@ -265,6 +266,36 @@ export default{
                   message: '取消输入'
                 });       
               });
+        },
+        //分配营养师才可修改
+        editStartDate(){
+            if(this.personDetail.dietitianId !== null)
+            {
+                let startDate = this.dateToStr(this.pageInfo.startDate);
+                console.log(startDate);
+                this.axios({
+                    method: 'post',
+                    url: '/NNC/rest/user_Info/edit_start_date',
+                    data: {
+                        userInfoId : this.personDetail.id,
+                        startDate: startDate
+                    }
+                })
+                .then((res) => {
+                    console.log(res);
+                    this.$message({
+                        type: 'success',
+                        message: "修改成功"
+                    });
+                    this.$emit("mainInfoChanged");
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+            }
+            else{
+                this.$message.error('未分配营养师');
+            }
         }
     }
 }
