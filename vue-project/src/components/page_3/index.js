@@ -11,9 +11,16 @@ export default {
       tableData3: null,
       pageData3: null,
       pages: 0,
+      userStatus: null,
+      dietitianId: null,
+      message: null,
       detailDialogVisible: false,
 
       personDetail: null,
+
+      radio1: "全部",
+
+      value: "无",
 
       optionsDietitian: [],
     }
@@ -24,11 +31,11 @@ export default {
 
   methods: {
     handleSizeChange(val) {
-      console.log(`每页 ${val} 条`);
+      // console.log(`每页 ${val} 条`);
     },
     
     handleCurrentChange(val) {
-      console.log(`当前页: ${val}`);
+      // console.log(`当前页: ${val}`);
       this.axios({
         method: 'post',
         url: '/NNC/rest/user_Info/user_info_page',
@@ -42,6 +49,32 @@ export default {
       .catch(err => {
         // console.log(err);
       });
+    },
+
+    Search(){
+      
+      this.axios({
+        method: 'post',
+        url: '/NNC/rest/user_Info/user_info_page',
+        params: {
+         page: 1,
+         userStatus: this.userStatus,
+         dietitianId: this.dietitianId,
+         message: this.message
+        }
+      })
+      .then((res) => {
+        this.tableData3 = res.data.data.list;
+        this.pages = res.data.data.pages;
+      })
+      .catch(err => {
+        // console.log(err);
+      });
+    },
+
+    handleRadioChange(value){
+      // console.log(value)
+      this.userStatus = value;      
     },
 
     //格式转换
@@ -76,6 +109,11 @@ export default {
     // formatAgreeFlag(row) {
     //   return row.agreeFlag === 1 ? "允许" : "禁止";
     // },
+
+    SearchSelectChange(event){
+      // console.log(event)
+      this.dietitianId = event;
+    },
 
     changeUserAgree(index, row) {
       let agreeFlag = row.agreeFlag;
@@ -133,6 +171,7 @@ export default {
 
     // 查看详情（点击按钮）
     change(event, row){
+      // console.log(event)
       let newDietitianId = event;
       let userId = row.id;
 
@@ -237,7 +276,10 @@ export default {
       })
       .then((res) => {
         let dietitianData = res.data.data.list;
-  
+        this.optionsDietitian.push({
+          value: '',
+          label: "无",
+        })
         for (let i = 0; i < dietitianData.length; i++) {
           let dietitian = {
             value: dietitianData[i].id,

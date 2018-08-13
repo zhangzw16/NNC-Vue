@@ -1,5 +1,5 @@
 <template>
-	<div id="page_3">
+	<div id="page_3" style="height:100%">
 		<detailDialog
 			:dialogVisible="detailDialogVisible"
 			v-on:closeDialog="closeDetail"
@@ -8,6 +8,34 @@
 			ref = "detailDialog"
 			>
 		</detailDialog>
+		<el-row>
+			<el-form ref="form" :model="form" label-width="130px">
+				<el-form-item label="减重状态：">
+					<el-radio-group v-model="radio1" @change="handleRadioChange">
+						<el-radio-button label="">全部</el-radio-button>
+						<el-radio-button label="0">准备期</el-radio-button>
+						<el-radio-button label="1">正在期</el-radio-button>
+						<el-radio-button label="2">过渡期</el-radio-button>
+						<el-radio-button label="3">完成期</el-radio-button>
+					</el-radio-group>		
+				</el-form-item>
+				<el-form-item label="营养师：">
+					<el-select v-model="value" placeholder="请选择"
+						@change="SearchSelectChange($event)">
+						<el-option	
+						v-for="item in optionsDietitian"
+						:key="item.value"
+						:label="item.label"
+						:value="item.value">
+						</el-option>
+					</el-select>
+				</el-form-item>
+				<el-form-item label="客户姓名或联系方式：" size="medium">
+					<el-input v-model="message" placeholder="请输入内容"></el-input>
+				</el-form-item>
+			</el-form>
+			<el-button type="primary" @click="Search">查询</el-button>
+		</el-row>
 		<el-row>
 			<el-col :span="24">
 				<el-table
@@ -27,11 +55,11 @@
 						:formatter="formatDate"
 						label="注册时间">
 					</el-table-column>
-					<!-- <el-table-column
+					<el-table-column
 						prop="dietitianName"
 						label="指定营养师">
-					</el-table-column> -->
-					<el-table-column
+					</el-table-column>
+					<!-- <el-table-column
 						prop="dietitianName"
 		      			label="详细"
 						width="140">
@@ -49,7 +77,7 @@
 								</el-option>
 							</el-select>
 						</template>
-		    		</el-table-column>
+		    		</el-table-column> -->
 					<el-table-column
 						prop="loginFlag"
 						:formatter="formatLoginFlag"
