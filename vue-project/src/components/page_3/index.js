@@ -9,9 +9,8 @@ export default {
   data () {
     return {
       tableData3: null,
-      pageData3: null,
       pages: 0,
-      userStatus: null,
+      userStatus: "",
       dietitianId: null,
       message: null,
       detailDialogVisible: false,
@@ -45,6 +44,27 @@ export default {
       })
       .then((res) => {
         this.tableData3 = res.data.data.list;
+
+        for (let i = 0; i < this.tableData3.length; i++) {
+          if (this.tableData3[i].dietitianId === null) {
+            this.$set(this.tableData3[i], "dietitianName", "无");
+            continue
+          }
+          this.axios({
+            method: 'post',
+            url: '/NNC/rest/user_Info/get_user_dietitian',
+            params: {
+              dietitianId: this.tableData3[i].dietitianId,
+            }
+          })
+          .then((res) => {
+            // console.log(res.data.data);
+            this.$set(this.tableData3[i], "dietitianName", res.data.data);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+        }
       })
       .catch(err => {
         // console.log(err);
@@ -66,6 +86,27 @@ export default {
       .then((res) => {
         this.tableData3 = res.data.data.list;
         this.pages = res.data.data.pages;
+
+        for (let i = 0; i < this.tableData3.length; i++) {
+          if (this.tableData3[i].dietitianId === null) {
+            this.$set(this.tableData3[i], "dietitianName", "无");
+            continue
+          }
+          this.axios({
+            method: 'post',
+            url: '/NNC/rest/user_Info/get_user_dietitian',
+            params: {
+              dietitianId: this.tableData3[i].dietitianId,
+            }
+          })
+          .then((res) => {
+            // console.log(res.data.data);
+            this.$set(this.tableData3[i], "dietitianName", res.data.data);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+        }
       })
       .catch(err => {
         // console.log(err);
@@ -237,7 +278,6 @@ export default {
       })
       .then((res) => {
         console.log("user refresh");
-        this.pageData3 = res.data,
         this.tableData3 = res.data.data.list;
         this.pages = res.data.data.pages;
         console.log(this.tableData3);

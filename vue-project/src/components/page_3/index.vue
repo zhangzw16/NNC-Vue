@@ -143,7 +143,6 @@
 		</el-row>
 		<el-row>
 			<el-pagination
-				:data="pageData3"
 				@size-change="handleSizeChange"
 				@current-change="handleCurrentChange"
 				:current-page="currentPage1"

@@ -1,6 +1,5 @@
 <template>
-  <el-row id="page_2" style="height: 100%">
-  	<el-col >
+	<div id="page_2" style="height: 100%">
 			<el-row>
 				<el-button type="primary"
 					@click="dialogShowAdd">
@@ -33,47 +32,47 @@
 				</div>
 			</el-dialog>
 
-		  <el-table @row-dblclick="handleRowClick"
-		    :data="tableData2"
-		    style="width: 100%"
-		    :row-class-name="tableRowClassName">
-		    <el-table-column
-		      type="index"
-		      label="序号"
-		      width="80">
-		    </el-table-column>
-		    <el-table-column
-		      prop="name"
-		      label="营养师姓名"
-		      width="140">
-		    </el-table-column>
-		    <el-table-column
-		      prop="phoneNo"
-		      label="APP登陆账号"
-					width="140">
-		    </el-table-column>
+			<el-table @row-dblclick="handleRowClick"
+				:data="tableData2"
+				style="width: 100%"
+				:row-class-name="tableRowClassName">
 				<el-table-column
-		      prop="passwd"
-		      label="初始密码"
-					width="200">
-		    </el-table-column>
-		    <el-table-column
-		      prop="beingReduced"
-		      label="正在减脂人数"
+					type="index"
+					label="序号"
 					width="80">
-		    </el-table-column>
+				</el-table-column>
 				<el-table-column
-		      prop="workStartDate"
-		      label="上岗时间"
+					prop="name"
+					label="营养师姓名"
+					width="140">
+				</el-table-column>
+				<el-table-column
+					prop="phoneNo"
+					label="APP登陆账号"
+					width="140">
+				</el-table-column>
+				<el-table-column
+					prop="passwd"
+					label="初始密码"
+					width="200">
+				</el-table-column>
+				<el-table-column
+					prop="beingReduced"
+					label="正在减脂人数"
+					width="80">
+				</el-table-column>
+				<el-table-column
+					prop="workStartDate"
+					label="上岗时间"
 					width="100">
 				</el-table-column>
 				<el-table-column
-		      prop="workEndDate"
-		      label="下岗时间"
+					prop="workEndDate"
+					label="下岗时间"
 					width="100">
-		    </el-table-column>
+				</el-table-column>
 				<el-table-column
-		      label="重置密码"
+					label="重置密码"
 					width="100">
 					<template slot-scope="scope">
 					<el-button
@@ -84,9 +83,9 @@
 						重置密码
 						</el-button>
 					</template>
-		    </el-table-column>
+				</el-table-column>
 				<el-table-column
-		      label="修改"
+					label="修改"
 					width="100">
 					<template slot-scope="scope">
 					<el-button
@@ -97,10 +96,18 @@
 						修改
 						</el-button>
 					</template>
-		    </el-table-column>
-		  </el-table>
-  	</el-col>
+				</el-table-column>
+			</el-table>
+	<el-row>
+		<el-pagination
+			@size-change="handleSizeChange"
+			@current-change="handleCurrentChange"
+			:current-page="currentPage1"
+			layout="prev, pager, next, jumper"
+			:page-count="pages">
+		</el-pagination>
 	</el-row>
+	</div>
 </template>
 <style src="./index.less" lang="less"></style>
 <script src="./index.js"></script>

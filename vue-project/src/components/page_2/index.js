@@ -11,6 +11,7 @@ export default {
         date1: null,
         date2: null,
         note: null,
+        pages: 0
       },
       dialogVisible: false,
       tableData2: null,
@@ -21,14 +22,58 @@ export default {
     this.refresh();
   },
   methods: {
-    // tableRowClassName({row, rowIndex}) {
-    //   if (rowIndex === 1) {
-    //     return 'warning-row';
-    //   } else if (rowIndex === 3) {
-    //     return 'success-row';
-    //   }
-    //   return '';
-    // },
+    tableRowClassName({row, rowIndex}) {
+      if (rowIndex === 1) {
+        return 'warning-row';
+      } else if (rowIndex === 3) {
+        return 'success-row';
+      }
+      return '';
+    },
+
+    handleCurrentChange(val) {
+      // console.log(`当前页: ${val}`);
+      this.axios({
+        method: 'post',
+        url: '/NNC/rest/dietitian/dietitian_page',
+        params: {
+         page: val,
+        }
+      })
+      .then((res) => {
+        this.tempData = res.data.data.list;
+
+        
+        for (let i = 0; i < this.tempData.length; i++) {
+          // console.log(this.tempData[i].workStartDate);
+          // console.log(new Date(this.tempData[i].workStartDate));
+
+          this.axios({
+            method: 'post',
+            url: '/NNC/rest/user_Info/user_info_page_on_dietitian',
+            params: {
+              page: val,
+              userStatus: '1',
+              dietitianId: this.tempData[i].id
+            }
+          })
+          .then((res) => {
+            this.$set(this.tempData[i], "beingReduced", res.data.data.list.length);
+            this.$set(this.tempData[i], "workStartDate", this.dateToStr(new Date(this.tempData[i].workStartDate)));
+            if(this.tempData[i].workEndDate !== null)
+              this.$set(this.tempData[i], "workEndDate", this.dateToStr(new Date(this.tempData[i].workEndDate)));
+          })
+          .catch(err => {
+            console.log(err);
+          })
+        }
+        this.tableData2 = this.tempData;
+      })
+      .catch(err => {
+        // console.log(err);
+      });
+    },
+
 
     handleRowClick(row) {
       let id = row.id;
@@ -132,11 +177,12 @@ export default {
         }
       })
       .then((res) => {
-        this.tempData = res.data.data.list;
+        let tempData = res.data.data.list;
+        this.pages = res.data.data.pages;
   
-        for (let i = 0; i < this.tempData.length; i++) {
-          // console.log(this.tempData[i].workStartDate);
-          // console.log(new Date(this.tempData[i].workStartDate));
+        for (let i = 0; i < tempData.length; i++) {
+          // console.log(tempData[i].workStartDate);
+          // console.log(new Date(tempData[i].workStartDate));
 
           this.axios({
             method: 'post',
@@ -144,20 +190,20 @@ export default {
             params: {
               page: '1',
               userStatus: '1',
-              dietitianId: this.tempData[i].id
+              dietitianId: tempData[i].id
             }
           })
           .then((res) => {
-            this.$set(this.tempData[i], "beingReduced", res.data.data.list.length);
-            this.$set(this.tempData[i], "workStartDate", this.dateToStr(new Date(this.tempData[i].workStartDate)));
-            if(this.tempData[i].workEndDate !== null)
-              this.$set(this.tempData[i], "workEndDate", this.dateToStr(new Date(this.tempData[i].workEndDate)));
+            this.$set(tempData[i], "beingReduced", res.data.data.list.length);
+            this.$set(tempData[i], "workStartDate", this.dateToStr(new Date(tempData[i].workStartDate)));
+            if(tempData[i].workEndDate !== null)
+              this.$set(tempData[i], "workEndDate", this.dateToStr(new Date(tempData[i].workEndDate)));
           })
           .catch(err => {
             console.log(err);
           })
         }
-        this.tableData2 = this.tempData;
+        this.tableData2 = tempData;
         console.log(this.tableData2);
       })
       .catch(err => {
