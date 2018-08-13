@@ -11,8 +11,12 @@ export default {
 
             pageInfo:{
                 name: null,
-                // 备注
-                note: null,
+                exercise: null,
+                drankWater: null,
+                comfortLevel: null,
+                testPaperValue: null,
+                weightL: null,
+                comments: null,
             },
             
             //日期选择器
@@ -40,8 +44,12 @@ export default {
                     picker.$emit('pick', date);
                   }
                 }]
-              },
-              value: '',
+            },
+            value: '',
+
+            breakfast: '',
+            lunch: '',
+            dinner: '',
         }
     },
     created() {
@@ -72,19 +80,19 @@ export default {
             this.pageInfo.name = this.personFoodData.name;
         },
 
-        editNote() {
-            let self = this;
+        editComment() {
             this.$prompt('备注', '备注', {
                 confirmButtonText: '保存',
                 cancelButtonText: '取消',
-                value: self.pageInfo.note
+                value: this.pageInfo.comments
             }).then(({ value }) => {
-                self.axios({
+                this.axios({
                     method: 'post',
-                    url: '/NNC/rest/user_Info/edit_user_note_save',
+                    url: '/NNC/rest/user_Info/edit_user_comments_save',
                     data: {
-                        userInfoId : self.personDetail.id,
-                        note : value
+                        id: this.pageInfo.id,
+                        userInfoId: this.personFoodData.id,
+                        comments : value
                     }
                 })
                 .then((res) => {
@@ -98,8 +106,8 @@ export default {
                     type: 'success',
                     message: "修改成功"
                 });
-                self.$emit("noteChanged");
-                self.pageInfo.note = value;
+                // this.$emit("noteChanged");
+                this.pageInfo.comments = value;
             }).catch(() => {
                 this.$message({
                   type: 'info',
@@ -128,7 +136,20 @@ export default {
                 }
             })
             .then((res) => {
-                console.log(res.data);
+                console.log(res.data.data);
+                let data = res.data.data;
+                this.breakfast = data.breakfast;
+                this.lunch = data.lunch;
+                this.dinner = data.dinner;
+                this.pageInfo.exercise = data.exercise;
+                this.pageInfo.drankWater = (data.drankWater === null) ? "" :
+                    data.drankWater + "(ml)";
+                this.pageInfo.comfortLevel = data.comfortLevel;
+                this.pageInfo.testPaperValue = data.testPaperValue;
+                this.pageInfo.weight = data.weight === null ? "" :
+                    data.weight + "(kg)";
+                this.pageInfo.comments = data.comments;
+                this.pageInfo.id = data.id;
             })
             .catch(err => {
                 // console.log(err);
