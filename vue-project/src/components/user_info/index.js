@@ -1,18 +1,21 @@
 import userMainInfo from "../user_main_info/index.vue"
 import userDataInfo from "../user_data_info/index.vue"
 import userWeightInfo from "../user_weight_info/index.vue"
+import userGuideInfo from "../user_guide_info/index.vue"
 
 export default {
     components: {
         userMainInfo,
         userDataInfo,
-        userWeightInfo
+        userWeightInfo,
+        userGuideInfo,
     },
     data () {
         return{
             personDetail: {},
             personFoodData: {},
             personWeightData: {},
+            personGuideData: {},
             activeName: "first",
         }
     },
@@ -39,6 +42,10 @@ export default {
                     break;
                 case "second":
                     this.$refs.dataInfo.requestData(null);
+                    break;
+                case "fourth":
+                    this.$refs.guideInfo.requestData(null);
+                    break;
                 default:
                     break;
             }
@@ -50,14 +57,19 @@ export default {
         },
 
         updateMainInfo(){
+            this.$refs.mainInfo.getPageInfo();
+
             this.personFoodData.name = this.personDetail.name;
             this.personFoodData.id = this.personDetail.id;
-            this.$refs.mainInfo.getPageInfo();
             this.$refs.dataInfo.getPageInfo();
 
             this.personWeightData.name = this.personDetail.name;
             this.personWeightData.id = this.personDetail.id;
             this.$refs.weightInfo.getPageInfo();
+
+            this.personGuideData.name = this.personDetail.name;
+            this.personGuideData.id = this.personDetail.id;
+            this.$refs.guideInfo.getPageInfo();
         },
 
         //更新子窗口

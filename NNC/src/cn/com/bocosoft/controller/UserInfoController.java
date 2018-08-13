@@ -635,7 +635,8 @@ public class UserInfoController {
     * @throws ParseException 
     */
     @RequestMapping(value = "/select_weekly_recommend", method = RequestMethod.POST)
-    public String select_weekly_recommend(HttpServletRequest request) throws ParseException {
+    @ResponseBody
+    public JSONResult select_weekly_recommend(HttpServletRequest request) throws ParseException {
         int userInfoId = Integer.parseInt(request.getParameter("userInfoId"));
         String date = request.getParameter("date");
         WeeklyRecommend wr = new WeeklyRecommend();
@@ -646,16 +647,21 @@ public class UserInfoController {
         int year = cal.get(Calendar.YEAR);
         wr.setWeekCount(weekOfYear);
         wr.setYyyy(year);
-        wr = userInfoService.findWeeklyRecomendById(wr);
-        request.setAttribute("weekly_recommend", wr);
-        UserInfo userInfo = userInfoService.findByUserInfo(userInfoId);
-        UserData tmpUserData = new UserData();
-        //tmpUserData = userInfoService.findUserInfoByDate(userInfoId, date);
-        tmpUserData.setDate(BocosoftUitl.stringToDate(date, BsetConsts.DATE_FORMAT_9));
-        request.setAttribute("user_data", tmpUserData);
-        request.setAttribute("user_info", userInfo);
-        request.setAttribute("chose_date", date);
-        return "userInfo/weeklyRecommend";
+        WeeklyRecommend newWr = userInfoService.findWeeklyRecomendById(wr);
+        if (newWr != null) {
+        	wr = newWr;
+        }
+//        System.out.println(wr.getWeekCount());
+//        request.setAttribute("weekly_recommend", wr);
+//        UserInfo userInfo = userInfoService.findByUserInfo(userInfoId);
+//        UserData tmpUserData = new UserData();
+//        //tmpUserData = userInfoService.findUserInfoByDate(userInfoId, date);
+//        tmpUserData.setDate(BocosoftUitl.stringToDate(date, BsetConsts.DATE_FORMAT_9));
+//        request.setAttribute("user_data", tmpUserData);
+//        request.setAttribute("user_info", userInfo);
+//        request.setAttribute("chose_date", date);
+//        return "userInfo/weeklyRecommend";
+        return json = new JSONResult(wr);
     }
     
     /**

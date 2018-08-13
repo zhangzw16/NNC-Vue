@@ -21,11 +21,16 @@
             </el-tab-pane>
             <el-tab-pane label="体重走势" name="third">
                 <userWeightInfo
-                :personWeightData="personWeightData"
-                ref="weightInfo">
+                    :personWeightData="personWeightData"
+                    ref="weightInfo">
                 </userWeightInfo>
             </el-tab-pane>
-            <el-tab-pane label="每周食物和运动指导" name="fourth">每周食物和运动指导</el-tab-pane>
+            <el-tab-pane label="每周食物和运动指导" name="fourth">
+                <userGuideInfo
+                    :personGuideData="personGuideData"
+                    ref="guideInfo">
+                </userGuideInfo>
+            </el-tab-pane>
             <el-tab-pane label="历史数据" name="fifth">历史数据</el-tab-pane>           
         </el-tabs>
     </el-dialog>
