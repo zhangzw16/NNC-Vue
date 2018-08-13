@@ -27,7 +27,7 @@
                 :label-position="left">
 
                 <el-form-item label = "开始减重日期">
-                    <el-date-picker style="width: 100%;" v-model="pageInfo.startDate"></el-date-picker>
+                    <el-date-picker style="width: 100%;" v-model="pageInfo.startDate" @input="editStartDate"></el-date-picker>
                 </el-form-item>
                 <el-form-item label = "结束减重日期">
                     <el-date-picker style="width: 100%;" v-model="pageInfo.endDate"></el-date-picker>

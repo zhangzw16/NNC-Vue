@@ -373,7 +373,8 @@ public class UserInfoController {
     * @return
     */
     @RequestMapping(value = "/edit_start_date", method = RequestMethod.POST)
-    public String edit_start_date(HttpServletRequest request) {
+    @ResponseBody
+    public JSONResult edit_start_date(HttpServletRequest request) {
         int userInfoId = Integer.parseInt(request.getParameter("userInfoId"));
         UserInfo userinfo = userInfoService.findByUserInfo(userInfoId);
         Boolean peopleNumFlag = false;
@@ -390,8 +391,9 @@ public class UserInfoController {
             int peopleNumLoss = 1+Integer.parseInt(tmpPeopleNum);
             BocosoftUitl.setTxtMessage(String.valueOf(peopleNumLoss), peopleNumPath);
         }
-        request.setAttribute("user_info", userInfo);
-        return "userInfo/userInfo";
+        String result = "change";
+        json = new JSONResult(result, "成功", true);
+        return json;
     }
    
    /**
