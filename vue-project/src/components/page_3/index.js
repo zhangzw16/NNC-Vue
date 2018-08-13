@@ -14,14 +14,18 @@ export default {
       dietitianId: null,
       message: null,
       detailDialogVisible: false,
+      dietitianDialogVisible: false,
 
       personDetail: null,
 
       radio1: "全部",
 
       value: "无",
+      valueDialog: "无",
 
       optionsDietitian: [],
+      rowInfo4Dietitian: null,
+      dietitianId4Dietitian: null,
     }
   },
   created() {
@@ -152,7 +156,6 @@ export default {
     // },
 
     SearchSelectChange(event){
-      // console.log(event)
       this.dietitianId = event;
     },
 
@@ -208,6 +211,67 @@ export default {
     handleCommand(row, command) {
       console.log(row);
       this.$message('click on item ' + command);
+    },
+
+    handleClose() {
+      // console.log("before close");
+      this.dietitianDialogVisible = false;
+    },
+
+    changeDietitian(index, row) {
+      this.rowInfo4Dietitian = row;
+      this.dietitianDialogVisible = true;
+    },
+
+    dietitianSelect(event) {
+      this.dietitianId4Dietitian = event;
+    },
+
+    saveDietitian() {
+      let url = '/NNC/rest/user_Info/change_user_dietitian_save';
+
+      this.$confirm(`此操作将修改用户的营养师, 是否继续?`, '警告', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'danger'
+      }).then(() => {
+        this.axios({
+          method: 'post',
+          url: url,
+          params: {
+            userInfoId: this.rowInfo4Dietitian.id,
+            dietitianId: this.dietitianId4Dietitian,
+            currentPage: 1,
+          }
+        })
+        .then((res) => {
+          // console.log(res.data.data);
+          if(res.status === 200) {
+            this.$message({
+            type: 'success',
+            message: `修改营养师成功!`
+            });
+            this.emitRefresh();
+        }
+        else {
+            self.$message({
+            type: 'danger',
+            message: `修改营养师失败!`
+            });
+        }
+        })
+        .catch(err => {
+          console.log(err);
+        })
+
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消修改营养师'
+        });          
+      });
+
+      this.handleClose();
     },
 
     // 查看详情（点击按钮）

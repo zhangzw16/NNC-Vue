@@ -8,6 +8,29 @@
 			ref = "detailDialog"
 			>
 		</detailDialog>
+
+		<el-dialog title="添加/修改营养师"
+			:before-close="handleClose"
+			:visible.sync="dietitianDialogVisible">
+			<span>选择营养师</span>
+			<template>
+				<el-select v-model="valueDialog" filterable placeholder="请选择"
+					@change="dietitianSelect($event)">
+					<el-option
+					v-for="item in optionsDietitian"
+					:key="item.value"
+					:label="item.label"
+					:value="item.value">
+					</el-option>
+				</el-select>
+			</template>
+
+			<div slot="footer" class="dialog-footer">
+				<el-button type="primary" @click="handleClose">取消</el-button>
+				<el-button type="primary" @click="saveDietitian">保存</el-button>
+			</div>
+		</el-dialog>
+
 		<el-row>
 			<el-form ref="form" :model="form" label-width="130px">
 				<el-form-item label="减重状态：">
@@ -58,6 +81,12 @@
 					<el-table-column
 						prop="dietitianName"
 						label="指定营养师">
+						<template slot-scope="scope">
+							<el-button 
+							round size="mini"
+							@click.native="changeDietitian(scope.$index, scope.row)"
+							disable-transitions>{{scope.row.dietitianName}}</el-button>
+						</template>
 					</el-table-column>
 					<!-- <el-table-column
 						prop="dietitianName"
