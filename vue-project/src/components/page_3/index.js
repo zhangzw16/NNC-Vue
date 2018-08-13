@@ -1,4 +1,4 @@
-import detailDialog from "../detailUserInfo/index.vue"
+import detailDialog from "../user_info/index.vue"
 import axiosM from "../../assets/global/globalFunc.js";
 
 export default {
