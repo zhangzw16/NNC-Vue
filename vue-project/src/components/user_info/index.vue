@@ -19,7 +19,12 @@
                     v-on:noteChanged="dataChanged"
                 ></userDataInfo>
             </el-tab-pane>
-            <el-tab-pane label="体重走势" name="third">体重走势</el-tab-pane>
+            <el-tab-pane label="体重走势" name="third">
+                <userWeightInfo
+                :personWeightData="personWeightData"
+                ref="weightInfo">
+                </userWeightInfo>
+            </el-tab-pane>
             <el-tab-pane label="每周食物和运动指导" name="fourth">每周食物和运动指导</el-tab-pane>
             <el-tab-pane label="历史数据" name="fifth">历史数据</el-tab-pane>           
         </el-tabs>

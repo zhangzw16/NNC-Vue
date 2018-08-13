@@ -1,15 +1,18 @@
 import userMainInfo from "../user_main_info/index.vue"
 import userDataInfo from "../user_data_info/index.vue"
+import userWeightInfo from "../user_weight_info/index.vue"
 
 export default {
     components: {
         userMainInfo,
-        userDataInfo
+        userDataInfo,
+        userWeightInfo
     },
     data () {
         return{
             personDetail: {},
             personFoodData: {},
+            personWeightData: {},
             activeName: "first",
         }
     },
@@ -51,6 +54,10 @@ export default {
             this.personFoodData.id = this.personDetail.id;
             this.$refs.mainInfo.getPageInfo();
             this.$refs.dataInfo.getPageInfo();
+
+            this.personWeightData.name = this.personDetail.name;
+            this.personWeightData.id = this.personDetail.id;
+            this.$refs.weightInfo.getPageInfo();
         },
 
         //更新子窗口
