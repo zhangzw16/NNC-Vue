@@ -26,10 +26,7 @@
             <el-row :gutter="12">
                 <el-col :span="12">
                     <el-card>
-                        <div slot="header" class="clearfix">
-                            <span>每周体重变化数据</span>   
-                        </div>
-                        <el-table :data="tableData" style="width: 100%" row-style="height:0">
+                        <el-table :data="tableData" style="width: 100%; font-size: 12px" row-style="height:0" cell-style="padding:0" border>
                             <el-table-column
                                 prop="day"
                                 label="星期"
@@ -54,6 +51,10 @@
                     </el-card>
                 </el-col>
             </el-row>
+                <el-col :span="12">
+                    <el-card>
+                    </el-card>
+                </el-col>
         </el-col>
     </el-row>
 </template>
