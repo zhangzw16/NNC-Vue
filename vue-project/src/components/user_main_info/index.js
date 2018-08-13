@@ -102,9 +102,35 @@ export default {
            // alert(time);
             return time;
         },
+        //获得手机号
+        getTelephoneNumber(){
+            this.axios({
+                method: 'post',
+                url: '/NNC/rest/user_Info/get_login_info_id',
+                data: {
+                    userLoginInfoId: this.personDetail.userLoginInfoId
+                }
+            })
+            .then((res) => {
+                console.log("获得手机号");
+                console.log(res);
+                this.pageInfo.phoneNumber = res.data.data;
+            })
+            .catch(err => {
+                console.log(err);
+            });
+        },
         getPageInfo(){
             this.pageInfo.name = this.personDetail.name;
-            this.pageInfo.phoneNumber = "无";
+            if(this.personDetail.userLoginInfoId === null)
+            {
+                this.pageInfo.phoneNumber = "无";
+            }
+            else
+            {
+                this.getTelephoneNumber();
+            }
+            
             if(this.personDetail.birthday !== null)
             {
                 let date = new Date(this.personDetail.birthday);

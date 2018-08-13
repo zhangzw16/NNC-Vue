@@ -29,11 +29,13 @@ import cn.com.bocosoft.common.JSONResult;
 import cn.com.bocosoft.common.SpringBeanUtils;
 import cn.com.bocosoft.common.TableDataBean;
 import cn.com.bocosoft.dao.DietitianMapper;
+import cn.com.bocosoft.dao.UserLoginInfoMapper;
 import cn.com.bocosoft.model.DietPhaseInfo;
 import cn.com.bocosoft.model.Dietitian;
 import cn.com.bocosoft.model.UserData;
 import cn.com.bocosoft.model.UserData2;
 import cn.com.bocosoft.model.UserInfo;
+import cn.com.bocosoft.model.UserLoginInfo;
 import cn.com.bocosoft.model.UserWeightData;
 import cn.com.bocosoft.model.WeeklyRecommend;
 import cn.com.bocosoft.service.UserInfoService;
@@ -367,6 +369,21 @@ public class UserInfoController {
         return "userInfo/showUserInfo";
     }
    
+    /**
+     * 根据user_login_Id取得客户账号
+     * @param date
+     */    
+    @RequestMapping(value = "/get_login_info_id", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONResult getUserLoginId(HttpServletRequest request) {
+    	int userLoginInfoId = Integer.parseInt(request.getParameter("userLoginInfoId"));
+        UserLoginInfoMapper userLoginInfoMapper = (UserLoginInfoMapper) SpringBeanUtils.getBean("userLoginInfoMapper");
+        UserLoginInfo uli = userLoginInfoMapper.getUserLoginInfo(userLoginInfoId);
+        String loginId = uli.getLoginId();
+        json = new JSONResult(loginId, "成功", true);
+        return json;
+    }
+    
    /**
     * 对营养师管理下的客户减肥开始时间的修改 
     * @param request
@@ -402,12 +419,14 @@ public class UserInfoController {
     * @return
     */
     @RequestMapping(value = "/edit_end_date", method = RequestMethod.POST)
-    public String edit_end_date(HttpServletRequest request) {
+    @ResponseBody
+    public JSONResult edit_end_date(HttpServletRequest request) {
         int userInfoId = Integer.parseInt(request.getParameter("userInfoId"));
         String endDate = request.getParameter("endDate");
         UserInfo userInfo = userInfoService.updateEndDate(userInfoId, endDate);
-        request.setAttribute("user_info", userInfo);
-        return "userInfo/userInfo";
+        String result = "change";
+        json = new JSONResult(result, "成功", true);
+        return json;
     }
    
    /**
