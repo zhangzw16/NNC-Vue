@@ -16,7 +16,7 @@ export default {
             },
 
             totalData: null,
-            tableData: null
+            tableData: [{},{},{},{},{},{},{}]
         }
     },
     props: {
@@ -60,12 +60,39 @@ export default {
             })
             .then((res) => {
                 this.totalData = res.data.data;
-                console.log(this.totalData);
+                this.createTable();
 
+                console.log(this.tableData);
             })
             .catch(err => {
                 // console.log(err);
             });
+        },
+
+        createTable(){
+            let i = 0;
+            for(let obj in this.totalData)
+            {
+                this.$set(this.tableData[i], "day", obj);
+                this.$set(this.tableData[i], "date", this.totalData[obj].date);
+                this.$set(this.tableData[i], "weight", this.totalData[obj].weight + "(kg)");
+
+                switch (this.totalData[obj].flag) {
+                    case 0:            
+                        break;
+                    case 1:
+                        this.$set(this.tableData[i], "dietWeight", "+" + this.totalData[obj].dietWeight + "(kg)");
+                        break;
+                    case 2:
+                        this.$set(this.tableData[i], "dietWeight", "-" + this.totalData[obj].dietWeight + "(kg)");
+                        break;
+                    default:
+                        this.$set(this.tableData[i], "weight", "");
+                        this.$set(this.tableData[i], "dietWeight", "");
+                        break;
+                }
+                i++;
+            }
         },
 
         requestData(date) {
