@@ -21,6 +21,11 @@ export default {
                 endWeight: null,
                 dietitianName: null,
             },
+
+            allDataArrX: null,//折线图的横轴坐标
+            allRealWeightData: null,//图线中真实体重数据
+            allIdealWeightData: null, //图线中理想体重的数据
+            allMaxAndMin: null,//折线图上下界
         }
     },
     props: {
@@ -84,9 +89,161 @@ export default {
             });
         },
 
+        //获得图线所有数据
+        getChartData(){
+            this.getChartX();
+            this.getChartRealWeight();
+            this.getChartIdealWeight();
+            this.getChartMaxAndMin();
+        },
+
+        //获得图的横坐标
+        getChartX(){
+            this.axios({
+                method: 'post',
+                url: '/NNC/rest/user_Info/get_history_participating_time',
+                params: {
+                    dietPhaseInfoId: this.rowData.id,
+                }
+            })
+            .then((res) => {
+                this.allDataArrX = res.data.data;
+            })
+            .catch(err => {
+            });
+        },
+
+        //获得图线真实体重数据
+        getChartRealWeight(){
+            this.axios({
+                method: 'post',
+                url: '/NNC/rest/user_Info/get_history_participation_weight_data',
+                params: {
+                    dietPhaseInfoId: this.rowData.id,
+                }
+            })
+            .then((res) => {
+                this.allRealWeightData = res.data.data;
+            })
+            .catch(err => {
+            });
+        },
+
+        //获得图线真实体重数据
+        getChartIdealWeight(){
+            this.axios({
+                method: 'post',
+                url: '/NNC/rest/user_Info/get_history_ideal_weight_data',
+                params: {
+                    dietPhaseInfoId: this.rowData.id,
+                }
+            })
+            .then((res) => {
+                this.allIdealWeightData = res.data.data;
+            })
+            .catch(err => {
+            });
+        },
+
+        //获得图线上下界
+        getChartMaxAndMin(){
+            this.axios({
+                method: 'post',
+                url: '/NNC/rest/user_Info/get_history_MinAndMax_data',
+                params: {
+                    dietPhaseInfoId: this.rowData.id,
+                }
+            })
+            .then((res) => {
+                this.allMaxAndMin = res.data.data;
+                if(this.allMaxAndMin === null)
+                {
+                    this.allMaxAndMin = ["100", "0"];
+                }
+            })
+            .catch(err => {
+            });
+        },
+
+        //画图线，尼基营养干预体重走势
+        drawChart(){
+            // 基于准备好的dom，初始化echarts实例
+            let myChart = this.$echarts.init(document.getElementById('Chart'))
+            // 绘制图表
+            myChart.setOption({
+                title : {
+                },
+                tooltip : {
+                    trigger: 'axis'
+                },
+                legend: {
+                    data:['理想体重','实际体重']
+                },
+                toolbox: {
+                    show : true,
+                },
+                calculable : false,
+                xAxis : [
+                    {
+                        type : 'category',
+                        name : '减重天数(序号)',
+                        boundaryGap : false,
+                        data : this.allDataArrX
+                    }
+                ],
+                yAxis : [
+                    {
+                        type : 'value',
+                        name : '体重单位:kg',
+                        min : this.allMaxAndMin[1],
+                        max : this.allMaxAndMin[0],
+                        axisTick : {
+                            show : true
+                        },
+                        axisLabel : {
+                            formatter: '{value}'
+                        }
+                    }
+                ],
+                series : [
+                    {
+                        name:'实际体重',
+                        type:'line',
+                        data: this.allRealWeightData,
+                        markPoint : {
+                            data : [
+                                {type : 'max', name: '最大值'},
+                                {type : 'min', name: '最小值'}
+                            ]
+                        }
+                    },
+                    {
+                        name:'理想体重',
+                        type:'line',
+                        itemStyle: {
+                            normal: {
+                            color: "#2ec7c9",
+                            lineStyle: {
+                                color: "#2ec7c9"
+                            }
+                        }
+                        },
+                        symbol : 'none',
+                        data: this.allIdealWeightData
+                    }
+                ]
+            })
+        },
+
         showHistoryDetail(index, row) {
             this.historyDialogVisible = true;
             this.rowData = row;
+            this.getChartData();
+            let self = this;
+            setTimeout(
+                function(){
+                    self.drawChart();
+                },1000);
         }
     }
 }

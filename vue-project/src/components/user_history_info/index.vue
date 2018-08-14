@@ -8,8 +8,10 @@
             <el-dialog title="详细信息" :visible.sync="historyDialogVisible"
                 append-to-body>
                 <el-row>
-                    <el-card>
-                        尼基营养干预体重走势
+                    <el-card>                  
+                        <div>尼基营养干预体重走势</div>
+                        <br>
+                        <div id="Chart" style="width: 580px; height: 280px;"></div>
                     </el-card>
                 </el-row>
                 <br>
