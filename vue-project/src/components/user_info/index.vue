@@ -31,7 +31,13 @@
                     ref="guideInfo">
                 </userGuideInfo>
             </el-tab-pane>
-            <el-tab-pane label="历史数据" name="fifth">历史数据</el-tab-pane>           
+            <el-tab-pane label="历史数据" name="fifth">
+                <userHistoryInfo
+                    :personHistoryData="personHistoryData"
+                    ref="historyInfo">
+
+                </userHistoryInfo>
+            </el-tab-pane>           
         </el-tabs>
     </el-dialog>
 </template>
