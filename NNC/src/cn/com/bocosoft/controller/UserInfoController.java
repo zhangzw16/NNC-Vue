@@ -679,6 +679,77 @@ public class UserInfoController {
     }
     
     /**
+     * 取得营养师管理下的客户七天数据 
+     * @param request
+     * @return
+      * @throws ParseException 
+     */
+    @RequestMapping(value = "/get_user_weight_sevenday_data", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONResult get_user_weight_sevenday_data(HttpServletRequest request) throws ParseException {
+        int userInfoId = Integer.parseInt(request.getParameter("userInfoId"));
+        String date = request.getParameter("date");
+        UserInfo userInfo = userInfoService.findByUserInfo(userInfoId);
+        UserData userData = userInfoService.findByUserData(userInfoId);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(BocosoftUitl.stringToDate(date, BsetConsts.DATE_FORMAT_9));
+        int weekOfYear = cal.get(Calendar.WEEK_OF_YEAR);
+        int year = cal.get(Calendar.YEAR);
+        Calendar cal3 = Calendar.getInstance();
+        cal.setTime(BocosoftUitl.stringToDate(date, BsetConsts.DATE_FORMAT_9));
+        cal3.add(Calendar.WEEK_OF_MONTH, -1);
+        cal3.set(Calendar.DAY_OF_WEEK, 7);
+        List<UserWeightData> uwds = userInfoService.findByUserWeightData(userInfoId, weekOfYear, year);
+        UserWeightData uwd = userInfoService.findUserWeightDataByDate(userInfoId, BocosoftUitl.dateToString(cal3.getTime(), BsetConsts.DATE_FORMAT_9));//取得上周最后一条数据
+        List<String> sevenData = new ArrayList<String>();
+        List<String> idealBodyWeightSevenData = new ArrayList<String>();
+        if (uwds.size() > 0 || uwd != null) {
+            sevenData = BocosoftUitl.createSevenDayDate(uwd, uwds);//创建8天图形数据
+            idealBodyWeightSevenData = BocosoftUitl.createidealBodyWeightDate(userInfo.getIdealBodyWeight(), BsetConsts.DAY_SIZE);//创建8天理想体重数据数据
+        } else {
+            sevenData.add("0");
+            idealBodyWeightSevenData.add("0");
+        }
+        json = new JSONResult(sevenData, "成功", true);
+        return json;
+    }
+    
+    /**
+     * 取得营养师管理下的客户七天附加数据 
+     * @param request
+     * @return
+      * @throws ParseException 
+     */
+    @RequestMapping(value = "/get_weight_sevenday_maxAndMin_data", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONResult get_weight_sevenday_maxAndMin_data(HttpServletRequest request) throws ParseException {
+        int userInfoId = Integer.parseInt(request.getParameter("userInfoId"));
+        String date = request.getParameter("date");
+        UserInfo userInfo = userInfoService.findByUserInfo(userInfoId);
+        UserData userData = userInfoService.findByUserData(userInfoId);
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(BocosoftUitl.stringToDate(date, BsetConsts.DATE_FORMAT_9));
+        int weekOfYear = cal.get(Calendar.WEEK_OF_YEAR);
+        int year = cal.get(Calendar.YEAR);
+        Calendar cal3 = Calendar.getInstance();
+        cal.setTime(BocosoftUitl.stringToDate(date, BsetConsts.DATE_FORMAT_9));
+        cal3.add(Calendar.WEEK_OF_MONTH, -1);
+        cal3.set(Calendar.DAY_OF_WEEK, 7);
+        List<UserWeightData> uwds = userInfoService.findByUserWeightData(userInfoId, weekOfYear, year);
+        UserWeightData uwd = userInfoService.findUserWeightDataByDate(userInfoId, BocosoftUitl.dateToString(cal3.getTime(), BsetConsts.DATE_FORMAT_9));//取得上周最后一条数据
+
+        if (uwds.size() > 0 || uwd != null) {
+        	List<String> maxAndMin = BocosoftUitl.getListsMinAndMax(userInfo.getIdealBodyWeight(), uwds);
+            json = new JSONResult(maxAndMin, "成功", true);
+            return json;
+        }
+        else
+        {
+        	return json = new JSONResult("null", "成功", true);
+        }
+    }
+    
+    /**
      * 取得营养师管理下的客户体重table数据 
      * @param request
      * @return
@@ -691,11 +762,8 @@ public class UserInfoController {
         String date = request.getParameter("date");
         UserInfo userInfo = userInfoService.findByUserInfo(userInfoId);
         UserData userData = userInfoService.findByUserData(userInfoId);
-//        request.setAttribute("user_info", userInfo);
-//        request.setAttribute("user_data", userData);
         Calendar cal = Calendar.getInstance();
         cal.setTime(BocosoftUitl.stringToDate(date, BsetConsts.DATE_FORMAT_9));
-//        request.setAttribute("chose_date", date);
         int weekOfYear = cal.get(Calendar.WEEK_OF_YEAR);
         int year = cal.get(Calendar.YEAR);
         Calendar cal3 = Calendar.getInstance();
@@ -704,24 +772,6 @@ public class UserInfoController {
         cal3.set(Calendar.DAY_OF_WEEK, 7);
         List<UserWeightData> uwds = userInfoService.findByUserWeightData(userInfoId, weekOfYear, year);
         UserWeightData uwd = userInfoService.findUserWeightDataByDate(userInfoId, BocosoftUitl.dateToString(cal3.getTime(), BsetConsts.DATE_FORMAT_9));//取得上周最后一条数据
-        List<String> sevenData = new ArrayList<String>();
-        List<String> idealBodyWeightSevenData = new ArrayList<String>();
-        if (uwds.size() > 0 || uwd != null) {
-            List<String> maxAndMin = BocosoftUitl.getListsMinAndMax(userInfo.getIdealBodyWeight(), uwds);
-            sevenData = BocosoftUitl.createSevenDayDate(uwd, uwds);//创建8天图形数据
-            idealBodyWeightSevenData = BocosoftUitl.createidealBodyWeightDate(userInfo.getIdealBodyWeight(), BsetConsts.DAY_SIZE);//创建8天理想体重数据数据
-//            request.setAttribute("ideal_body_weight_seven", idealBodyWeightSevenData);
-//            request.setAttribute("week_data", sevenData);
-//            request.setAttribute("week_data_max", maxAndMin.get(0));
-//            request.setAttribute("week_data_min", maxAndMin.get(1));
-        } else {
-            sevenData.add("0");
-            idealBodyWeightSevenData.add("0");
-//            request.setAttribute("ideal_body_weight_seven", idealBodyWeightSevenData);
-//            request.setAttribute("week_data", sevenData);
-//            request.setAttribute("week_data_max", 100);
-//            request.setAttribute("week_data_min", 0);
-        }
         Map<String, TableDataBean> tableData = new LinkedHashMap<String, TableDataBean>();//创建8天表格数据
         List SevenDayTableDate = BocosoftUitl.dateToWeek(cal.getTime());
         TableDataBean tdb = new TableDataBean();
