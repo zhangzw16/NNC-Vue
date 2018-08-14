@@ -20,7 +20,7 @@ export default {
       personDetail: null,
 
       radio1: "",
-
+      total:null,
       value: "无",
       valueDialog: "无",
 
@@ -323,7 +323,7 @@ export default {
         }
       })
       .then((res) => {
-        console.log("user refresh");
+        this.total = res.data.data.total;
         this.tableData3 = res.data.data.list;
         this.pages = res.data.data.pages;
         this.pageNum = res.data.data.pageNum;
