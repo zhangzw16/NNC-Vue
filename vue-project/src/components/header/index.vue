@@ -1,6 +1,6 @@
 <template>
   <el-row :gutter="20" id="header">
-    <el-col class="left_header" :span="22">
+    <el-col class="left_header" :span="20">
       <img alt src="../../../res/ncclogo.png" 
         width="36" 
         height="36" 
