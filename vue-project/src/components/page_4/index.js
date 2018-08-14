@@ -65,18 +65,38 @@ export default {
   
         for(let i = 0; i < this.tableData4.length; i++) {
           // 查询手机号
+          if(this.tableData4[i].userLoginInfoId !== null) {
+            this.axios({
+              method: 'post',
+              url: '/NNC/rest/user_Info/get_login_info_id',
+              data: {
+                userLoginInfoId: this.tableData4[i].userLoginInfoId,
+              }
+            })
+            .then((res) => {
+    
+              console.log("phoneNo", res.data.data);
+              // this.pageInfo.phoneNumber = res.data.data;
+              this.$set(this.tableData4[i], "phoneNo", res.data.data);
+            })
+            .catch(err => {
+              console.log(err);
+            });
+          }
+
+          // 查询减重日
           this.axios({
             method: 'post',
-            url: '/NNC/rest/user_Info/get_login_info_id',
+            url: '/NNC/rest/user_Info/user_info_diet_day',
             data: {
-                userLoginInfoId: this.tableData4[i].userLoginInfoId,
+              userInfoId: this.tableData4[i].id,
             }
           })
           .then((res) => {
   
             console.log("phoneNo", res.data.data);
             // this.pageInfo.phoneNumber = res.data.data;
-            this.$set(this.tableData4[i], "phoneNo", res.data.data);
+            this.$set(this.tableData4[i], "dietDay", res.data.data);
           })
           .catch(err => {
             console.log(err);

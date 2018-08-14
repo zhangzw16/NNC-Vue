@@ -28,7 +28,9 @@ import cn.com.bocosoft.common.BsetConsts;
 import cn.com.bocosoft.common.JSONResult;
 import cn.com.bocosoft.common.SpringBeanUtils;
 import cn.com.bocosoft.common.TableDataBean;
+import cn.com.bocosoft.dao.DietPhaseInfoMapper;
 import cn.com.bocosoft.dao.DietitianMapper;
+import cn.com.bocosoft.dao.UserInfoMapper;
 import cn.com.bocosoft.dao.UserLoginInfoMapper;
 import cn.com.bocosoft.model.DietPhaseInfo;
 import cn.com.bocosoft.model.Dietitian;
@@ -105,6 +107,39 @@ public class UserInfoController {
 //        request.setAttribute("userStatus", userStatus);
         return json = new JSONResult(pageInfo, "成功", true);
 //        return "userInfo/userInfoOnDietitianList";
+    }
+    
+    /**
+     * 获取用户的减重日
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/user_info_diet_day", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONResult user_info_diet_day(HttpServletRequest request) {
+    	int userInfoId = Integer.parseInt(request.getParameter("userInfoId"));
+        UserInfoMapper userInfoMapper = (UserInfoMapper) SpringBeanUtils.getBean("userInfoMapper");
+        DietPhaseInfoMapper dietPhaseInfoMapper = (DietPhaseInfoMapper) SpringBeanUtils.getBean("dietPhaseInfoMapper");
+        UserInfo userInfo = userInfoMapper.selectByPrimaryKey(userInfoId);
+        Calendar cal = Calendar.getInstance();
+        int dietDay = 0;
+        if (userInfo.getUserStatus() == BsetConsts.USER_STATUS_1) {
+        	if(userInfo.getStartDate() != null)
+        		dietDay = BocosoftUitl.compare2Day(cal.getTime(), userInfo.getStartDate());
+//            return "减重期第"+dietDay+"天";
+        } else if (userInfo.getUserStatus() == BsetConsts.USER_STATUS_2) {
+        	if(userInfo.getEndDate() != null)
+        		dietDay = BocosoftUitl.compare2Day(cal.getTime(), userInfo.getEndDate());
+//            return "过渡期第"+dietDay+"天";
+        } else if (userInfo.getUserStatus() == BsetConsts.USER_STATUS_3) {
+            DietPhaseInfo dpi = dietPhaseInfoMapper.findDietPhaseInfo(userInfoId, userInfo.getPhase() -1);
+            if(dpi.getTransitionEndDate() != null)
+            	dietDay = BocosoftUitl.compare2Day(cal.getTime(), dpi.getTransitionEndDate());
+//            return "完成期第"+dietDay+"天";
+        }
+
+//        setWriter("diet_days");
+        return json = new JSONResult(String.valueOf(dietDay));
     }
     
     /**

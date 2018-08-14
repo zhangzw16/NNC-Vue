@@ -57,7 +57,7 @@
                     width="140">
                 </el-table-column>
                     <el-table-column
-                    prop="passwd"
+                    prop="dietDay"
                     label="减重日"
                     width="200">
                 </el-table-column>
