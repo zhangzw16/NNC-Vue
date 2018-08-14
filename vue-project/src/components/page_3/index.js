@@ -19,7 +19,7 @@ export default {
 
       personDetail: null,
 
-      radio1: "全部",
+      radio1: "",
 
       value: "无",
       valueDialog: "无",

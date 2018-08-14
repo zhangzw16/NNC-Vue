@@ -7,6 +7,8 @@ export default {
   },
   data () {
     return {
+      radio:"1",
+      userStatus:"1",
       tableData4: null,
       dietitianId: null,
       dietitianName: '',
@@ -25,6 +27,12 @@ export default {
     userFilter(status) {
       // console.log(status);
       this.requestData(status);
+    },
+
+    handleRadioChange(value){
+      console.log(value);
+      this.userStatus = value;
+      this.requestData(this.userStatus)
     },
 
     detailCheck(index, row){
