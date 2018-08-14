@@ -330,22 +330,28 @@ export default {
         console.log(this.tableData3);
   
         for (let i = 0; i < this.tableData3.length; i++) {
-          // 查询手机号
-          this.axios({
-            method: 'post',
-            url: '/NNC/rest/user_Info/get_login_info_id',
-            params: {
-              userLoginInfoId: this.tableData3[i].userLoginInfoId,
-            }
-          })
-          .then((res) => {
-            console.log(res)
-            // console.log(res.data.data);
-            this.$set(this.tableData3[i], "telNo", res.data.data);
-          })
-          .catch(err => {
-            console.log(err);
-          })
+          if(this.tableData3[i].userLoginInfoId === null)
+          {
+          }
+          else{
+            // 查询手机号
+            this.axios({
+              method: 'post',
+              url: '/NNC/rest/user_Info/get_login_info_id',
+              params: {
+                userLoginInfoId: this.tableData3[i].userLoginInfoId,
+              }
+            })
+            .then((res) => {
+              console.log(res)
+              // console.log(res.data.data);
+              this.$set(this.tableData3[i], "telNo", res.data.data);
+            })
+            .catch(err => {
+              console.log(err);
+            })
+          }
+
 
           // 查询营养师
           if (this.tableData3[i].dietitianId === null) {
