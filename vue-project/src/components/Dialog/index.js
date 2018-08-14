@@ -70,13 +70,14 @@ export default {
       editUser() {
         let form = this.form3;
         let url = '/NNC/rest/systemUser/edit_system_user_save';
+        let date = new Date(form.createTime);
         let role = this.roleStr2Role(form.systemUserAuthority);
         let params = {
           id: form.id,
           passwd: form.passwd,
           delFlag: form.delFlag,
           createId: form.createId,
-          createTime: form.createTime,
+          createTime: date,
           loginId: form.systemUserName,
           role: role,
           note: form.systemUserRemark,
