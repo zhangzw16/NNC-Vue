@@ -247,6 +247,20 @@ public class UserInfoController {
         return json = new JSONResult(1, "成功", true);
     }
     
+    /**
+     * 取得客户的历史信息
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/show_user_history_info", method = RequestMethod.POST)
+    public JSONResult show_user_history_info(HttpServletRequest request) {
+    	int userInfoId = Integer.parseInt(request.getParameter("userInfoId"));
+        UserInfo userInfo = userInfoService.findByUserInfo(userInfoId);
+    	//历史数据的查询
+        List<DietPhaseInfo> dietPhaseInfos = userInfoService.findAlldietPhaseInfo(userInfo.getId(), userInfo.getPhase());
+//        request.setAttribute("dietPhaseInfos", dietPhaseInfos);
+    	return json = new JSONResult(dietPhaseInfos);
+    }
     
     /**
     * 取得营养师管理下的客户详细信息 
