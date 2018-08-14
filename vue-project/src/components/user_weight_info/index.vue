@@ -16,7 +16,7 @@
                         v-model="pageInfo.date"
                         type="date"
                         placeholder="选择日期"
-                        @input="getData">
+                        @input="updateData">
                         </el-date-picker>
                     </div>
                     </el-col>

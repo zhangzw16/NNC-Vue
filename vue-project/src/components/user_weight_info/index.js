@@ -48,11 +48,7 @@ export default {
         },
 
         getPageInfo() {
-            this.pageInfo.name = this.personWeightData.name;
-            this.getData();
-        },
-        //获得所有该页面数据
-        getData(){
+            this.pageInfo.name = this.personWeightData.name;         
             this.getTableData();
             this.getFirstChartData();
             this.getSecondChartData();
@@ -62,7 +58,19 @@ export default {
                     self.createTable();
                     self.drawChart1();
                     self.drawChart2();
-                },1000);
+                },2000);
+        },
+
+        //按照日期更新数据
+        updateData(){
+            this.getTableData();
+            this.getFirstChartData();
+            let self = this;
+            setTimeout(
+                function(){
+                    self.createTable();
+                    self.drawChart1();
+                },500);
         },
 
         //获得第一张表格的原始数据
