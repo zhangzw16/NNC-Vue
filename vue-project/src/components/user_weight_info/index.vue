@@ -26,6 +26,8 @@
             <el-row :gutter="12">
                 <el-col :span="12">
                     <el-card>
+                        <div>每周体重变化数据</div>
+                        <br>
                         <el-table :data="tableData" style="width: 100%; font-size: 12px" row-style="height:0" cell-style="padding:0" border>
                             <el-table-column
                                 prop="day"
@@ -50,12 +52,22 @@
                         </el-table>
                     </el-card>
                 </el-col>
-            </el-row>
                 <el-col :span="12">
                     <el-card>
-                        <div id="myChart" style="{width: '300px', height: '300px'}"></div>
+                        <div>每周体重变化曲线图</div>
+                        <br>
+                        <div id="firstChart" style="width: 310px; height: 227px;"></div>
                     </el-card>
                 </el-col>
+            </el-row>
+            <br>
+            <el-row>
+                <el-col :span="24">
+                    <el-card>
+                        <div id="secondChart" style="width: 620px; height: 300px;"></div>
+                    </el-card>
+                </el-col>
+            </el-row>
         </el-col>
     </el-row>
 </template>

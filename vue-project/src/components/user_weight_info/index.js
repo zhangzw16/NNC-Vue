@@ -1,5 +1,4 @@
 import { timingSafeEqual } from "crypto";
-
 export default {
     name: 'user_weight_info',
     data () {
@@ -15,16 +14,14 @@ export default {
                 date: null,
             },
 
-            totalData: null,
-            tableData: [{},{},{},{},{},{},{}]
+            totalData: null,//获得的原始表格数据
+            tableData: [{},{},{},{},{},{},{}],//表格数据
+            firstChartData: null,//第一张折线图的数据
+            maxAndMin: null,//第一张折线图上下界
         }
     },
     props: {
         personWeightData: this.personWeightData
-    },
-    
-    mounted(){
-        this.drawChart1();
     },
  
     methods: {
@@ -49,9 +46,59 @@ export default {
             this.pageInfo.name = this.personWeightData.name;
             this.getData();
         },
-
+        //获得所有该页面数据
         getData(){
             this.getTableData();
+            this.getSevenDayData();
+        },
+
+        getSevenDayData(){
+            if(this.pageInfo.date === null)
+            {
+                this.pageInfo.date = new Date();
+            }
+            let date = this.dateToStr(this.pageInfo.date);
+            this.axios({
+                method: 'post',
+                url: '/NNC/rest/user_Info/get_user_weight_sevenday_data',
+                params: {
+                    userInfoId: this.personWeightData.id,
+                    date: date,
+                }
+            })
+            .then((res) => {
+                this.firstChartData = res.data.data;
+                this.getMaxAndMinData();
+            })
+            .catch(err => {
+                // console.log(err);
+            });
+        },
+        getMaxAndMinData(){
+            if(this.pageInfo.date === null)
+            {
+                this.pageInfo.date = new Date();
+            }
+            let date = this.dateToStr(this.pageInfo.date);
+            this.axios({
+                method: 'post',
+                url: '/NNC/rest/user_Info/get_weight_sevenday_maxAndMin_data',
+                params: {
+                    userInfoId: this.personWeightData.id,
+                    date: date,
+                }
+            })
+            .then((res) => {
+                this.maxAndMin = res.data.data;
+                if(this.maxAndMin === "null")
+                {
+                    this.maxAndMin = ["100", "0"];
+                }
+                this.drawChart1();
+            })
+            .catch(err => {
+                // console.log(err);
+            });
         },
 
         getTableData(){
@@ -71,14 +118,14 @@ export default {
             .then((res) => {
                 this.totalData = res.data.data;
                 this.createTable();
-
+                console.log("table");
                 console.log(this.tableData);
             })
             .catch(err => {
                 // console.log(err);
             });
         },
-
+        //第一个表格的数据完成
         createTable(){
             let i = 0;
             for(let obj in this.totalData)
@@ -104,107 +151,83 @@ export default {
                 i++;
             }
         },
-
-        requestData(date) {
-            if (date === null) {
-                date = new Date();
-            }
-            date = this.dateToStr(date);
-            // console.log(date);
-
-            this.axios({
-                method: 'post',
-                url: '/NNC/rest/user_Info/select_user_data',
-                params: {
-                    userInfoId: this.personFoodData.id,
-                    date: date,
-                }
-            })
-            .then((res) => {
-                console.log(res.data);
-            })
-            .catch(err => {
-                // console.log(err);
-            });
-        },
-
+        //第一张图线，7天的体重变化
         drawChart1(){
             // 基于准备好的dom，初始化echarts实例
-            var myChart = this.$echarts.init(document.getElementById('myChart'))
+            var myChart = this.$echarts.init(document.getElementById('firstChart'))
             console.log("draw");
             // 绘制图表
             myChart.setOption({
                 title : {
-                    text: '未来一周气温变化',
-                    subtext: '纯属虚构'
                 },
                 tooltip : {
-                    trigger: 'axis'
+                    trigger: 'item',
+                    axisPointer:{
+                        type: 'cross'
+                    }
                 },
                 legend: {
-                    data:['最高气温','最低气温']
+                    data:['实际体重']
                 },
                 toolbox: {
                     show : true,
-                    feature : {
-                        mark : {show: true},
-                        dataView : {show: true, readOnly: false},
-                        magicType : {show: true, type: ['line', 'bar']},
-                        restore : {show: true},
-                        saveAsImage : {show: true}
-                    }
                 },
                 calculable : true,
                 xAxis : [
                     {
                         type : 'category',
                         boundaryGap : false,
-                        data : ['周一','周二','周三','周四','周五','周六','周日']
+                        data : ['周六','周日','周一','周二','周三','周四','周五','周六']
                     }
                 ],
                 yAxis : [
                     {
                         type : 'value',
+                        name : '体重单位:kg',
+                        min : this.maxAndMin[0],
+                        max : this.maxAndMin[1],
+                        axisTick : {
+                            show : true,
+                            interval : 0
+                        },
                         axisLabel : {
-                            formatter: '{value} °C'
+                            show : true,
+                            formatter: '{value}',
+                            interval : '{1}'
                         }
                     }
                 ],
                 series : [
                     {
-                        name:'最高气温',
+                        name:'实际体重',
                         type:'line',
-                        data:[11, 11, 15, 13, 12, 13, 10],
+                        data: this.firstChartData,
                         markPoint : {
                             data : [
                                 {type : 'max', name: '最大值'},
                                 {type : 'min', name: '最小值'}
                             ]
                         },
-                        markLine : {
-                            data : [
-                                {type : 'average', name: '平均值'}
-                            ]
-                        }
-                    },
-                    {
-                        name:'最低气温',
-                        type:'line',
-                        data:[1, -2, 2, 5, 3, 2, 0],
-                        markPoint : {
-                            data : [
-                                {name : '周最低', value : -2, xAxis: 1, yAxis: -1.5}
-                            ]
-                        },
-                        markLine : {
-                            data : [
-                                {type : 'average', name : '平均值'}
-                            ]
+                        itemStyle: {
+                            emphasis : {
+                                label : {
+                                    show: true,
+                                    position:'top',
+                                    textStyle :{
+                                        fontStyle :' oblique',
+                                        fontWeight :'bold'
+                                    }
+                                 }
+                            }
                         }
                     }
                 ]
             });
-        }
+        },
 
+        //第二张图线，尼基营养干预体重走势
+        drawChart2(){
+
+        },
     }
 }
