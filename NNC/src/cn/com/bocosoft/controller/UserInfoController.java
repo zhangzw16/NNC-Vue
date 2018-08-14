@@ -703,13 +703,10 @@ public class UserInfoController {
         List<UserWeightData> uwds = userInfoService.findByUserWeightData(userInfoId, weekOfYear, year);
         UserWeightData uwd = userInfoService.findUserWeightDataByDate(userInfoId, BocosoftUitl.dateToString(cal3.getTime(), BsetConsts.DATE_FORMAT_9));//取得上周最后一条数据
         List<String> sevenData = new ArrayList<String>();
-        List<String> idealBodyWeightSevenData = new ArrayList<String>();
         if (uwds.size() > 0 || uwd != null) {
             sevenData = BocosoftUitl.createSevenDayDate(uwd, uwds);//创建8天图形数据
-            idealBodyWeightSevenData = BocosoftUitl.createidealBodyWeightDate(userInfo.getIdealBodyWeight(), BsetConsts.DAY_SIZE);//创建8天理想体重数据数据
         } else {
             sevenData.add("0");
-            idealBodyWeightSevenData.add("0");
         }
         json = new JSONResult(sevenData, "成功", true);
         return json;
@@ -793,67 +790,61 @@ public class UserInfoController {
     }
     
     /**
-    * 取得营养师管理下的客户图形数据详细信息 
-    * @param request
-    * @return
-     * @throws ParseException 
-    */
-    @RequestMapping(value = "/select_user_weight_data", method = RequestMethod.POST)
-    public String select_user_weight_data(HttpServletRequest request) throws ParseException {
+     * 取得营养师管理下的客户参与项目时间 
+     * @param request
+     * @return
+      * @throws ParseException 
+     */
+    @RequestMapping(value = "/get_user_participating_time", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONResult get_user_participating_time(HttpServletRequest request)
+    {
         int userInfoId = Integer.parseInt(request.getParameter("userInfoId"));
-        String date = request.getParameter("date");
         UserInfo userInfo = userInfoService.findByUserInfo(userInfoId);
         UserData userData = userInfoService.findByUserData(userInfoId);
-//        request.setAttribute("user_info", userInfo);
-//        request.setAttribute("user_data", userData);
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(BocosoftUitl.stringToDate(date, BsetConsts.DATE_FORMAT_9));
-//        request.setAttribute("chose_date", date);
-        int weekOfYear = cal.get(Calendar.WEEK_OF_YEAR);
-        int year = cal.get(Calendar.YEAR);
-        Calendar cal3 = Calendar.getInstance();
-        cal.setTime(BocosoftUitl.stringToDate(date, BsetConsts.DATE_FORMAT_9));
-        cal3.add(Calendar.WEEK_OF_MONTH, -1);
-        cal3.set(Calendar.DAY_OF_WEEK, 7);
-        List<UserWeightData> uwds = userInfoService.findByUserWeightData(userInfoId, weekOfYear, year);
-        UserWeightData uwd = userInfoService.findUserWeightDataByDate(userInfoId, BocosoftUitl.dateToString(cal3.getTime(), BsetConsts.DATE_FORMAT_9));//取得上周最后一条数据
-        List<String> sevenData = new ArrayList<String>();
-        List<String> idealBodyWeightSevenData = new ArrayList<String>();
-        if (uwds.size() > 0 || uwd != null) {
-            List<String> maxAndMin = BocosoftUitl.getListsMinAndMax(userInfo.getIdealBodyWeight(), uwds);
-            sevenData = BocosoftUitl.createSevenDayDate(uwd, uwds);//创建8天图形数据
-            idealBodyWeightSevenData = BocosoftUitl.createidealBodyWeightDate(userInfo.getIdealBodyWeight(), BsetConsts.DAY_SIZE);//创建8天理想体重数据数据
-//            request.setAttribute("ideal_body_weight_seven", idealBodyWeightSevenData);
-//            request.setAttribute("week_data", sevenData);
-//            request.setAttribute("week_data_max", maxAndMin.get(0));
-//            request.setAttribute("week_data_min", maxAndMin.get(1));
-        } else {
-            sevenData.add("0");
-            idealBodyWeightSevenData.add("0");
-//            request.setAttribute("ideal_body_weight_seven", idealBodyWeightSevenData);
-//            request.setAttribute("week_data", sevenData);
-//            request.setAttribute("week_data_max", 100);
-//            request.setAttribute("week_data_min", 0);
-        }
-        Map<String, TableDataBean> tableData = new LinkedHashMap<String, TableDataBean>();//创建8天表格数据
-        List SevenDayTableDate = BocosoftUitl.dateToWeek(cal.getTime());
-        TableDataBean tdb = new TableDataBean();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy.MM.dd");
-        if (uwd != null) {
-            tdb.setDate(sdf.format(SevenDayTableDate.get(0)));
-            tdb.setDietWeight(Math.abs(uwd.getDeltaWeight()));
-            tdb.setWeight(uwd.getWeight());
-            tdb.setFlag(0);
-            tableData.put("周六 ", tdb);
-        } else {
-            tdb.setDate(sdf.format(SevenDayTableDate.get(0)));
-            tableData.put("周六 ", tdb);
-        }
-        tableData = BocosoftUitl.createSevenDayTableDate(uwds, SevenDayTableDate);
-        request.setAttribute("week_table_data", tableData);
-        List<String> yAxisData = new ArrayList<String>();
         List<String> xAxisData = new ArrayList<String>();
-        List<String> idealBodyWeightAllData = new ArrayList<String>();
+        List<UserWeightData> userwds = new ArrayList<UserWeightData>();
+        Calendar cal2 = Calendar.getInstance();
+        int DietDays = 0;
+        if (userInfo.getStartDate() != null) {//参加尼基计划  显示总曲线
+            if (userInfo.getPhase() > 1) {//参加过尼基计划
+                DietPhaseInfo dietPhaseInfo = userInfoService.findDietPhaseInfo(userInfo.getId(), userInfo.getPhase() - 1);
+                userwds = userInfoService.findUserWeightDatasByDate(userInfoId, BocosoftUitl.dateToString(dietPhaseInfo.getStartDate(), BsetConsts.DATE_FORMAT_9)
+                        ,BocosoftUitl.dateToString(dietPhaseInfo.getEndDate(), BsetConsts.DATE_FORMAT_9));
+                DietDays = BocosoftUitl.getDietDays(dietPhaseInfo.getEndDate(), dietPhaseInfo.getStartDate());
+            } else {//只取得尼基计划内体重总体
+                if (userInfo.getEndDate() != null) {//取得到尼基计划结束的时间
+                    userwds = userInfoService.findUserWeightDatasByDate(userInfoId, BocosoftUitl.dateToString(userInfo.getStartDate(), BsetConsts.DATE_FORMAT_9)
+                            ,BocosoftUitl.dateToString(userInfo.getEndDate(), BsetConsts.DATE_FORMAT_9));
+                    DietDays = BocosoftUitl.getDietDays(userInfo.getEndDate(), userInfo.getStartDate());
+                } else {//取得到现在的时间
+                    userwds = userInfoService.findUserWeightDatasByDate(userInfoId, BocosoftUitl.dateToString(userInfo.getStartDate(), BsetConsts.DATE_FORMAT_9)
+                            ,BocosoftUitl.dateToString(cal2.getTime(), BsetConsts.DATE_FORMAT_9));
+                    DietDays = BocosoftUitl.getDietDays(cal2.getTime(), userInfo.getStartDate());
+                }
+            }
+            xAxisData = BocosoftUitl.createAllDayDate(DietDays);
+        } else {
+            xAxisData.add("0");
+        }
+        json = new JSONResult(xAxisData, "成功", true);
+        return json;
+    }
+    
+    /**
+     * 取得营养师管理下的客户干预体重走势数据
+     * @param request
+     * @return
+      * @throws ParseException 
+     */
+    @RequestMapping(value = "/get_user_participation_weight_data", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONResult get_user_participation_weight_data(HttpServletRequest request)
+    {
+        int userInfoId = Integer.parseInt(request.getParameter("userInfoId"));
+        UserInfo userInfo = userInfoService.findByUserInfo(userInfoId);
+        UserData userData = userInfoService.findByUserData(userInfoId);
+        List<String> yAxisData = new ArrayList<String>();
         List<UserWeightData> userwds = new ArrayList<UserWeightData>();
         Calendar cal2 = Calendar.getInstance();
         int DietDays = 0;
@@ -877,41 +868,114 @@ public class UserInfoController {
             
             if (userwds.size() > 0) {
                 yAxisData = BocosoftUitl.createAllDayWeightDate(userwds, DietDays);
-                idealBodyWeightAllData = BocosoftUitl.createidealBodyWeightDate(userInfo.getIdealBodyWeight(), DietDays);
-                request.setAttribute("ideal_body_weight_all", idealBodyWeightAllData);
-                request.setAttribute("all_data_y", yAxisData);
             } else {
                 yAxisData.add("0");
-                idealBodyWeightAllData.add("0");
-                request.setAttribute("all_data_y", yAxisData);
-                request.setAttribute("ideal_body_weight_all", idealBodyWeightAllData);
             }
-            xAxisData = BocosoftUitl.createAllDayDate(DietDays);
-            request.setAttribute("all_data_x", xAxisData);
-            List<String> allMaxAndMin = BocosoftUitl.getListsMinAndMax(userInfo.getIdealBodyWeight(), userwds);
-            request.setAttribute("all_data_max", allMaxAndMin.get(0));
-            request.setAttribute("all_data_min", allMaxAndMin.get(1));
         } else {
             yAxisData.add("0");
-            xAxisData.add("0");
-            idealBodyWeightAllData.add("0");
-            request.setAttribute("all_data_y", yAxisData);
-            request.setAttribute("all_data_x", xAxisData);
-            request.setAttribute("ideal_body_weight_all", idealBodyWeightAllData);
-            request.setAttribute("all_data_max", 100);
-            request.setAttribute("all_data_min", 0);
         }
-        return "userInfo/userWeightData";
+        json = new JSONResult(yAxisData, "成功", true);
+        return json;
     }
     
     /**
-     * 取得营养师管理下的客户历史数据详情图形数据详细信息 
+     * 取得营养师管理下的客户干预理想体重走势数据
      * @param request
      * @return
       * @throws ParseException 
      */
-     @RequestMapping(value = "/show_histroy_user_info", method = RequestMethod.POST)
-     public String show_histroy_user_info(HttpServletRequest request) throws ParseException {
+    @RequestMapping(value = "/get_user_ideal_weight_data", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONResult get_user_ideal_weight_data(HttpServletRequest request)
+    {
+        int userInfoId = Integer.parseInt(request.getParameter("userInfoId"));
+        UserInfo userInfo = userInfoService.findByUserInfo(userInfoId);
+        UserData userData = userInfoService.findByUserData(userInfoId);
+        List<String> idealBodyWeightAllData = new ArrayList<String>();
+        List<UserWeightData> userwds = new ArrayList<UserWeightData>();
+        Calendar cal2 = Calendar.getInstance();
+        int DietDays = 0;
+        if (userInfo.getStartDate() != null) {//参加尼基计划  显示总曲线
+            if (userInfo.getPhase() > 1) {//参加过尼基计划
+                DietPhaseInfo dietPhaseInfo = userInfoService.findDietPhaseInfo(userInfo.getId(), userInfo.getPhase() - 1);
+                userwds = userInfoService.findUserWeightDatasByDate(userInfoId, BocosoftUitl.dateToString(dietPhaseInfo.getStartDate(), BsetConsts.DATE_FORMAT_9)
+                        ,BocosoftUitl.dateToString(dietPhaseInfo.getEndDate(), BsetConsts.DATE_FORMAT_9));
+                DietDays = BocosoftUitl.getDietDays(dietPhaseInfo.getEndDate(), dietPhaseInfo.getStartDate());
+            } else {//只取得尼基计划内体重总体
+                if (userInfo.getEndDate() != null) {//取得到尼基计划结束的时间
+                    userwds = userInfoService.findUserWeightDatasByDate(userInfoId, BocosoftUitl.dateToString(userInfo.getStartDate(), BsetConsts.DATE_FORMAT_9)
+                            ,BocosoftUitl.dateToString(userInfo.getEndDate(), BsetConsts.DATE_FORMAT_9));
+                    DietDays = BocosoftUitl.getDietDays(userInfo.getEndDate(), userInfo.getStartDate());
+                } else {//取得到现在的时间
+                    userwds = userInfoService.findUserWeightDatasByDate(userInfoId, BocosoftUitl.dateToString(userInfo.getStartDate(), BsetConsts.DATE_FORMAT_9)
+                            ,BocosoftUitl.dateToString(cal2.getTime(), BsetConsts.DATE_FORMAT_9));
+                    DietDays = BocosoftUitl.getDietDays(cal2.getTime(), userInfo.getStartDate());
+                }
+            }
+            
+            if (userwds.size() > 0) {
+                idealBodyWeightAllData = BocosoftUitl.createidealBodyWeightDate(userInfo.getIdealBodyWeight(), DietDays);
+            } else {
+                idealBodyWeightAllData.add("0");
+            }
+        } else {
+            idealBodyWeightAllData.add("0");
+        }
+        json = new JSONResult(idealBodyWeightAllData, "成功", true);
+        return json;
+    }
+    
+    /**
+     * 取得全时附加数据
+     * @param request
+     * @return
+      * @throws ParseException 
+     */
+    @RequestMapping(value = "/get_user_alltime_MinAndMax_data", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONResult get_user_alltime_MinAndMax_data(HttpServletRequest request)
+    {
+        int userInfoId = Integer.parseInt(request.getParameter("userInfoId"));
+        UserInfo userInfo = userInfoService.findByUserInfo(userInfoId);
+        UserData userData = userInfoService.findByUserData(userInfoId);
+        List<UserWeightData> userwds = new ArrayList<UserWeightData>();
+        Calendar cal2 = Calendar.getInstance();
+        List<String> allMaxAndMin = new ArrayList<String>();
+        int DietDays = 0;
+        if (userInfo.getStartDate() != null) {//参加尼基计划  显示总曲线
+            if (userInfo.getPhase() > 1) {//参加过尼基计划
+                DietPhaseInfo dietPhaseInfo = userInfoService.findDietPhaseInfo(userInfo.getId(), userInfo.getPhase() - 1);
+                userwds = userInfoService.findUserWeightDatasByDate(userInfoId, BocosoftUitl.dateToString(dietPhaseInfo.getStartDate(), BsetConsts.DATE_FORMAT_9)
+                        ,BocosoftUitl.dateToString(dietPhaseInfo.getEndDate(), BsetConsts.DATE_FORMAT_9));
+                DietDays = BocosoftUitl.getDietDays(dietPhaseInfo.getEndDate(), dietPhaseInfo.getStartDate());
+            } else {//只取得尼基计划内体重总体
+                if (userInfo.getEndDate() != null) {//取得到尼基计划结束的时间
+                    userwds = userInfoService.findUserWeightDatasByDate(userInfoId, BocosoftUitl.dateToString(userInfo.getStartDate(), BsetConsts.DATE_FORMAT_9)
+                            ,BocosoftUitl.dateToString(userInfo.getEndDate(), BsetConsts.DATE_FORMAT_9));
+                    DietDays = BocosoftUitl.getDietDays(userInfo.getEndDate(), userInfo.getStartDate());
+                } else {//取得到现在的时间
+                    userwds = userInfoService.findUserWeightDatasByDate(userInfoId, BocosoftUitl.dateToString(userInfo.getStartDate(), BsetConsts.DATE_FORMAT_9)
+                            ,BocosoftUitl.dateToString(cal2.getTime(), BsetConsts.DATE_FORMAT_9));
+                    DietDays = BocosoftUitl.getDietDays(cal2.getTime(), userInfo.getStartDate());
+                }
+            }
+            allMaxAndMin = BocosoftUitl.getListsMinAndMax(userInfo.getIdealBodyWeight(), userwds);
+            json = new JSONResult(allMaxAndMin, "成功", true);
+            return json;
+        } else {
+            json = new JSONResult("null", "成功", true);
+            return json;
+        }
+    }
+
+    /**
+    * 取得营养师管理下的客户历史数据详情图形数据详细信息 
+     * @param request
+     * @return
+      * @throws ParseException 
+     */
+    @RequestMapping(value = "/show_histroy_user_info", method = RequestMethod.POST)
+    public String show_histroy_user_info(HttpServletRequest request) throws ParseException {
          int dietPhaseInfoId = Integer.parseInt(request.getParameter("dietPhaseInfoId"));
          DietPhaseInfo dietPhaseInfo = userInfoService.select_user_histroy_weight_Data(dietPhaseInfoId);
          dietPhaseInfo.setStartWeight(userInfoService.findFirstUserWeightDataByDate(dietPhaseInfo.getUserInfoId(), BocosoftUitl.dateToString(dietPhaseInfo.getStartDate(), BsetConsts.DATE_FORMAT_9)).getWeight());
@@ -946,13 +1010,13 @@ public class UserInfoController {
      }
      
      /**
-      * 对营养师管理下的客户根据日期查询每周运动和饮食指导
+    * 对营养师管理下的客户根据日期查询每周运动和饮食指导
       * @param request
       * @return
       * @throws ParseException 
       */
-      @RequestMapping(value = "/delete_user_photo", method = RequestMethod.POST)
-      public String delete_user_photo(HttpServletRequest request) throws ParseException {
+    @RequestMapping(value = "/delete_user_photo", method = RequestMethod.POST)
+    public String delete_user_photo(HttpServletRequest request) throws ParseException {
           int userData2Id = Integer.parseInt(request.getParameter("userData2Id"));
           UserData2 ud2 = userInfoService.findUserData2(userData2Id);
           String date = BocosoftUitl.dateToString(ud2.getDate(), BsetConsts.DATE_FORMAT_9);
