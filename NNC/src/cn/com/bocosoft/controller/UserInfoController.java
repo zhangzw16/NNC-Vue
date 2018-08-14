@@ -253,6 +253,7 @@ public class UserInfoController {
      * @return
      */
     @RequestMapping(value = "/show_user_history_info", method = RequestMethod.POST)
+    @ResponseBody
     public JSONResult show_user_history_info(HttpServletRequest request) {
     	int userInfoId = Integer.parseInt(request.getParameter("userInfoId"));
         UserInfo userInfo = userInfoService.findByUserInfo(userInfoId);
