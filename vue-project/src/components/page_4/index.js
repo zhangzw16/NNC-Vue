@@ -21,6 +21,9 @@ export default {
   },
   created() {
     this.dietitianId = this.$router.history.current.query.dietitianId;
+    this.dietitianName = this.$router.history.current.query.name;
+    this.dietitianPhone = this.$router.history.current.query.phone;
+    
     this.requestData(1);
   },
   methods: {
