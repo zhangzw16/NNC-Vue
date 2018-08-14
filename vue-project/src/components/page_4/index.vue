@@ -2,15 +2,29 @@
     <el-row id="page_1">
         <el-col :span="24">
             <el-row>
+                营养师：{{dietitianName}}
+                手机号：{{dietitianPhone}}
+            </el-row>
+            <detailDialog
+                :dialogVisible="detailDialogVisible"
+                v-on:closeDialog="closeDetail"
+                v-on:detailDataChanged="emitRefresh"
+                :personDetail="personDetail"
+                ref = "detailDialog">
+            </detailDialog>
+            <el-row>
                 <el-button type="primary"
+                    size="medium"
                     @click="userFilter(1)">
                     正在减脂客户
                 </el-button>
                 <el-button type="primary"
+                    size="medium"
                     @click.native="userFilter(2)">
                     过渡期客户
                 </el-button>
                 <el-button type="primary"
+                    size="medium"
                     @click.native="userFilter(3)">
                     已完成客户
                 </el-button>
@@ -46,7 +60,7 @@
                     <template slot-scope="scope">
                     <el-button
                         size="mini"
-                        @click="handleEdit(scope.$index, scope.row)">查看</el-button>
+                        @click="detailCheck(scope.$index, scope.row)">查看</el-button>
                     </template>
                 </el-table-column>
             </el-table>
