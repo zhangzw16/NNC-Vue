@@ -51,15 +51,18 @@
 					</template>
 		    </el-table-column>
 	    </el-table>
+			<br>
 				<el-row>
 					<el-pagination
 						@size-change="handleSizeChange"
 						@current-change="handleCurrentChange"
 						:current-page="currentPage1"
 						layout="prev, pager, next, jumper"
+						background="true"
 						:page-count="pages">
 					</el-pagination>
 				</el-row>
+				<br>
 	  </el-col>
 	</el-row>
 </template>

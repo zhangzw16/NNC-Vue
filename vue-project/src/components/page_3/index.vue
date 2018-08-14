@@ -31,8 +31,8 @@
 			</div>
 		</el-dialog>
 
-		<el-row>
-			<el-form ref="form" :model="form" label-width="130px">
+		<el-card class="search_card">
+			<el-form ref="form" :model="form" label-width="200px">
 				<el-form-item label="减重状态：">
 					<el-radio-group v-model="radio1" @change="handleRadioChange">
 						<el-radio-button label="">全部</el-radio-button>
@@ -53,12 +53,16 @@
 						</el-option>
 					</el-select>
 				</el-form-item>
-				<el-form-item label="客户姓名或联系方式：" size="medium">
-					<el-input v-model="message" placeholder="请输入内容"></el-input>
+				<el-form-item label="客户姓名或联系方式：" size="medium">			
+					<el-col :span="8">
+						<el-input v-model="message" placeholder="请输入内容"  size="medium"></el-input>
+					</el-col>
+					<el-col :span="6" :offset="1">
+						<el-button type="primary" @click="Search">查询</el-button>
+					</el-col>
 				</el-form-item>
 			</el-form>
-			<el-button type="primary" @click="Search">查询</el-button>
-		</el-row>
+		</el-card>
 		<el-row>
 			<el-col :span="24">
 				<el-table
@@ -170,12 +174,14 @@
 				</el-table>
 			</el-col>
 		</el-row>
+		<br>
 		<el-row>
 			<el-pagination
 				@size-change="handleSizeChange"
 				@current-change="handleCurrentChange"
 				:current-page="currentPage1"
 				layout="prev, pager, next, jumper"
+				background="true"
 				:page-count="pages">
 			</el-pagination>
 		</el-row>

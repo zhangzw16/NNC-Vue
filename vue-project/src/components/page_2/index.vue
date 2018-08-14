@@ -104,7 +104,8 @@
 			@current-change="handleCurrentChange"
 			:current-page="currentPage1"
 			layout="prev, pager, next, jumper"
-			:page-count="pages">
+			:page-count="pages"
+			background="true">
 		</el-pagination>
 	</el-row>
 	</div>
