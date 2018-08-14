@@ -63,9 +63,6 @@ export default {
                     self.drawChart1();
                     self.drawChart2();
                 },1000);
-            // this.createTable();
-            // this.drawChart1();
-            // this.drawChart2();
         },
 
         //获得第一张表格的原始数据

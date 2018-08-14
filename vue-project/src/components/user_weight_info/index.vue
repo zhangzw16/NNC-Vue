@@ -24,39 +24,37 @@
             </el-row>
             <br>
             <el-row :gutter="12">
-                <el-col :span="12">
+                <el-col :span="24">
                     <el-card>
                         <div>每周体重变化数据</div>
                         <br>
                         <el-table :data="tableData" style="width: 100%; font-size: 12px" row-style="height:0" cell-style="padding:0" border>
                             <el-table-column
                                 prop="day"
-                                label="星期"
-                                width="60">
+                                label="星期">
                             </el-table-column>
                             <el-table-column
                                 prop="date"
-                                label="日期"
-                                width="90">
+                                label="日期">
                             </el-table-column>
                             <el-table-column
                                 prop="weight"
-                                label="当日体重"
-                                width="80">
+                                label="当日体重">
                             </el-table-column>
                             <el-table-column
                                 prop="dietWeight"
-                                label="体重变化"
-                                width="80">
+                                label="体重变化">
                             </el-table-column>
                         </el-table>
                     </el-card>
                 </el-col>
-                <el-col :span="12">
+            </el-row>
+            <el-row :gutter="12">
+                <el-col :span="24">
                     <el-card>
                         <div>每周体重变化曲线图</div>
                         <br>
-                        <div id="firstChart" style="width: 310px; height: 227px;"></div>
+                        <div id="firstChart" style="width: 620px; height: 230px;"></div>
                     </el-card>
                 </el-col>
             </el-row>
@@ -64,7 +62,9 @@
             <el-row>
                 <el-col :span="24">
                     <el-card>
-                        <div id="secondChart" style="width: 620px; height: 300px;"></div>
+                    <div>尼基营养干预体重走势</div>
+                    <br>
+                        <div id="secondChart" style="width: 620px; height: 280px;"></div>
                     </el-card>
                 </el-col>
             </el-row>
