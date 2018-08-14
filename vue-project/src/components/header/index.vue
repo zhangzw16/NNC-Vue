@@ -8,7 +8,7 @@
       <span class="default_company_name_boco">尼基营养</span>
       <span class="default_company_name_title">管理平台</span>
     </el-col>
-    <el-col class="right_header" span="2">
+    <el-col class="right_header" span="4">
       <span class="header_date">{{date}}</span>
     </el-col>
   </el-row>
