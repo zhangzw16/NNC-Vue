@@ -54,7 +54,7 @@
 				<el-table-column
 					prop="passwd"
 					label="初始密码"
-					width="200">
+					width="160">
 				</el-table-column>
 				<el-table-column
 					prop="beingReduced"

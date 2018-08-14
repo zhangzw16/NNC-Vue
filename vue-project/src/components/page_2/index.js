@@ -23,14 +23,14 @@ export default {
     this.refresh();
   },
   methods: {
-    tableRowClassName({row, rowIndex}) {
-      if (rowIndex === 1) {
-        return 'warning-row';
-      } else if (rowIndex === 3) {
-        return 'success-row';
-      }
-      return '';
-    },
+    // tableRowClassName({row, rowIndex}) {
+    //   if (rowIndex === 1) {
+    //     return 'warning-row';
+    //   } else if (rowIndex === 3) {
+    //     return 'success-row';
+    //   }
+    //   return '';
+    // },
 
     handleCurrentChange(val) {
       // console.log(`当前页: ${val}`);
@@ -42,7 +42,7 @@ export default {
         }
       })
       .then((res) => {
-        this.tempData = res.data.data.list;
+        this.tempData = res.data.data.list; 
         this.pageNum = res.data.data.pageNum;
 
         
@@ -79,7 +79,8 @@ export default {
 
     handleRowClick(row) {
       let id = row.id;
-      this.$router.push( {path: '/page_4', query: { partnum: 4 , dietitianId: id}} );
+      console.log("route", row);
+      this.$router.push( {path: '/page_4', query: { partnum: 4 , dietitianId: id, name: row.name, phone: row.phoneNo}} );
     },
 
     resetPsd(index, row) {
