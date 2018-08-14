@@ -232,6 +232,7 @@ export default {
                                 {type : 'min', name: '最小值'}
                             ]
                         },
+                        connectNulls: true,
                         itemStyle: {
                             normal: {
                                 color: "#2ec7c9",
@@ -334,9 +335,10 @@ export default {
         //第二张图线，尼基营养干预体重走势
         drawChart2(){
             // 基于准备好的dom，初始化echarts实例
-            let myChart = this.$echarts.init(document.getElementById('secondChart'))
+            let myChart = this.$echarts.init(document.getElementById('secondChart'));
             // 绘制图表
             myChart.setOption({
+                
                 title : {
                 },
                 tooltip : {
@@ -376,6 +378,7 @@ export default {
                         name:'实际体重',
                         type:'line',
                         data: this.allRealWeightData,
+                        connectNulls: true,
                         markPoint : {
                             data : [
                                 {type : 'max', name: '最大值'},

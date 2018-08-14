@@ -210,6 +210,7 @@ export default {
                         name:'实际体重',
                         type:'line',
                         data: this.allRealWeightData,
+                        connectNulls: true,
                         markPoint : {
                             data : [
                                 {type : 'max', name: '最大值'},
@@ -226,8 +227,9 @@ export default {
                             lineStyle: {
                                 color: "#2ec7c9"
                             }
-                        }
+                            }
                         },
+                        connectNulls: true,
                         symbol : 'none',
                         data: this.allIdealWeightData
                     }
@@ -243,7 +245,7 @@ export default {
             setTimeout(
                 function(){
                     self.drawChart();
-                },1000);
+                },500);
         }
     }
 }
