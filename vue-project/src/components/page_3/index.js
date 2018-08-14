@@ -39,84 +39,12 @@ export default {
     },
     
     handleCurrentChange(val) {
-      // console.log(`当前页: ${val}`);
-      this.axios({
-        method: 'post',
-        url: '/NNC/rest/user_Info/user_info_page',
-        params: {
-         page: val,
-        }
-      })
-      .then((res) => {
-        this.tableData3 = res.data.data.list;
-        this.pageNum = res.data.data.pageNum;
-
-        for (let i = 0; i < this.tableData3.length; i++) {
-          if (this.tableData3[i].dietitianId === null) {
-            this.$set(this.tableData3[i], "dietitianName", "无");
-            continue
-          }
-          this.axios({
-            method: 'post',
-            url: '/NNC/rest/user_Info/get_user_dietitian',
-            params: {
-              dietitianId: this.tableData3[i].dietitianId,
-            }
-          })
-          .then((res) => {
-            // console.log(res.data.data);
-            this.$set(this.tableData3[i], "dietitianName", res.data.data);
-          })
-          .catch(err => {
-            console.log(err);
-          })
-        }
-      })
-      .catch(err => {
-        // console.log(err);
-      });
+      // val
+      this.requestData(val);
     },
 
     Search(){
-      
-      this.axios({
-        method: 'post',
-        url: '/NNC/rest/user_Info/user_info_page',
-        params: {
-         page: 1,
-         userStatus: this.userStatus,
-         dietitianId: this.dietitianId,
-         message: this.message
-        }
-      })
-      .then((res) => {
-        this.tableData3 = res.data.data.list;
-        this.pages = res.data.data.pages;
-
-        for (let i = 0; i < this.tableData3.length; i++) {
-          if (this.tableData3[i].dietitianId === null) {
-            this.$set(this.tableData3[i], "dietitianName", "无");
-            continue
-          }
-          this.axios({
-            method: 'post',
-            url: '/NNC/rest/user_Info/get_user_dietitian',
-            params: {
-              dietitianId: this.tableData3[i].dietitianId,
-            }
-          })
-          .then((res) => {
-            // console.log(res.data.data);
-            this.$set(this.tableData3[i], "dietitianName", res.data.data);
-          })
-          .catch(err => {
-            console.log(err);
-          })
-        }
-      })
-      .catch(err => {
-        // console.log(err);
-      });
+      this.requestData(1);
     },
 
     handleRadioChange(value){
@@ -147,6 +75,17 @@ export default {
 
     formatAddFlag(row) {
       return row.addFlag === 1 ? "是" : "否";
+    },
+
+    fomatContactWay(row) {
+      let head = row.contactWay === 0 ? "手机号：" :
+                 row.contactWay === 1 ? `微信：${row.account}` :
+                 row.contactWay === 2 ? `QQ：${row.account}`  : "";
+      let number = '';
+      if (row.contactWay == 0) {
+        number = row.telNo ? row.telNo: "无";
+      }
+      return head + number;
     },
 
     filterAgreeFlag(value, row) {
@@ -335,44 +274,7 @@ export default {
     },
 
     refresh() {
-      this.axios({
-        method: 'post',
-        url: '/NNC/rest/user_Info/user_info_page',
-        data: {
-         page: this.pageNum ? this.pageNum : 1 
-        }
-      })
-      .then((res) => {
-        console.log("user refresh");
-        this.tableData3 = res.data.data.list;
-        this.pages = res.data.data.pages;
-        this.pageNum = res.data.data.pageNum;
-        console.log(this.tableData3);
-  
-        for (let i = 0; i < this.tableData3.length; i++) {
-          if (this.tableData3[i].dietitianId === null) {
-            this.$set(this.tableData3[i], "dietitianName", "无");
-            continue
-          }
-          this.axios({
-            method: 'post',
-            url: '/NNC/rest/user_Info/get_user_dietitian',
-            params: {
-              dietitianId: this.tableData3[i].dietitianId,
-            }
-          })
-          .then((res) => {
-            // console.log(res.data.data);
-            this.$set(this.tableData3[i], "dietitianName", res.data.data);
-          })
-          .catch(err => {
-            console.log(err);
-          })
-        }
-      })
-      .catch(err => {
-        // console.log(err);
-      });
+      this.requestData(this.pageNum ? this.pageNum : 1 )
 
       this.axios({
         method: 'post',
@@ -408,5 +310,67 @@ export default {
         function(){ self.refresh(); }, 
         1000);
     },
+
+    requestData(page) {
+      this.axios({
+        method: 'post',
+        url: '/NNC/rest/user_Info/user_info_page',
+        data: {
+         page: page,
+         userStatus: this.userStatus,
+         dietitianId: this.dietitianId,
+         message: this.message
+        }
+      })
+      .then((res) => {
+        console.log("user refresh");
+        this.tableData3 = res.data.data.list;
+        this.pages = res.data.data.pages;
+        this.pageNum = res.data.data.pageNum;
+        console.log(this.tableData3);
+  
+        for (let i = 0; i < this.tableData3.length; i++) {
+          // 查询手机号
+          this.axios({
+            method: 'post',
+            url: '/NNC/rest/user_Info/get_login_info_id',
+            params: {
+              userLoginInfoId: this.tableData3[i].userLoginInfoId,
+            }
+          })
+          .then((res) => {
+            console.log(res)
+            // console.log(res.data.data);
+            this.$set(this.tableData3[i], "telNo", res.data.data);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+
+          // 查询营养师
+          if (this.tableData3[i].dietitianId === null) {
+            this.$set(this.tableData3[i], "dietitianName", "无");
+            continue
+          }
+          this.axios({
+            method: 'post',
+            url: '/NNC/rest/user_Info/get_user_dietitian',
+            params: {
+              dietitianId: this.tableData3[i].dietitianId,
+            }
+          })
+          .then((res) => {
+            // console.log(res.data.data);
+            this.$set(this.tableData3[i], "dietitianName", res.data.data);
+          })
+          .catch(err => {
+            console.log(err);
+          })
+        }
+      })
+      .catch(err => {
+        // console.log(err);
+      });
+    }
   }
 }
