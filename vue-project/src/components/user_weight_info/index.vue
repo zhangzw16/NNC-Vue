@@ -54,7 +54,7 @@
                     <el-card>
                         <div>每周体重变化曲线图</div>
                         <br>
-                        <div id="firstChart" style="width: 620px; height: 230px;"></div>
+                        <div id="firstChart" style="width: 580px; height: 230px;"></div>
                     </el-card>
                 </el-col>
             </el-row>
@@ -64,7 +64,7 @@
                     <el-card>
                     <div>尼基营养干预体重走势</div>
                     <br>
-                        <div id="secondChart" style="width: 620px; height: 280px;"></div>
+                        <div id="secondChart" style="width: 580px; height: 280px;"></div>
                     </el-card>
                 </el-col>
             </el-row>
