@@ -20,8 +20,11 @@ export default {
       personDetail: null,
 
       radio1: "",
+      radio2: "",
+      order: "",
       total:null,
       value: "无",
+      url: null,
       valueDialog: "无",
 
       optionsDietitian: [],
@@ -45,11 +48,16 @@ export default {
 
     Search(){
       this.requestData(1);
+    
     },
 
     handleRadioChange(value){
       // console.log(value)
       this.userStatus = value;      
+    },
+
+    handleOrderChange(value){
+      this.order = value
     },
 
     //格式转换
@@ -312,14 +320,16 @@ export default {
     },
 
     requestData(page) {
+      let url = this.order === "" ? '/NNC/rest/user_Info/user_info_page' : 'NNC/rest/user_Info/get_active_user';
       this.axios({
         method: 'post',
-        url: '/NNC/rest/user_Info/user_info_page',
+        url: url,
         data: {
          page: page,
          userStatus: this.userStatus,
          dietitianId: this.dietitianId,
-         message: this.message
+         message: this.message,
+         order: this.order
         }
       })
       .then((res) => {

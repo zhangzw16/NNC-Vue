@@ -34,13 +34,24 @@
 		<el-card class="search_card">
 			<el-form ref="form" :model="form" label-width="200px">
 				<el-form-item label="减重状态：">
-					<el-radio-group v-model="radio1" @change="handleRadioChange">
-						<el-radio-button label="">全部</el-radio-button>
-						<el-radio-button label="0">准备期</el-radio-button>
-						<el-radio-button label="1">正在期</el-radio-button>
-						<el-radio-button label="2">过渡期</el-radio-button>
-						<el-radio-button label="3">完成期</el-radio-button>
-					</el-radio-group>		
+					<el-col :span="10">
+						<el-radio-group v-model="radio1" @change="handleRadioChange">
+							<el-radio-button label="">全部</el-radio-button>
+							<el-radio-button label="0">准备期</el-radio-button>
+							<el-radio-button label="1">正在期</el-radio-button>
+							<el-radio-button label="2">过渡期</el-radio-button>
+							<el-radio-button label="3">完成期</el-radio-button>
+						</el-radio-group>		
+					</el-col>
+				</el-form-item>
+				<el-form-item label="按活跃度排序：">
+					<el-col :span="10">
+						<el-radio-group v-model="radio2" @change="handleOrderChange">
+							<el-radio-button label="">默认</el-radio-button>
+							<el-radio-button label="2">升序</el-radio-button>
+							<el-radio-button label="1">降序</el-radio-button>
+						</el-radio-group>		
+					</el-col>
 				</el-form-item>
 				<el-form-item label="营养师：">
 					<el-select v-model="value" placeholder="请选择"
@@ -144,6 +155,7 @@
 						label="购买尼基营养缓释多糖">
 					</el-table-column>
 					<el-table-column
+						@sort-change="getSortInfo"
 						prop="vitality"
 						label="活跃度">
 					</el-table-column>
