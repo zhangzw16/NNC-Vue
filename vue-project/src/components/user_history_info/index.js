@@ -53,13 +53,13 @@ export default {
         },
 
         formatEndDate(row) {
-            let date = new Date(row.transitionEndDate);
+            let date = new Date(row.endDate);
             date = this.dateToStr(date);
             return date;
         },
 
         formatStartDate(row) {
-            let date = new Date(row.transitionStartDate);
+            let date = new Date(row.startDate);
             date = this.dateToStr(date);
             return date;
           },
@@ -78,9 +78,9 @@ export default {
                 this.historyTableData = res.data.data;
 
                 for( let i = 0; i < this.historyTableData.length; i++) {
-                    let sDate = new Date(this.historyTableData[i].transitionStartDate);
+                    let sDate = new Date(this.historyTableData[i].startDate);
                     sDate = this.dateToStr(sDate);
-                    let eDate = new Date(this.historyTableData[i].transitionEndDate);
+                    let eDate = new Date(this.historyTableData[i].endDate);
                     eDate = this.dateToStr(eDate);
                     let periodStr = sDate + " ~ " + eDate;
                     console.log(periodStr);
