@@ -5,6 +5,7 @@ import page_1 from '@/components/page_1/index.vue'
 import page_2 from '@/components/page_2/index.vue'
 import page_3 from '@/components/page_3/index.vue'
 import page_4 from '@/components/page_4/index.vue'
+import page_5 from '@/components/page_5/index.vue'
 
 Vue.use(Router)
 
@@ -36,6 +37,10 @@ export default new Router({
         path: '/page_4',
         name: 'page_4',
         component: page_4 // 页面四
+      },{
+        path: '/page_5',
+        name: 'page_5',
+        component: page_5 // 页面五
       }]
     }
   ]

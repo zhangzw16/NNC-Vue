@@ -3,7 +3,8 @@ const basePageInfo = {
 	asideList: [
 		{ link: '/page_1', item: '账号管理' },
 		{ link: '/page_2', item: '营养师管理' },
-		{ link: '/page_3', item: '客户管理' }
+		{ link: '/page_3', item: '客户管理' },
+		{ link: '/page_5', item: '数据分析' }
 		// { link: '/page_4', item: '标题-4' }
 	],
 }
