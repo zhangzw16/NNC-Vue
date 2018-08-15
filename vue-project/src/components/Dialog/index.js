@@ -11,7 +11,7 @@ export default {
         // },
         form2: {
           systemUserName: null,
-          systemUserAuthority: null,
+          systemUserAuthority: "总监",
           systemUserRemark: null,
         },
         form3: {
@@ -42,7 +42,7 @@ export default {
         // console.log(this.form3);
         this.form2 = {
           systemUserName: null,
-          systemUserAuthority: null,
+          systemUserAuthority: "总监",
           systemUserRemark: null,
         };
         this.form3 = {
