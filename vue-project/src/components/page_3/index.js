@@ -77,7 +77,7 @@ export default {
       return row.addFlag === 1 ? "是" : "否";
     },
 
-    fomatContactWay(row) {
+    formatContactWay(row) {
       let head = row.contactWay === 0 ? "手机号：" :
                  row.contactWay === 1 ? `微信：${row.account}` :
                  row.contactWay === 2 ? `QQ：${row.account}`  : "";

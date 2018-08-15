@@ -87,6 +87,7 @@
 						label="注册时间">
 					</el-table-column>
 					<el-table-column
+						width="100"
 						prop="dietitianName"
 						label="指定营养师">
 						<template slot-scope="scope">
@@ -116,12 +117,15 @@
 						</template>
 		    		</el-table-column> -->
 					<el-table-column
+						width="60"
 						prop="loginFlag"
 						:formatter="formatLoginFlag"
 						label="注册方式">
 					</el-table-column>
 					<el-table-column
+						width="160"
 						prop="contactWay"
+						:formatter="formatContactWay"
 						label="联系方式">
 					</el-table-column>
 					<el-table-column
