@@ -284,13 +284,24 @@ public class UserInfoServiceImp implements UserInfoService{
 
     @Override
     public List<UserInfo> getMostActiveUserInfos(int userStatus) {
-        return userInfoMapper.getMostActiveUserList(userStatus);
+        return userInfoMapper.getMostActiveUserListByUserStatus(userStatus);
+    }
+    
+    @Override
+    public List<UserInfo> getMostActiveUserInfos() {
+        return userInfoMapper.getMostActiveUserList();
     }
 
     @Override
     public List<UserInfo> getLeastActiveUserInfos(int userStatus) {
-        return userInfoMapper.getLeastActiveUserList(userStatus);
+        return userInfoMapper.getLeastActiveUserListByUserStatus(userStatus);
     }
+
+    @Override
+    public List<UserInfo> getLeastActiveUserInfos() {
+        return userInfoMapper.getLeastActiveUserList();
+    }
+
 
     @Override
     public List<Dietitian> findByDietitians() {

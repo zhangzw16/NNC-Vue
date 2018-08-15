@@ -651,22 +651,41 @@
     user_info
     ORDER BY user_info.create_time DESC
   </select>
+  
+  <select id="getMostActiveUserListByUserStatus" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_info AS us
+    WHERE us.user_status = #{userStatus,jdbcType=INTEGER}
+    ORDER BY us.vitality DESC
+  </select>
+
   <select id="getMostActiveUserList" resultMap="BaseResultMap">
     SELECT 
     <include refid="Base_Column_List" />
     FROM
     user_info AS us
-    WHERE us.user_status = ${userStatus}
     ORDER BY us.vitality DESC
   </select>
+
+  <select id="getLeastActiveUserListByUserStatus" resultMap="BaseResultMap">
+  SELECT 
+  <include refid="Base_Column_List" />
+  FROM
+  user_info AS us
+  WHERE us.user_status = #{userStatus,jdbcType=INTEGER}
+  ORDER BY us.vitality ASC
+  </select>
+  
   <select id="getLeastActiveUserList" resultMap="BaseResultMap">
   SELECT 
   <include refid="Base_Column_List" />
   FROM
   user_info AS us
-  WHERE us.user_status = ${userStatus}
   ORDER BY us.vitality ASC
   </select>
+
   <insert id="saveUserInfo" parameterType="cn.com.bocosoft.model.UserInfo" >
     insert into user_info
     <trim prefix="(" suffix=")" suffixOverrides="," >

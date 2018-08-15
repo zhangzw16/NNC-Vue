@@ -53,7 +53,11 @@ public interface UserInfoService {
 
     List<UserInfo> getMostActiveUserInfos(int userStatus);
 
+    List<UserInfo> getMostActiveUserInfos();
+
     List<UserInfo> getLeastActiveUserInfos(int userStatus);
+
+    List<UserInfo> getLeastActiveUserInfos();
 
     List<Dietitian> findByDietitians();
 

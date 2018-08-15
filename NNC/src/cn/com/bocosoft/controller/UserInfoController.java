@@ -713,39 +713,62 @@ public class UserInfoController {
         return json = new JSONResult(wr);
     }
     
-    /**
-     * 取得最活跃的用户
-     * @param request
-     * @return
-     */
-    @RequestMapping(value = "/get_most_active_user", method = RequestMethod.POST)
-    @ResponseBody
-    public JSONResult get_most_active_user(HttpServletRequest request) {
-        int userStatus = Integer.parseInt(request.getParameter("userStatus"));
-        List<UserInfo> userInfos = new ArrayList<UserInfo>();
+//     /**
+//      * 取得最活跃的用户
+//      * @param request
+//      * @return
+//      */
+//     @RequestMapping(value = "/get_most_active_user", method = RequestMethod.POST)
+//     @ResponseBody
+//     public JSONResult get_most_active_user(HttpServletRequest request) {
+//         String userStatus = request.getParameter("userStatus");
+//         List<UserInfo> userInfos = new ArrayList<UserInfo>();
+//         int currentPage = Integer.parseInt(request.getParameter("page"));
+//         PageHelper.startPage(currentPage, BsetConsts.PER_PAGE_SIZE);
 
-        int currentPage = Integer.parseInt(request.getParameter("page"));
-        PageHelper.startPage(currentPage, BsetConsts.PER_PAGE_SIZE);
-        userInfos = userInfoService.getMostActiveUserInfos(userStatus);
-        PageInfo<UserInfo> pageInfo = new PageInfo<UserInfo>(userInfos);
-//        System.out.println(currentPage);
+//         if (userStatus != null && !userStatus.equals("")) {
+//             userInfos = userInfoService.getMostActiveUserInfos(Integer.parseInt(userStatus));
+//         }
+//         else {
+//             userInfos = userInfoService.getMostActiveUserInfos();
+//         }
+//         PageInfo<UserInfo> pageInfo = new PageInfo<UserInfo>(userInfos);
+// //        System.out.println(currentPage);
 
-        return json = new JSONResult(pageInfo, "成功", true);
-    }
+//         return json = new JSONResult(pageInfo, "成功", true);
+//     }
     
     /**
-     * 取得最不活跃的用户
+     * 取得按照活跃度排序的用户
      * @param request
      * @return
      */
-    @RequestMapping(value = "/get_least_active_user", method = RequestMethod.POST)
+    @RequestMapping(value = "/get_active_user", method = RequestMethod.POST)
     @ResponseBody
     public JSONResult get_least_active_user(HttpServletRequest request) {
-        int userStatus = Integer.parseInt(request.getParameter("userStatus"));
+        int order = Integer.parseInt(request.getParameter("order"));
+        String userStatus = request.getParameter("userStatus");
         List<UserInfo> userInfos = new ArrayList<UserInfo>();
         int currentPage = Integer.parseInt(request.getParameter("page"));
         PageHelper.startPage(currentPage, BsetConsts.PER_PAGE_SIZE);
-        userInfos = userInfoService.getLeastActiveUserInfos(userStatus);
+        if (order == 1) {
+            if (userStatus != null && !userStatus.equals("")) {
+                userInfos = userInfoService.getLeastActiveUserInfos(Integer.parseInt(userStatus));
+            }
+            else {
+                userInfos = userInfoService.getLeastActiveUserInfos();
+            }
+        }
+        else if (order == 2) {
+            if (userStatus != null && !userStatus.equals("")) {
+                userInfos = userInfoService.getMostActiveUserInfos(Integer.parseInt(userStatus));
+            }
+            else {
+                userInfos = userInfoService.getMostActiveUserInfos();
+            }
+        }
+
+
         PageInfo<UserInfo> pageInfo = new PageInfo<UserInfo>(userInfos);
         return json = new JSONResult(pageInfo, "成功", true);
     }

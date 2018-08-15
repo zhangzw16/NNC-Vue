@@ -57,7 +57,11 @@ public interface UserInfoMapper {
 
     List<UserInfo> getAllUserByMessage(@Param("message")String message);
 
-    List<UserInfo> getMostActiveUserList(@Param("userStatus")int userStatus);
+    List<UserInfo> getMostActiveUserListByUserStatus(int userStatus);
 
-    List<UserInfo> getLeastActiveUserList(@Param("userStatus")int userStatus);
+    List<UserInfo> getMostActiveUserList();
+
+    List<UserInfo> getLeastActiveUserListByUserStatus(int userStatus);
+
+    List<UserInfo> getLeastActiveUserList();
 }
