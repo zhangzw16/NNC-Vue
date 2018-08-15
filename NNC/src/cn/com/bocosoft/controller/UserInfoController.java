@@ -745,7 +745,7 @@ public class UserInfoController {
      */
     @RequestMapping(value = "/get_active_user", method = RequestMethod.POST)
     @ResponseBody
-    public JSONResult get_least_active_user(HttpServletRequest request) {
+    public JSONResult get_active_user(HttpServletRequest request) {
         int order = Integer.parseInt(request.getParameter("order"));
         String userStatus = request.getParameter("userStatus");
         List<UserInfo> userInfos = new ArrayList<UserInfo>();
