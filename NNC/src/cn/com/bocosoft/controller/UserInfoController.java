@@ -1066,7 +1066,6 @@ public class UserInfoController {
         return json;
     }
     
-    
     /**
      * 取得历史记录中客户体重走势数据
      * @param request
@@ -1148,6 +1147,24 @@ public class UserInfoController {
                 ,BocosoftUitl.dateToString(dietPhaseInfo.getEndDate(), BsetConsts.DATE_FORMAT_9));
         List<String> allMaxAndMin = BocosoftUitl.getListsMinAndMax(userInfo.getIdealBodyWeight(), userwds);
         json = new JSONResult(allMaxAndMin,"成功", true);
+        return json;
+    }
+    
+    /**
+     * 取得全时附加数据
+     * @param request
+     * @return
+      * @throws ParseException 
+     */
+    @RequestMapping(value = "/get_history_phase_table_data", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONResult get_history_phase_table_data(HttpServletRequest request)
+    {
+        int dietPhaseInfoId = Integer.parseInt(request.getParameter("dietPhaseInfoId"));
+        DietPhaseInfo dietPhaseInfo = userInfoService.select_user_histroy_weight_Data(dietPhaseInfoId);
+        dietPhaseInfo.setStartWeight(userInfoService.findFirstUserWeightDataByDate(dietPhaseInfo.getUserInfoId(), BocosoftUitl.dateToString(dietPhaseInfo.getStartDate(), BsetConsts.DATE_FORMAT_9)).getWeight());
+        dietPhaseInfo.setEndWeight(userInfoService.findLastUserWeightDataByDate(dietPhaseInfo.getUserInfoId(), BocosoftUitl.dateToString(dietPhaseInfo.getEndDate(), BsetConsts.DATE_FORMAT_9)).getWeight());
+        json = new JSONResult(dietPhaseInfo,"成功", true);
         return json;
     }
     

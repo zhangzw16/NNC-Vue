@@ -22,6 +22,13 @@ export default {
                 dietitianName: null,
             },
 
+            historyPhaseData: {
+                period: null,
+                startWeight: null,
+                endWeight: null,
+                dietitianName: null,
+            },
+
             allDataArrX: null,//折线图的横轴坐标
             allRealWeightData: null,//图线中真实体重数据
             allIdealWeightData: null, //图线中理想体重的数据
@@ -243,10 +250,36 @@ export default {
             })
         },
 
+        //阶段性表格
+        getPhaseTableData(){
+            this.axios({
+                method: 'post',
+                url: '/NNC/rest/user_Info/get_history_phase_table_data',
+                params: {
+                    dietPhaseInfoId: this.rowData.id,
+                }
+            })
+            .then((res) => {
+                this.historyPhaseData = res.data.data;
+                let sDate = new Date(this.historyPhaseData.startDate);
+                sDate = this.dateToStr(sDate);
+                let eDate = new Date(this.historyPhaseData.endDate);
+                eDate = this.dateToStr(eDate);
+                let periodStr = sDate + " ~ " + eDate;
+                console.log(periodStr);
+                this.historyPhaseData.period = periodStr;
+                this.historyPhaseData.startWeight += "(kg)";
+                this.historyPhaseData.endWeight += "(kg)";
+            })
+            .catch(err => {
+            });
+        },
+
         showHistoryDetail(index, row) {
             this.historyDialogVisible = true;
             this.rowData = row;
             this.getChartData();
+            this.getPhaseTableData();
             let self = this;
             setTimeout(
                 function(){

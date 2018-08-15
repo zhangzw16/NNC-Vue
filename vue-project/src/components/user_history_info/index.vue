@@ -17,10 +17,10 @@
                 <br>
                 <el-row>
                     <el-card>
-                        <el-input :readonly="true" v-model="rowData.period"><template slot="prepend">减重期间</template></el-input>
-                        <el-input :readonly="true" v-model="rowData.startWeight"><template slot="prepend">初始体重</template></el-input>
-                        <el-input :readonly="true" v-model="rowData.endWeight"><template slot="prepend">减脂后体重</template></el-input>
-                        <el-input :readonly="true" v-model="rowData.dietitianName"><template slot="prepend">营养师</template></el-input>
+                        <el-input :readonly="true" v-model="historyPhaseData.period"><template slot="prepend">减重期间</template></el-input>
+                        <el-input :readonly="true" v-model="historyPhaseData.startWeight"><template slot="prepend">初始体重</template></el-input>
+                        <el-input :readonly="true" v-model="historyPhaseData.endWeight"><template slot="prepend">减脂后体重</template></el-input>
+                        <el-input :readonly="true" v-model="historyPhaseData.dietitianName"><template slot="prepend">营养师</template></el-input>
                     </el-card>
                 </el-row>
             </el-dialog>
