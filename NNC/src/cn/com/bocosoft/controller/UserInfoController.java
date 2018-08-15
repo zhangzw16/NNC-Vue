@@ -507,20 +507,12 @@ public class UserInfoController {
     * @return
     */
     @RequestMapping(value = "/edit_user_comments_save", method = RequestMethod.POST)
-    public String edit_user_comments_save(UserData userData, HttpServletRequest request) {
+    @ResponseBody
+    public JSONResult edit_user_comments_save(UserData userData, HttpServletRequest request) {
         UserData tmpUserData = userInfoService.updataUserData(userData);
-        UserInfo userInfo = userInfoService.findByUserInfo(tmpUserData.getUserInfoId());
-        //WeeklyRecommend wr = userInfoService.findWeeklyRecommend(tmpUserData);
-        List<UserData2> breakfast = userInfoService.getUserData2(userInfo.getId(), BocosoftUitl.dateToString(userData.getDate(), BsetConsts.DATE_FORMAT_9), 1);
-        List<UserData2> lunch = userInfoService.getUserData2(userInfo.getId(), BocosoftUitl.dateToString(userData.getDate(), BsetConsts.DATE_FORMAT_9), 2);
-        List<UserData2> dinner = userInfoService.getUserData2(userInfo.getId(), BocosoftUitl.dateToString(userData.getDate(), BsetConsts.DATE_FORMAT_9), 3);
-        request.setAttribute("breakfastPhotos", breakfast);
-        request.setAttribute("lunchPhotos", lunch);
-        request.setAttribute("dinnerPhotos", dinner);
-        request.setAttribute("user_data", tmpUserData);
-        request.setAttribute("user_info", userInfo);
-        request.setAttribute("chose_date", BocosoftUitl.dateToString(tmpUserData.getDate(), BsetConsts.DATE_FORMAT_9));
-        return "userInfo/userData";
+        String result = "change";
+        json = new JSONResult(result, "成功", true);
+        return json;
     }
    
    /**
