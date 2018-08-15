@@ -251,7 +251,7 @@ public class UserInfoController {
         request.setAttribute("max_page",pageInfo.getPages());
         request.setAttribute("current_page",pageInfo.getPageNum());
         request.setAttribute("cause",userInfos);
-        return "userInfo/userInfoListTable";
+        return "1";
     }
     
     /**
