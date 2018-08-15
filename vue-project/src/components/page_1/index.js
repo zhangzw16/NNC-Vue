@@ -34,7 +34,8 @@ export default {
         }
       })
       .then((res) => {
-        this.tableData = this.data.data.list;
+        console.log(val)
+        this.tableData = res.data.data.list;
         for (let i = 0; i < this.tableData.length; i++) {
           let roleName = (this.tableData[i].role===2)? "总监":(this.tableData[i].role===3)?"文档管理员":"";
           this.$set(this.tableData[i], "roleName", roleName);
@@ -88,6 +89,7 @@ export default {
         }
       })
       .then((res) => {
+        this.pages = res.data.data.pages;
         this.tableData = res.data.data.list;
         for (let i = 0; i < this.tableData.length; i++) {
           let roleName = (this.tableData[i].role===2)? "总监":(this.tableData[i].role===3)?"文档管理员":"";
