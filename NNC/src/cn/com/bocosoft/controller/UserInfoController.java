@@ -714,7 +714,7 @@ public class UserInfoController {
     }
     
     /**
-     * 取得最活跃的10个用户
+     * 取得最活跃的用户
      * @param request
      * @return
      */
@@ -727,7 +727,19 @@ public class UserInfoController {
         return json = new JSONResult(userInfos, "成功", true);
     }
     
-
+    /**
+     * 取得最不活跃的用户
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/get_least_active_user", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONResult get_least_active_user(HttpServletRequest request) {
+        int userStatus = Integer.parseInt(request.getParameter("userStatus"));
+        List<UserInfo> userInfos = new ArrayList<UserInfo>();
+        userInfos = userInfoService.getLeastActiveUserInfos(userStatus);
+        return json = new JSONResult(userInfos, "成功", true);
+    }
 
     /**
      * 取得营养师管理下的客户七天数据 

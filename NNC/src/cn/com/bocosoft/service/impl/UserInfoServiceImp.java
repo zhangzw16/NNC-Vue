@@ -288,6 +288,11 @@ public class UserInfoServiceImp implements UserInfoService{
     }
 
     @Override
+    public List<UserInfo> getLeastActiveUserInfos(int userStatus) {
+        return userInfoMapper.getLeastActiveUserList(userStatus);
+    }
+
+    @Override
     public List<Dietitian> findByDietitians() {
         return dietitianMapper.getDietitians();
     }
