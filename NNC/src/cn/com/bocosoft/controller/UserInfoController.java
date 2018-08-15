@@ -236,7 +236,8 @@ public class UserInfoController {
      * @return
      */
     @RequestMapping(value = "/change_user_dietitian_save", method = RequestMethod.POST)
-    public String change_user_dietitian_save(HttpServletRequest request) {
+    @ResponseBody
+    public JSONResult change_user_dietitian_save(HttpServletRequest request) {
         String dietitianId = request.getParameter("dietitianId");
         int userInfoId = Integer.parseInt(request.getParameter("userInfoId"));
         if (dietitianId == null || dietitianId.equals("")) {//解除营养师
@@ -248,10 +249,8 @@ public class UserInfoController {
         PageHelper.startPage(currentPage, BsetConsts.PER_PAGE_SIZE);
         List<UserInfo> userInfos = userInfoService.getAllUserInfosById();
         PageInfo<UserInfo> pageInfo = new PageInfo<UserInfo>(userInfos);
-        request.setAttribute("max_page",pageInfo.getPages());
-        request.setAttribute("current_page",pageInfo.getPageNum());
-        request.setAttribute("cause",userInfos);
-        return "1";
+        json = new JSONResult("changed","成功", true);
+        return json;
     }
     
     /**
