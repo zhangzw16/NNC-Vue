@@ -40,12 +40,12 @@
                     </el-table-column>
                     <el-table-column
                         prop="transitionStartDate"
-                        :formatter="formatDate"
+                        :formatter="formatStartDate"
                         label="开始时间">
                     </el-table-column>
                     <el-table-column
                         prop="transitionEndDate"
-                        :formatter="formatDate"
+                        :formatter="formatEndDate"
                         label="结束时间">
                     </el-table-column>
                     <el-table-column

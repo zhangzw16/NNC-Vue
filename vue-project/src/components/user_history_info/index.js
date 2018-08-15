@@ -52,8 +52,14 @@ export default {
             return time;
         },
 
-        formatDate(row) {
-            let date = new Date(row.createTime);
+        formatEndDate(row) {
+            let date = new Date(row.transitionEndDate);
+            date = this.dateToStr(date);
+            return date;
+        },
+
+        formatStartDate(row) {
+            let date = new Date(row.transitionStartDate);
             date = this.dateToStr(date);
             return date;
           },
