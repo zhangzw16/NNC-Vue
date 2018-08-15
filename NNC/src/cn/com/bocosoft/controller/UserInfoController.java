@@ -208,8 +208,7 @@ public class UserInfoController {
 //        return "userInfo/userInfoListTable";
         return json = new JSONResult(pageInfo, "成功", true);
     }
-    
-    
+
     /**
      * 取得更换营养师列表
      * @param request
@@ -714,6 +713,22 @@ public class UserInfoController {
         return json = new JSONResult(wr);
     }
     
+    /**
+     * 取得最活跃的10个用户
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/get_most_active_user", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONResult get_most_active_user(HttpServletRequest request) {
+        int userStatus = Integer.parseInt(request.getParameter("userStatus"));
+        List<UserInfo> userInfos = new ArrayList<UserInfo>();
+        userInfos = userInfoService.getMostActiveUserInfos(userStatus);
+        return json = new JSONResult(userInfos, "成功", true);
+    }
+    
+
+
     /**
      * 取得营养师管理下的客户七天数据 
      * @param request

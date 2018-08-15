@@ -283,6 +283,11 @@ public class UserInfoServiceImp implements UserInfoService{
     }
 
     @Override
+    public List<UserInfo> getMostActiveUserInfos(int userStatus) {
+        return userInfoMapper.getMostActiveUserList(userStatus);
+    }
+
+    @Override
     public List<Dietitian> findByDietitians() {
         return dietitianMapper.getDietitians();
     }
