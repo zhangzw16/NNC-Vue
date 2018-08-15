@@ -723,8 +723,14 @@ public class UserInfoController {
     public JSONResult get_most_active_user(HttpServletRequest request) {
         int userStatus = Integer.parseInt(request.getParameter("userStatus"));
         List<UserInfo> userInfos = new ArrayList<UserInfo>();
+
+        int currentPage = Integer.parseInt(request.getParameter("page"));
+        PageHelper.startPage(currentPage, BsetConsts.PER_PAGE_SIZE);
         userInfos = userInfoService.getMostActiveUserInfos(userStatus);
-        return json = new JSONResult(userInfos, "成功", true);
+        PageInfo<UserInfo> pageInfo = new PageInfo<UserInfo>(userInfos);
+//        System.out.println(currentPage);
+
+        return json = new JSONResult(pageInfo, "成功", true);
     }
     
     /**
@@ -737,8 +743,11 @@ public class UserInfoController {
     public JSONResult get_least_active_user(HttpServletRequest request) {
         int userStatus = Integer.parseInt(request.getParameter("userStatus"));
         List<UserInfo> userInfos = new ArrayList<UserInfo>();
+        int currentPage = Integer.parseInt(request.getParameter("page"));
+        PageHelper.startPage(currentPage, BsetConsts.PER_PAGE_SIZE);
         userInfos = userInfoService.getLeastActiveUserInfos(userStatus);
-        return json = new JSONResult(userInfos, "成功", true);
+        PageInfo<UserInfo> pageInfo = new PageInfo<UserInfo>(userInfos);
+        return json = new JSONResult(pageInfo, "成功", true);
     }
 
     /**
