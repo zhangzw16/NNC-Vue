@@ -22,7 +22,11 @@ public interface UserInfoMapper {
 
     int get_users(Integer dietitianId);
 
-    List<UserInfo> get_users_by_dietitianId(@Param("dietitianId") int dietitianId, @Param("userStatus")int userStatus);
+	List<UserInfo> get_users_by_dietitianId(@Param("dietitianId") int dietitianId, @Param("userStatus")int userStatus);
+	
+	List<UserInfo> get_users_by_dietitianId_asc(@Param("dietitianId") int dietitianId, @Param("userStatus")int userStatus);
+
+	List<UserInfo> get_users_by_dietitianId_desc(@Param("dietitianId") int dietitianId, @Param("userStatus")int userStatus);
 
     int get_all_users(Integer dietitianId);
 
@@ -32,7 +36,11 @@ public interface UserInfoMapper {
 
     List<UserInfo> getUserInfosByUserStatus(int userStatus);
 
-    List<UserInfo> getUserInfosByUserDietitianId(int dietitianId);
+	List<UserInfo> getUserInfosByUserDietitianId(int dietitianId);
+	
+	List<UserInfo> getUserInfosByUserDietitianIdAsc(int dietitianId);
+
+	List<UserInfo> getUserInfosByUserDietitianIdDesc(int dietitianId);
 
     int saveUserInfo(UserInfo userInfo);
 
@@ -42,12 +50,27 @@ public interface UserInfoMapper {
 
     Calendar getUserInfoByThirdPartyId(int parseInt);
 
-    List<UserInfo> getUserInfoListByUserStatus(int userStatus);
+	List<UserInfo> getUserInfoListByUserStatus(int userStatus);
+	
+	List<UserInfo> getUserInfoListByUserStatusAsc(int userStatus);
 
-    List<UserInfo> getAllUserList();
+	List<UserInfo> getUserInfoListByUserStatusDesc(int userStatus);
+
+	List<UserInfo> getAllUserList();
+	
+	List<UserInfo> getAllUserListAsc();
+
+	List<UserInfo> getAllUserListDesc();
 
     List<UserInfo> get_users_by_dietitianId_and_message(@Param("dietitianId") int dietitianId, @Param("userStatus")int userStatus, 
             @Param("message")String message);
+
+	// List<UserInfo> get_users_by_dietitianId_and_message_asc(@Param("dietitianId") int dietitianId, @Param("userStatus")int userStatus, 
+    //         @Param("message")String message);
+	
+	// List<UserInfo> get_users_by_dietitianId_and_message_desc(@Param("dietitianId") int dietitianId, @Param("userStatus")int userStatus, 
+    //         @Param("message")String message);
+
 
     List<UserInfo> getUserInfoListByUserStatusAndMessage(@Param("userStatus")int userStatus, 
             @Param("message")String message);
@@ -57,11 +80,11 @@ public interface UserInfoMapper {
 
     List<UserInfo> getAllUserByMessage(@Param("message")String message);
 
-    List<UserInfo> getMostActiveUserListByUserStatus(int userStatus);
+//     List<UserInfo> getMostActiveUserListByUserStatus(int userStatus);
 
-    List<UserInfo> getMostActiveUserList();
+//     List<UserInfo> getMostActiveUserList();
 
-    List<UserInfo> getLeastActiveUserListByUserStatus(int userStatus);
+//     List<UserInfo> getLeastActiveUserListByUserStatus(int userStatus);
 
-    List<UserInfo> getLeastActiveUserList();
+//     List<UserInfo> getLeastActiveUserList();
 }
