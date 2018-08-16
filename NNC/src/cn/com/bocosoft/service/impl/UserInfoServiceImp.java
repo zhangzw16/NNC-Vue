@@ -817,17 +817,27 @@ public class UserInfoServiceImp implements UserInfoService{
     @Override
     public UserReportData getReportData() {
         UserReportData URD = new UserReportData();
+
+        // 添加男女比例数据
+        List<UserInfo> allUserList = userInfoMapper.getAllUserList();
+        
+        for (UserInfo user : allUserList) {
+            
+        }
+
+
+        // 添加营养师业绩相关数据
         List<Dietitian> dietitianList = dietitianMapper.getDietitians();
-        Map<Integer, Integer> averWeightLossOfDietitian = new HashMap<Integer, Integer>();;
-        Map<Integer, Integer> personNumOfDietitian = new HashMap<Integer, Integer>();
+        Map<String, Double> averWeightLossOfDietitian = new HashMap<String, Double>();;
+        Map<String, Integer> personNumOfDietitian = new HashMap<String, Integer>();
         for (Dietitian die : dietitianList) {
             int dietitianId = die.getId();
             String dietitianName = die.getName();
             List<UserInfo> userInfoList = userInfoMapper.getUserInfosByUserDietitianId(dietitianId);
             int peopleNum = userInfoList.size();
-            personNumOfDietitian.put(dietitianId, peopleNum);
+            personNumOfDietitian.put(dietitianName, peopleNum);
 
-            int lossWeightAver = 0;
+            double lossWeightAver = 0;
             int lossWeightNum = 0;
             List<DietPhaseInfo> dietPhaseInfoList =  dietPhaseInfoMapper.findDietPhaseInfoListByDietitianName(dietitianName);
             for (DietPhaseInfo dietPhaseInfo : dietPhaseInfoList) {
@@ -837,7 +847,7 @@ public class UserInfoServiceImp implements UserInfoService{
                 }
             }
             lossWeightAver /= lossWeightNum != 0 ? lossWeightNum : 1;
-            averWeightLossOfDietitian.put(dietitianId, lossWeightAver);
+            averWeightLossOfDietitian.put(dietitianName, lossWeightAver);
         }
         URD.setAverWeightLossOfDietitian(averWeightLossOfDietitian);
 		URD.setPersonOfDietitian(personNumOfDietitian);

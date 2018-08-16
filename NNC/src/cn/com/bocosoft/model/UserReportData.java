@@ -7,23 +7,23 @@ public class UserReportData {
 
     // private Map<String, Integer> numOfWoman;
 
-    private Map<Integer, Integer> averWeightLossOfDietitian;
+    private Map<String, Double> averWeightLossOfDietitian;
     
-    private Map<Integer, Integer> personOfDietitian;
+    private Map<String, Integer> personOfDietitian;
 
-    public Map<Integer, Integer> getAverWeightLossOfDietitian() {
+    public Map<String, Double> getAverWeightLossOfDietitian() {
         return this.averWeightLossOfDietitian;
     }
 
-    public void setAverWeightLossOfDietitian(Map<Integer, Integer> aWLD) {
+    public void setAverWeightLossOfDietitian(Map<String, Double> aWLD) {
         this.averWeightLossOfDietitian = aWLD;
     }
 
-    public Map<Integer, Integer> getPersonOfDietitian() {
+    public Map<String, Integer> getPersonOfDietitian() {
         return this.personOfDietitian;
     }
 
-    public void setPersonOfDietitian(Map<Integer, Integer> PD) {
+    public void setPersonOfDietitian(Map<String, Integer> PD) {
         this.personOfDietitian = PD;
     }
 }
