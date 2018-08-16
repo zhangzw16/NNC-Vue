@@ -38,6 +38,7 @@ import cn.com.bocosoft.model.UserData;
 import cn.com.bocosoft.model.UserData2;
 import cn.com.bocosoft.model.UserInfo;
 import cn.com.bocosoft.model.UserLoginInfo;
+import cn.com.bocosoft.model.UserReportData;
 import cn.com.bocosoft.model.UserWeightData;
 import cn.com.bocosoft.model.WeeklyRecommend;
 import cn.com.bocosoft.service.UserInfoService;
@@ -1233,7 +1234,7 @@ public class UserInfoController {
     @RequestMapping(value = "/get_user_report_forms", method = RequestMethod.POST)
     @ResponseBody
     public JSONResult get_user_report_forms(HttpServletRequest request) {
-
-        return json = new JSONResult("pageInfo", "成功", true);
+        UserReportData urd = userInfoService.getReportData();
+        return json = new JSONResult(urd, "成功", true);
     }
 }

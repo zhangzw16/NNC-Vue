@@ -217,4 +217,10 @@
     where diet_phase_info.user_info_id = ${userInfoId}
     and diet_phase_info.phase_count &lt; ${phase}
   </select>
+  <select id="findDietPhaseInfoListByDietitianName" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from diet_phase_info
+    where diet_phase_info.dietitian_name = '${dietitianName}'
+  </select>
 </mapper>

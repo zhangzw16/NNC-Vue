@@ -12,6 +12,7 @@ import cn.com.bocosoft.model.UserData2;
 import cn.com.bocosoft.model.UserInfo;
 import cn.com.bocosoft.model.UserWeightData;
 import cn.com.bocosoft.model.WeeklyRecommend;
+import cn.com.bocosoft.model.UserReportData;
 
 public interface UserInfoService {
 
@@ -142,4 +143,6 @@ public interface UserInfoService {
     List<UserInfo> getAllUserInfosById(String message);
 
     List<UserInfo> getAllUserInfosByIdOrdered(String message, int order);
+
+    UserReportData getReportData();
 }

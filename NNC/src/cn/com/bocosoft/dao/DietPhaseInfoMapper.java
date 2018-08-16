@@ -24,4 +24,6 @@ public interface DietPhaseInfoMapper {
     List<DietPhaseInfo> findDietPhaseInfoList(@Param("userInfoId")int userInfoId);
 
     List<DietPhaseInfo> findAlldietPhaseInfo(@Param("userInfoId")int userInfoId, @Param("phase")int phase);
+
+    List<DietPhaseInfo> findDietPhaseInfoListByDietitianName(@Param("dietitianName")String dietitianName);
 }

@@ -4,6 +4,8 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 
 import javax.annotation.Resource;
 
@@ -26,6 +28,7 @@ import cn.com.bocosoft.model.DietitianUserInfo;
 import cn.com.bocosoft.model.UserData;
 import cn.com.bocosoft.model.UserData2;
 import cn.com.bocosoft.model.UserInfo;
+import cn.com.bocosoft.model.UserReportData;
 import cn.com.bocosoft.model.UserWeightData;
 import cn.com.bocosoft.model.WeeklyRecommend;
 import cn.com.bocosoft.service.UserInfoService;
@@ -809,6 +812,35 @@ public class UserInfoServiceImp implements UserInfoService{
             }
             return userInfoMapper.getAllUserListDesc();
         }
+    }
 
+    @Override
+    public UserReportData getReportData() {
+        UserReportData URD = new UserReportData();
+        List<Dietitian> dietitianList = dietitianMapper.getDietitians();
+        Map<Integer, Integer> averWeightLossOfDietitian = new HashMap<Integer, Integer>();;
+        Map<Integer, Integer> personNumOfDietitian = new HashMap<Integer, Integer>();
+        for (Dietitian die : dietitianList) {
+            int dietitianId = die.getId();
+            String dietitianName = die.getName();
+            List<UserInfo> userInfoList = userInfoMapper.getUserInfosByUserDietitianId(dietitianId);
+            int peopleNum = userInfoList.size();
+            personNumOfDietitian.put(dietitianId, peopleNum);
+
+            int lossWeightAver = 0;
+            int lossWeightNum = 0;
+            List<DietPhaseInfo> dietPhaseInfoList =  dietPhaseInfoMapper.findDietPhaseInfoListByDietitianName(dietitianName);
+            for (DietPhaseInfo dietPhaseInfo : dietPhaseInfoList) {
+                if (dietPhaseInfo.getEndWeight() != null) {
+                    lossWeightAver += dietPhaseInfo.getStartWeight() - dietPhaseInfo.getEndWeight();
+                    lossWeightNum += 1;
+                }
+            }
+            lossWeightAver /= lossWeightNum != 0 ? lossWeightNum : 1;
+            averWeightLossOfDietitian.put(dietitianId, lossWeightAver);
+        }
+        URD.setAverWeightLossOfDietitian(averWeightLossOfDietitian);
+		URD.setPersonOfDietitian(personNumOfDietitian);
+        return URD;
     }
 }
