@@ -296,7 +296,7 @@ export default {
             });
         },
 
-        //获得第二张图线真实体重数据
+        //获得第二张图线理想体重数据
         getSecondChartIdealWeight(){
             this.axios({
                 method: 'post',
