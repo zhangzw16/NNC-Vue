@@ -12,7 +12,7 @@ public class UserReportData {
     
     private Map<String, Integer> personOfDietitian;
 
-    List<Integer> registerNum;
+    private Map<Integer, Integer> registerNum;
 
     public Map<String, Double> getAverWeightLossOfDietitian() {
         return this.averWeightLossOfDietitian;
@@ -46,11 +46,11 @@ public class UserReportData {
         this.numOfWomen = now;
     }
 
-    public List<Integer> getRegisterNum() {
+    public Map<Integer, Integer> getRegisterNum() {
         return this.registerNum;
     }
 
-    public void setRegisterNum(List<Integer> rn) {
+    public void setRegisterNum(Map<Integer, Integer> rn) {
         this.registerNum = rn;
     }
 }
