@@ -236,7 +236,8 @@ public class UserInfoController {
      * @return
      */
     @RequestMapping(value = "/change_user_dietitian_save", method = RequestMethod.POST)
-    public String change_user_dietitian_save(HttpServletRequest request) {
+    @ResponseBody
+    public JSONResult change_user_dietitian_save(HttpServletRequest request) {
         String dietitianId = request.getParameter("dietitianId");
         int userInfoId = Integer.parseInt(request.getParameter("userInfoId"));
         if (dietitianId == null || dietitianId.equals("")) {//解除营养师
@@ -248,10 +249,8 @@ public class UserInfoController {
         PageHelper.startPage(currentPage, BsetConsts.PER_PAGE_SIZE);
         List<UserInfo> userInfos = userInfoService.getAllUserInfosById();
         PageInfo<UserInfo> pageInfo = new PageInfo<UserInfo>(userInfos);
-        request.setAttribute("max_page",pageInfo.getPages());
-        request.setAttribute("current_page",pageInfo.getPageNum());
-        request.setAttribute("cause",userInfos);
-        return "userInfo/userInfoListTable";
+        json = new JSONResult("changed","成功", true);
+        return json;
     }
     
     /**
@@ -508,20 +507,12 @@ public class UserInfoController {
     * @return
     */
     @RequestMapping(value = "/edit_user_comments_save", method = RequestMethod.POST)
-    public String edit_user_comments_save(UserData userData, HttpServletRequest request) {
+    @ResponseBody
+    public JSONResult edit_user_comments_save(UserData userData, HttpServletRequest request) {
         UserData tmpUserData = userInfoService.updataUserData(userData);
-        UserInfo userInfo = userInfoService.findByUserInfo(tmpUserData.getUserInfoId());
-        //WeeklyRecommend wr = userInfoService.findWeeklyRecommend(tmpUserData);
-        List<UserData2> breakfast = userInfoService.getUserData2(userInfo.getId(), BocosoftUitl.dateToString(userData.getDate(), BsetConsts.DATE_FORMAT_9), 1);
-        List<UserData2> lunch = userInfoService.getUserData2(userInfo.getId(), BocosoftUitl.dateToString(userData.getDate(), BsetConsts.DATE_FORMAT_9), 2);
-        List<UserData2> dinner = userInfoService.getUserData2(userInfo.getId(), BocosoftUitl.dateToString(userData.getDate(), BsetConsts.DATE_FORMAT_9), 3);
-        request.setAttribute("breakfastPhotos", breakfast);
-        request.setAttribute("lunchPhotos", lunch);
-        request.setAttribute("dinnerPhotos", dinner);
-        request.setAttribute("user_data", tmpUserData);
-        request.setAttribute("user_info", userInfo);
-        request.setAttribute("chose_date", BocosoftUitl.dateToString(tmpUserData.getDate(), BsetConsts.DATE_FORMAT_9));
-        return "userInfo/userData";
+        String result = "change";
+        json = new JSONResult(result, "成功", true);
+        return json;
     }
    
    /**
