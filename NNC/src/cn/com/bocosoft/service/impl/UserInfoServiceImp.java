@@ -282,25 +282,25 @@ public class UserInfoServiceImp implements UserInfoService{
         return userInfoMapper.getAllUserList();
     }
 
-    @Override
-    public List<UserInfo> getMostActiveUserInfos(int userStatus) {
-        return userInfoMapper.getMostActiveUserListByUserStatus(userStatus);
-    }
+    // @Override
+    // public List<UserInfo> getMostActiveUserInfos(int userStatus) {
+    //     return userInfoMapper.getMostActiveUserListByUserStatus(userStatus);
+    // }
     
-    @Override
-    public List<UserInfo> getMostActiveUserInfos() {
-        return userInfoMapper.getMostActiveUserList();
-    }
+    // @Override
+    // public List<UserInfo> getMostActiveUserInfos() {
+    //     return userInfoMapper.getMostActiveUserList();
+    // }
 
-    @Override
-    public List<UserInfo> getLeastActiveUserInfos(int userStatus) {
-        return userInfoMapper.getLeastActiveUserListByUserStatus(userStatus);
-    }
+    // @Override
+    // public List<UserInfo> getLeastActiveUserInfos(int userStatus) {
+    //     return userInfoMapper.getLeastActiveUserListByUserStatus(userStatus);
+    // }
 
-    @Override
-    public List<UserInfo> getLeastActiveUserInfos() {
-        return userInfoMapper.getLeastActiveUserList();
-    }
+    // @Override
+    // public List<UserInfo> getLeastActiveUserInfos() {
+    //     return userInfoMapper.getLeastActiveUserList();
+    // }
 
 
     @Override
@@ -715,8 +715,7 @@ public class UserInfoServiceImp implements UserInfoService{
     }
 
     @Override
-    public List<UserInfo> getUserInfosById(int dietitianId, int userStatus,
-            String message) {
+    public List<UserInfo> getUserInfosById(int dietitianId, int userStatus, String message) {
         if (message != null && !message.equals("")) {
             return userInfoMapper.get_users_by_dietitianId_and_message(dietitianId, userStatus, message);
         }
@@ -724,12 +723,43 @@ public class UserInfoServiceImp implements UserInfoService{
     }
 
     @Override
-    public List<UserInfo> getUserInfosByUserStatus(int userStatus,
-            String message) {
+    public List<UserInfo> getUserInfosByIdOrdered(int dietitianId, int userStatus, String message, int order) {
+        if (1 == order) {
+            if (message != null && !message.equals("")) {
+                return userInfoMapper.get_users_by_dietitianId_and_message(dietitianId, userStatus, message);
+            }
+            return userInfoMapper.get_users_by_dietitianId_asc(dietitianId, userStatus);
+        }
+        else {
+            if (message != null && !message.equals("")) {
+                return userInfoMapper.get_users_by_dietitianId_and_message(dietitianId, userStatus, message);
+            }
+            return userInfoMapper.get_users_by_dietitianId_desc(dietitianId, userStatus);
+        }
+    }
+
+    @Override
+    public List<UserInfo> getUserInfosByUserStatus(int userStatus, String message) {
         if (message != null && !message.equals("")) {
             return userInfoMapper.getUserInfoListByUserStatusAndMessage(userStatus, message);
         }
         return userInfoMapper.getUserInfoListByUserStatus(userStatus);
+    }
+
+    @Override
+    public List<UserInfo> getUserInfosByUserStatusOrdered(int userStatus, String message, int order) {
+        if (1 == order) {
+            if (message != null && !message.equals("")) {
+                return userInfoMapper.getUserInfoListByUserStatusAndMessage(userStatus, message);
+            }
+            return userInfoMapper.getUserInfoListByUserStatusAsc(userStatus);
+        }
+        else {
+            if (message != null && !message.equals("")) {
+                return userInfoMapper.getUserInfoListByUserStatusAndMessage(userStatus, message);
+            }
+            return userInfoMapper.getUserInfoListByUserStatusDesc(userStatus);       
+        }
     }
 
     @Override
@@ -742,10 +772,43 @@ public class UserInfoServiceImp implements UserInfoService{
     }
 
     @Override
+    public List<UserInfo> getUserInfosByUserDietitianIdOrdered(int dietitianId, String message, int order) {
+        if (1 == order) {
+            if (message != null && !message.equals("")) {
+                return userInfoMapper.getUserInfosByUserDietitianIdAndMessage(dietitianId, message);
+            }
+            return userInfoMapper.getUserInfosByUserDietitianIdAsc(dietitianId);
+        }
+        else {
+            if (message != null && !message.equals("")) {
+                return userInfoMapper.getUserInfosByUserDietitianIdAndMessage(dietitianId, message);
+            }
+            return userInfoMapper.getUserInfosByUserDietitianIdDesc(dietitianId);
+        }
+    }
+
+    @Override
     public List<UserInfo> getAllUserInfosById(String message) {
         if (message != null && !message.equals("")) {
             return userInfoMapper.getAllUserByMessage(message);
         }
         return userInfoMapper.getAllUserList();
+    }
+
+    @Override
+    public List<UserInfo> getAllUserInfosByIdOrdered(String message, int order) {
+        if (1 == order) {
+            if (message != null && !message.equals("")) {
+                return userInfoMapper.getAllUserByMessage(message);
+            }
+            return userInfoMapper.getAllUserListAsc();
+        }
+        else {
+            if (message != null && !message.equals("")) {
+                return userInfoMapper.getAllUserByMessage(message);
+            }
+            return userInfoMapper.getAllUserListDesc();
+        }
+
     }
 }

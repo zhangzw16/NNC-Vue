@@ -535,6 +535,22 @@
     WHERE us.user_status = #{userStatus,jdbcType=INTEGER}
     ORDER BY us.create_time DESC
   </select>
+  <select id="getUserInfoListByUserStatusAsc" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_info AS us
+    WHERE us.user_status = #{userStatus,jdbcType=INTEGER}
+    ORDER BY us.vitality ASC
+  </select>
+  <select id="getUserInfoListByUserStatusDesc" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_info AS us
+    WHERE us.user_status = #{userStatus,jdbcType=INTEGER}
+    ORDER BY us.vitality DESC
+  </select>
   <select id="getUserInfoByUserLoginId" resultMap="BaseResultMap">
     SELECT 
     <include refid="Base_Column_List" />
@@ -557,6 +573,22 @@
     WHERE us.dietitian_id = #{dietitianId,jdbcType=INTEGER}
     ORDER BY us.create_time DESC
   </select>
+  <select id="getUserInfosByUserDietitianIdAsc" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_info AS us
+    WHERE us.dietitian_id = #{dietitianId,jdbcType=INTEGER}
+    ORDER BY us.vitality ASC
+  </select>
+  <select id="getUserInfosByUserDietitianIdDesc" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_info AS us
+    WHERE us.dietitian_id = #{dietitianId,jdbcType=INTEGER}
+    ORDER BY us.vitality DESC
+  </select>
   <select id="get_all_users" resultType="java.lang.Integer">
     SELECT 
     COUNT(*)
@@ -572,6 +604,24 @@
     WHERE us.dietitian_id = ${dietitianId}
     and us.user_status = ${userStatus}
     ORDER BY us.top_flag DESC, us.create_time DESC
+  </select>
+  <select id="get_users_by_dietitianId_asc" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_info AS us
+    WHERE us.dietitian_id = ${dietitianId}
+    and us.user_status = ${userStatus}
+    ORDER BY us.vitality ASC
+  </select>
+  <select id="get_users_by_dietitianId_desc" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_info AS us
+    WHERE us.dietitian_id = ${dietitianId}
+    and us.user_status = ${userStatus}
+    ORDER BY us.vitality DESC
   </select>
   <select id="get_users_by_dietitianId_and_message" resultMap="BaseResultMap">
     SELECT 
@@ -591,6 +641,44 @@
         and us.dietitian_id = ${dietitianId}
         and us.user_login_info_id = uli.id
   </select>
+  <!-- <select id="get_users_by_dietitianId_and_message_asc" resultMap="BaseResultMap">
+    SELECT 
+        us.*
+        FROM
+        user_info AS us
+        WHERE us.dietitian_id = ${dietitianId}
+        and us.user_status = ${userStatus} 
+        and (us.name like '%${message}%' or us.account like '%${message}%')
+        union
+     SELECT 
+        us.*
+        FROM
+        user_info AS us, user_login_info AS uli
+        where uli.login_id like '%${message}%'
+        and us.user_status = ${userStatus}
+        and us.dietitian_id = ${dietitianId}
+        and us.user_login_info_id = uli.id
+    ORDER BY us.vitality ASC
+  </select>
+  <select id="get_users_by_dietitianId_and_message_desc" resultMap="BaseResultMap">
+    SELECT 
+        us.*
+        FROM
+        user_info AS us
+        WHERE us.dietitian_id = ${dietitianId}
+        and us.user_status = ${userStatus} 
+        and (us.name like '%${message}%' or us.account like '%${message}%')
+        union
+     SELECT 
+        us.*
+        FROM
+        user_info AS us, user_login_info AS uli
+        where uli.login_id like '%${message}%'
+        and us.user_status = ${userStatus}
+        and us.dietitian_id = ${dietitianId}
+        and us.user_login_info_id = uli.id
+    ORDER BY us.vitality DESC
+  </select> -->
   <select id="getUserInfoListByUserStatusAndMessage" resultMap="BaseResultMap">
     SELECT 
         us.*
@@ -651,8 +739,22 @@
     user_info
     ORDER BY user_info.create_time DESC
   </select>
+  <select id="getAllUserListAsc" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_info
+    ORDER BY user_info.vitality ASC
+  </select>
+  <select id="getAllUserListDesc" resultMap="BaseResultMap">
+    SELECT 
+    <include refid="Base_Column_List" />
+    FROM
+    user_info
+    ORDER BY user_info.vitality DESC
+  </select>
   
-  <select id="getMostActiveUserListByUserStatus" resultMap="BaseResultMap">
+  <!-- <select id="getMostActiveUserListByUserStatus" resultMap="BaseResultMap">
     SELECT 
     <include refid="Base_Column_List" />
     FROM
@@ -684,7 +786,7 @@
   FROM
   user_info AS us
   ORDER BY us.vitality ASC
-  </select>
+  </select> -->
 
   <insert id="saveUserInfo" parameterType="cn.com.bocosoft.model.UserInfo" >
     insert into user_info

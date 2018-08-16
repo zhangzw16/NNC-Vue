@@ -51,13 +51,13 @@ public interface UserInfoService {
 
     List<UserInfo> getAllUserInfosById();
 
-    List<UserInfo> getMostActiveUserInfos(int userStatus);
+    // List<UserInfo> getMostActiveUserInfos(int userStatus);
 
-    List<UserInfo> getMostActiveUserInfos();
+    // List<UserInfo> getMostActiveUserInfos();
 
-    List<UserInfo> getLeastActiveUserInfos(int userStatus);
+    // List<UserInfo> getLeastActiveUserInfos(int userStatus);
 
-    List<UserInfo> getLeastActiveUserInfos();
+    // List<UserInfo> getLeastActiveUserInfos();
 
     List<Dietitian> findByDietitians();
 
@@ -129,9 +129,17 @@ public interface UserInfoService {
 
     List<UserInfo> getUserInfosById(int dietitianId, int userStatus, String message);
 
+    List<UserInfo> getUserInfosByIdOrdered(int dietitianId, int userStatus, String message, int order);
+
     List<UserInfo> getUserInfosByUserStatus(int userStatus, String message);
+
+    List<UserInfo> getUserInfosByUserStatusOrdered(int userStatus, String message, int order);
 
     List<UserInfo> getUserInfosByUserDietitianId(int dietitianId, String message);
 
+    List<UserInfo> getUserInfosByUserDietitianIdOrdered(int dietitianId, String message, int order);
+
     List<UserInfo> getAllUserInfosById(String message);
+
+    List<UserInfo> getAllUserInfosByIdOrdered(String message, int order);
 }

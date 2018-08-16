@@ -179,35 +179,77 @@ public class UserInfoController {
     @ResponseBody
     public JSONResult user_info_page(HttpServletRequest request) {
         int currentPage = Integer.parseInt(request.getParameter("page"));
+        String order = request.getParameter("order");
         String userStatus = request.getParameter("userStatus");
         String dietitianId = request.getParameter("dietitianId");
         String message = request.getParameter("message");
         PageHelper.startPage(currentPage, BsetConsts.PER_PAGE_SIZE);
         List<UserInfo> userInfos = new ArrayList<UserInfo>();
-        if ((userStatus != null && !userStatus.equals("")) && (dietitianId != null && !dietitianId.equals(""))) {
-            userInfos = userInfoService.getUserInfosById(Integer.parseInt(dietitianId), Integer.parseInt(userStatus), message);
-        } else if ((userStatus != null && !userStatus.equals("")) && (dietitianId == null || dietitianId.equals(""))) {
-            userInfos = userInfoService.getUserInfosByUserStatus(Integer.parseInt(userStatus), message);
-        } else if ((userStatus == null || userStatus.equals("")) && (dietitianId != null && !dietitianId.equals(""))) {
-            userInfos = userInfoService.getUserInfosByUserDietitianId(Integer.parseInt(dietitianId), message);
-        } else {
-            userInfos = userInfoService.getAllUserInfosById(message);
+        if(order == null || order.equals("")) {
+            if ((userStatus != null && !userStatus.equals("")) && (dietitianId != null && !dietitianId.equals(""))) {
+                userInfos = userInfoService.getUserInfosById(Integer.parseInt(dietitianId), Integer.parseInt(userStatus), message);
+            } else if ((userStatus != null && !userStatus.equals("")) && (dietitianId == null || dietitianId.equals(""))) {
+                userInfos = userInfoService.getUserInfosByUserStatus(Integer.parseInt(userStatus), message);
+            } else if ((userStatus == null || userStatus.equals("")) && (dietitianId != null && !dietitianId.equals(""))) {
+                userInfos = userInfoService.getUserInfosByUserDietitianId(Integer.parseInt(dietitianId), message);
+            } else {
+                userInfos = userInfoService.getAllUserInfosById(message);
+            }
         }
+        else {
+            int orderInt = Integer.parseInt(order);
+            if ((userStatus != null && !userStatus.equals("")) && (dietitianId != null && !dietitianId.equals(""))) {
+                userInfos = userInfoService.getUserInfosByIdOrdered(Integer.parseInt(dietitianId), Integer.parseInt(userStatus), message, orderInt);
+            } else if ((userStatus != null && !userStatus.equals("")) && (dietitianId == null || dietitianId.equals(""))) {
+                userInfos = userInfoService.getUserInfosByUserStatusOrdered(Integer.parseInt(userStatus), message, orderInt);
+            } else if ((userStatus == null || userStatus.equals("")) && (dietitianId != null && !dietitianId.equals(""))) {
+                userInfos = userInfoService.getUserInfosByUserDietitianIdOrdered(Integer.parseInt(dietitianId), message, orderInt);
+            } else {
+                userInfos = userInfoService.getAllUserInfosByIdOrdered(message, orderInt);
+            }
+        }
+
         PageInfo<UserInfo> pageInfo = new PageInfo<UserInfo>(userInfos);
-//        request.setAttribute("max_page",pageInfo.getPages());
-//        request.setAttribute("current_page",pageInfo.getPageNum());
-//        request.setAttribute("user_status",userStatus);
-//        request.setAttribute("dietitian_Id",dietitianId);
-//        request.setAttribute("cause",userInfos);
-//        request.setAttribute("causeSize",pageInfo.getTotal());
         List<Dietitian> dietitians = userInfoService.findByDietitians();
         Dietitian dietitian = new Dietitian();
         dietitian.setName("无");
         dietitians.add(0, dietitian);
         request.setAttribute("dietitian", dietitians);
-//        return "userInfo/userInfoListTable";
         return json = new JSONResult(pageInfo, "成功", true);
     }
+
+    // /**
+    //  * 取得按照活跃度排序的客户
+    //  * @param request
+    //  * @return
+    //  */
+    // @RequestMapping(value = "/get_active_user", method = RequestMethod.POST)
+    // @ResponseBody
+    // public JSONResult get_active_user(HttpServletRequest request) {
+    //     int order = Integer.parseInt(request.getParameter("order"));
+    //     String userStatus = request.getParameter("userStatus");
+    //     List<UserInfo> userInfos = new ArrayList<UserInfo>();
+    //     int currentPage = Integer.parseInt(request.getParameter("page"));
+    //     PageHelper.startPage(currentPage, BsetConsts.PER_PAGE_SIZE);
+    //     if (order == 1) {
+    //         if (userStatus != null && !userStatus.equals("")) {
+    //             userInfos = userInfoService.getLeastActiveUserInfos(Integer.parseInt(userStatus));
+    //         }
+    //         else {
+    //             userInfos = userInfoService.getLeastActiveUserInfos();
+    //         }
+    //     }
+    //     else if (order == 2) {
+    //         if (userStatus != null && !userStatus.equals("")) {
+    //             userInfos = userInfoService.getMostActiveUserInfos(Integer.parseInt(userStatus));
+    //         }
+    //         else {
+    //             userInfos = userInfoService.getMostActiveUserInfos();
+    //         }
+    //     }
+    //     PageInfo<UserInfo> pageInfo = new PageInfo<UserInfo>(userInfos);
+    //     return json = new JSONResult(pageInfo, "成功", true);
+    // }
 
     /**
      * 取得更换营养师列表
@@ -700,64 +742,6 @@ public class UserInfoController {
 //        request.setAttribute("chose_date", date);
 //        return "userInfo/weeklyRecommend";
         return json = new JSONResult(wr);
-    }
-    
-//     /**
-//      * 取得最活跃的用户
-//      * @param request
-//      * @return
-//      */
-//     @RequestMapping(value = "/get_most_active_user", method = RequestMethod.POST)
-//     @ResponseBody
-//     public JSONResult get_most_active_user(HttpServletRequest request) {
-//         String userStatus = request.getParameter("userStatus");
-//         List<UserInfo> userInfos = new ArrayList<UserInfo>();
-//         int currentPage = Integer.parseInt(request.getParameter("page"));
-//         PageHelper.startPage(currentPage, BsetConsts.PER_PAGE_SIZE);
-
-//         if (userStatus != null && !userStatus.equals("")) {
-//             userInfos = userInfoService.getMostActiveUserInfos(Integer.parseInt(userStatus));
-//         }
-//         else {
-//             userInfos = userInfoService.getMostActiveUserInfos();
-//         }
-//         PageInfo<UserInfo> pageInfo = new PageInfo<UserInfo>(userInfos);
-// //        System.out.println(currentPage);
-
-//         return json = new JSONResult(pageInfo, "成功", true);
-//     }
-    
-    /**
-     * 取得按照活跃度排序的客户
-     * @param request
-     * @return
-     */
-    @RequestMapping(value = "/get_active_user", method = RequestMethod.POST)
-    @ResponseBody
-    public JSONResult get_active_user(HttpServletRequest request) {
-        int order = Integer.parseInt(request.getParameter("order"));
-        String userStatus = request.getParameter("userStatus");
-        List<UserInfo> userInfos = new ArrayList<UserInfo>();
-        int currentPage = Integer.parseInt(request.getParameter("page"));
-        PageHelper.startPage(currentPage, BsetConsts.PER_PAGE_SIZE);
-        if (order == 1) {
-            if (userStatus != null && !userStatus.equals("")) {
-                userInfos = userInfoService.getLeastActiveUserInfos(Integer.parseInt(userStatus));
-            }
-            else {
-                userInfos = userInfoService.getLeastActiveUserInfos();
-            }
-        }
-        else if (order == 2) {
-            if (userStatus != null && !userStatus.equals("")) {
-                userInfos = userInfoService.getMostActiveUserInfos(Integer.parseInt(userStatus));
-            }
-            else {
-                userInfos = userInfoService.getMostActiveUserInfos();
-            }
-        }
-        PageInfo<UserInfo> pageInfo = new PageInfo<UserInfo>(userInfos);
-        return json = new JSONResult(pageInfo, "成功", true);
     }
 
     /**
