@@ -102,7 +102,6 @@ export default {
                         menu: type === 1 ? this.pageInfo.guideData.menu : value,
                         sport: type === 1 ? value : this.pageInfo.guideData.sport,
                         createId: this.pageInfo.guideData.createId,
-                        updateId: this.pageInfo.guideData.updateId,
                         chose_date: this.chose_date,
                     }
                 })
@@ -155,7 +154,7 @@ export default {
                 }
             })
             .then((res) => {
-                // console.log(res);
+                console.log(res.data);
                 this.pageInfo.guideData = res.data.data;
                 this.sport = res.data.data.sport;
                 this.menu = res.data.data.menu;
