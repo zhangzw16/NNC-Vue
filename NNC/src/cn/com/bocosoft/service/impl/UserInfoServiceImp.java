@@ -6,6 +6,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
+import java.util.ArrayList;
 
 import javax.annotation.Resource;
 
@@ -820,11 +821,53 @@ public class UserInfoServiceImp implements UserInfoService{
 
         // 添加男女比例数据
         List<UserInfo> allUserList = userInfoMapper.getAllUserList();
-        
+        int[] userNumMen = {0, 0, 0, 0, 0, 0};
+        int[] userNumWomen = {0, 0, 0, 0, 0, 0};
+
+        Map<String, Integer> numOfMen = new HashMap<String, Integer>();
+        Map<String, Integer> numOfWomen = new HashMap<String, Integer>();
+        String[] ageSplitMethod = {"0-17", "18-29", "30-39", "40-49", "50-59", "60-"};
+
         for (UserInfo user : allUserList) {
-            
+            int age = user.getAge();
+            if (user.getSex() == 1) {
+                if (age < 18) {
+                    userNumMen[0] += 1;
+                } else if (age >= 18 && age < 30) {
+                    userNumMen[1] += 1;
+                } else if (age >= 30 && age < 40) {
+                    userNumMen[2] += 1;
+                } else if (age >= 40 && age < 50) {
+                    userNumMen[3] += 1;
+                } else if (age >= 50 && age < 60) {
+                    userNumMen[4] += 1;
+                } else if (age >= 60) {
+                    userNumMen[5] += 1;
+                }
+            }
+            else {
+                if (age < 18) {
+                    userNumWomen[0] += 1;
+                } else if (age >= 18 && age < 30) {
+                    userNumWomen[1] += 1;
+                } else if (age >= 30 && age < 40) {
+                    userNumWomen[2] += 1;
+                } else if (age >= 40 && age < 50) {
+                    userNumWomen[3] += 1;
+                } else if (age >= 50 && age < 60) {
+                    userNumWomen[4] += 1;
+                } else if (age >= 60) {
+                    userNumWomen[5] += 1;
+                }
+            }
         }
 
+        for (int i = 0; i < ageSplitMethod.length; i++) {
+            numOfMen.put(ageSplitMethod[i], userNumMen[i]);
+            numOfWomen.put(ageSplitMethod[i], userNumWomen[i]);
+        }
+        URD.setNumOfMen(numOfMen);
+        URD.setNumOfWomen(numOfWomen);
 
         // 添加营养师业绩相关数据
         List<Dietitian> dietitianList = dietitianMapper.getDietitians();
@@ -850,7 +893,10 @@ public class UserInfoServiceImp implements UserInfoService{
             averWeightLossOfDietitian.put(dietitianName, lossWeightAver);
         }
         URD.setAverWeightLossOfDietitian(averWeightLossOfDietitian);
-		URD.setPersonOfDietitian(personNumOfDietitian);
+        URD.setPersonOfDietitian(personNumOfDietitian);
+        
+        // 添加用户人数趋势
+        
         return URD;
     }
 }
