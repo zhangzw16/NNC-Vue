@@ -14,6 +14,23 @@
 				<div id="piePhase" style="width: 620px; height: 280px;"></div>
 			</el-card>
 		</el-row>
+		<el-row>
+			<el-card>     
+				<div id="averWeightLossChart" style="width: 800px; height: 280px;"></div>
+			</el-card>
+		</el-row>
+
+		<el-row>
+			<el-card>     
+				<div id="personNumberChart" style="width: 800px; height: 280px;"></div>
+			</el-card>
+		</el-row>
+
+		<el-row>
+			<el-card>     
+				<div id="participantNumberChart" style="width: 800px; height: 280px;"></div>
+			</el-card>
+		</el-row>
 	</el-row>
 </template>
 <style src="./index.less" lang="less"></style>

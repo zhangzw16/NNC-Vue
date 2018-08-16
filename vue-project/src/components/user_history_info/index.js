@@ -33,6 +33,7 @@ export default {
             allRealWeightData: null,//图线中真实体重数据
             allIdealWeightData: null, //图线中理想体重的数据
             allMaxAndMin: null,//折线图上下界
+
         }
     },
     props: {
@@ -280,11 +281,12 @@ export default {
             this.rowData = row;
             this.getChartData();
             this.getPhaseTableData();
+            this.getFormData();
             let self = this;
             setTimeout(
                 function(){
                     self.drawChart();
                 },500);
-        }
+        },
     }
 }
