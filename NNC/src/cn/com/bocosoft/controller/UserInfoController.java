@@ -560,14 +560,12 @@ public class UserInfoController {
     * @throws ParseException 
     */
     @RequestMapping(value = "/edit_weekly_recommend_save", method = RequestMethod.POST)
-    public String edit_weekly_recommend_save(WeeklyRecommend wr, HttpServletRequest request) throws ParseException {
-        String date = request.getParameter("chose_date");
+    @ResponseBody
+    public JSONResult edit_weekly_recommend_save(WeeklyRecommend wr, HttpServletRequest request) throws ParseException {
         WeeklyRecommend tmpWr = userInfoService.saveWr(wr);
-        UserInfo userInfo = userInfoService.findByUserInfo(wr.getUserInfoId());
-        request.setAttribute("user_info", userInfo);
-        request.setAttribute("weekly_recommend", tmpWr);
-        request.setAttribute("chose_date", date);
-        return "userInfo/weeklyRecommend";
+        String result = "change";
+        json = new JSONResult(result, "成功", true);
+        return json;
     }
     
     /**
