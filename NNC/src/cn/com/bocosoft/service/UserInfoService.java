@@ -37,7 +37,7 @@ public interface UserInfoService {
 
     WeeklyRecommend findWeeklyRecomendById(WeeklyRecommend wr);
 
-    WeeklyRecommend saveWr(WeeklyRecommend wr);
+    void saveWr(WeeklyRecommend wr);
 
     UserData findUserInfoByDate(int userInfoId, String date);
 

@@ -239,14 +239,14 @@ public class UserInfoServiceImp implements UserInfoService{
     }
 
     @Override
-    public WeeklyRecommend saveWr(WeeklyRecommend wr) {
+    public void saveWr(WeeklyRecommend wr) {
         if (wr.getId() != null) {
             wr.setUpdateId(BocosoftUitl.getSystemUserId());
             weeklyRecommendMapper.upDateWeeklyRecommend(wr);
-            return weeklyRecommendMapper.findByUserInfoWeeklyRecommend(wr.getUserInfoId(), wr.getWeekCount(), wr.getYyyy());
+            //return weeklyRecommendMapper.findByUserInfoWeeklyRecommend(wr.getUserInfoId(), wr.getWeekCount(), wr.getYyyy());
         } else {
             weeklyRecommendMapper.save_weekly_recommend(wr);
-            return weeklyRecommendMapper.findByUserInfoWeeklyRecommend(wr.getUserInfoId(), wr.getWeekCount(), wr.getYyyy());
+            //return weeklyRecommendMapper.findByUserInfoWeeklyRecommend(wr.getUserInfoId(), wr.getWeekCount(), wr.getYyyy());
         }
         
     }

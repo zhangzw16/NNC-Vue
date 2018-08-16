@@ -562,7 +562,7 @@ public class UserInfoController {
     @RequestMapping(value = "/edit_weekly_recommend_save", method = RequestMethod.POST)
     @ResponseBody
     public JSONResult edit_weekly_recommend_save(WeeklyRecommend wr, HttpServletRequest request) throws ParseException {
-        WeeklyRecommend tmpWr = userInfoService.saveWr(wr);
+        userInfoService.saveWr(wr);
         String result = "change";
         json = new JSONResult(result, "成功", true);
         return json;
