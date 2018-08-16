@@ -821,6 +821,7 @@ public class UserInfoServiceImp implements UserInfoService{
 
         // 添加用户人数趋势
         Map<Integer, Integer> registerNum = new HashMap<Integer,Integer>();
+        Map<Integer, Integer> startNum = new HashMap<Integer,Integer>();
 
         // 添加男女比例数据
         List<UserInfo> allUserList = userInfoMapper.getAllUserList();
@@ -832,14 +833,23 @@ public class UserInfoServiceImp implements UserInfoService{
         String[] ageSplitMethod = {"0-17", "18-29", "30-39", "40-49", "50-59", "60-"};
 
         Calendar oldDate_cal = Calendar.getInstance();
-        oldDate_cal.set(2017, 9 - 1, 1);
+        oldDate_cal.set(2017, 8 - 1, 1);
         Date oldDate = oldDate_cal.getTime();
         for (UserInfo user : allUserList) {
             Date registerDate = user.getCreateTime();
-            int monthDiff = getMonthDiff(registerDate, oldDate);
-            System.out.println(monthDiff);
-            Integer monthNum = registerNum.get(monthDiff);
-            registerNum.put(monthDiff, monthNum == null ? 1 : monthNum + 1);
+            Date startDate = user.getStartDate();
+            if(registerDate != null) {
+                int monthDiffRegister = getMonthDiff(registerDate, oldDate);
+                Integer monthNumRegister = registerNum.get(monthDiffRegister);
+                registerNum.put(monthDiffRegister, monthNumRegister == null ? 1 : monthNumRegister + 1);
+            }
+
+            if(startDate != null) {
+                int monthDiffStart = getMonthDiff(startDate, oldDate);
+                Integer monthNumStart = startNum.get(monthDiffStart);
+                startNum.put(monthDiffStart, monthNumStart == null ? 1 : monthNumStart + 1);
+            }
+
             int age = user.getAge();
             if (user.getSex() == 1) {
                 if (age < 18) {
@@ -881,6 +891,7 @@ public class UserInfoServiceImp implements UserInfoService{
         URD.setNumOfWomen(numOfWomen);
 
         URD.setRegisterNum(registerNum);
+        URD.setStartNum(startNum);
 
         // 添加营养师业绩相关数据
         List<Dietitian> dietitianList = dietitianMapper.getDietitians();

@@ -14,6 +14,8 @@ public class UserReportData {
 
     private Map<Integer, Integer> registerNum;
 
+    private Map<Integer, Integer> startNum;
+
     public Map<String, Double> getAverWeightLossOfDietitian() {
         return this.averWeightLossOfDietitian;
     }
@@ -52,5 +54,13 @@ public class UserReportData {
 
     public void setRegisterNum(Map<Integer, Integer> rn) {
         this.registerNum = rn;
+    }
+
+    public Map<Integer, Integer> getStartNum() {
+        return this.startNum;
+    }
+
+    public void setStartNum(Map<Integer, Integer> sn) {
+        this.startNum = sn;
     }
 }
