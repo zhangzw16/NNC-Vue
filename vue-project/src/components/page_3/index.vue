@@ -34,7 +34,7 @@
 		<el-card class="search_card">
 			<el-form ref="form" :model="form" label-width="200px">
 				<el-form-item label="减重状态：">
-					<el-col :span="10">
+					<el-col :span="15">
 						<el-radio-group v-model="radio1" @change="handleRadioChange">
 							<el-radio-button label="">全部</el-radio-button>
 							<el-radio-button label="0">准备期</el-radio-button>
@@ -48,8 +48,8 @@
 					<el-col :span="10">
 						<el-radio-group v-model="radio2" @change="handleOrderChange">
 							<el-radio-button label="">默认</el-radio-button>
-							<el-radio-button label="2">升序</el-radio-button>
-							<el-radio-button label="1">降序</el-radio-button>
+							<el-radio-button label="1">升序</el-radio-button>
+							<el-radio-button label="2">降序</el-radio-button>
 						</el-radio-group>		
 					</el-col>
 				</el-form-item>

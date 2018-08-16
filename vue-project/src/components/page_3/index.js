@@ -22,6 +22,7 @@ export default {
       radio1: "",
       radio2: "",
       order: "",
+      lastPage: null,
       total:null,
       value: "无",
       url: null,
@@ -33,7 +34,21 @@ export default {
     }
   },
   created() {
-    this.refresh();
+    this.axios({
+      method: 'post',
+      url: '/NNC/rest/dietitian/dietitian_page',
+      data: {
+      page: 1
+      }
+    })
+    .then((res) => {
+      this.lastPage = res.data.data.lastPage;
+      this.refresh();
+    })
+    .catch(err => {
+      // console.log(err);
+    });
+
   },
 
   methods: {
@@ -284,30 +299,36 @@ export default {
     refresh() {
       this.requestData(this.pageNum ? this.pageNum : 1 )
 
-      this.axios({
-        method: 'post',
-        url: '/NNC/rest/dietitian/dietitian_page',
-        data: {
-         page: '1'
-        }
-      })
-      .then((res) => {
-        let dietitianData = res.data.data.list;
-        this.optionsDietitian.push({
-          value: '',
-          label: "无",
-        })
-        for (let i = 0; i < dietitianData.length; i++) {
-          let dietitian = {
-            value: dietitianData[i].id,
-            label: dietitianData[i].name,
+      for(let i = 1; i <= this.lastPage; i++){
+        this.axios({
+          method: 'post',
+          url: '/NNC/rest/dietitian/dietitian_page',
+          data: {
+          page: i
           }
-          this.optionsDietitian.push(dietitian);
-        }
-      })
-      .catch(err => {
-        // console.log(err);
-      });
+        })
+        .then((res) => {
+          console.log(i)
+          let dietitianData = res.data.data.list;
+          
+          if(i == 1){
+            this.optionsDietitian.push({
+              value: '',
+              label: "无",
+            })
+          }
+          for (let i = 0; i < dietitianData.length; i++) {
+            let dietitian = {
+              value: dietitianData[i].id,
+              label: dietitianData[i].name,
+            }
+            this.optionsDietitian.push(dietitian);
+          }
+        })
+        .catch(err => {
+          // console.log(err);
+        });
+      }
 
       // console.log(this.optionsDietitian)
     },
@@ -320,7 +341,7 @@ export default {
     },
 
     requestData(page) {
-      let url = this.order === "" ? '/NNC/rest/user_Info/user_info_page' : 'NNC/rest/user_Info/get_active_user';
+      let url = '/NNC/rest/user_Info/user_info_page';
       this.axios({
         method: 'post',
         url: url,
@@ -333,7 +354,7 @@ export default {
         }
       })
       .then((res) => {
-        this.total = res.data.data.total;
+        this.total = res.data.data.total; 
         this.tableData3 = res.data.data.list;
         this.pages = res.data.data.pages;
         this.pageNum = res.data.data.pageNum;
