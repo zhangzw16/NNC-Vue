@@ -110,7 +110,7 @@ public class UserInfoController {
     }
     
     /**
-     * 获取用户的减重日
+     * 获取客户的减重日
      * @param request
      * @return
      */
@@ -728,7 +728,7 @@ public class UserInfoController {
 //     }
     
     /**
-     * 取得按照活跃度排序的用户
+     * 取得按照活跃度排序的客户
      * @param request
      * @return
      */
@@ -756,8 +756,6 @@ public class UserInfoController {
                 userInfos = userInfoService.getMostActiveUserInfos();
             }
         }
-
-
         PageInfo<UserInfo> pageInfo = new PageInfo<UserInfo>(userInfos);
         return json = new JSONResult(pageInfo, "成功", true);
     }
@@ -1241,5 +1239,17 @@ public class UserInfoController {
           request.setAttribute("user_data", tmpUserData);
           request.setAttribute("chose_date", date);
           return "userInfo/userData";
-      }
+    }
+
+    /**
+     * 获取客户的数据报表
+     * @param request
+     * @return
+     */
+    @RequestMapping(value = "/get_user_report_forms", method = RequestMethod.POST)
+    @ResponseBody
+    public JSONResult get_user_report_forms(HttpServletRequest request) {
+
+        return json = new JSONResult("pageInfo", "成功", true);
+    }
 }
