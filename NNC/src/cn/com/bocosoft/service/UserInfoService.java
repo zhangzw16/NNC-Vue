@@ -2,6 +2,7 @@ package cn.com.bocosoft.service;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Calendar;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -144,5 +145,5 @@ public interface UserInfoService {
 
     List<UserInfo> getAllUserInfosByIdOrdered(String message, int order);
 
-    UserReportData getReportData();
+    UserReportData getReportData(Calendar cal1, Calendar cal2);
 }

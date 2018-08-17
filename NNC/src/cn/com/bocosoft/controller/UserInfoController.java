@@ -1233,8 +1233,24 @@ public class UserInfoController {
      */
     @RequestMapping(value = "/get_user_report_forms", method = RequestMethod.POST)
     @ResponseBody
-    public JSONResult get_user_report_forms(HttpServletRequest request) {
-        UserReportData urd = userInfoService.getReportData();
+    public JSONResult get_user_report_forms(HttpServletRequest request) throws ParseException {
+        String dateStr = request.getParameter("startDate");
+        Calendar cal = Calendar.getInstance();
+        if (dateStr == null || dateStr.equals("")) {
+            cal = null;
+        } else {
+            cal.setTime(BocosoftUitl.stringToDate(dateStr, BsetConsts.DATE_FORMAT_9));
+        }
+        dateStr = request.getParameter("endDate");
+
+        Calendar cal2 = Calendar.getInstance();
+        if (dateStr == null || dateStr.equals("")) {
+            cal2 = null;
+        } else {
+            cal2.setTime(BocosoftUitl.stringToDate(dateStr, BsetConsts.DATE_FORMAT_9));
+        }
+
+        UserReportData urd = userInfoService.getReportData(cal, cal2);
         return json = new JSONResult(urd, "成功", true);
     }
 }

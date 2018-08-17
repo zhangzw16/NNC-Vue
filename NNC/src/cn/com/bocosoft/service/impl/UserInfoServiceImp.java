@@ -816,8 +816,10 @@ public class UserInfoServiceImp implements UserInfoService{
     }
 
     @Override
-    public UserReportData getReportData() {
+    public UserReportData getReportData(Calendar cal1, Calendar cal2) {
         UserReportData URD = new UserReportData();
+        Date queryStartDate = cal1 == null ? null : cal1.getTime();
+        Date queryEndDate = cal2 == null ? null : cal2.getTime();
 
         // 添加用户人数趋势
         Map<Integer, Integer> registerNum = new HashMap<Integer,Integer>();
@@ -901,13 +903,47 @@ public class UserInfoServiceImp implements UserInfoService{
             int dietitianId = die.getId();
             String dietitianName = die.getName();
             List<UserInfo> userInfoList = userInfoMapper.getUserInfosByUserDietitianId(dietitianId);
-            int peopleNum = userInfoList.size();
+
+            // int peopleNum = userInfoList.size();
+            int peopleNum = 0;
+            for (UserInfo userInfo : userInfoList) {
+                Date userDate = userInfo.getCreateTime();
+                if (queryStartDate != null && queryEndDate != null) {
+                    if (userDate.before(queryStartDate) || userDate.after(queryEndDate)) {
+                        continue;
+                    }
+                } else if (queryStartDate != null && queryEndDate == null) {
+                    if (userDate.before(queryStartDate)) {
+                        continue;
+                    }
+                } else if (queryStartDate == null && queryEndDate != null) {
+                    if (userDate.after(queryEndDate)) {
+                        continue;
+                    }
+                }
+                peopleNum += 1;
+            }
             personNumOfDietitian.put(dietitianName, peopleNum);
 
             double lossWeightAver = 0;
             int lossWeightNum = 0;
             List<DietPhaseInfo> dietPhaseInfoList =  dietPhaseInfoMapper.findDietPhaseInfoListByDietitianName(dietitianName);
             for (DietPhaseInfo dietPhaseInfo : dietPhaseInfoList) {
+                Date dietStartDate = dietPhaseInfo.getStartDate();
+                if (queryStartDate != null && queryEndDate != null) {
+                    if (dietStartDate.before(queryStartDate) || dietStartDate.after(queryEndDate)) {
+                        continue;
+                    }
+                } else if (queryStartDate != null && queryEndDate == null) {
+                    if (dietStartDate.before(queryStartDate)) {
+                        continue;
+                    }
+                } else if (queryStartDate == null && queryEndDate != null) {
+                    if (dietStartDate.after(queryEndDate)) {
+                        continue;
+                    }
+                }
+
                 if (dietPhaseInfo.getEndWeight() != null) {
                     lossWeightAver += dietPhaseInfo.getStartWeight() - dietPhaseInfo.getEndWeight();
                     lossWeightNum += 1;
