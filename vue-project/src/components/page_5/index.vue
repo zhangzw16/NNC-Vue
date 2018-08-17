@@ -24,15 +24,15 @@
 						</el-radio-group>
 					</el-form-item>
 				</el-form>
-				<div id="averWeightLossChart" style="width: 800px; height: 280px;"></div>
+				<div id="dietitianInfoChart" style="width: 800px; height: 280px;"></div>
 			</el-card>
 		</el-row>
 	
-		<el-row>
+		<!-- <el-row>
 			<el-card>     
 				<div id="personNumberChart" style="width: 800px; height: 280px;"></div>
 			</el-card>
-		</el-row>
+		</el-row> -->
 
 		<el-row>
 			<el-card>     
