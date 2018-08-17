@@ -16,6 +16,14 @@
 		</el-row>
 		<el-row>
 			<el-card>     
+				<el-form ref="form" :model="form" label-width="200px">
+					<el-form-item label="图表类型：">
+						<el-radio-group v-model="radio1" @change="phaseChange">
+							<el-radio-button label="0">平均减重</el-radio-button>
+							<el-radio-button label="1">客户人数</el-radio-button>
+						</el-radio-group>
+					</el-form-item>
+				</el-form>
 				<div id="averWeightLossChart" style="width: 800px; height: 280px;"></div>
 			</el-card>
 		</el-row>

@@ -11,6 +11,7 @@ export default {
         numOfWomen: [],
         numOfAll: [],
         radio: "2",
+        radio1: "0",
 
         averWeightLossOfDietitianData: null,
         dietitianNameList: [],
@@ -59,6 +60,12 @@ export default {
                 function(){
                     self.drawSexPiePhase(self.numOfAll, "全部年龄分布")
                 },500);
+        }
+    },
+
+    phaseChange(value){
+        if(value == 0){
+            this.drawWeightLossChart();
         }
     },
 
@@ -145,7 +152,7 @@ export default {
                 }
             }
             this.drawWeightLossChart();
-            this.drawPersonNumberChart();
+            // this.drawPersonNumberChart();
             this.drawParticipantNumberChart();
 
           })
