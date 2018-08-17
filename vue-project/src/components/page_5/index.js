@@ -57,6 +57,41 @@ export default {
                 }
               }]
           },
+        //柱状或折线图表option
+        barOrLineChartOption: {
+            title : {
+                text: null
+            },
+            tooltip : {
+                trigger: 'axis'
+            },
+            legend: {
+                data:[]
+            },
+            toolbox: {
+                show : true,
+            },
+            calculable : true,
+            xAxis : [
+                {
+                    type : 'category',
+                    name : null,
+                    data : null,                    
+                    axisLabel:{
+                        interval:0,//横轴信息全部显示
+                        rotate:-30,//-30度角倾斜显示
+                    }
+
+                }
+            ],
+            yAxis : [
+                {
+                    type : 'value',
+                    name : null,
+                }
+            ],
+            series : []
+        }
     }
   },
   created() {
@@ -69,8 +104,49 @@ export default {
         },500);
   },
   methods: {
+    //图表标题
+    setBarChartTitle(title)
+    {
+        this.barOrLineChartOption.title.text = title;
+    },
+    //横轴数据（list)
+    setxAxisData(data)
+    {
+        this.barOrLineChartOption.xAxis[0].data = data;
+    },
+    //横轴表示的数据名称
+    setxAxisName(name)
+    {
+        this.barOrLineChartOption.xAxis[0].name = name;
+    },
+    //纵轴表示的数据名称
+    setyAxisName(name)
+    {
+        this.barOrLineChartOption.yAxis[0].name = name;
+    },
+    //增加图线, name为图线名，data为图线数据（list),type为图线类型(bar或者line),color为图线颜色
+    addNewSeries(seriesName, seriesData, serieStype, chartColor)
+    {
+        this.barOrLineChartOption.legend.data.push(seriesName);
+        let newSeries = {
+            name: seriesName,
+            type: serieStype,
+            data: seriesData,
+            itemStyle: {
+                normal: {
+                    label : {show: true},
+                    color: chartColor,
+                    lineStyle: {
+                        color: chartColor
+                    }
+                }
+            },
+        }
+        this.barOrLineChartOption.series.push(newSeries);
+    },
+  
     refresh() {
-      this.getSexData();
+      this.getFormData();
     },
 
     dateToStr(datetime) { 
@@ -134,11 +210,85 @@ export default {
 
     phaseChange(value){
         if(value == 0){
-            this.drawWeightLossChart();
+            this.setxAxisName('营养师姓名');
+            this.setxAxisData(this.dietitianNameList)
+            this.setyAxisName('体重单位:kg')
+            this.barOrLineChartOption.series = [];
+            this.addNewSeries('平均减重（正值为减重量,负值为增重量）',this.averWeightLoss,'bar',"#2ec7c9");
+            this.drawChart('dietitianInfoChart', this.barOrLineChartOption);
+        }
+        else if(value == 1)
+        {
+            this.setxAxisName('营养师姓名');
+            this.setxAxisData(this.dietitianNameList)
+            this.setyAxisName('人数')
+            this.barOrLineChartOption.series = [];
+            this.addNewSeries('客户人数',this.personNumberList,'bar',"#71d");
+            this.drawChart('dietitianInfoChart', this.barOrLineChartOption);
         }
     },
-
-    getSexData(){
+    //获得营养师相关数据
+    getDietitianInfoData(){       
+        this.averWeightLossOfDietitianData = this.pageData.averWeightLossOfDietitian;
+        this.personOfDietitianData = this.pageData.personOfDietitian;
+        for(let name in this.averWeightLossOfDietitianData)
+        {
+            this.dietitianNameList.push(name);
+            this.averWeightLoss.push(this.averWeightLossOfDietitianData[name].toFixed(1));
+            this.personNumberList.push(this.personOfDietitianData[name]);
+        }
+    },
+    //获得注册人数随时间变化数据
+    getRegisterNumberData(){       
+        this.registerData = this.pageData.registerNum;
+        this.startNumberData = this.pageData.startNum;
+        let max = 0;
+        for(let name in this.registerData)
+        {
+            if(parseInt(name) > max);
+            max = parseInt(name);
+        }
+        for(let name in this.startNumberData)
+        {
+            if(parseInt(name) > max);
+            max = parseInt(name);
+        }
+        for(let i = 0; i <= max; i++)
+        {
+            if(i === 0)
+            {
+                this.timelist.push("2017年8月及之前");
+            }
+            else
+            {
+                let year = 2017;
+                let monthGap = i - 1;
+                let month = 9 + monthGap;
+                year += Math.floor((month-1) / 12);
+                month = (month - 1) % 12 + 1;
+                let timeStr = year.toString()+"年"+month.toString()+"月";
+                this.timelist.push(timeStr);
+            }
+            if(this.registerData[i.toString()]===undefined)
+            {
+                this.registerNumberList.push(0);
+            }
+            else
+            {
+                this.registerNumberList.push(this.registerData[i.toString()]);
+            }
+            if(this.startNumberData[i.toString()]===undefined)
+            {
+                this.startNumberList.push(0);
+            }
+            else
+            {
+                this.startNumberList.push(this.startNumberData[i.toString()]);
+            }
+        }
+    },
+    
+    getFormData(){
         this.axios({
             method: 'post',
             url: "/NNC/rest/user_Info/get_user_report_forms",
@@ -162,66 +312,8 @@ export default {
                 this.numOfAll.push({"value" : womenData[i] + menData[i], "name" : i})
             }
 
-            this.averWeightLossOfDietitianData = this.pageData.averWeightLossOfDietitian;
-            this.personOfDietitianData = this.pageData.personOfDietitian;
-            this.registerData = this.pageData.registerNum;
-            this.startNumberData = this.pageData.startNum;
-            for(let name in this.averWeightLossOfDietitianData)
-            {
-                this.dietitianNameList.push(name);
-                this.averWeightLoss.push(this.averWeightLossOfDietitianData[name].toFixed(1));
-                this.personNumberList.push(this.personOfDietitianData[name]);
-            }
-
-
-            let max = 0;
-            for(let name in this.registerData)
-            {
-                if(parseInt(name) > max);
-                max = parseInt(name);
-            }
-            for(let name in this.startNumberData)
-            {
-                if(parseInt(name) > max);
-                max = parseInt(name);
-            }
-
-
-            for(let i = 0; i <= max; i++)
-            {
-                if(i === 0)
-                {
-                    this.timelist.push("2017年8月及之前");
-                }
-                else
-                {
-                    let year = 2017;
-                    let monthGap = i - 1;
-                    let month = 9 + monthGap;
-                    year += Math.floor((month-1) / 12);
-                    month = (month - 1) % 12 + 1;
-                    let timeStr = year.toString()+"年"+month.toString()+"月";
-                    this.timelist.push(timeStr);
-                }
-                if(this.registerData[i.toString()]===undefined)
-                {
-                    this.registerNumberList.push(0);
-                }
-                else
-                {
-                    this.registerNumberList.push(this.registerData[i.toString()]);
-                }
-                if(this.startNumberData[i.toString()]===undefined)
-                {
-                    this.startNumberList.push(0);
-                }
-                else
-                {
-                    this.startNumberList.push(this.startNumberData[i.toString()]);
-                }
-            }
-            this.drawWeightLossChart();
-            // this.drawPersonNumberChart();
+            this.getDietitianInfoData();
+            this.getRegisterNumberData();
             this.drawParticipantNumberChart();
 
           })
@@ -280,202 +372,21 @@ export default {
       })
     },
 
-    
-    //画图线，平均减重
-    drawWeightLossChart(){
-        // 基于准备好的dom，初始化echarts实例
-        let myChart = this.$echarts.init(document.getElementById('averWeightLossChart'))
-        // 绘制图表
-        myChart.setOption({
-            title : {
-                // text: '某地区蒸发量和降水量',
-            },
-            tooltip : {
-                trigger: 'axis'
-            },
-            legend: {
-                data:["平均减重（正值为减重量,负值为增重量）"]
-            },
-            toolbox: {
-                show : true,
-            },
-            calculable : true,
-            xAxis : [
-                {
-                    type : 'category',
-                    name : '营养师姓名',
-                    data : this.dietitianNameList,
-                    
-                    axisLabel:{
-                        interval:0,//横轴信息全部显示
-                        rotate:-30,//-30度角倾斜显示
-                    }
-
-                }
-            ],
-            yAxis : [
-                {
-                    type : 'value',
-                    name : '体重单位:kg',
-                }
-            ],
-            series : [
-                {
-                    name:'平均减重（正值为减重量,负值为增重量）',
-                    type:'bar',
-                    data: this.averWeightLoss,
-                    // markPoint : {
-                    //     data : [
-                    //         {type : 'max', name: '最大值'},
-                    //         {type : 'min', name: '最小值'}
-                    //     ]
-                    // },
-                    itemStyle: { normal: {label : {show: true}}}
-                },
-            ]
-        })
-    },
-
-    //每个营养师客户人数
-    drawPersonNumberChart(){
-        // 基于准备好的dom，初始化echarts实例
-        let myChart = this.$echarts.init(document.getElementById('personNumberChart'))
-        // 绘制图表
-        myChart.setOption({
-            title : {
-                // text: '某地区蒸发量和降水量',
-            },
-            tooltip : {
-                trigger: 'axis'
-            },
-            legend: {
-                data:["客户人数"]
-            },
-            toolbox: {
-                show : true,
-            },
-            calculable : true,
-            xAxis : [
-                {
-                    type : 'category',
-                    name : '营养师姓名',
-                    data : this.dietitianNameList,
-                    
-                    axisLabel:{
-                        interval:0,//横轴信息全部显示
-                        rotate:-30,//-30度角倾斜显示
-                    }
-
-                }
-            ],
-            yAxis : [
-                {
-                    type : 'value',
-                    name : '人数',
-                }
-            ],
-            series : [
-                {
-                    name:'客户人数',
-                    type:'bar',
-                    data: this.personNumberList,
-                    // markPoint : {
-                    //     data : [
-                    //         {type : 'max', name: '最大值'},
-                    //         {type : 'min', name: '最小值'}
-                    //     ]
-                    // },
-                    itemStyle: {
-                        normal: {
-                            label : {show: true},
-                            color: "#2ec7c9",
-                            lineStyle: {
-                                color: "#2ec7c9"
-                            }
-                        }
-                    },
-                },
-            ]
-        })
+    drawChart(elementId, option)
+    {
+        let myChart = this.$echarts.init(document.getElementById(elementId));
+        myChart.setOption(option);
     },
 
     //注册人数变化
     drawParticipantNumberChart(){
-        // 基于准备好的dom，初始化echarts实例
-        let myChart = this.$echarts.init(document.getElementById('participantNumberChart'))
-        // 绘制图表
-        myChart.setOption({
-            title : {
-                // text: '某地区蒸发量和降水量',
-            },
-            tooltip : {
-                trigger: 'axis'
-            },
-            legend: {
-                data:["注册人数","开始减重人数"]
-            },
-            toolbox: {
-                show : true,
-            },
-            calculable : true,
-            xAxis : [
-                {
-                    type : 'category',
-                    name : '月份',
-                    data : this.timelist,
-                    
-                    axisLabel:{
-                        interval:0,//横轴信息全部显示
-                        rotate:-30,//-30度角倾斜显示
-                    }
-
-                }
-            ],
-            yAxis : [
-                {
-                    type : 'value',
-                    name : '人数',
-                }
-            ],
-            series : [
-                {
-                    name:'注册人数',
-                    type:'line',
-                    data: this.registerNumberList,
-                    // markPoint : {
-                    //     data : [
-                    //         {type : 'max', name: '最大值'},
-                    //         {type : 'min', name: '最小值'}
-                    //     ]
-                    // },
-                    itemStyle: {
-                        normal: {
-                            label : {show: true},
-                            color: "#2ec7c9",
-                            lineStyle: {
-                                color: "#2ec7c9"
-                            }
-                        }
-                    },
-                },
-                {
-                    name:'开始减重人数',
-                    type:'line',
-                    data: this.startNumberList,
-                    // markPoint : {
-                    //     data : [
-                    //         {type : 'max', name: '最大值'},
-                    //         {type : 'min', name: '最小值'}
-                    //     ]
-                    // },
-                    itemStyle: {
-                        normal: {
-                            label : {show: true},
-                        }
-                    },
-                },
-            ]
-        })
+        this.setxAxisName('月份');
+        this.setxAxisData(this.timelist)
+        this.setyAxisName('人数')
+        this.barOrLineChartOption.series = [];
+        this.addNewSeries("注册人数",this.registerNumberList,'line',"#71d");
+        this.addNewSeries('开始减重人数',this.startNumberList,'line',"#2ec7c9");
+        this.drawChart('participantNumberChart', this.barOrLineChartOption);
     },
   }
 }
