@@ -40,12 +40,6 @@
 				<div id="dietitianInfoChart" style="width: 800px; height: 280px;"></div>
 			</el-card>
 		</el-row>
-	
-		<!-- <el-row>
-			<el-card>     
-				<div id="personNumberChart" style="width: 800px; height: 280px;"></div>
-			</el-card>
-		</el-row> -->
 
 		<el-row>
 			<el-card>     

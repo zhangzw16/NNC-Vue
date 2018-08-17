@@ -39,7 +39,7 @@ export default {
                 start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
                 picker.$emit('pick', [start, end]);
               }
-            }, {
+            },{
               text: '最近三个月',
               onClick(picker) {
                 const end = new Date();
@@ -55,7 +55,13 @@ export default {
                   start.setTime(start.getTime() - 3600 * 1000 * 24 * 365);
                   picker.$emit('pick', [start, end]);
                 }
-              }]
+            }, {
+                text: '全部',
+                onClick(picker) {
+                  const end = new Date();
+                  picker.$emit('pick', ["", end]);
+                }
+            }, ]
           },
         //柱状或折线图表option
         barOrLineChartOption: {
@@ -95,12 +101,12 @@ export default {
     }
   },
   created() {
-    this.refresh();
-
+    this.refresh();     
     let self = this;
     setTimeout(
         function(){
-            self.drawSexPiePhase(self.numOfAll, "全部年龄分布")
+            self.drawSexPiePhase(self.numOfAll, "全部年龄分布")           
+            self.drawParticipantNumberChart();
         },500);
   },
   methods: {
@@ -147,6 +153,33 @@ export default {
   
     refresh() {
       this.getFormData();
+      let self = this;
+      setTimeout(
+          function(){
+              switch(self.radio1)
+              {
+                case "0":
+                    self.setxAxisName('营养师姓名');
+                    self.setxAxisData(self.dietitianNameList)
+                    self.setyAxisName('体重单位:kg')
+                    self.barOrLineChartOption.series = [];
+                    self.addNewSeries('平均减重（正值为减重量,负值为增重量）',self.averWeightLoss,'bar',"#2ec7c9");
+                    self.drawChart('dietitianInfoChart', self.barOrLineChartOption);
+                    break;
+                case "1":
+                    self.setxAxisName('营养师姓名');
+                    self.setxAxisData(self.dietitianNameList)
+                    self.setyAxisName('人数')
+                    self.barOrLineChartOption.series = [];
+                    self.addNewSeries('客户人数',self.personNumberList,'bar',"#71d");
+                    self.drawChart('dietitianInfoChart', self.barOrLineChartOption);
+                    break;
+                default:
+                    break;
+              }
+
+          },500);
+
     },
 
     dateToStr(datetime) { 
@@ -179,11 +212,17 @@ export default {
       },
 
     dateChange(value){
-        console.log(value)
-        this.startDate = this.dateToStr(value[0]);
+        // console.log(value)
+        if(value[0] != "")
+        {
+            this.startDate = this.dateToStr(value[0]);
+        }
+        else{
+            this.startDate = "";
+        }
         this.endDate = this.dateToStr(value[1]);
-        console.log(this.startDate+"   "+this.endDate);
-        
+        // console.log(this.startDate+"   "+this.endDate);
+        this.refresh();
     },
 
     sexChange(value){
@@ -231,6 +270,9 @@ export default {
     getDietitianInfoData(){       
         this.averWeightLossOfDietitianData = this.pageData.averWeightLossOfDietitian;
         this.personOfDietitianData = this.pageData.personOfDietitian;
+        this.dietitianNameList = [];
+        this.averWeightLoss = [];
+        this.personNumberList = [];
         for(let name in this.averWeightLossOfDietitianData)
         {
             this.dietitianNameList.push(name);
@@ -292,6 +334,10 @@ export default {
         this.axios({
             method: 'post',
             url: "/NNC/rest/user_Info/get_user_report_forms",
+            data: {
+                startDate: this.startDate,
+                endDate: this.endDate,
+            }
             })
             .then((res) => {
             this.pageData = res.data.data;
@@ -314,7 +360,6 @@ export default {
 
             this.getDietitianInfoData();
             this.getRegisterNumberData();
-            this.drawParticipantNumberChart();
 
           })
           .catch(err => {
