@@ -281,7 +281,6 @@ export default {
             this.rowData = row;
             this.getChartData();
             this.getPhaseTableData();
-            this.getFormData();
             let self = this;
             setTimeout(
                 function(){
