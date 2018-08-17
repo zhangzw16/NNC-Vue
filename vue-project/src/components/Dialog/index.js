@@ -148,7 +148,7 @@ export default {
         this.axios({
           method: 'post',
           url: url,
-          params: params
+          data: params
         })
         .then((res) => {
           if(res.data === 1 || res.data === true) {

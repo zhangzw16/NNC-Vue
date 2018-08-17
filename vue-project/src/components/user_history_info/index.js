@@ -77,7 +77,7 @@ export default {
             this.axios({
                 method: 'post',
                 url: '/NNC/rest/user_Info/show_user_history_info',
-                params: {
+                data: {
                     userInfoId: this.personHistoryData.id,
                 }
             })
@@ -116,7 +116,7 @@ export default {
             this.axios({
                 method: 'post',
                 url: '/NNC/rest/user_Info/get_history_participating_time',
-                params: {
+                data: {
                     dietPhaseInfoId: this.rowData.id,
                 }
             })
@@ -132,7 +132,7 @@ export default {
             this.axios({
                 method: 'post',
                 url: '/NNC/rest/user_Info/get_history_participation_weight_data',
-                params: {
+                data: {
                     dietPhaseInfoId: this.rowData.id,
                 }
             })
@@ -148,7 +148,7 @@ export default {
             this.axios({
                 method: 'post',
                 url: '/NNC/rest/user_Info/get_history_ideal_weight_data',
-                params: {
+                data: {
                     dietPhaseInfoId: this.rowData.id,
                 }
             })
@@ -164,7 +164,7 @@ export default {
             this.axios({
                 method: 'post',
                 url: '/NNC/rest/user_Info/get_history_MinAndMax_data',
-                params: {
+                data: {
                     dietPhaseInfoId: this.rowData.id,
                 }
             })
@@ -256,7 +256,7 @@ export default {
             this.axios({
                 method: 'post',
                 url: '/NNC/rest/user_Info/get_history_phase_table_data',
-                params: {
+                data: {
                     dietPhaseInfoId: this.rowData.id,
                 }
             })

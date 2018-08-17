@@ -148,7 +148,7 @@ export default {
             this.axios({
                 method: 'post',
                 url: '/NNC/rest/user_Info/select_weekly_recommend',
-                params: {
+                data: {
                     userInfoId: this.personGuideData.id,
                     date: date,
                 }

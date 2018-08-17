@@ -83,7 +83,7 @@ export default {
             this.axios({
                 method: 'post',
                 url: '/NNC/rest/user_Info/get_user_weight_table_data',
-                params: {
+                data: {
                     userInfoId: this.personWeightData.id,
                     date: date,
                 }
@@ -138,7 +138,7 @@ export default {
             this.axios({
                 method: 'post',
                 url: '/NNC/rest/user_Info/get_user_weight_sevenday_data',
-                params: {
+                data: {
                     userInfoId: this.personWeightData.id,
                     date: date,
                 }
@@ -160,7 +160,7 @@ export default {
             this.axios({
                 method: 'post',
                 url: '/NNC/rest/user_Info/get_weight_sevenday_maxAndMin_data',
-                params: {
+                data: {
                     userInfoId: this.personWeightData.id,
                     date: date,
                 }
@@ -269,7 +269,7 @@ export default {
             this.axios({
                 method: 'post',
                 url: '/NNC/rest/user_Info/get_user_participating_time',
-                params: {
+                data: {
                     userInfoId: this.personWeightData.id,
                 }
             })
@@ -285,7 +285,7 @@ export default {
             this.axios({
                 method: 'post',
                 url: '/NNC/rest/user_Info/get_user_participation_weight_data',
-                params: {
+                data: {
                     userInfoId: this.personWeightData.id,
                 }
             })
@@ -301,7 +301,7 @@ export default {
             this.axios({
                 method: 'post',
                 url: '/NNC/rest/user_Info/get_user_ideal_weight_data',
-                params: {
+                data: {
                     userInfoId: this.personWeightData.id,
                 }
             })
@@ -317,7 +317,7 @@ export default {
             this.axios({
                 method: 'post',
                 url: '/NNC/rest/user_Info/get_user_alltime_MinAndMax_data',
-                params: {
+                data: {
                     userInfoId: this.personWeightData.id,
                 }
             })

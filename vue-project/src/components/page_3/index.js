@@ -160,7 +160,7 @@ export default {
       this.axios({
         method: 'post',
         url: url,
-        params: {
+        data: {
           userInfoId: row.id,
         }
       })
@@ -232,7 +232,7 @@ export default {
         this.axios({
           method: 'post',
           url: url,
-          params: {
+          data: {
             userInfoId: this.rowInfo4Dietitian.id,
             dietitianId: this.dietitianId4Dietitian,
             currentPage: 1,
@@ -284,7 +284,7 @@ export default {
         this.axios({
           method: 'post',
           url: '/NNC/rest/user_Info/change_user_dietitian_save',
-          params: {
+          data: {
             dietitianId: newDietitianId,
             userInfoId: userId,
             currentPage: '',
@@ -368,7 +368,7 @@ export default {
             this.axios({
               method: 'post',
               url: '/NNC/rest/user_Info/get_login_info_id',
-              params: {
+              data: {
                 userLoginInfoId: this.tableData3[i].userLoginInfoId,
               }
             })
@@ -391,7 +391,7 @@ export default {
           this.axios({
             method: 'post',
             url: '/NNC/rest/user_Info/get_user_dietitian',
-            params: {
+            data: {
               dietitianId: this.tableData3[i].dietitianId,
             }
           })

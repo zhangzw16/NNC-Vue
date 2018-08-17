@@ -130,7 +130,7 @@ export default {
             this.axios({
                 method: 'post',
                 url: '/NNC/rest/user_Info/select_user_data',
-                params: {
+                data: {
                     userInfoId: this.personFoodData.id,
                     date: date,
                 }

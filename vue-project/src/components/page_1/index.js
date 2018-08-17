@@ -29,7 +29,7 @@ export default {
       this.axios({
         method: 'post',
         url: '/NNC/rest/systemUser/system_user_page',
-        params: {
+        data: {
          page: val,
         }
       })

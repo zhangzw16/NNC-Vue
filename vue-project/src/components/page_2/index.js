@@ -37,7 +37,7 @@ export default {
       this.axios({
         method: 'post',
         url: '/NNC/rest/dietitian/dietitian_page',
-        params: {
+        data: {
          page: val,
         }
       })
@@ -53,7 +53,7 @@ export default {
           this.axios({
             method: 'post',
             url: '/NNC/rest/user_Info/user_info_page_on_dietitian',
-            params: {
+            data: {
               page: val,
               userStatus: '1',
               dietitianId: this.tempData[i].id
@@ -192,7 +192,7 @@ export default {
           this.axios({
             method: 'post',
             url: '/NNC/rest/user_Info/user_info_page_on_dietitian',
-            params: {
+            data: {
               page: this.pageNum,
               userStatus: '1',
               dietitianId: tempData[i].id
@@ -221,7 +221,7 @@ export default {
       this.axios({
         method: 'post',
         url: url,
-        params: params
+        data: params
       })
       .then((res) => {
         if(res.data === 1 || res.data === true) {

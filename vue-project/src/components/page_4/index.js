@@ -53,7 +53,7 @@ export default {
       this.axios({
         method: 'post',
         url: '/NNC/rest/user_Info/user_info_page_on_dietitian',
-        params: {
+        data: {
           page: '1',
           userStatus: status,
           dietitianId: this.dietitianId,
