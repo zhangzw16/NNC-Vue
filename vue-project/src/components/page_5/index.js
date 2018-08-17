@@ -12,6 +12,10 @@ export default {
         numOfAll: [],
         radio: "2",
         radio1: "0",
+        value1: "",
+
+        startDate: "",
+        endDate: "",
 
         averWeightLossOfDietitianData: null,
         dietitianNameList: [],
@@ -25,6 +29,34 @@ export default {
         timelist: [],
         registerNumberList:[],
         startNumberList:[],
+
+        pickerOptions1: {
+            shortcuts: [{
+              text: '最近一个月',
+              onClick(picker) {
+                const end = new Date();
+                const start = new Date();
+                start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                picker.$emit('pick', [start, end]);
+              }
+            }, {
+              text: '最近三个月',
+              onClick(picker) {
+                const end = new Date();
+                const start = new Date();
+                start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                picker.$emit('pick', [start, end]);
+              }
+            }, {
+                text: '最近一年',
+                onClick(picker) {
+                  const end = new Date();
+                  const start = new Date();
+                  start.setTime(start.getTime() - 3600 * 1000 * 24 * 365);
+                  picker.$emit('pick', [start, end]);
+                }
+              }]
+          },
     }
   },
   created() {
@@ -39,6 +71,43 @@ export default {
   methods: {
     refresh() {
       this.getSexData();
+    },
+
+    dateToStr(datetime) { 
+        var year = datetime.getFullYear();
+        var month = datetime.getMonth()+1;//js从0开始取 
+        var date = datetime.getDate(); 
+        var hour = datetime.getHours(); 
+        var minutes = datetime.getMinutes(); 
+        var second = datetime.getSeconds();
+        
+        if(month<10){
+         month = "0" + month;
+        }
+        if(date<10){
+         date = "0" + date;
+        }
+        if(hour <10){
+         hour = "0" + hour;
+        }
+        if(minutes <10){
+         minutes = "0" + minutes;
+        }
+        if(second <10){
+         second = "0" + second ;
+        }
+        
+        var time = year+"-"+month+"-"+date; //2009-06-12 17:18:05
+       // alert(time);
+        return time;
+      },
+
+    dateChange(value){
+        console.log(value)
+        this.startDate = this.dateToStr(value[0]);
+        this.endDate = this.dateToStr(value[1]);
+        console.log(this.startDate+"   "+this.endDate);
+        
     },
 
     sexChange(value){

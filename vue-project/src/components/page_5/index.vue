@@ -16,12 +16,25 @@
 		</el-row>
 		<el-row>
 			<el-card>     
-				<el-form ref="form" :model="form" label-width="200px">
+				<el-form ref="form" :inline="true" :model="form" label-width="100px">
 					<el-form-item label="图表类型：">
 						<el-radio-group v-model="radio1" @change="phaseChange">
 							<el-radio-button label="0">平均减重</el-radio-button>
 							<el-radio-button label="1">客户人数</el-radio-button>
 						</el-radio-group>
+						<el-form-item label="日期选择:">
+							<el-date-picker
+								v-model="value1"
+								type="daterange"
+								align="right"
+								unlink-panels
+								range-separator="至"
+								start-placeholder="开始日期"
+								end-placeholder="结束日期"
+								@change="dateChange"
+								:picker-options="pickerOptions1">
+							</el-date-picker>
+						</el-form-item>
 					</el-form-item>
 				</el-form>
 				<div id="averWeightLossChart" style="width: 800px; height: 280px;"></div>
