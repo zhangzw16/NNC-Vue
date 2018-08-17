@@ -34,6 +34,11 @@ export default {
     }
   },
   created() {
+    this.optionsDietitian.push({
+      value: '',
+      label: "无",
+    })
+
     this.axios({
       method: 'post',
       url: '/NNC/rest/dietitian/dietitian_page',
@@ -43,12 +48,37 @@ export default {
     })
     .then((res) => {
       this.lastPage = res.data.data.lastPage;
-      this.refresh();
+
+      for(let i = 1; i <= this.lastPage; i++){
+        this.axios({
+          method: 'post',
+          url: '/NNC/rest/dietitian/dietitian_page',
+          data: {
+          page: i
+          }
+        })
+        .then((res) => {
+          console.log(i)
+          let dietitianData = res.data.data.list;
+          
+          for (let i = 0; i < dietitianData.length; i++) {
+            let dietitian = {
+              value: dietitianData[i].id,
+              label: dietitianData[i].name,
+            }
+            this.optionsDietitian.push(dietitian);
+          }
+        })
+        .catch(err => {
+          // console.log(err);
+        });
+      }
     })
     .catch(err => {
       // console.log(err);
     });
 
+    this.refresh();
   },
 
   methods: {
@@ -298,37 +328,6 @@ export default {
 
     refresh() {
       this.requestData(this.pageNum ? this.pageNum : 1 )
-
-      for(let i = 1; i <= this.lastPage; i++){
-        this.axios({
-          method: 'post',
-          url: '/NNC/rest/dietitian/dietitian_page',
-          data: {
-          page: i
-          }
-        })
-        .then((res) => {
-          console.log(i)
-          let dietitianData = res.data.data.list;
-          
-          if(i == 1){
-            this.optionsDietitian.push({
-              value: '',
-              label: "无",
-            })
-          }
-          for (let i = 0; i < dietitianData.length; i++) {
-            let dietitian = {
-              value: dietitianData[i].id,
-              label: dietitianData[i].name,
-            }
-            this.optionsDietitian.push(dietitian);
-          }
-        })
-        .catch(err => {
-          // console.log(err);
-        });
-      }
 
       // console.log(this.optionsDietitian)
     },

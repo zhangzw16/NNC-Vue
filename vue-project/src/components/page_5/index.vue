@@ -3,7 +3,7 @@
 		<el-row>
 			<el-card>
 				<el-form ref="form" :model="form" label-width="200px">
-					<el-form-item label="性别占比：">
+					<el-form-item label="年龄占比：">
 						<el-radio-group v-model="radio" @change="sexChange">
 							<el-radio-button label="2">全部</el-radio-button>
 							<el-radio-button label="0">男性</el-radio-button>
@@ -19,7 +19,7 @@
 				<div id="averWeightLossChart" style="width: 800px; height: 280px;"></div>
 			</el-card>
 		</el-row>
-
+	
 		<el-row>
 			<el-card>     
 				<div id="personNumberChart" style="width: 800px; height: 280px;"></div>

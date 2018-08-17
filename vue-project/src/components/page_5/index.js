@@ -154,11 +154,11 @@ export default {
           })
     },
 
-    drawSexPiePhase(data, sex) {
+    drawSexPiePhase(data, title) {
       let myChart = this.$echarts.init(document.getElementById('piePhase'))
       myChart.setOption({
         title : {
-          text: sex,
+          text: title,
           x:'center'
       },
       tooltip : {
@@ -248,12 +248,12 @@ export default {
                     name:'平均减重（正值为减重量,负值为增重量）',
                     type:'bar',
                     data: this.averWeightLoss,
-                    markPoint : {
-                        data : [
-                            {type : 'max', name: '最大值'},
-                            {type : 'min', name: '最小值'}
-                        ]
-                    },
+                    // markPoint : {
+                    //     data : [
+                    //         {type : 'max', name: '最大值'},
+                    //         {type : 'min', name: '最小值'}
+                    //     ]
+                    // },
                     itemStyle: { normal: {label : {show: true}}}
                 },
             ]
@@ -303,12 +303,12 @@ export default {
                     name:'客户人数',
                     type:'bar',
                     data: this.personNumberList,
-                    markPoint : {
-                        data : [
-                            {type : 'max', name: '最大值'},
-                            {type : 'min', name: '最小值'}
-                        ]
-                    },
+                    // markPoint : {
+                    //     data : [
+                    //         {type : 'max', name: '最大值'},
+                    //         {type : 'min', name: '最小值'}
+                    //     ]
+                    // },
                     itemStyle: {
                         normal: {
                             label : {show: true},
@@ -366,12 +366,12 @@ export default {
                     name:'注册人数',
                     type:'line',
                     data: this.registerNumberList,
-                    markPoint : {
-                        data : [
-                            {type : 'max', name: '最大值'},
-                            {type : 'min', name: '最小值'}
-                        ]
-                    },
+                    // markPoint : {
+                    //     data : [
+                    //         {type : 'max', name: '最大值'},
+                    //         {type : 'min', name: '最小值'}
+                    //     ]
+                    // },
                     itemStyle: {
                         normal: {
                             label : {show: true},
@@ -386,12 +386,12 @@ export default {
                     name:'开始减重人数',
                     type:'line',
                     data: this.startNumberList,
-                    markPoint : {
-                        data : [
-                            {type : 'max', name: '最大值'},
-                            {type : 'min', name: '最小值'}
-                        ]
-                    },
+                    // markPoint : {
+                    //     data : [
+                    //         {type : 'max', name: '最大值'},
+                    //         {type : 'min', name: '最小值'}
+                    //     ]
+                    // },
                     itemStyle: {
                         normal: {
                             label : {show: true},
